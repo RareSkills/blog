@@ -9,8 +9,7 @@ contract Day2 {
 	event Who(string, address);
 	
 	function doSomeMath(uint256 a, uint256 b) public {
-		require(b != 0, "divide by zero");
-		uint256 result = a / b;
+		uint256 result = a + b;
 		emit Result(result);
 	}
 
@@ -65,12 +64,16 @@ pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
 
 Modify initialize() function in lib.rs to be as follows.
 
+{% code overflow="wrap" fullWidth="false" %}
 ```rust
-pub fn initialize(ctx: Context<Initialize>, a: u64, b: u64) -> Result<()> {
+pub fn initialize(ctx: Context<Initialize>,
+                  a: u64,
+                  b: u64) -> Result<()> {
     msg!("You sent {} and {}", a, b);
     Ok(())
 }
 ```
+{% endcode %}
 
 Now we need to change the test in `./tests/day2.ts`
 
@@ -93,7 +96,10 @@ When we look in the logs, we should see something like the following
 Now let’s illustrate how to pass a string as an argument.
 
 ```rust
-pub fn initialize(ctx: Context<Initialize>, a: u64, b: u64, message: String) -> Result<()> {
+pub fn initialize(ctx: Context<Initialize>,
+                    a: u64,
+                    b: u64,
+                    message: String) -> Result<()> {
     msg!("You said {:?}", message);
     msg!("You sent {} and {}", a, b);
     Ok(())
@@ -119,7 +125,10 @@ When we run the test, we see the new log
 Next we add a function (and test) to illustrate passing an array of numbers. In Rust, a “vector”, or `Vec` is what Solidity calls an “array.”
 
 ```rust
-pub fn initialize(ctx: Context<Initialize>, a: u64, b: u64, message: String) -> Result<()> {
+pub fn initialize(ctx: Context<Initialize>,
+                  a: u64,
+                  b: u64,
+                  message: String) -> Result<()> {
     msg!("You said {:?}", message);
     msg!("You sent {} and {}", a, b);
     Ok(())
@@ -176,7 +185,7 @@ If the key `overflow-checks` is set to `true` in the `Cargo.toml` file, then Rus
 
 If the Cargo.toml file is configured in this manner, you don’t need to worry about overflow.
 
-However, adding overflow checks increases the compute cost of the transaction (we will revisit this shortly). So under some circumstances where compute cost is an issue, you may wish to set `overflow-checks` to false. To strategically check for overflows, you can use the Rust `checked_*` operators in Rust.
+However, adding overflow checks increases the compute cost of the transaction (we will revisit this shortly). So under some circumstances where compute cost is an issue, you may wish to set `overflow-checks` to `false`. To strategically check for overflows, you can use the Rust `checked_*` operators in Rust.
 
 ### Method 2: using `checked_*` operators.
 
@@ -198,7 +207,7 @@ You’ll see the transaction fails (with a rather cryptic error message shown be
 
 <figure><img src=".gitbook/assets/Screenshot_2024-01-06_at_2.11.52_PM.png" alt=""><figcaption></figcaption></figure>
 
-**Exercise 2:** Now change `overflow-checks` to false, then run the test again. You should see an underflow value of `18446744073709551615`.
+**Exercise 2:** Now change `overflow-checks` to `false`, then run the test again. You should see an underflow value of `18446744073709551615`.
 
 **Exercise 3:** With overflow protection disabled in `Cargo.toml`, do **let result = a.checked\_sub(b).unwrap();** with a = 0 and b = 1. What happens?
 
