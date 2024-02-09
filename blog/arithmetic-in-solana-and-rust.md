@@ -1,7 +1,3 @@
----
-description: /rust arithmetic operators
----
-
 # Arithmetic in Solana and Rust
 
 Today we will learn how to create a Solana program that accomplishes the same things as the Solidity contract below. We will also learn how Solana handles arithmetic issues like overflow.
@@ -116,6 +112,8 @@ it("Is initialized!", async () => {
 
 When we run the test, we see the new log
 
+<figure><img src=".gitbook/assets/Screenshot_2023-05-11_at_1.41.09_PM.png" alt=""><figcaption></figcaption></figure>
+
 ### Array of numbers
 
 Next we add a function (and test) to illustrate passing an array of numbers. In Rust, a “vector”, or `Vec` is what Solidity calls an “array.”
@@ -152,6 +150,8 @@ it("Array test", async () => {
 
 And we run the tests again and view the logs to see the array output:
 
+<figure><img src=".gitbook/assets/Screenshot_2023-05-11_at_1.43.04_PM.png" alt=""><figcaption></figcaption></figure>
+
 **Tip:** If you are stuck with an issue on your Anchor tests, try googling for “[Solana web3 js](https://solana-labs.github.io/solana-web3.js/)” as it relates to your error. The Typescript library used by Anchor is the Solana web3 js library.
 
 ## Math in Solana
@@ -170,7 +170,9 @@ Arithmetic overflow was a common attack vector in Solidity until version 0.8.0 b
 
 ### Method 1: `overflow-checks = true` in Cargo.toml
 
-If the key `overflow-checks` is set to `true` in the `Cargo.toml` file, then Rust will add overflow checks at the compiler level. See the screenshot of `Cargo.toml` next
+If the key `overflow-checks` is set to `true` in the `Cargo.toml` file, then Rust will add overflow checks at the compiler level. See the screenshot of `Cargo.toml` next:
+
+<figure><img src=".gitbook/assets/Screenshot_2024-01-10_at_3.18.36_PM.png" alt="" width="369"><figcaption></figcaption></figure>
 
 If the Cargo.toml file is configured in this manner, you don’t need to worry about overflow.
 
@@ -192,7 +194,9 @@ let xSafe: u64 = y.checked_add(z).unwrap(); // will panic if overflow happens
 
 **Exercise 1:** Set `overflow-checks = true` create a test case where you underflow a `u64` by doing `0 - 1`. You will need to pass those numbers in as arguments or the code won’t compile. What happens?
 
-You’ll see the transaction fails (with a rather cryptic error message shown below) when the test runs. That’s because Anchor turned on overflow protection.
+You’ll see the transaction fails (with a rather cryptic error message shown below) when the test runs. That’s because Anchor turned on overflow protection:
+
+<figure><img src=".gitbook/assets/Screenshot_2024-01-06_at_2.11.52_PM.png" alt=""><figcaption></figcaption></figure>
 
 **Exercise 2:** Now change `overflow-checks` to false, then run the test again. You should see an underflow value of `18446744073709551615`.
 
@@ -210,9 +214,13 @@ Solana is indeed cheap to use compared to Ethereum, but that does not mean your 
 
 The Solana logs terminal also shows how many compute units were used. We’ve provided benchmarks for the checked and unchecked subtraction below.
 
-With overflow protection disabled consumes 824 compute units.
+With overflow protection disabled consumes 824 compute units:
 
-With overflow protection enabled in consumes 872 compute units.
+<figure><img src=".gitbook/assets/Screenshot_2023-05-11_at_2.09.47_PM.png" alt=""><figcaption></figcaption></figure>
+
+With overflow protection enabled in consumes 872 compute units:
+
+<figure><img src=".gitbook/assets/Screenshot_2023-05-11_at_2.11.15_PM.png" alt=""><figcaption></figcaption></figure>
 
 As you can see, just doing a simple math operation takes up almost 1000 units. Since we have 200k units, we can only do a few hundred simple arithmetic operations within the per-transaction gas limit. So, while transactions on Solana are generally cheaper than on Ethereum, we are still limited by a relatively small compute unit cap and would not be able to carry out computationally intensive tasks like fluid dynamic simulations on the Solana chain.
 
@@ -251,6 +259,8 @@ pub fn initialize(ctx: Context<Initialize>, a: f32) -> Result<()> {
 }
 ```
 
-Remember how we said in an earlier section that floats can be computationally expensive? Well, here we see our cube root operation consumed over 5 times as much as simple arithmetic on unsigned integers.
+Remember how we said in an earlier section that floats can be computationally expensive? Well, here we see our cube root operation consumed over 5 times as much as simple arithmetic on unsigned integers:
+
+<figure><img src=".gitbook/assets/Screenshot_2023-05-11_at_3.14.49_PM.png" alt=""><figcaption></figcaption></figure>
 
 **Exercise 4: Build a calculator that does the +, -, x, and ÷. and also sqrt and log10.**
