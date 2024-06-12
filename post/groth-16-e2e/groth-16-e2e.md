@@ -6,17 +6,13 @@ Suppose we have a simple graph below that we wish to prove is bipartite (can be 
 
 The color constraints are as follows (each node can be colored 1 or 2):
 
-$$
-(x_1-1)(x_1-2)=0\\(x_2-1)(x_2-2)=0\\(x_3-1)(x_3-2)=0\\(x_4-1)(x_4-2)=0
-$$
+$$\displaylines{(x_1-1)(x_1-2)=0\\\ (x_2-1)(x_2-2)=0\\\ (x_3-1)(x_3-2)=0 \\\ (x_4-1)(x_4-2)=0}$$
+
+
 
 The neighboring constraints are as follows:
 
-$$
-x_1x_2-2=0\\
-x_1x_4-2=0\\
-x_2x_3-2=0
-$$
+$$x_1x_2-2=0\newline x_1x_4-2=0\\x_2x_3-2=0$$
 
 We can arrange this as a systems of equations with only one multiplication on the left hand side:
 
