@@ -6,32 +6,67 @@ Suppose we have a simple graph below that we wish to prove is bipartite (can be 
 
 The color constraints are as follows (each node can be colored 1 or 2):
 
-$$\displaylines{(x_1-1)(x_1-2)=0\\\ (x_2-1)(x_2-2)=0\\\ (x_3-1)(x_3-2)=0 \\\ (x_4-1)(x_4-2)=0}$$
-
-
+$$$$
 
 The neighboring constraints are as follows:
-
-$$x_1x_2-2=0\newline x_1x_4-2=0\\x_2x_3-2=0$$
 
 We can arrange this as a systems of equations with only one multiplication on the left hand side:
 
 $$
-x_1x_1=3x_1-2\\x_2x_2=3x_2-2\\\\x_3x_3=3x_3-2\\x_4x_4=3x_4-2\\x_1x_2=2\\x_1x_4=2\\x_2x_3=2
+\begin{aligned}
+x_1x_1&=3x_1-2\\
+x_2x_2&=3x_2-2\\
+x_3x_3&=3x_3-2\\
+x_4x_4&=3x_4-2\\
+x_1x_2&=2\\
+x_1x_4&=2\\
+x_2x_3&=2
+\end{aligned}
 $$
 
 Assuming our columns are labeled $[1, x_1, x_2, x_3, x_4]$ then the R1CS will be the following:
 
+
+$$\begin{bmatrix}
+  0 & 1 & 0 & 0 & 0\\
+  0 & 0 & 1 & 0 & 0\\
+  0 & 0 & 0 & 1 & 0\\
+  0 & 0 & 0 & 0 & 1\\
+  0 & 1 & 0 & 0 & 0\\
+  0 & 1 & 0 & 0 & 0\\
+  0 & 0 & 1 & 0 & 0
+\end{bmatrix}\mathbf{a}\circ
+\begin{bmatrix}
+  0 & 1 & 0 & 0 & 0\\
+  0 & 0 & 1 & 0 & 0\\
+  0 & 0 & 0 & 1 & 0\\
+  0 & 0 & 0 & 0 & 1\\
+  0 & 0 & 1 & 0 & 0\\
+  0 & 0 & 0 & 0 & 1\\
+  0 & 0 & 0 & 1 & 0
+  \end{bmatrix}\mathbf{a}=
+\begin{bmatrix}
+  -2 & 3 & 0 & 0 & 0\\
+  -2 & 0 & 3 & 0 & 0\\
+  -2 & 0 & 0 & 3 & 0\\
+  -2 & 0 & 0 & 0 & 3\\
+  2 & 0 & 0 & 0 & 0\\
+  2 & 0 & 0 & 0 & 0\\
+  2 & 0 & 0 & 0 & 0
+  \end{bmatrix}\mathbf{a}
 $$
-\small{\begin{bmatrix}0 & 1 & 0 & 0 & 0\\0 & 0 & 1 & 0 & 0\\0 & 0 & 0 & 1 & 0\\0 & 0 & 0 & 0 & 1\\0 & 1 & 0 & 0 & 0\\0 & 1 & 0 & 0 & 0\\0 & 0 & 1 & 0 & 0\end{bmatrix}\mathbf{a}\circ
-\begin{bmatrix}0 & 1 & 0 & 0 & 0\\0 & 0 & 1 & 0 & 0\\0 & 0 & 0 & 1 & 0\\0 & 0 & 0 & 0 & 1\\0 & 0 & 1 & 0 & 0\\0 & 0 & 0 & 0 & 1\\0 & 0 & 0 & 1 & 0\end{bmatrix}\mathbf{a}=
-\begin{bmatrix} -2 & 3 & 0 & 0 & 0\\-2 & 0 & 3 & 0 & 0\\-2 & 0 & 0 & 3 & 0\\-2 & 0 & 0 & 0 & 3\\2 & 0 & 0 & 0 & 0\\2 & 0 & 0 & 0 & 0\\2 & 0 & 0 & 0 & 0\end{bmatrix}\mathbf{a}}
-$$
+
 
 where **a** is the witness vector and ∘ is the Hadamard product.
 
 Using the [code to convert an R1CS to a QAP](https://www.rareskills.io/post/r1cs-to-qap), we get the following set of polynomials for the 5 columns of **L**:
 
+$$
+\begin{aligned}
+&0\\
+&0.01389 x^6 - 0.3333 x^5 + 3.139 x^4 - 14.75 x^3 + 36.35 x^2 - 44.42 x + 21
+\end{aligned}
+$$
 $$
 \small{0}\\\small{0.01389 x^6 - 0.3333 x^5 + 3.139 x^4 - 14.75 x^3 + 36.35 x^2 - 44.42 x + 21}\\\small{-0.006944 x^6 + 0.1875 x^5 - 2.007 x^4 + 10.81 x^3 - 30.49 x^2 + 41.5 x - 20}\\\small{0.02083 x^6 - 0.5208 x^5 + 5.146 x^4 - 25.4 x^3 + 64.83 x^2 - 79.08 x + 35}\\\small{-0.02778 x^6 + 0.6667 x^5 - 6.278 x^4 + 29.33 x^3 - 70.69 x^2 + 82 x - 35}
 $$
