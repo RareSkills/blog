@@ -20,8 +20,7 @@ $$
 
 The rhs can be written as
 
-$$
-\begin{align*}
+$$\begin{align*}
 &=\sum_{i=0}^na_ic_i+\sum_{i=0}^mc_ib_i \\
 &=\sum_{i=0}^n(a_ic_i+c_ib_i) \\
 &=\sum_{i=0}^n(a_i+b_i)c_i
@@ -121,6 +120,11 @@ Rule 5 can be repeatedly applied to combine the sum of $m$ inner products into o
 
 ## Rule 6: Scalars can be brought inside and outside of an inner product
 $z\cdot\langle\mathbf{a},\mathbf{b}\rangle = \langle z\cdot\mathbf{a},\mathbf{b}\rangle = \langle\mathbf{a},z\cdot\mathbf{b}\rangle$
+
+The proof for this statement is left as an exercise for the reader.
+
+## Rule 7: Greek letters render test
+$\Phi$ $\Theta$ $\Psi$ $\Delta$ $\Lambda$ $\Xi$
 
 The proof for this statement is left as an exercise for the reader.
 
