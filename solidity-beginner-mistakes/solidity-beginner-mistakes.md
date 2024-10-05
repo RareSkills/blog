@@ -411,7 +411,7 @@ contract NFTSale is ERC721("MyTok", "MT") {
 
     function setPrice(
         uint256 price_
-    ) public {
+    ) public onlyOwner {
         price = price_;
     }
 
@@ -423,7 +423,7 @@ contract NFTSale is ERC721("MyTok", "MT") {
 }
 ```
 
-Here, the developer has added an onlyOwner modifier, which grants access to only the designated user. In the above examples, the access control modifier ensures that only the contract owner can set the price.
+Here, the developer has added an onlyOwner modifier, which grants access to only the designated user. In the above examples, the access control modifier ensures that only the contract owner can set the price, as seen in the `setPrice` function.
 
 ## 8. Expensive operations in a loop
 
