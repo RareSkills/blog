@@ -1,4 +1,4 @@
-# Solidity RSA signatures for aidrops and presales: Beating ECDSA and Merkle Trees in Gas Efficiency
+# Solidity RSA signatures for airdrops and presales: Beating ECDSA and Merkle Trees in Gas Efficiency
 
 Updated: Aug 4, 2023
 

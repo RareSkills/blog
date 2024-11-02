@@ -56,7 +56,7 @@ function hashRIPEMD160(bytes calldata data) public view returns (bytes20 h) {
 
 Although RIPEMD-160 returns 20 bytes, the EVM can only work in 32 byte increments, which is why the bitshifting and casting is used in the example code above.
 
-Why does Ethereum support SHA-256 and RIPEMD-160? Bitcoin makes heavy use of SHA256 the way Ethereum makes heavy use of keccak256. However, Bitcoin addresses use RIPEMD-160 to hash the public key and make the public address more compact. This is comparable to how Ethereum takes the last 20 bytes (160 bits, like RIPEMD) of the keccack256 of the [ECDSA](https://www.rareskills.io/post/solidity-rsa-signatures-for-aidrops-and-presales-beating-ecdsa-and-merkle-trees-in-gas-efficiency) public key.
+Why does Ethereum support SHA-256 and RIPEMD-160? Bitcoin makes heavy use of SHA256 the way Ethereum makes heavy use of keccak256. However, Bitcoin addresses use RIPEMD-160 to hash the public key and make the public address more compact. This is comparable to how Ethereum takes the last 20 bytes (160 bits, like RIPEMD) of the keccack256 of the [ECDSA](https://www.rareskills.io/post/solidity-rsa-signatures-for-airdrops-and-presales-beating-ecdsa-and-merkle-trees-in-gas-efficiency) public key.
 
 ## Using Yul Assembly
 
@@ -97,7 +97,7 @@ Signing messages with RSA works in reverse. The sender raises the hash of the me
 
 Ethereum does not have a public key infrastructure for RSA. However, an Ethereum address could prove ownership of an RSA public key by RSA signing their Ethereum address. Note this doesn’t work in reverse. ECDSA signing an RSA public key isn’t secure because anyone can ECDSA sign an arbitrary string, including RSA public keys.
 
-You can see an application for [RSA with solidity](https://www.rareskills.io/post/solidity-rsa-signatures-for-aidrops-and-presales-beating-ecdsa-and-merkle-trees-in-gas-efficiency) on our other article on the subject.
+You can see an application for [RSA with solidity](https://www.rareskills.io/post/solidity-rsa-signatures-for-airdrops-and-presales-beating-ecdsa-and-merkle-trees-in-gas-efficiency) on our other article on the subject.
 
 ## Address 0x06 and 0x07 and 0x08: ecAdd, ecMul, and ecPairing (EIP-196 and EIP-197)
 
