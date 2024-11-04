@@ -285,7 +285,7 @@ function supportsInterface(bytes4 interfaceId)
 
 ## Enumeration At A Cost: Caveats Of The ERC721Enumerable Extension
 
-For every transfer, the data structures in `ERC721Enumerable` have to be updated. This makes the contract gas-heavy,sa adding a considerable amount of gas costs. For projects that must list tokenIDs on-chain however, this is a necessary expense.
+For every transfer, the data structures in `ERC721Enumerable` have to be updated. This makes the contract gas-heavy, adding a considerable amount of gas costs. For projects that must list tokenIDs on-chain however, this is a necessary expense.
 
 ## Authorship
 
