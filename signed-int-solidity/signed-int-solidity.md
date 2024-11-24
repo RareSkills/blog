@@ -10,7 +10,7 @@ Like every datatype, Solidity still uses 32 byte words to represent signed integ
 
 Because you can get the [max value of an integer](https://www.rareskills.io/post/uint-max-value-solidity) with "type(int256).max" or with the .min field to get the minimum. The indicator for whether a number is positive or negative requires an extra bit, so it can only store numbers up to one bit less than the unsigned version.
 
-One's complement means a uint256 becomes a uint255, with the leftmost bit indicating if it is positive or negative. If the EVM used one's complement. This would mean that `type(int256).max == absoluteValue(type(int256.min))` but this is not the case. The maximum magnitude of a Two's Complement negative number is one higher than the maximum magnitude of the positive number. For example, the maximum positive number for int8 is 127, but the maximum magnitude negative number for int8 is -128.
+One's complement means a uint256 becomes a uint255, with the leftmost bit indicating if it is positive or negative. If the EVM used one's complement, this would mean that `type(int256).max == absoluteValue(type(int256.min))` but this is not the case. The maximum magnitude of a Two's Complement negative number is one higher than the maximum magnitude of the positive number. For example, the maximum positive number for int8 is 127, but the maximum magnitude negative number for int8 is -128.
 
 ### Patterns and Examples of Two's complement arithmetic.
 
@@ -100,7 +100,7 @@ function divide(int256 a, int256 b) public pure returns (int256 remainder)
 ### slt and sgt
 
 #### Gas cost: 3
-To compare the magnitude of signed numbers, we first need to determine if it is positive or negative, then compare the magnitude. These op codes do taht operation in one step.
+To compare the magnitude of signed numbers, we first need to determine if it is positive or negative, then compare the magnitude. These op codes do that operation in one step.
 
 Like the unsigned counterparts, it is more gas efficient to avoid the >= and <= where possible and use the strict inequality operators instead.
 
@@ -145,7 +145,7 @@ Under the hood, a regular SHL (shift left) opcode was used. There is no need for
 ### signextend evm
 
 #### Gas cost: 5   
-A signed integer smaller than 256 bits will have leading zeros. However, Two's Complement negative numbers always start with the leftmost bit at one. Therefore, if a Two's Complement integer is upcasted to a larger type, the value will change from negative to positive since the leftmost bits will be zero. Signextend handles this transition seamlessly.
+A signed integer smaller than 256 bits will have leading zeros. However, Two's Complement negative numbers always start with the leftmost bit at one. Therefore, if a Two's Complement integer is cast to a larger type, the value will change from negative to positive since the leftmost bits will be zero. Signextend handles this transition seamlessly.
 
 ### signextend solidity
 
