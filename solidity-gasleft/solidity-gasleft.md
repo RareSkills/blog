@@ -129,7 +129,7 @@ Link: [OpenZeppelin Minimal Forwarder Contract](https://github.com/OpenZeppelin/
 
 ### Chainlink EthBalance Monitor Contract – used to prevent the out-of-gas error from blocking Ether distribution
 
-This is a real-life application of the first example in this article, where we distributed ether in a loopp. There is more business logic in this code compared to earlier, but if we highlight the "`gasleft()`" check that causes an early exit from the loop, we see it is fundamentally the same design.
+This is a real-life application of the first example in this article, where we distributed ether in a loop. There is more business logic in this code compared to earlier, but if we highlight the "`gasleft()`" check that causes an early exit from the loop, we see it is fundamentally the same design.
 
 ![chainlink using gasleft](https://static.wixstatic.com/media/935a00_d626be1bc52f457c9e41de9c441208a8~mv2.png/v1/fill/w_740,h_544,al_c,lg_1,q_90,enc_auto/935a00_d626be1bc52f457c9e41de9c441208a8~mv2.png)
 
