@@ -85,7 +85,7 @@ This is a simple contract that allows anyone to deposit ether and withdraw them.
 
 Deposited ether should always be withdraw-able by the depositor at all times since there are no restrictions.
 
-ur invariant should be that any amount deposited should be withdraw-able by the same person and the same amount.
+Our invariant should be that any amount deposited should be withdraw-able by the same person and the same amount.
 
 We will implement an invariant test to confirm that:
 - The depositor can withdraw ether deposited.
