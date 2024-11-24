@@ -49,7 +49,7 @@ contract ContractB {
 }
 ```
 
-The `revert()` error will be triggered no data will be returned, as shown in the screenshot below:
+The `revert()` error will be triggered and no data will be returned, as shown in the screenshot below:
 
 ![revert with no error string return data in hexadecimal format: 0x](https://static.wixstatic.com/media/706568_56c8fed0267e4f0caa75b2f6a3b1a127~mv2.png/v1/fill/w_666,h_400,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/706568_56c8fed0267e4f0caa75b2f6a3b1a127~mv2.png)
 
@@ -192,7 +192,7 @@ Here’s the structure:
 -   The first four bytes represent the function Selector: `0x8e4a23d6`
 -   The next 32 bytes represents the address of the caller: `0000000000000000000000009c84abe0d64a1a27fc82821f88adae290eab5e07`
 
-As a side note, you can’t define custom `error error Error(string)` or `error Panic(uint256)` since those conflict with the errors that require and assert returns respectively (we will get to `assert` in a later section).
+As a side note, you can’t define custom `error Error(string)` or `error Panic(uint256)` since those conflict with the errors that require and assert returns respectively (we will get to `assert` in a later section).
 
 ## 4. What gets returned from revert due to require statement?
 
@@ -578,7 +578,7 @@ contract ContractA {
 
 The result will be the encoded data in hexadecimal:
 
-![Revert with reason string (rever(reason)) remix output](https://static.wixstatic.com/media/706568_ec719f3e3ee94bbfb600ddafa874b466~mv2.png/v1/fill/w_666,h_366,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/706568_ec719f3e3ee94bbfb600ddafa874b466~mv2.png)
+![Revert with reason string (revert(reason)) remix output](https://static.wixstatic.com/media/706568_ec719f3e3ee94bbfb600ddafa874b466~mv2.png/v1/fill/w_666,h_366,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/706568_ec719f3e3ee94bbfb600ddafa874b466~mv2.png)
 
 Which is the same as what we got when we used the Solidity `revert(string)`
 
