@@ -81,7 +81,7 @@ You just spent two months working harder than most, and there's still a lot you 
 
 ### Duration matters
 
-You may have noticed that we frequently point out that our courses are longer than everyone else's. Our advanced solidity bootcamp is 22 weeks long, but all of our Etheruem-related courses are taken in sequence: Dapp Bootcamp (8 weeks), [Advanced Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp) (22 weeks), [DeFi](https://www.rareskills.io/defi-bootcamp) (8 weeks), and [Zero Knowledge Proofs](https://www.rareskills.io/zk-bootcamp) (9 weeks) is just shy of a year in duration.
+You may have noticed that we frequently point out that our courses are longer than everyone else's. Our advanced solidity bootcamp is 22 weeks long, but all of our Ethereum-related courses are taken in sequence: Dapp Bootcamp (8 weeks), [Advanced Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp) (22 weeks), [DeFi](https://www.rareskills.io/defi-bootcamp) (8 weeks), and [Zero Knowledge Proofs](https://www.rareskills.io/zk-bootcamp) (9 weeks) is just shy of a year in duration.
 
 I can count on one hand the number of engineers who have been in web3 for less than a year and know as comprehensive as what is covered by the sum of those courses.
 
