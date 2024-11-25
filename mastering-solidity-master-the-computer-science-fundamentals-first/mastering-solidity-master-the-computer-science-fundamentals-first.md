@@ -183,7 +183,7 @@ Major innovations are very incremental under the hood. It's just that the major 
 
 Bitcoin merely combined digital signatures with proof of work (both decades-old concepts at bitcoin's time of invention). Ethereum took Bitcoin's execution core and made it Turing complete. Chat GPT took the self-attention transformer (4 years old by that point) and made it bigger, and added some hardcoded business rules.
 
-"Innovation" is usually just a serendipitous increment of a key variable with an asymmetric result (in other words, meticulously recombining and improving something until something different and/or good happens). If you fundamentally understand what gets incremented when an new innovation rolls out, you'll master the new technology at a speed that bewilders your contemporaries.
+"Innovation" is usually just a serendipitous increment of a key variable with an asymmetric result (in other words, meticulously recombining and improving something until something different and/or good happens). If you fundamentally understand what gets incremented when a new innovation rolls out, you'll master the new technology at a speed that bewilders your contemporaries.
 
 ## Making your job application stand out
 
