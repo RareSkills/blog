@@ -52,9 +52,11 @@ contract CounterTest is Test {
 ```
 
 If we run [forge coverage](https://www.rareskills.io/post/foundry-forge-coverage), we get the following table:
-
-![solidity test coverage with 100% line and branch coverage](![image](https://hackmd.io/_uploads/r13Uyp5KC.png)
-
+| File                 | % Lines       | % Statements  | % Branches    | % Funcs       |
+|----------------------|---------------|---------------|---------------|---------------|
+| script/Counter.s.sol | 0.00% (0/3)   | 0.00% (0/3)   | 100.00% (0/0) | 0.00% (0/2)   |
+| src/Counter.sol      | 100.00% (2/2) | 100.00% (2/2) | 100.00% (0/0) | 100.00% (2/2) |
+| Total                | 40.00% (2/5)  | 40.00% (2/5)  | 100.00% (0/0) | 50.00% (2/4)  |
 
 Supposedly, we have 100% line and branch coverage on Counter.sol despite having no assert statements! This means we can introduce bugs at will and the tests will still pass.
 
@@ -144,7 +146,7 @@ If our unit tests set the `amount` to be 3 and 8, the code will have a 100% bran
 
 ## Other Mutation Testing Tools
 
-Although vertigo-rs is the only tool that automatically runs the test suit, there are other noteable tools for generating mutations (but they don't support automatically re-running the test suite and summarizing the results).
+Although vertigo-rs is the only tool that automatically runs the test suite, there are other noteable tools for generating mutations (but they don't support automatically re-running the test suite and summarizing the results).
 
 - [Gambit](https://docs.certora.com/en/latest/docs/gambit/index.html) by Certora
 - [Universal Mutator](https://github.com/sambacha/universalmutator/tree/new-solidity-rules) by [sambucha](https://github.com/sambacha)
