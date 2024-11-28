@@ -22,7 +22,7 @@ This is true of any domain of development. Knowing react js does not make you a 
 
 ## An example from frontend engineering
 
-It’s easy to look at frontend development and think “oh, I just wireframe some divs as react components, add some CSS, et viola, I have a web app.” Well you do, but it’s likely to be a slow, messy one with bad SEO.
+It’s easy to look at frontend development and think “oh, I just wireframe some divs as react components, add some CSS, et voilà, I have a web app.” Well you do, but it’s likely to be a slow, messy one with bad SEO.
 
 You must be able to account for different browsers. You must know how to optimize component loads and call APIs at the right time and place. You must know how to architect a codebase that multiple engineers can contribute to without stepping on each other’s toes. You must know why you pick one CSS solution over another that does the same thing. You must use reasonably modern tooling to improve your productivity. If the page is loading slowly, you must know how to speed it up. You must know how SEO and mobile optimization works. You must know a wide variety of libraries so you don’t reinvent the wheel. And although you don’t need to be a UI or UX person, you need to at least know the basics. You must recognize memory leaks and avoid them. You must architect your app to run A/B tests seamlessly. Your architecture needs to have the right abstractions to make swapping features and libraries seamless.
 
