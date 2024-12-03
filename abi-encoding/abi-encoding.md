@@ -198,7 +198,7 @@ And we can also convert the decimal back to hexadecimal as shown below:
 
 We've established that each item in calldata is encoded as a 32-byte word and padded with zeros if the item doesn't take up the entire 32-byte word.   
 
-As a [rule](https://docs.soliditylang.org/en/v0.8.25/internals/layout_in_calldata.html), every fixed-size data type such as `int`, `bool`, and `uint` of all sizes (unit8-uint256) will be encoded as a 32 bytes word padded to the left with zeos if needed.
+As a [rule](https://docs.soliditylang.org/en/v0.8.25/internals/layout_in_calldata.html), every fixed-size data type such as `int`, `bool`, and `uint` of all sizes (unit8-uint256) will be encoded as a 32 bytes word padded to the left with zeros if needed.
 
 For example, if you have a `uint8` with a value of `5`, it will be encoded as   
 `0x0000000000000000000000000000000000000000000000000000000000000005`.
@@ -226,7 +226,7 @@ Below are the dynamic data types in Solidity:
 
 So far, our focus has been on static calldata argument types like `address` and `uint256`. While static types are fairly straightforward to encode, encoding arrays and strings can be a bit complicated due to the varying size of data they hold.
 
-Let's consider a function that takes an array of uints and a single address. While the implementation details for our fuction are not relevant here, the function signature should look like this:
+Let's consider a function that takes an array of uints and a single address. While the implementation details for our function are not relevant here, the function signature should look like this:
 
 ```solidity
 transfer(uint256[],address)
@@ -471,9 +471,9 @@ So, the calldata for this function and the argument will be the hexadecimal belo
 00000000000000000000000000000000000000000000000000000000000000a0
 0000000000000000000000000000000000000000000000000000000000000002
 000000000000000000000000000000000000000000000000000000000000007b
-000000000000000000000000000000000000000000000000000000000000007b
+00000000000000000000000000000000000000000000000000000000000001C8
 0000000000000000000000000000000000000000000000000000000000000001
-000000000000000000000000000000000000000000000000000000000000007b
+0000000000000000000000000000000000000000000000000000000000000315
 0000000000000000000000000000000000000000000000000000000000000002
 0000000000000000000000005b38da6a701c568545dcfcb03fcb875f56beddc4
 0000000000000000000000007b38da6a701c568545dcfcb03fcb875f56bedfb3
@@ -632,7 +632,7 @@ Since zero bytes are cheaper, some developers mine for addresses or smart contra
 
 ## Conclusion
 
-Throughout this guide, we've learned the basics of ABI encoding for function calls, the key components of an ABI-encoded function call, and gained a more detailed understanding of calldata. We've also explored how to calculate the gas cost of calldata and even went further to explore more complex calldata decoding and encoding excercise to help solidify the knowledge, I hope you found it useful. To further enforce what you have learned in this article, I recommend reading more about the [Ethereum ABI encoding spec](https://docs.soliditylang.org/en/latest/abi-spec.html) and practicing the problems in the next section.
+Throughout this guide, we've learned the basics of ABI encoding for function calls, the key components of an ABI-encoded function call, and gained a more detailed understanding of calldata. We've also explored how to calculate the gas cost of calldata and even went further to explore more complex calldata decoding and encoding excercises to help solidify the knowledge, I hope you found it useful. To further enforce what you have learned in this article, I recommend reading more about the [Ethereum ABI encoding spec](https://docs.soliditylang.org/en/latest/abi-spec.html) and practicing the problems in the next section.
 
 Happy  encoding!
 
