@@ -409,7 +409,7 @@ PC   OPCODE
 
 Here PUSH1 40 MLOAD MLOADs the free memory pointer to use later. We push the creation code length (without the constructor params) with PUSH1 89 then call CODESIZE (this includes the constructor parameter). We subtract the two to get the length of the constructor parameters.
 
-**Step 3: Copy the constructor paramter to memory**  
+**Step 3: Copy the constructor parameter to memory**  
 
 ```evm-bytecode
 // 80 6089 83 39
@@ -441,9 +441,9 @@ PC   OPCODE
 
 We do that here by adding the constructor parameter length (0x20) we duplicated earlier to the free memory pointer (0x80) then arranging it with Dup1 and Swap1 operations before calling MSTORE 40 which stores the new value (0xa0) as the free memory pointer.
 
-Next we have a series of dynamic operations and JUMPs that don't execute sequencially but rather based on some conditions. Let's dig deeper. 
+Next we have a series of dynamic operations and JUMPs that don't execute sequentially but rather based on some conditions. Let's dig deeper. 
 
-The steps are numbered so you can follow them sequencially without looking for the required JUMPDEST.
+The steps are numbered so you can follow them sequentially without looking for the required JUMPDEST.
 
 You can use the [playground link](https://www.evm.codes/playground?fork=merge&unit=Wei&codeType=Bytecode&code=%27tw51z893x3xz8983398101w819052z1e91z25vu55z3dvuz208284031215z3657s5b5051919050vz3fxz4au39uf3fetsfea26469706673582212204a131c1478e0e7bb29267fd8f6d38a6zb40a25888982bd6618b720d4498b6b464736f6c6343~x70033yyyyyyy1%27~000z60y~~~x80wz40v565bu6~tzxw52suxfd%01stuvwxyz~_) for this bytecode to try it out yourself too.
 
