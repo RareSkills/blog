@@ -27,7 +27,7 @@ During an upgrade, the `_upgradeLogic()` function is delegatecalled into the U
 
 The Transparent Upgradeable Proxy used an AdminProxy to keep the address of the Admin constant. Since a Transparent Upgradeable Proxy has to compare `msg.sender` to the admin on every transaction, it is desirable to compare `msg.sender` to an immutable variable. However, a UUPS proxy only needs to check if `msg.sender` is the admin if they are explicitly calling `_upgradeLogic()` _on the proxy (which delegatecalls_ `_upgradeLogic()` in the implementation).
 
-One of the advantages of this pattern is that the implementation logic itself can be upgraded, that is, the the upgradability mechanism can be modified from implementation to implementation. For example, it becomes possible to transition from a simple upgrade logic to a more complex one with voting or timelock mechanisms.
+One of the advantages of this pattern is that the implementation logic itself can be upgraded, that is, the upgradability mechanism can be modified from implementation to implementation. For example, it becomes possible to transition from a simple upgrade logic to a more complex one with voting or timelock mechanisms.
 
 An important tradeoff of this standard is that if an upgrade is made to a new implementation contract that lacks a valid upgrade mechanism, the upgrade chain ends, as it is not possible to move to the next implementation. In other words, since the upgrade mechanism itself may be upgradeable, **there is a risk of breaking the upgrade mechanism.**
 
@@ -77,7 +77,7 @@ The contract that implements the UUPS standard in the OpenZeppelin library is na
 
 The purpose of `UUPSUpgradeable.sol` is twofold:
 1. It provides the `proxiableUUID()` function, which every implementation must include to be UUPS-compliant,
-2. It also provides the `updateToAndCall()` function, which is used to migrate to a new implementation. A function with this purpose, as we've seen, must be present in every implementation contract.
+2. It also provides the `ugradeToAndCall()` function, which is used to migrate to a new implementation. A function with this purpose, as we've seen, must be present in every implementation contract.
 
 ### The `proxiableUUID()` function
 
@@ -145,17 +145,6 @@ Also, to make the code more concise, we will omit initialization functions and m
 Our proxy contract will utilize the [ERC1967Proxy.sol](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/proxy/ERC1967/ERC1967Proxy.sol) library, which implements a minimal proxy scheme compliant with the ERC-1967 standard. The address of the initial implementation contract is passed in the constructor. However, the proxy itself lacks a mechanism for updating to a new implementation; this mechanism must be implemented within the implementation contract itself.
 
 <!--![Utilizing the OpenZeppelin ERC1967 in a UUPSProxy contract](https://static.wixstatic.com/media/706568_b7110aaf64354938afdb35fdf60dcfcb~mv2.png/v1/fill/w_740,h_241,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/706568_b7110aaf64354938afdb35fdf60dcfcb~mv2.png)-->
-
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-import "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
-
-contract UUPSProxy is ERC1967Proxy {
-    constructor(address _implementation, bytes memory _data) ERC1967Proxy(_implementation, _data) payable {}
-}
-```
 
 Here is the code to copy and paste:
 
@@ -236,15 +225,6 @@ To move to the next implementation, one must first create a new contract that fo
 <!--![New UUPS Upgradeable Contract example](https://static.wixstatic.com/media/706568_0ce4b48ec90a442287e1ba19b02143cd~mv2.png/v1/fill/w_740,h_587,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/706568_0ce4b48ec90a442287e1ba19b02143cd~mv2.png)-->
 
 ```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-import "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
-
-contract UUPSProxy is ERC1967Proxy {
-    constructor(address _implementation, bytes memory _data) ERC1967Proxy(_implementation, _data) payable {}
-}
-
 // UUPS Implementation
 
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
@@ -260,20 +240,6 @@ contract ImplementationOne is UUPSUpgradeable {
 }
 
 // NEW UUPS Implementation
-
-import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
-
-contract ImplementationTwo is UUPSUpgradeable {
-    function myNumber() public pure returns (uint256) {
-        return 2; // A function to test the implementation
-    }
-
-    // In practice, this function should include an onlyOwner modifier
-    // or some other form of ownership protection mechanism
-    function _authorizeUpgrade(address _newImplementation) internal override {}
-}
-
-// ---- updated implementation ----
 
 contract ImplementationTwo is UUPSUpgradeable {
 
