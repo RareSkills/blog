@@ -142,7 +142,7 @@ The `initializer` modifier is as follows. Some parts of the code will be explain
 
 The code above is not straightforward due to the necessity to address backward compatibility issues with previous versions. However, the main idea is twofold:  
 1. Set the `_initialized` variable to `1` to prevent the function from being executed again (<span style="color:Green">green box</span>).
-2. Temporarily allow the parent initializers, modified with `onlyInitializing`, to run while `_initializing` is true. As can be seen in the code above, `_initializing` is false when the contract has not been initialized, true while intialization transaction is running, and false when the initialization transaction finishes.
+2. Temporarily allow the parent initializers, modified with `onlyInitializing`, to run while `_initializing` is true. As can be seen in the code above, `_initializing` is false when the contract has not been initialized, true while the initialization transaction is running, and false when the initialization transaction finishes.
     
 Because `initializer` requires that `_initializing` be false, it cannot be used in parent contracts within the inheritance chain, since `_initializing` is true while these are executing. Instead, initialization functions of parent contracts must use a different modifier, specifically `onlyInitializing`, which allows the function to execute only when `_initializing` is true.
 
