@@ -111,9 +111,9 @@ uint256 rsNFT = 7; // item id
 
 // Returns 1 if Bob owns the tokenid passed, else, 0
 uint256 bobBalance = balanceOf(
-											address(Bob), 
-										  rareSkillsTokenCollectionID + rsNFT  // (2 << 128) + 7 
-										 );
+						address(Bob), 
+						rareSkillsTokenCollectionID + rsNFT  // (2 << 128) + 7 
+					);
 ```
 
 If `bobBalance = 1`, Bob owns the item with `itemID` 7 from the RareSkills collection. It is critical that the contract enforce the total supply for this token cannot exceed 1, otherwise the token would become fungible instead of non-fungible.
@@ -128,11 +128,12 @@ Below is an example code on how to compute:
 ```solidity
 contract A {
 
-		// 1. COMPUTE TOKEN ID
+	// 1. COMPUTE TOKEN ID
     function getTokenId(
         uint256 collectionId, 
         uint256 itemId 
         ) public pure returns (bytes32 tokenId) {
+
         // shift the collection id by 128 to the left
         uint256 shiftedCollectionId = collectionId << 128;
 
@@ -140,10 +141,11 @@ contract A {
         tokenId =  bytes32(shiftedCollectionId + itemId);
     }
 
-		// 2. GET COLLECTION ID AND ITEM ID
+	// 2. GET COLLECTION ID AND ITEM ID
     function getCollectionIdAndItemId(
         uint256 tokenId
         ) public pure returns (uint256 collectionId, uint256 itemId) {
+        
         // shift the token id to the right by 128 
         collectionId = tokenId >> 128;
         
