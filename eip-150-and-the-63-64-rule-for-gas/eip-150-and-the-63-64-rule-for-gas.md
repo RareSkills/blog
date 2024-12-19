@@ -20,7 +20,7 @@ For a basic Ethereum transfer, the cost of such operation exactly amounts to 21,
 
 ### Contract Calls
 
-In Ethereum, a contract (known as the "caller") has the ability to invoke other contracts (referred to as "callees") through special opcodes such as `CALL`, `[STATICCALL](https://www.rareskills.io/post/solidity-staticcall)` and `[DELEGATECALL](https://www.rareskills.io/post/delegatecall)`. When this occurs, the "callees" receive a specific amount of gas, similar to what they would receive if they were called directly via a transaction.
+In Ethereum, a contract (known as the "caller") has the ability to invoke other contracts (referred to as "callees") through special opcodes such as `CALL`, [`STATICCALL`](https://www.rareskills.io/post/solidity-staticcall) and [`DELEGATECALL`](https://www.rareskills.io/post/delegatecall). When this occurs, the "callees" receive a specific amount of gas, similar to what they would receive if they were called directly via a transaction.
 
 The quantity of gas allocated is determined in part by the caller, as specified in the opcode parameters. For further information, see the CALL specification provided [here](https://eips.ethereum.org/EIPS/eip-5) as an example. If a callee receives an insufficient amount of gas, its operations are reverted, triggering an "out of gas" exception.
 
