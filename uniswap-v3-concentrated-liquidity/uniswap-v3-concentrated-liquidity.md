@@ -265,8 +265,7 @@ The following interactive tool shows how changing $k$ for different segments cha
   src="https://www.rareskills.io/uniswap-v3-cl-widget" 
   width="900" 
   height="800" 
-  frameborder="0" 
-  allowfullscreen>
+  frameborder="0">
 </iframe>
 
 ### Piecewise formula is for illustration only
