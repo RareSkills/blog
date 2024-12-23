@@ -312,7 +312,7 @@ If the market price changes significantly, then liquidity providers will remove 
 
 Even though the curve is discontinuous, a trader can still trade seamlessly between ticks. Once a tick is crossed, Uniswap V3 recalculates the amount of liquidity available for the rest of the trade as the following animation shows:
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/ConcentratedLiquidityUniswapV3/CrossingCurvesC.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/ConcentratedLiquidityUniswapV3/crossingGap.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 When the price crossed the tick, the reserves suddenly jumped up because the swap enters a region where the liquidity is higher, and hence the reserves are higher. This jump in reserves reflects the increased amount of reserves that LPs previously put in that price range.
 
