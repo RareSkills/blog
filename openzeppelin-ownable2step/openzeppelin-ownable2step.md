@@ -32,7 +32,7 @@ contract ExampleOwnable2Step is Ownable2Step {
 }
 ```
 
-Ownable2Step inherits from Ownable and overrides `transferOwnership()` to make the new owner "pending." The receiver must then call `acceptOwnership()` to finalize the transfer. This ensures only an address that has access to it's private keys, or control of the smart contract address, can control the smart contract.
+Ownable2Step inherits from Ownable and overrides `transferOwnership()` to make the new owner "pending." The receiver must then call `acceptOwnership()` to finalize the transfer. This ensures only an address that has access to its private key, or control of the smart contract address, can control the smart contract.
 
 There is still no two-step verification for renouncing ownership, i.e. transferring ownership to the zero address. If there is no need to renounce ownership, then it is safer to override "renounceOwnership()" to revert when called.
 
