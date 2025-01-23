@@ -233,10 +233,10 @@ contract Proxy {
 And restricting access to the `setImplementation` function with a modifier:
 
 ```solidity
-    modifier onlyOwner() {
-        require(msg.sender == admin, "Not the contract owner");
-        _;
-    }
+modifier onlyOwner() {
+   require(msg.sender == admin, "Not the contract owner");
+   _;
+}
 ```
 
 ## Storage collision problem
