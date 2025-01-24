@@ -226,7 +226,7 @@ For security purposes, we need to ensure that only an admin can update the imple
 ```solidity
 contract Proxy {
     address public implementation;
-    **address public admin;**
+    address public admin;
     ...
 ```
 
@@ -359,7 +359,7 @@ The code below is a revised version of our initial proxy contract, now using sto
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.27;
 
-contract **Proxy** {
+contract Proxy {
 
     /**
      * @dev Storage slot for the implementation address.
@@ -413,7 +413,7 @@ contract **Proxy** {
     }
 }
 
-contract **Implementation** {
+contract Implementation {
     uint256 public number;
 
     function increment() public {
