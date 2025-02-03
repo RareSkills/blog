@@ -137,7 +137,7 @@ In the Uniswap V2 Routers, all the public functions have a deadline parameter. W
 
 **When writing a smart contract that integrates with Uniswap, do not set the deadline to be `block.timestamp` or `block.timestamp` plus a constant.**
 
-Your smart contract needs to *separately* ensure that the transaction submitted by the user is not too old. This means your own contract needs to accept a deadline parameter from the user and forward that to Uniswap or revert if the deadline > `block.timestamp`.
+Your smart contract needs to *separately* ensure that the transaction submitted by the user is not too old. This means your own contract needs to accept a deadline parameter from the user and forward that to Uniswap or revert if `block.timestamp > deadline`.
 
 ### How to exploit old transactions
 
