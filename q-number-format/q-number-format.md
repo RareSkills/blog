@@ -95,8 +95,8 @@ Try plugging in various fractional values into the interactive tool below to see
 
 <iframe
   src="https://www.rareskills.io/fixed-point-demo"
-  width="800"
-  height="400"
+  width="700"
+  height="470"
   frameborder="0">
 </iframe>
 
