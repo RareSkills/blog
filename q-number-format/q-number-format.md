@@ -6,7 +6,7 @@ A fixed-point number is a popular design pattern in Solidity for storing fractio
 
 ## Ether decimals vs Q Numbers
 
-The most well-known fixed point number in Solidity programming is “One Ether.”  One Ether is actually $10^{18}$ base units (Wei). “One” Ether is actually 1 times $10^{18}$. Since we cannot store “0.5” in Solidity, we instead store $0.5\times10^{18}=5\times10^{17}$ or 500000000000000000. Essentially, $10^{18}$ multiplies by 0.5 so that the fraction gets “preserved” as an integer. This is not a perfect solution, however, since it cannot hold values smaller than $10^{-18}$. However, $10^{18}$ is good enough for most applications, and contracts can use a larger number if more precision is needed.
+The most well-known fixed point number in Solidity programming is “One Ether.”  One Ether is actually $10^{18}$ base units (Wei). “One” Ether is actually 1 times $10^{18}$. Since we cannot store “0.5” in Solidity, we instead store $\space0.5\times10^{18}=5\times10^{17}$ or 500000000000000000. Essentially, $10^{18}$ multiplies by 0.5 so that the fraction gets “preserved” as an integer. This is not a perfect solution, however, since it cannot hold values smaller than $10^{-18}$. However, $10^{18}$ is good enough for most applications, and contracts can use a larger number if more precision is needed.
 
 A Q number, on the other hand, multiplies the fraction by a power of 2 instead of a power of 10 because multiplying (and dividing) by powers of 2 is more gas efficient in the EVM, since multiplying or dividing by powers of two can be done using bitshift operations. For example, `x << n` is equivalent to `x * 2**n` and `x >> n` is equivalent to `x / 2**n`.
 
