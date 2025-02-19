@@ -95,8 +95,8 @@ Try plugging in various fractional values into the interactive tool below to see
 
 <iframe
   src="https://www.rareskills.io/fixed-point-demo"
-  width="900"
-  height="800"
+  width="800"
+  height="400"
   frameborder="0">
 </iframe>
 
@@ -200,12 +200,12 @@ In other words the integers are represented with `uint64` since that is the larg
 
 ```solidity
 function divToQ64x64(uint64 x, uint64 y) public pure returns (uint128) {
-		// convert x (a uint64 integer)
-		// to a Q64.64 fixed-point number by left-shifting 64 bits.
-		uint128 x64_64 = x << 64;
-		
-		// divide by y
-		return x64_64 / y;
+    // convert x (a uint64 integer)
+    // to a Q64.64 fixed-point number by left-shifting 64 bits.
+    uint128 x64_64 = x << 64;
+			
+    // divide by y
+    return x64_64 / y;
 }
 
 divToQ64x64(5, 2); // returns 46116860184273879040
@@ -224,8 +224,8 @@ When we multiply two fixed point numbers together, we need to ensure they don’
 
 ```solidity
 function mulU64x64(uint128 x, uint128 y) public pure returns (uint128) {
-		// note: Solidity performs multiplication using uint128 unless
-		// explicitly upcasted. This could overflow and revert. 
+    // note: Solidity performs multiplication using uint128 unless
+    // explicitly upcasted. This could overflow and revert. 
     uint256 temp = uint256(x) * uint256(y);
     return uint128(temp >> 64);
 }
