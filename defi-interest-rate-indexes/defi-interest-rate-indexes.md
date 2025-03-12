@@ -10,7 +10,7 @@ The hypothetical gain of one dollar lent since the beginning of time is tracked 
 baseSupplyIndex += supplyInterestRatePerSecond(utilization) × secondsElapsed
 ```
 
-The only place baseSupplyIndex is ever changed is on line [403 in Comet.sol](https://github.com/compound-finance/comet/blob/main/contracts/Comet.sol#L403), inside `accrueIndexIndices`.
+The only place baseSupplyIndex is ever changed is on line [403 in Comet.sol](https://github.com/compound-finance/comet/blob/main/contracts/Comet.sol#L403), inside `accruedInterestIndices`.
 
 ![accrueInterestIndices function](https://static.wixstatic.com/media/935a00_8b7d00065ac84aa09188bc4a6b1f6fb7~mv2.png/v1/fill/w_666,h_519,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_8b7d00065ac84aa09188bc4a6b1f6fb7~mv2.png)
 
