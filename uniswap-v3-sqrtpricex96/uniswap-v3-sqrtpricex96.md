@@ -2,7 +2,7 @@
 
 In Uniswap V2, the protocol tracks token reserves and derives the spot price, $p_x=y/x$, and total liquidity, $L=xy$, where $x$ and $y$ are the reserves of tokens X and Y.
 
-Uniswap V3, instead, tracks the current price and liquidity, and derives the reserves. This calculation is complex and will be covered in later chapters.  The goal of this chapter is to explain how the protocol stores the token price.
+Uniswap V3, instead, tracks the current price and liquidity, and derives the reserves. This calculation is complex and will be covered in later chapters. 
 
 Uniswap V3 actually stores the square root of the price, $\sqrt{p}$, instead of the price itself. This approach improves gas efficiency, as we will examine in detail in a later chapter. We don’t lose accuracy doing this, as the price can always be derived from its square root.
 
