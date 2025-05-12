@@ -70,7 +70,7 @@ We can see that the “fraction bit” being set to 1 conveys that the single bi
 |  | “under the hood” value | float value (”under the hood” ÷ 2^2 |
 | --- | --- | --- |
 | 0 00 | 0 | 0 |
-| 0 01 | 1 | 0.125 (1/4) |
+| 0 01 | 1 | 0.25 (1/4) |
 | 0 10 | 2 | 0.5 (2/4) |
 | 0 11 | 3 | 0.75 (3/4) |
 | 1 00 | 4 | 1.00 (4/4) |
