@@ -422,7 +422,7 @@ One takeway from this exercise is that good algebraic manipulation is a very eff
 
 The following resources were consulted in writing this article:
 
-StableSwap - efficient mechanism for Stablecoin liquidity, Michael Egorov, [https://resources.curve.fi/pdf/curve-stableswap.pdf](https://resources.curve.fi/pdf/curve-stableswap.pdf)
+StableSwap - efficient mechanism for Stablecoin liquidity, Michael Egorov, [https://resources.curve.finance/pdf/curve-stableswap.pdf](https://resources.curve.finance/pdf/curve-stableswap.pdf)
 
 Understanding the Curve AMM, Part -1: StableSwap Invariant, Atul Agarwal [https://atulagarwal.dev/posts/curveamm/stableswap/](https://atulagarwal.dev/posts/curveamm/stableswap/)
 
