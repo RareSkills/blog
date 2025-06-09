@@ -198,7 +198,7 @@ And we can also convert the decimal back to hexadecimal as shown below:
 
 We've established that each item in calldata is encoded as a 32-byte word and padded with zeros if the item doesn't take up the entire 32-byte word.   
 
-As a [rule](https://docs.soliditylang.org/en/v0.8.25/internals/layout_in_calldata.html), every fixed-size data type such as `int`, `bool`, and `uint` of all sizes (unit8-uint256) will be encoded as a 32 bytes word padded to the left with zeos if needed.
+As a [rule](https://docs.soliditylang.org/en/v0.8.25/internals/layout_in_calldata.html), every fixed-size data type such as `int`, `bool`, and `uint` of all sizes (unit8-uint256) will be encoded as a 32 bytes word padded to the left with zeros if needed.
 
 For example, if you have a `uint8` with a value of `5`, it will be encoded as   
 `0x0000000000000000000000000000000000000000000000000000000000000005`.
