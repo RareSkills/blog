@@ -78,7 +78,7 @@ Recall that we said `quote` should not be used as an oracle, and that is still t
 
 ### addLiquidity(), and addLiquidityEth()
 
-These functions should be self-explanatory. They first calculate the optimal ratio using `_addLiquidity` from above then transfer the assets to the pair, then call mint on the pair. The only difference is the addLiquidityEth function will wrap the Ether into ETH first.
+These functions should be self-explanatory. They first calculate the optimal ratio using `_addLiquidity` from above then transfer the assets to the pair, then call mint on the pair. The only difference is the addLiquidityEth function will wrap the Ether into WETH first.
 
 ![uniswap add liquidity with eth and weth](https://static.wixstatic.com/media/935a00_a817986edc7e440497a0fbd4032024fc~mv2.jpg/v1/fill/w_740,h_531,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_a817986edc7e440497a0fbd4032024fc~mv2.jpg)
 
