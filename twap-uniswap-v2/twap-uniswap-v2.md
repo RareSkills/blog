@@ -59,7 +59,7 @@ Here T is a duration, not a timestamp. That is, how long the price stayed at tha
 
 In our example above, we only looked at prices for the last 24 hours, but what if you care about prices for the last hour, week, or some other interval? Uniswap of course cannot store every look back that someone might be interested, and there also isn’t a good way to consistently snapshot the price as someone would have to pay for the gas.
 
-The solution is that Uniswap only stores the numerator of values — every time a change is the liquidity ratio happens (mint, burn, swap, or sync are called), it records the new price and **how long the previous price lasted.**
+The solution is that Uniswap only stores the numerator of values — every time a change in the liquidity ratio happens (mint, burn, swap, or sync are called), it records the new price and **how long the previous price lasted.**
 
 ![twap code with notes](https://static.wixstatic.com/media/935a00_db5fb7c3ed5b4e37ae3550b1f779af85~mv2.jpg/v1/fill/w_1480,h_536,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_db5fb7c3ed5b4e37ae3550b1f779af85~mv2.jpg)
 
