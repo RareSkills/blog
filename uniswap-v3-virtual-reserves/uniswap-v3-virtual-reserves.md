@@ -134,7 +134,7 @@ Below is an interactive tool where you can see the real reserves $(x_r,y_r)$ and
 <iframe
   src="https://rareskills.io/real-virtual-reserve-tool"
   width="900"
-  height="800"
+  height="900"
   frameborder="0">
 </iframe>
 
