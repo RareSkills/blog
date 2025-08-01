@@ -106,13 +106,23 @@ $$P_iT_i+P_{i+1}T_{i+1}+...+P_nT_n$$
 The following code is made as simple as possible for illustration purposes, production use is not advised.
 
 ```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
+import "@uniswap/lib/contracts/libraries/UQ112x112.sol";
+
 contract OneHourOracle {
-    using UQ112x112 for uint224; // requires importing UQ112x112
+    using UQ112x112 for uint224;
 
-    IUniswapV2Pair uniswapV2pair;
+    IUniswapV2Pair public uniswapV2Pair;
 
-    UQ112x112 snapshotPrice0Cumulative;
-    uint32 lastSnapshotTime;
+    uint256 public snapshotPrice0Cumulative;
+    uint32 public lastSnapshotTime;
+
+    constructor(address _uniswapV2Pair) {
+        uniswapV2Pair = IUniswapV2Pair(_uniswapV2Pair);
+    }
 
     function getTimeElapsed() internal view returns (uint32 t) {
         unchecked {
@@ -120,22 +130,23 @@ contract OneHourOracle {
         }
     }
 
-    function snapshot() public returns (UQ112x112 twapPrice) {
+    function snapshot() public {
         require(getTimeElapsed() >= 1 hours, "snapshot is not stale");
 
         // we don't use the reserves, just need the last timestamp update
-        ( , , lastSnapshotTime) = uniswapV2pair.getReserves();
-        snapshotPrice0Cumulative = uniswapV2pair.price0CumulativeLast;
+        (, , lastSnapshotTime) = uniswapV2Pair.getReserves();
+        snapshotPrice0Cumulative = uniswapV2Pair.price0CumulativeLast();
     }
 
-    function getOneHourPrice() public view returns (UQ112x112 price) {
+    function getOneHourPrice() public view returns (uint224 price) {
         require(getTimeElapsed() >= 1 hours, "snapshot not old enough");
         require(getTimeElapsed() < 3 hours, "price is too stale");
 
-        uint256 recentPriceCumul = uniswapV2pair.price0CumulativeLast;
+        uint256 recentPriceCumulative = uniswapV2Pair.price0CumulativeLast();
+        uint32 timeElapsed = getTimeElapsed();
 
         unchecked {
-            twapPrice = (recentPriceCumul - snapshotPrice0Cumulative) / timeElapsed;
+            price = uint224((recentPriceCumulative - snapshotPrice0Cumulative) / timeElapsed);
         }
     }
 }
