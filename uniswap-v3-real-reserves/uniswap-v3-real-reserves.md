@@ -32,7 +32,7 @@ This isn’t enough information to derive the real reserves of a segment, since 
 
 This can be seen in the animation below, which illustrates two segments with the same liquidity at the same price. Their virtual reserves are the same, but their real reserves are not.
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3RealReserves/Realres1_1.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3RealReserves/Realres11.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 Thus, we can't derive the real reserves only from the price and liquidity — the segment boundaries must also be taken into account.
 
