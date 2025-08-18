@@ -63,7 +63,7 @@ And in the terminal run
 
 we get the following warning:
 
-![A screenshot of the Slither warning that multiplication happens after division](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/20%20Common%20Solidity%20Beginner%20Mistakes%20f7f085856aa8456297a6e65890e0c519/Screenshot_2024-05-01_at_1.52.14_PM.png)
+![A screenshot of the Slither warning that multiplication happens after division](https://r2media.rareskills.io/20%20Common%20Solidity%20Beginner%20Mistakes%20f7f085856aa8456297a6e65890e0c519/Screenshot_2024-05-01_at_1.52.14_PM.png)
 
 In this case, it is saying we divide before multiply, which in general is something to avoid.
 
@@ -124,7 +124,7 @@ contract BankDrainer {
 
 You can [test the code in Remix here](https://remix.ethereum.org/?#code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IE1JVApwcmFnbWEgc29saWRpdHkgMC44LjI1OwoKY29udHJhY3QgQmFkQmFuayB7CiAgICBtYXBwaW5nKGFkZHJlc3MgPT4gdWludDI1NikgcHVibGljIGJhbGFuY2VzOwoKICAgIGNvbnN0cnVjdG9yKCkKICAgICAgICBwYXlhYmxlIHsKICAgICAgICAgICAgcmVxdWlyZShtc2cudmFsdWUgPT0gMTAgZXRoZXIsICJkZXBvc2l0IDEwIGV0aCIpOwogICAgfQoKICAgIGZ1bmN0aW9uIGRlcG9zaXQoKQogICAgICAgIGV4dGVybmFsCiAgICAgICAgcGF5YWJsZSB7CiAgICAgICAgICAgIGJhbGFuY2VzW21zZy5zZW5kZXJdICs9IG1zZy52YWx1ZTsKICAgIH0KICAgIAogICAgZnVuY3Rpb24gd2l0aGRyYXcoKSBleHRlcm5hbCB7CiAgICAgICAgKGJvb2wgb2ssICkgPSBtc2cuc2VuZGVyLmNhbGx7dmFsdWU6IGJhbGFuY2VzW21zZy5zZW5kZXJdfSgiIik7CiAgICAgICAgcmVxdWlyZShvaywgInRyYW5zZmVyIGZhaWxlZCIpOwogICAgICAgIGJhbGFuY2VzW21zZy5zZW5kZXJdID0gMDsKICAgIH0KfQoKY29udHJhY3QgQmFua0RyYWluZXIgewoKICAgIGZ1bmN0aW9uIHN0ZWFsKAogICAgICAgIEJhZEJhbmsgYmFuawogICAgKSBleHRlcm5hbCBwYXlhYmxlIHsKICAgICAgICByZXF1aXJlKG1zZy52YWx1ZSA9PSAxIGV0aGVyLCAic2VuZCBkZXBvc2l0IDEgZXRoIik7CiAgICAgICAgYmFuay5kZXBvc2l0e3ZhbHVlOiAxIGV0aGVyfSgpOwogICAgICAgIGJhbmsud2l0aGRyYXcoKTsKICAgIH0KCiAgICByZWNlaXZlKCkKICAgICAgICBleHRlcm5hbAogICAgICAgIHBheWFibGUgewogICAgICAgICAgICAvLyBtc2cuc2VuZGVyIGlzIHRoZSBCYWRCYW5rIGJlY2F1c2UgdGhlIEJhZEJhbmsKICAgICAgICAgICAgLy8gY2FsbGVkIGByZWNlaXZlKClgIHdoZW4gaXQgdHJhbnNmZXJlZCBlaXRoZXIKCiAgICAgICAgICAgIHdoaWxlIChtc2cuc2VuZGVyLmJhbGFuY2UgPj0gMSBldGhlcikgewogICAgICAgICAgICAgICAgQmFkQmFuayhtc2cuc2VuZGVyKS53aXRoZHJhdygpOwogICAgICAgICAgICB9CiAgICB9Cn0&lang=en&optimize=false&runs=200&evmVersion=null&version=soljson-v0.8.25+commit.b61c2a91.js). The following video demonstrates the hack.
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/20%20Common%20Solidity%20Beginner%20Mistakes%20f7f085856aa8456297a6e65890e0c519/re-entrancy.mov" type="video/mp4" autoplay loop muted controls>>
+<video src="https://r2media.rareskills.io/20%20Common%20Solidity%20Beginner%20Mistakes%20f7f085856aa8456297a6e65890e0c519/re-entrancy.mov" type="video/mp4" autoplay loop muted controls>>
 </video>
 
 The reason this hack is possible is because the BadBank’s `withdraw()` function calls the `receive()` function in `BankDrainer` before updating the balances. Sending ether is equivalent to calling the `receive()` or `fallback()` function on another contract.
@@ -133,7 +133,7 @@ Therefore, **always call the function of another smart contract or send the Ethe
 
 When we run Slither on the code above, Slither gives us two warnings:
 
-![A screen shot of Slither showing two warnings from the Solidity source code](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/20%20Common%20Solidity%20Beginner%20Mistakes%20f7f085856aa8456297a6e65890e0c519/Screenshot_2024-05-01_at_1.58.49_PM.png)
+![A screen shot of Slither showing two warnings from the Solidity source code](https://r2media.rareskills.io/20%20Common%20Solidity%20Beginner%20Mistakes%20f7f085856aa8456297a6e65890e0c519/Screenshot_2024-05-01_at_1.58.49_PM.png)
 
 The first warning, that it “sends eth to an arbitrary user” is a false positive. It is true that anyone can call withdraw, but the amount they can withdraw is limited to their balance (at least initially!).
 
@@ -226,7 +226,7 @@ contract SendToBank {
 You can [test the code above here in Remix](https://remix.ethereum.org/?#code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IE1JVApwcmFnbWEgc29saWRpdHkgMC44LjI1OwoKY29udHJhY3QgR29vZEJhbmsgewoKICAgIG1hcHBpbmcoYWRkcmVzcyA9PiB1aW50MjU2KSBwdWJsaWMgYmFsYW5jZXM7CgogICAgZnVuY3Rpb24gd2l0aGRyYXcoKSBleHRlcm5hbCB7CiAgICAgICAgdWludDI1NiBiYWxhbmNlID0gYmFsYW5jZXNbbXNnLnNlbmRlcl07CiAgICAgICAgYmFsYW5jZXNbbXNnLnNlbmRlcl0gPSAwOwoKICAgICAgICAoYm9vbCBvaywgKSA9IG1zZy5zZW5kZXIuY2FsbHt2YWx1ZTogYmFsYW5jZX0oIiIpOwogICAgICAgIHJlcXVpcmUob2ssICJ0cmFuc2ZlciBmYWlsZWQiKTsKICAgIH0KCiAgICByZWNlaXZlKCkgZXh0ZXJuYWwgcGF5YWJsZSB7CiAgICAgICAgYmFsYW5jZXNbbXNnLnNlbmRlcl0gKz0gbXNnLnZhbHVlOwogICAgfQp9Cgpjb250cmFjdCBTZW5kVG9CYW5rIHsKCiAgICBhZGRyZXNzIG93bmVyOwogICAgY29uc3RydWN0b3IoKSB7CiAgICAgICAgb3duZXIgPSBtc2cuc2VuZGVyOwogICAgfQoKICAgIGZ1bmN0aW9uIGRlcG9zaXRJbkJhbmsoCiAgICAgICAgYWRkcmVzcyBiYW5rCiAgICApZXh0ZXJuYWwgcGF5YWJsZSB7CiAgICAgICAgcmVxdWlyZShtc2cuc2VuZGVyID09IG93bmVyLCAibm90IG93bmVyIik7CgogICAgICAgIC8vIFRISVMgTElORSBGQUlMUwogICAgICAgIHBheWFibGUoYmFuaykudHJhbnNmZXIobXNnLnZhbHVlKTsKICAgIH0KCiAgICBmdW5jdGlvbiB3aXRoZHJhd0JhbmsoCiAgICAgICAgYWRkcmVzcyBwYXlhYmxlIGJhbmsKICAgICkgZXh0ZXJuYWwgewogICAgICAgIHJlcXVpcmUobXNnLnNlbmRlciA9PSBvd25lciwgIm5vdCBvd25lciIpOwoKICAgICAgICAvLyB0aGlzIHRyaWdnZXJzIHRoZSByZWNlaXZlIGZ1bmN0aW9uCiAgICAgICAgR29vZEJhbmsoYmFuaykud2l0aGRyYXcoKTsKCiAgICAgICAgLy8gdGhlIHJlY2VpdmUgZnVuY3Rpb24gaGFzIGNvbXBsZXRlZAogICAgICAgIC8vIGFuZCBub3cgdGhpcyBjb250cmFjdCBoYXMgYSBiYWxhbmNlCiAgICAgICAgLy8gc2VuZCBpdCB0byB0aGUgb3duZXIKICAgICAgICAoYm9vbCBvaywgKSA9IG1zZy5zZW5kZXIuY2FsbHt2YWx1ZTogYWRkcmVzcyh0aGlzKS5iYWxhbmNlfSgiIik7CiAgICAgICAgcmVxdWlyZShvaywgInRyYW5zZmVyIGZhaWxlZCIpOwogICAgfQoKICAgIC8vIHdlIG5lZWQgdGhpcyB0byByZWNlaXZlIEV0aGVyIGZyb20gdGhlIGJhbmsKICAgIHJlY2VpdmUoKSBleHRlcm5hbCBwYXlhYmxlIHsKCiAgICB9Cn0&lang=en&optimize=false&runs=200&evmVersion=null&version=soljson-v0.8.25+commit.b61c2a91.js). And here is a video demonstrating the failed transfer.
 
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/20%20Common%20Solidity%20Beginner%20Mistakes%20f7f085856aa8456297a6e65890e0c519/re-entrancy.mov" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/20%20Common%20Solidity%20Beginner%20Mistakes%20f7f085856aa8456297a6e65890e0c519/re-entrancy.mov" type="video/mp4" autoplay loop muted controls></video>
 
 The transaction fails because `receive()` runs out of gas when incrementing the sender’s balance.
 
@@ -455,7 +455,7 @@ contract GiveNFTToDonors is ERC721("MyTok", "MT"), Ownable(msg.sender) {
 
 The function distributeNFTs() will attempt to iterate over the entire donor array. However, if the donor list in the array is large, this loop will result in a very high gas cost, making the transaction unfeasible. Slither will give you a warning about this situation similar to the following:
 
-![A screenshot of a warning from Slither about costly operations in a loop](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/20%20Common%20Solidity%20Beginner%20Mistakes%20f7f085856aa8456297a6e65890e0c519/Screenshot_2024-05-01_at_2.28.48_PM.png)
+![A screenshot of a warning from Slither about costly operations in a loop](https://r2media.rareskills.io/20%20Common%20Solidity%20Beginner%20Mistakes%20f7f085856aa8456297a6e65890e0c519/Screenshot_2024-05-01_at_2.28.48_PM.png)
 
 The solution to this is known as “pull over push.” Instead of sending each of the receivers their NFT, you have them call a function that transfers the NFT to the address, if that address calls the function.
 
@@ -656,13 +656,13 @@ contract GoodBank {
 
 New Solidity developers are often confused by the frequent use of `_msgSender()` in OpenZeppelin contracts. For example, here is the OpenZeppelin ERC-20 library using `_msgSender()`:
 
-![A screenshot of OpenZeppelin code using the _msgSender() function](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/20%20Common%20Solidity%20Beginner%20Mistakes%20f7f085856aa8456297a6e65890e0c519/Screenshot_2024-08-31_at_3.37.27_PM.png)
+![A screenshot of OpenZeppelin code using the _msgSender() function](https://r2media.rareskills.io/20%20Common%20Solidity%20Beginner%20Mistakes%20f7f085856aa8456297a6e65890e0c519/Screenshot_2024-08-31_at_3.37.27_PM.png)
 
 Unless you are building a contract that supports gasless or metatransactions, use regular `msg.sender` instead of `_msgSender()`.
 
 `_msgSender()` is a function created by the OpenZeppelin contract [Context.sol](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Context.sol):
 
-![Screenshot of Context.sol from OpenZeppelin with _msgSender() highlighted](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/20%20Common%20Solidity%20Beginner%20Mistakes%20f7f085856aa8456297a6e65890e0c519/Screenshot_2024-08-31_at_3.39.06_PM.png)
+![Screenshot of Context.sol from OpenZeppelin with _msgSender() highlighted](https://r2media.rareskills.io/20%20Common%20Solidity%20Beginner%20Mistakes%20f7f085856aa8456297a6e65890e0c519/Screenshot_2024-08-31_at_3.39.06_PM.png)
 
 This is only used in contracts that support metatransactions.
 

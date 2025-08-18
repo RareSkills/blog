@@ -8,7 +8,7 @@ Mappings are used to store data in the form of key-value pairs.
 
 The colored key values below will be referred to in an upcoming code block:
 
-![diagram showing multiple keys assigned their respective values](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/keysval_ManimCE_v0.18.1_1.png)
+![diagram showing multiple keys assigned their respective values](https://r2media.rareskills.io/solidity-iii/keysval_ManimCE_v0.18.1_1.png)
 
 Consider this example that uses mappings to associate an Ethereum address with a value. The red and green key values, as shown in the diagram above, are set in the code below:
 
@@ -43,7 +43,7 @@ where  $\oplus$ means concatenate
 
 The following animation shows how the data in the formula above is laid out:
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/keccakanimr1_1.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/solidity-iii/keccakanimr1_1.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 Under the hood, the key and base slot are both stored as 256 bit (32 bytes) values. When they are concatenated together, they are a 64 bytes value.
 
@@ -52,7 +52,7 @@ Below is an animation that shows how these values (key and base slot) are concat
 - address key = `0x504DbB5Dc821445b142312b74693d778a1B60b2f`
 - uint256 baseSlot = `6`
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/storageslot4.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/solidity-iii/storageslot4.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 Notice how the key and base slot values were first padded with zeros to 32-byte values before being concatenated together. The result from the concatenation (64 bytes array) are what get hashed to determine the storage slot.
 
@@ -92,7 +92,7 @@ To test this, let’s call the function with `address(0x01)` as the argument, si
 
 The slot returned after the call: `0xada5013122d395ba3c54772283fb069b10426056ef8ca54750cb9bb552a59e7d`
 
-![remix screenshot of the returned slot when getStorageSlot function is called](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/Screenshot_2024-07-18_at_115121.png)
+![remix screenshot of the returned slot when getStorageSlot function is called](https://r2media.rareskills.io/solidity-iii/Screenshot_2024-07-18_at_115121.png)
 
 Next, we create a `getValue()` function which will load the storage slot we calculated. This function is to prove that the slot computed by `getStorageSlot()` is indeed the correct storage slot that holds that value.
 
@@ -110,7 +110,7 @@ function getValue(address _key) public view returns (uint256 value) {
 
 Calling the getValue function with `address(1)` as argument returned 9, which is the correct value assigned to the `address(1)` key:
 
-![remix screenshot of the returned value when getValue function is called](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/Screenshot_2024-08-30_at_141757.png)
+![remix screenshot of the returned value when getValue function is called](https://r2media.rareskills.io/solidity-iii/Screenshot_2024-08-30_at_141757.png)
 
 Here’s the complete code for you to test on [Remix](https://remix.ethereum.org/?#code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IE1JVApwcmFnbWEgc29saWRpdHkgPTAuOC4yNjsKCmNvbnRyYWN0IE15TWFwcGluZyB7CiAgICBtYXBwaW5nKGFkZHJlc3MgPT4gdWludDI1NikgcHJpdmF0ZSBiYWxhbmNlOyAvLyBzdG9yYWdlIHNsb3QgMAoKICAgIGZ1bmN0aW9uIHNldFZhbHVlcygpIHB1YmxpYyB7CiAgICAgICAgYmFsYW5jZVthZGRyZXNzKDB4MDEpXSA9IDk7CiAgICAgICAgYmFsYW5jZVthZGRyZXNzKDB4MDMpXSA9IDEwOwogICAgfQoKICAgIGZ1bmN0aW9uIGdldFN0b3JhZ2VTbG90KGFkZHJlc3MgX2tleSkgcHVibGljIHB1cmUgcmV0dXJucyAoYnl0ZXMzMiBzbG90KSB7CiAgICAgICAgdWludDI1NiBiYWxhbmNlTWFwcGluZ1Nsb3Q7CgogICAgICAgIGFzc2VtYmx5IHsKICAgICAgICAgICAgLy8gYC5zbG90YCByZXR1cm5zIHRoZSBzdGF0ZSB2YXJpYWJsZSAoYmFsYW5jZSkgbG9jYXRpb24gd2l0aGluIHRoZSBzdG9yYWdlIHNsb3RzLgogICAgICAgICAgICAvLyBJbiBvdXIgY2FzZSwgMAogICAgICAgICAgICBiYWxhbmNlTWFwcGluZ1Nsb3QgOj0gYmFsYW5jZS5zbG90CiAgICAgICAgfQoKICAgICAgICBzbG90ID0ga2VjY2FrMjU2KGFiaS5lbmNvZGUoX2tleSwgYmFsYW5jZU1hcHBpbmdTbG90KSk7CiAgICB9CgogICAgZnVuY3Rpb24gZ2V0VmFsdWUoYWRkcmVzcyBfa2V5KSBwdWJsaWMgdmlldyByZXR1cm5zICh1aW50MjU2IHZhbHVlKSB7CiAgICAgICAgLy8gQ2FsbCBoZWxwZXIgZnVuY3Rpb24gdG8gZ2V0IAogICAgICAgIGJ5dGVzMzIgc2xvdCA9IGdldFN0b3JhZ2VTbG90KF9rZXkpOwoKICAgICAgICBhc3NlbWJseSB7CiAgICAgICAgICAgIC8vIExvYWRzIHRoZSB2YWx1ZSBzdG9yZWQgaW4gdGhlIHNsb3QKICAgICAgICAgICAgdmFsdWUgOj0gc2xvYWQoc2xvdCkKICAgICAgICB9CiAgICB9Cn0&lang=en&optimize=false&runs=200&evmVersion=null&version=soljson-v0.8.26+commit.8a97fa7a.js). 
 
@@ -154,7 +154,7 @@ contract MyMapping {
 
 A nested mapping is a mapping within another mapping. A common use case for this is storing the balances of different tokens for a specific address, as shown in the diagram below.
 
-![diagram showing balances of different tokens for different addresses](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/keccak2562_ManimCE_v0.18.1_3.png)
+![diagram showing balances of different tokens for different addresses](https://r2media.rareskills.io/solidity-iii/keccak2562_ManimCE_v0.18.1_3.png)
 
 This shows that the `balance` variable holds two different addresses, `0xbob` and `0xAlice`, each of these addresses is associated with multiple tokens, which in turn map to different balances, hence, nested mappings.
 
@@ -162,7 +162,7 @@ This shows that the `balance` variable holds two different addresses, `0xbob` an
 
 The calculation of storage slots for nested mappings is similar to that of single mappings, with the difference being that the “level” of mapping corresponds to the number of hash operations. Below is an animation and a code example that demonstrates a two-level mappings with two hash operations:
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/keccakanimr2_2.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/solidity-iii/keccakanimr2_2.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 
 ### Now let’s show a code example of getting nested array value from storage using assembly
@@ -174,17 +174,17 @@ In the screenshot below, the value `5` is assigned to the `balance` mapping with
     - the second is the hash of `_key2` (tokenID) and `initialHash`, to get the slot of `balance[_key1][_key2]`. If it were a 3-level mappings, the third key (_key3) would be hashed with the value from the second hash operation to get the desired storage slot and so on.
 - The `getValue` function which takes in a slot as argument and returns the value held in it, which behaves the same as the previous example.
 
-![remix screenshot the value assigned tp the nested mapping and functions to get slot and slot value](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/Screenshot_2024-09-27_at_134247.png)
+![remix screenshot the value assigned tp the nested mapping and functions to get slot and slot value](https://r2media.rareskills.io/solidity-iii/Screenshot_2024-09-27_at_134247.png)
 
 Calling the getStorageSlot function with the following arguments, `address(0xb0b)` and `1111`, returns the following slot:
 
 `0x0b061f98898a826aef6fdfc2d8eb981af54b85700e4516b39466540f69aced0f`
 
-![remix screenshot showing the returned slot after calling getStorageSlot function](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/Screenshot_2024-07-20_at_162401.png)
+![remix screenshot showing the returned slot after calling getStorageSlot function](https://r2media.rareskills.io/solidity-iii/Screenshot_2024-07-20_at_162401.png)
 
 To show that the calculated slot holds the value `5`, we will call the `getValue` function and pass the slot as argument. This function uses the `sload` opcode to load the slot and then return its value:
 
-![remix screenshot showing the returned slot value after calling getValue function](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/Screenshot_2024-07-20_at_163043.png)
+![remix screenshot showing the returned slot value after calling getValue function](https://r2media.rareskills.io/solidity-iii/Screenshot_2024-07-20_at_163043.png)
 
 And yes! We got the same value `5` that we inserted in the constructor.
 
@@ -218,7 +218,7 @@ Since `num` is of type [uint256](https://www.rareskills.io/post/uint-max-value-s
 
 The animation below shows how storage slots are allocated to each variable, detailing how the values in each storage variable are stored in slots.
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/storageslottanim.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/solidity-iii/storageslottanim.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 
 Let's look at another example, similar to the previous one, but this time using `uint32` as the data type for the array:
@@ -241,7 +241,7 @@ If the type of each array element **doesn't** occupy an entire storage slot, lik
 
 How packed values are allocated slot:
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/storageslottanim2_2.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/solidity-iii/storageslottanim2_2.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 
 Note: Accessing a packed element will incur more gas since the EVM needs to add additional instructions other than the usual `sload`. It is only advisable to pack your elements if they are typically accessed in the same transaction and thus can share cold load costs.
@@ -256,7 +256,7 @@ Generally, dynamic arrays have their length stored somewhere since it is not kno
 
 **The storage slot allocated for the length of the array** is the same slot for the array storage variable (base slot). Below is an example that illustrates this:
 
-![remix screenshot show value for slot 0](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/Screenshot_2024-07-24_at_164920.png)
+![remix screenshot show value for slot 0](https://r2media.rareskills.io/solidity-iii/Screenshot_2024-07-24_at_164920.png)
 
 The `myArr` variable has three elements, giving it a length of 3. The `getSlotValue` function, as its name suggests, takes a slot number and returns the value stored in it. In our case, we passed slot 0 as the argument because that is the slot allocated for the `myArr` storage variable. We then used the `sload` opcode to load the value from the slot.
 
@@ -264,7 +264,7 @@ Array values are kept in storage slots sequentially, with each storage slot bein
 
 The keccak hash of the slot `2` points to the slot holding the first element, then we keep adding 1 to that value to get the storage locations of other indexes in the array:
 
-![A diagram showing the keccak hash of a slot](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/storageslothash_ManimCE_v0181_3.png)
+![A diagram showing the keccak hash of a slot](https://r2media.rareskills.io/solidity-iii/storageslothash_ManimCE_v0181_3.png)
 
 Storage slots are numbered from 0 to 2²⁵⁶ - 1, and that is exactly the range of values a keccak256 outputs. The first red value in the image (`0x405787...5ace`) represents the hashed storage location derived from slot `2`, which holds the first element of the array. Each subsequent value (`0x405787...5acf`, `0x405787...5ad0`) is an increment of the previous one, corresponding to the next element in the array. This pattern continues for each additional element, with the storage location incrementing sequentially based on the array’s size.
 
@@ -290,7 +290,7 @@ To find the storage slot that holds the value `9`, we first hash the base slot (
 
 Test on remix:
 
-![remix screenshot of the value in slot 3](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/Screenshot_2024-09-20_at_062540.png)
+![remix screenshot of the value in slot 3](https://r2media.rareskills.io/solidity-iii/Screenshot_2024-09-20_at_062540.png)
 
 **What happens when elements don't use up a storage slot space?**
 
@@ -323,11 +323,11 @@ Each element occupies 4 bytes out of the available 32 bytes per storage slot. Wi
 
 Test on remix:
 
-![remix screenshot showing the value in slot 0](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/Screenshot_2024-07-26_at_201428.png)
+![remix screenshot showing the value in slot 0](https://r2media.rareskills.io/solidity-iii/Screenshot_2024-07-26_at_201428.png)
 
 The return value: 
 
-![diagram showing how the elements are packed in a single slot](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/Screenshot_2024-08-28_at_084411.png)
+![diagram showing how the elements are packed in a single slot](https://r2media.rareskills.io/solidity-iii/Screenshot_2024-08-28_at_084411.png)
 
 ## Nested Array
 
@@ -339,7 +339,7 @@ C ⇒ green
 
 R ⇒ red
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/MatrixA_1.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/solidity-iii/MatrixA_1.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 <aside>
 📔
@@ -356,7 +356,7 @@ The compiler allocates slots for elements in a fixed-size nested array just like
 
 Here’s a simple animation that illustrates how a fixed-size nested array stores data:
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/privAanim.mov" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/solidity-iii/privAanim.mov" type="video/mp4" autoplay loop muted controls></video>
 
 
 **Storage Slot For Dynamic Nested Array**
@@ -379,7 +379,7 @@ The steps to determine the storage slot for element `f` are:
 
 Here’s an animation that illustrates the above steps:
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/keccakanimr2_5.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/solidity-iii/keccakanimr2_5.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 
 We first hash the base slot and add the index of the sub-array (`sub-array1`, which is index 1 in the base array), which gives us the initial hash (the slot holding the sub-array). Next, we hash this initial hash and add the index of element `f` (which is 2) within `sub-array1` to determine the final slot.
@@ -430,7 +430,7 @@ Suppose we want to find the storage slot that holds the element `8` in the array
     
 3. Lastly, call the `getSlotValue` function passing the returned slot from step2.
     
-    ![remix screenshot of the slot and slot value](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/Screenshot_2024-10-03_at_225038.png)
+    ![remix screenshot of the slot and slot value](https://r2media.rareskills.io/solidity-iii/Screenshot_2024-10-03_at_225038.png)
     
 
 ## String
@@ -469,7 +469,7 @@ The string data and its length are stored together in the base slot. The string 
 
 Below is an example of a short string `Hello World` in hex. The zeros are free space that can be used to store a longer string of up to 31 bytes, and the last byte holds the `(length of the string) * 2`. 
 
-![diagram of a slot hold "Hello World" string and its length](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/Screenshot_2024-08-28_at_084411_1.png)
+![diagram of a slot hold "Hello World" string and its length](https://r2media.rareskills.io/solidity-iii/Screenshot_2024-08-28_at_084411_1.png)
 
 Here 0x16 = 22 is 2 * 11, where 11 is the length of the string `Hello World`
 
@@ -479,14 +479,14 @@ The `(length of the string * 2) + 1` (we will explain the reason for adding 1 sh
 
 The following animation shows how the length and long string (in hex) are stored in storage slots:
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/storageslot2_4.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/solidity-iii/storageslot2_4.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 
 Before the length of a long string is stored, the compiler adds one to it (making it go from even to odd). For example, the string in the animation above takes up 47 bytes (32 + 15), meaning its length is `47 * 2 = 94` (0x5e in hex). Solidity compiler then adds 1 to this length, making it 95 (0x5f in hex), and stores this value in the base slot. 
 
 The reason for this is to allow the runtime bytecode to efficiently differentiate between short and long strings. For short strings, the length is always even, so the last bit of the value stored in the base slot will always be zero. On the other hand, long strings (32 bytes or longer) always have an odd length, meaning the last bit will always be one.
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/storageslot2_1_1.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/solidity-iii/storageslot2_1_1.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 
 **Optimized Even And Odd Check**
@@ -513,7 +513,7 @@ contract BitwiseAndMethod {
 
 String type in Solidity does not have length property. This is because some characters, particularly those in non-ascii, can take up more than one byte, so tracking how many characters there are when they could have different size creates too much overhead. However, we can see how many bytes the string takes up by casting it to bytes as the example below shows:
 
-![remix screenshot showing how to get the length of strings](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/Screenshot_2024-08-28_at_165203.png)
+![remix screenshot showing how to get the length of strings](https://r2media.rareskills.io/solidity-iii/Screenshot_2024-08-28_at_165203.png)
 
 In `text2`, each character takes 3 bytes, making 6 bytes. To use the `length` property on a string, you need to convert the string to `bytes` like in the screenshot.
 
@@ -530,7 +530,7 @@ They are types used to store a fixed number of bytes. These types range from `by
 
 Storing a value that is more or less than the bytes size used will throw a compile time error. In the image below, the variables `value2` and `value4` are assigned values that are not their expected byte sizes, resulting in a compilation error.
 
-![remix screenshot showing different values assigned to different byte sizes](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/Screenshot_2024-10-09_at_070348.png)
+![remix screenshot showing different values assigned to different byte sizes](https://r2media.rareskills.io/solidity-iii/Screenshot_2024-10-09_at_070348.png)
 
 We have used `bytes32` in most of our previous code examples to hold `keccak256` hashes.
 
@@ -610,7 +610,7 @@ Another difference between `bytes` and `bytes1[]` is how their values are stored
 
 The animation shows how the new values assigned to `foo_bytes` and `bar_bytes` variable takes up two slots each (slots in green and yellow), with `foo_bytes` taking slot 0 and `bar_bytes` taking slot 1:
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/keccak256_5.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/solidity-iii/keccak256_5.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 
 ## Struct
@@ -719,7 +719,7 @@ Step 3: Hash the concatenation of the key and the mapping's base slot
     
     The following image shows how the target slot (green box) is determined by passing the right key (in this case, a level `2`) and the mapping’s base slot (`3`), then `sload`-ing the target slot:
     
-    ![remix screenshot showing slot for mapping within a struct and its value](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/Screenshot_2024-10-09_at_072845.png)
+    ![remix screenshot showing slot for mapping within a struct and its value](https://r2media.rareskills.io/solidity-iii/Screenshot_2024-10-09_at_072845.png)
     
 
 In the blue box, is the returned value (the player’s score for level 2) from `sload`-ing the target slot.

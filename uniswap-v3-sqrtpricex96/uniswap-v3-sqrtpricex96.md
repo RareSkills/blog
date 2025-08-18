@@ -12,7 +12,7 @@ The goal of this chapter is to discuss where and how Uniswap V3 stores the squar
 
 The square root of the price is stored in the field variable `sqrtPriceX96` of the struct `slot0` in the [pool’s contract](https://github.com/Uniswap/v3-core/blob/main/contracts/UniswapV3Pool.sol#L56-L74), as shown in the image below. 
 
-![slot0 code screenshot](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/SqrtPriceX96-images/slot0.png)
+![slot0 code screenshot](https://r2media.rareskills.io/SqrtPriceX96-images/slot0.png)
 
 The struct `slot0` also stores other variables, such as `tick`, which represents the current tick, as we saw in the [chapter on ticks](https://www.rareskills.io/post/uniswap-v3-ticks). The other variables in `slot0` relate to the oracle, fees, or contract security and will be examined later.
 
@@ -102,7 +102,7 @@ To recover the original (and real) values, simply divide the above values by $2^
 
 The current `sqrtPriceX96` value for the [ETH:DAI pool in Base](https://basescan.org/address/0x93e8542E6CA0eFFfb9D57a270b76712b968A38f5#readContract) can be seen in the image below as `4552234755200983230583166215033`.
 
-![sqrtPrice screenshot](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/SqrtPriceX96-images/readSlot0.png)
+![sqrtPrice screenshot](https://r2media.rareskills.io/SqrtPriceX96-images/readSlot0.png)
 
 To convert from `sqrtPriceX96` to $\sqrt{p}$, we divide the obtained value by $2^{96}$. So:
 
@@ -124,7 +124,7 @@ As another example, let's retrieve the `sqrtPriceX96` in the [USDC:ETH pool on m
 
 As can be seen in the image, the value is `1506673274302120988651364689808458`.
 
-![USDCETH pool](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/SqrtPriceX96-images/USDCETH.png)
+![USDCETH pool](https://r2media.rareskills.io/SqrtPriceX96-images/USDCETH.png)
 
 The value for $\sqrt{p}$ can be calculated as 
 

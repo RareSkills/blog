@@ -108,7 +108,7 @@ In general, we can convert an integer to a Qm.n number by leftshifting the integ
 
 The animation below illustrates this:
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/QNumbers/IntegerToQ44c.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/QNumbers/IntegerToQ44c.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 ## Converting a Q number to an integer
 
@@ -118,7 +118,7 @@ Therefore, if we want to extract the integer portion of a fixed point number, we
 
 Consider the following animation of converting a Q4.4 number to an integer:
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/QNumbers/Q44ToInteger.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/QNumbers/Q44ToInteger.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 ## Constructing a fixed point value
 

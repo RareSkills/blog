@@ -354,4 +354,4 @@ $$
 
 As a teaser, here is a screenshot of `getSqrtRatioAtTick()` from the [Uniswap V3 Tickmath Library](https://github.com/Uniswap/v3-core/blob/main/contracts/libraries/TickMath.sol). This should look very similar to the Solidity code we wrote above. At a high level, the function checks if a bit in `absTick` is set, and if it is, it multiplies `ratio` by a precomputed power of 1.0001.
 
-![Uniswap getSqrtRatioAtTick](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/SquareAndMultiply/UniswapGetSqrtPriceTick.png)
+![Uniswap getSqrtRatioAtTick](https://r2media.rareskills.io/SquareAndMultiply/UniswapGetSqrtPriceTick.png)

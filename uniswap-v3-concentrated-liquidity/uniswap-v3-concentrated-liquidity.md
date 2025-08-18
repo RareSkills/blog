@@ -24,7 +24,7 @@ If there was 900 USDC and 1.1111 ETH, the liquidity remains at 1000 because 900 
 
 The following animation plots $xy=k$, while sweeping the value for $k$. Note that as $k$ gets larger, the curve moves further away from the origin.
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/ConcentratedLiquidityUniswapV3/sweepKSimple.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/ConcentratedLiquidityUniswapV3/sweepKSimple.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 The more reserves there are, the greater the distance of the curve from the origin, and the greater the liquidity.
 
@@ -48,7 +48,7 @@ In Uniswap v3, tokens X and Y are also known as `token0` and `token1`. In these 
 
 Below we show a regular $xy=k$ price curve. The <span style="color:green">green point</span> on the curve represents the current reserves of both `token0` and `token1`. Recall that we are using `token0` and token X to refer to the same thing (and same for `token1` and token Y). As the <span style="color:green">green point</span> moves up and to the left, the price of `token0` increases, as that corresponds to smaller reserves of `token0`:
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/ConcentratedLiquidityUniswapV3/shrinkReserveToken0.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/ConcentratedLiquidityUniswapV3/shrinkReserveToken0.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 As can be seen in the graphic above and in the formula:
 
@@ -64,11 +64,11 @@ We can visualize “price” as a ray (a line with a starting point, but no end 
 
 Consider that any combination of reserves that intersects with the yellow ray below has the same ratio. Hence, the point of intersection on this ray with the price curve represents the same price, regardless of the liquidity:
 
-![An animation showing how along a ray, the ratio of reserves is constant](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/ConcentratedLiquidityUniswapV3/constantRatio.gif)
+![An animation showing how along a ray, the ratio of reserves is constant](https://r2media.rareskills.io/ConcentratedLiquidityUniswapV3/constantRatio.gif)
 
 Let $\theta$ be the angle of the ray from the origin to the current price on the price curve. The greater the angle of $\theta$, the higher the price:
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/ConcentratedLiquidityUniswapV3/SweepRayC.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/ConcentratedLiquidityUniswapV3/SweepRayC.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 Now that we have a rigorous definition and visualization of price, we can define and illustrate price impact. We will tie price impact back to liquidity afterwards.
 
@@ -102,7 +102,7 @@ where $\color{green}\epsilon$ is the amount of `token1` the trader paid the pool
 
 Amounts $\color{green}{\epsilon}$ and $\color{red}{\delta}$, and their effect on the price, are shown visually below:
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/ConcentratedLiquidityUniswapV3/DeltaPriceRayC.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/ConcentratedLiquidityUniswapV3/DeltaPriceRayC.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 Regardless of how small $\color{green}{\epsilon}$ and $\color{red}{\delta}$ are (as long as they are not zero), it must be the case that
 
@@ -144,7 +144,7 @@ We visualize the price impact of this trade below.
 
 The price starts on the intersection between the dotted <span style="color:Green">green ray</span> and the <span style="color:#008aff">blue price curve</span>. The <span style="color:Green">green ray</span> is plotted with $y=x$, since the assets start at the same price. The end price is where the <span style="color:red">red ray</span> intersects the <span style="color:#008aff">blue price curve</span>. The price impact is quite visible here (the graph is to scale):
 
-![A demonstration of a large price impact on Uniswap V2](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/ConcentratedLiquidityUniswapV3/largePriceImpact.jpg)
+![A demonstration of a large price impact on Uniswap V2](https://r2media.rareskills.io/ConcentratedLiquidityUniswapV3/largePriceImpact.jpg)
 
 (We assume that both tokens have the same amount of decimals, so the decimals can be ignored).
 
@@ -166,7 +166,7 @@ In this example and the previous, the trader obtained 1 USDC. However, the price
 
 The price impact in this example is noticeably smaller:
 
-![A demonstration of a small price impact on Uniswap V2](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/ConcentratedLiquidityUniswapV3/smallPriceImpact.jpg)
+![A demonstration of a small price impact on Uniswap V2](https://r2media.rareskills.io/ConcentratedLiquidityUniswapV3/smallPriceImpact.jpg)
 
 ### Example 3: xy = 1 quintillion
 
@@ -198,7 +198,7 @@ However, because of price impact, USDC and USDT do not trade at 1:1 — this is 
 
 Since we expect the trade price to be 1:1 or close to it, we expect most of the trades to happen in the region where the reserves are equal to each other, as visualized below. If the price goes outside this region, then arbitragers will buy up the cheaper stablecoin and sell it on an exchange. Therefore, we can expect most trades to happen in the <span style="color:red">red region</span> below:
 
-![A Uniswap V2 curve with the region where the stablecoins trade highlighted in red](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/ConcentratedLiquidityUniswapV3/redStableRegion.png)
+![A Uniswap V2 curve with the region where the stablecoins trade highlighted in red](https://r2media.rareskills.io/ConcentratedLiquidityUniswapV3/redStableRegion.png)
 
 ### Wasted liquidity
 
@@ -223,7 +223,7 @@ xy =
 $$
 
 If we plot the piecewise equation above, we get the following:
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/ConcentratedLiquidityUniswapV3/concentrate99to100.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/ConcentratedLiquidityUniswapV3/concentrate99to100.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 Since we have a much larger liquidity in the price range where we expect the stablecoins to trade, we expect a significantly reduced price in that region. We reduced price impact for most trades without requiring more capital.
 
@@ -237,7 +237,7 @@ We noted at the beginning of this article that liquidity is proportional to the 
 
 Therefore, since the liquidity varies for different price ranges, the price curve of a Uniswap V3 pool might look like the following graphic.
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/ConcentratedLiquidityUniswapV3/CrossingCurvesC.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/ConcentratedLiquidityUniswapV3/CrossingCurvesC.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 Even though the curves appear to be discontinuous, the price (represented with the orange ray) can transition smoothly between each “mini Uniswap V2 curve.” Each of the “sub curves” are of the form $xy=k$, but $k$ is different for each sub curve. The value of $k$ for a sub curve will entirely depend on how much liquidity LPs placed there. As the liquidity $k$ for that segment increases, its distance from the origin increases. Since the curves have different liquidities, their distances from the origin varies.
 
@@ -245,7 +245,7 @@ Even though the curves appear to be discontinuous, the price (represented with t
 
 To keep accounting simple, LPs cannot provide liquidity at arbitrary price boundaries, but at predefined prices called *ticks*. Recall that the price is proportional to the angle of a ray from the origin to the price point on the curve. Therefore, we can visualize ticks as places where the price curve intersects with predefined rays from the origin:
 
-![Rays from the origin crossing a disjointed Uniswap V2 Curve](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/ConcentratedLiquidityUniswapV3/ticks.jpeg)
+![Rays from the origin crossing a disjointed Uniswap V2 Curve](https://r2media.rareskills.io/ConcentratedLiquidityUniswapV3/ticks.jpeg)
 
 How these ticks are chosen and spaced is the subject of a later chapter.
 
@@ -288,23 +288,23 @@ However, LPs will tend to place liquidity around where they expect trades to hap
 
 In the screen recording below, we see the Uniswap V3 LP user interface for the [ETH/USDC V3 pool on Base](https://app.uniswap.org/explore/pools/base/0xd0b53D9277642d899DF5C87A3966A349A798F224). The gray vertical line is the current price, and the two blue lines are the lower and upper predefined price where Uniswap V3 allows LPs to add liquidity. Note that the <span style="color:#008aff">blue lines</span> cannot be set to arbitrary locations, but only at predefined prices.
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/ConcentratedLiquidityUniswapV3/TickPlacementC.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/ConcentratedLiquidityUniswapV3/TickPlacementC.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 Here is a plot showing what a Uniswap V3 curve might look like for a pool of two stablecoins.
 
-![A distribution of liquidity around 1:1](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/ConcentratedLiquidityUniswapV3/stableliq.jpeg)
+![A distribution of liquidity around 1:1](https://r2media.rareskills.io/ConcentratedLiquidityUniswapV3/stableliq.jpeg)
 
 A price of 1:1, which we expect for a stablecoin pair, corresponds to the 45 degree ray where the ratio of reserves equals 1. Hence the liquidity ends up concentrated around center region where the ratio of reserves is 1 to 1 :
 
 Below is a screenshot of how Uniswap V3 visualizes concentrated liquidity. In the USDC / USDT pool below, we see there is high liquidity around the price 1.000, which is where LPs expect the trades to occur:
 
-![A screenshot of the Uniswap V3 USDC USDT pool showing the liquidity concentration](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/ConcentratedLiquidityUniswapV3/usdcUsdtConcentration.jpg)
+![A screenshot of the Uniswap V3 USDC USDT pool showing the liquidity concentration](https://r2media.rareskills.io/ConcentratedLiquidityUniswapV3/usdcUsdtConcentration.jpg)
 
 (The graphic above can be found by going to the [USDC/USDT pool on mainnet](https://app.uniswap.org/explore/pools/ethereum/0x3416cF6C708Da44DB2624D63ea0AAef7113527C6), and then clicking “Add Liquidity”)
 
 For a pool where `token0` is more expensive than `token1`, the liquidity will tend to be more concentrated around that price:
 
-![Liquidity concentrated around a high token0 price](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/ConcentratedLiquidityUniswapV3/highToken0Price.jpg)
+![Liquidity concentrated around a high token0 price](https://r2media.rareskills.io/ConcentratedLiquidityUniswapV3/highToken0Price.jpg)
 
 If the market price changes significantly, then liquidity providers will remove their liquidity and place it around the new price to capture the swap fees.
 
@@ -312,7 +312,7 @@ If the market price changes significantly, then liquidity providers will remove 
 
 Even though the curve is discontinuous, a trader can still trade seamlessly between ticks. Once a tick is crossed, Uniswap V3 recalculates the amount of liquidity available for the rest of the trade as the following animation shows:
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/ConcentratedLiquidityUniswapV3/crossingGap.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/ConcentratedLiquidityUniswapV3/crossingGap.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 When the price crossed the tick, the reserves suddenly jumped up because the swap enters a region where the liquidity is higher, and hence the reserves are higher. This jump in reserves reflects the increased amount of reserves that LPs previously put in that price range.
 

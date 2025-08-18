@@ -60,7 +60,7 @@ The minimum and maximum ticks indexes are hardcoded as `MIN_TICK` and `MAX_TICK`
 
 The minimum and maximum values the `sqrtPriceX96` variable can assume are also hardcoded as `MIN_SQRT_RATIO` and `MAX_SQRT_RATIO`, respectively. This can be seen in the screenshot below, and these values will be calculated in a later section.
 
-![Screenshot of the min tick and max tick in Uniswap V3 TickMath library](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3-MinMaxTick/LibraryTickMath.png)
+![Screenshot of the min tick and max tick in Uniswap V3 TickMath library](https://r2media.rareskills.io/UniswapV3-MinMaxTick/LibraryTickMath.png)
 
 ## Ticks and the square root of the price
 
@@ -106,7 +106,7 @@ This value, `4295128738`, is slightly below tick -887272 (remember, the value as
 
 Therefore, we conclude that rounding up is necessary . That is, the smallest value that the `sqrtPriceX96` variable can assume is `4295128739` , as it is hardcoded into the codebase.
 
-![Min square root ratio variable screenshot](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3-MinMaxTick/MinSqrtRatio.png)
+![Min square root ratio variable screenshot](https://r2media.rareskills.io/UniswapV3-MinMaxTick/MinSqrtRatio.png)
 
 This calculation can be done in Python as
 
@@ -131,7 +131,7 @@ The number of bits required to store 887,272 is $\log_2(887,272)\approx20$. Sinc
 
 Since Solidity only supports `int` sizes that are multiples of 8, this smallest `int` size that will hold all the ticks we need is `int24`. Therefore, Uniswap V3 uses an `int24` to hold tick indexes ([code link](https://github.com/Uniswap/v3-core/blob/d8b1c635c275d2a9450bd6a78f3fa2484fef73eb/contracts/UniswapV3Pool.sol#L60)), as we can see below. 
 
-![tick variable in slot0](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3-MinMaxTick/ImgTick.png)
+![tick variable in slot0](https://r2media.rareskills.io/UniswapV3-MinMaxTick/ImgTick.png)
 
 ## Summary
 
