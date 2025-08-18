@@ -352,12 +352,17 @@ The number of square bracket after a type, equals the depth of a nested array. F
 
 **Storage Slot For Fixed-Size Nested Array**
 
-The compiler allocates slots for elements in a fixed-size nested array just like it does for a regular fixed-size array. Each element is allocated a slot incrementally, starting from the base slot, if it occupies an entire slot. Otherwise, it is packed together with other elements until the slot space  is filled up.
+The compiler allocates slots for elements in a fixed-size nested array just like it does for a regular fixed-size array. Each element is allocated a slot incrementally, starting from the base slot, if it occupies an entire slot. Otherwise, each element in the sub array is packed together until the slot space is filled up.
 
 Here’s a simple animation that illustrates how a fixed-size nested array stores data:
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/solidity-iii/privAanim.mov" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/StorageSlots1/matrixanim2.mp4" type="video/mp4" autoplay loop muted controls></video>
 
+If the elements in a sub array exceed the space of a single storage slot, the remaining elements are stored in the next slot. In the animation below, each element in the subarray is a `uint128`, which takes up half of a 256-bit storage slot (128 bits = 16 bytes).
+
+Since two uint128 values can fit into one slot, Solidity packs them tightly from left to right. For example, the first two elements of the first subarray (`[2,9,6]`) are stored in the same slot, element `2` in the lower 128 bits and element `9` in the upper 128 bits. Since a third uint128 value cannot fit in the same slot, the element `6` spills over into the next available storage slot. This packing behavior continues sequentially across the full array.
+
+<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/StorageSlots1/matrixanim3.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 **Storage Slot For Dynamic Nested Array**
 
