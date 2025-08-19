@@ -69,7 +69,8 @@ The init code is the fragment of the creation code responsible for deploying a c
 ### Payable constructor contract
 
 ```solidity
-pragma solidity 0.8.17;// optimizer: 200 runscontract Minimal {
+pragma solidity 0.8.17;// optimizer: 200 runs
+contract Minimal {
     constructor() payable {
 
     }
