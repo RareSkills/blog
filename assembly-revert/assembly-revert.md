@@ -4,7 +4,7 @@ Reverting transactions using inline assembly can be more gas-efficient than usin
 
 The example below shows that the `revert` statement in the assembly version reduces the gas cost from 157 gas to 126 gas, saving 31 gas:
 
-![A screenshot showing how Assembly `revert` is more gas-efficient compared to the regular Solidity `revert`](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/image.png)
+![A screenshot showing how Assembly `revert` is more gas-efficient compared to the regular Solidity `revert`](https://r2media.rareskills.io/assembly-revert-images/image.png)
 
 As a pre-requisite, we assume that you have read the [Try Catch and All the Ways Solidity Reverts](https://www.rareskills.io/post/try-catch-solidity) article as well as our [article on ABI encoding](https://www.rareskills.io/post/abi-encoding).
 
@@ -53,7 +53,7 @@ assembly {
 
 This shifts the start of the data by one byte, and the first byte at `0x00` will remain unaffected. The diagram below shows how `mstore` stores data in memory:
 
-![A diagram showing how memory looks like after mstore is executed](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/image_1.png)
+![A diagram showing how memory looks like after mstore is executed](https://r2media.rareskills.io/assembly-revert-images/image_1.png)
 
 Note that even though we specified writing to byte index `0` in `mstore(0, ...)`, we wrote to 0 — and also the following 31 bytes — `mstore` writes 32 bytes at a time. 
 
@@ -75,17 +75,17 @@ In other words, `mstore(0x00, 0xff)` implicitly becomes `mstore(0x00, 0x00000000
 
 The result of the value in memory is shown here:
 
-![A diagram showing 0xff written to the 31st byte in EVM memory](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/image_2.png)
+![A diagram showing 0xff written to the 31st byte in EVM memory](https://r2media.rareskills.io/assembly-revert-images/image_2.png)
 
 Recall that `mstore` writes 32 bytes, but in this case, 31 of those bytes are zeros, spanning from the `0th` byte to the `30th` byte inclusive. This means any data within the byte range 0-31 will be overwritten with zeros.
 
 We can see how it looks like in memory if we return the stored data as shown in the screenshot below:
 
-![A screenshot from Remix showing the revert values returned from a function](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/image_3.png)
+![A screenshot from Remix showing the revert values returned from a function](https://r2media.rareskills.io/assembly-revert-images/image_3.png)
 
 The diagram below shows how `mstore` implicitly left-pads various hex values, with the first row being the example we just looked.
 
-![A diagram showing how values smaller than 32 bytes are left-padded when stored to byte 0](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/mstore.jpg)
+![A diagram showing how values smaller than 32 bytes are left-padded when stored to byte 0](https://r2media.rareskills.io/assembly-revert-images/mstore.jpg)
 
 ## Using `mstore8` to store data in memory
 
@@ -107,9 +107,9 @@ assembly {
 
 And the output will be the same as using `mstore`, with `0xff` occupying the last byte.
 
-![return value of memory in bytes](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/Screenshot_2024-09-28_at_6.31.02_PM.png)
+![return value of memory in bytes](https://r2media.rareskills.io/assembly-revert-images/Screenshot_2024-09-28_at_6.31.02_PM.png)
 
-![mstore8 opcode diagram example](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/image_4.png)
+![mstore8 opcode diagram example](https://r2media.rareskills.io/assembly-revert-images/image_4.png)
 
 The key difference between `mstore8` and `mstore` is that `mstore8` doesn’t add 31 extra zeros that would overwrite previously stored data spanning from the `0th` to the `31st` byte, unlike `mstore`.
 
@@ -127,15 +127,15 @@ assembly {
 
 This will store the value exactly as you specified, with `0xff` at the beginning and the remaining bytes as zeros:
 
-![mstore opcode visual diagram](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/image_5.png)
+![mstore opcode visual diagram](https://r2media.rareskills.io/assembly-revert-images/image_5.png)
 
 Here is a test run of the code in remix:
 
-![solidity code using mstore](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/image_6.png)
+![solidity code using mstore](https://r2media.rareskills.io/assembly-revert-images/image_6.png)
 
 That seems like a lot of zeros, right? Alternatively, we can use `mstore8` to store one byte of data at a specific memory location. In the example below, we used `mstore8` to store `0xff` at the `0th` byte:
 
-![solidity code using mstore8](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/image_7.png)
+![solidity code using mstore8](https://r2media.rareskills.io/assembly-revert-images/image_7.png)
 
 This is a much more compact code that does the same thing as the one in the previous screenshot, except that it does not write zeros into bytes 1 to 31.
 
@@ -158,7 +158,7 @@ assembly {
 
 we will now have `0xCC` at the `0th` position, while the rest of the memory remains unchanged, as illustrated in the diagram below.
 
-![mstore8 opcode usage example](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/image_8.png)
+![mstore8 opcode usage example](https://r2media.rareskills.io/assembly-revert-images/image_8.png)
 
 Subsequently, if we store `0xFF` using `mstore(0, 0xFF)` like so:
 
@@ -179,7 +179,7 @@ assembly {
 
 The animation below shows how this overwrite happens:
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/Mstore8Scene.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/assembly-revert-images/Mstore8Scene.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 This demonstrates that the 31 padded zeros of `mstore` actually alters the contents of memory.
 
@@ -232,7 +232,7 @@ contract ContractA {
 
 The screenshot below shows a [low-level call](https://rareskills.io/post/low-level-call) from `ContractA` to `ContractB` and how the low-level call returned `false` because `ContractB` reverted, and no data is returned since we are using `revert(0,0)`
 
-![return value of a failed low-level call](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/image_9.png)
+![return value of a failed low-level call](https://r2media.rareskills.io/assembly-revert-images/image_9.png)
 
 ## 2a. Custom revert in assembly with no parameters
 
@@ -336,11 +336,11 @@ contract RevertErrorExample {
 
 The outcome is shown in the screenshot below. The only difference is in the gas cost. The screenshot shows that we saved 54 gas units by triggering revert via Assembly rather than in Solidity.
 
-![revert with and without assembly gas usage difference](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/revert-update.drawio.jpg)
+![revert with and without assembly gas usage difference](https://r2media.rareskills.io/assembly-revert-images/revert-update.drawio.jpg)
 
 Also, in the code below, `callContractB` separately uses `try/catch` on `customRevertWithAssembly` and `customRevertWithoutAssembly` to parse the error, showing their behavior is the same.
 
-![reverts in assembly and normal solidity showing the same error output](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/image_10.png)
+![reverts in assembly and normal solidity showing the same error output](https://r2media.rareskills.io/assembly-revert-images/image_10.png)
 
 ### An alternative method to store the selector when a custom error has no parameters and trigger revert
 
@@ -369,7 +369,7 @@ In memory, the zeros will be added in the left of the function selector from the
 
 In other words `0x82b42900` gets expanded to `0000000000000000000000000000000000000000000000000000000082b42900` and stored in bytes `0` to `31` as shown below:
 
-![using mstore to store the function selector in memory](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/image_11.png)
+![using mstore to store the function selector in memory](https://r2media.rareskills.io/assembly-revert-images/image_11.png)
 
 Since the function selector is now at the 28th byte (`0x1c` in hex), you can revert from this location instead of `0x00`, as shown below:
 
@@ -475,7 +475,7 @@ contract A {
 
 This is how Solidity will store the revert data in memory and the result of the revert data will be returned eventually.
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/Memoryanim.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/assembly-revert-images/Memoryanim.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 ## 3. Revert with a reason in assembly
 
@@ -495,7 +495,7 @@ contract A {
 
 If we trigger the `revert("Unauthorized");` function in the contract above, the result will look like the example below.
 
-![interpreting the raw revert error output](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/image_12.png)
+![interpreting the raw revert error output](https://r2media.rareskills.io/assembly-revert-images/image_12.png)
 
 In this section, we’ll replicate the revert with a string behavior in Solidity using assembly by following the steps below:
 
@@ -558,7 +558,7 @@ The result will be:
 
 The first 4 bytes (`0x08c379a0`) is the selector padded with zeros to make up for the 32-bytes requirement.
 
-![mstore the function selector in memory](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/image_13.png)
+![mstore the function selector in memory](https://r2media.rareskills.io/assembly-revert-images/image_13.png)
 
 ### 2. Store the offset to the error message string
 
@@ -572,7 +572,7 @@ Remember, we mentioned that it's possible to overwrite memory if two memory loca
 
 This means that the remaining data from the function selector (the padded zeros in this case) will be replaced, starting from the 4th byte as shown in the diagram below:
 
-![storing the offset to the error message string](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/image_14.png)
+![storing the offset to the error message string](https://r2media.rareskills.io/assembly-revert-images/image_14.png)
 
 ### 3. Store the length of the error message string
 
@@ -586,7 +586,7 @@ The length of the string `Unauthorized` is 12 (`0xc`) bytes.
 mstore(0x24, 0xc) // 36 is 0x24 in hex
 ```
 
-![location in memory to store the length of the error message string](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/image_15.png)
+![location in memory to store the length of the error message string](https://r2media.rareskills.io/assembly-revert-images/image_15.png)
 
 ### 4. Store the actual error message string
 
@@ -598,7 +598,7 @@ mstore(0x44, "Unauthorized") //68 is 0x44 in hex
 // 0x556E617574686F72697A65640000000000000000000000000000000000000000
 ```
 
-![example location in memory to store the raw error message string](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/image_16.png)
+![example location in memory to store the raw error message string](https://r2media.rareskills.io/assembly-revert-images/image_16.png)
 
 ### 5. Trigger the revert:
 
@@ -620,7 +620,7 @@ revert(0x00, 0x64) // 100 is 0x64 in hex
 
 So, the revert will return the following data with exactly 100 bytes when triggered:
 
-![raw data of the crafted custom revert](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/image_17.png)
+![raw data of the crafted custom revert](https://r2media.rareskills.io/assembly-revert-images/image_17.png)
 
 Even though the string `Unauthorized` does not use up the full 32 bytes, the receiver will know to only read 12 bytes of data due to the length parameter `0x0c`.
 
@@ -654,7 +654,7 @@ contract ContractA {
 
 Here is a screenshot showing the output of the revert when you call the `revertWithAssembly()` the  function. The result is the same as what we saw when we triggered `revert(“Unauthorized”)` in Solidity.
 
-![revert with assembly raw output](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/image_18.png)
+![revert with assembly raw output](https://r2media.rareskills.io/assembly-revert-images/image_18.png)
 
 However, the difference is in the amount of gas they both consume. Run the reverts in the following contracts to see the difference in gas cost. Below is the code we use to test the gas costs:
 
@@ -690,13 +690,13 @@ contract ContractB {
 
 The illustration below shows the difference in gas cost for the `revertWithAssembly` function and the `revertWithoutAssembly`.
 
-![revert with and without assembly cost difference](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/image_19.png)
+![revert with and without assembly cost difference](https://r2media.rareskills.io/assembly-revert-images/image_19.png)
 
 From the above test, we saved `273` gas as the revert without assembly cost `428` gas while the revert with assembly cost `155` gas. The difference is `273`. 
 
 To further verify that the error was properly formed, we can try to catch the error in a `try/catch` block as shown in the screenshot below:
 
-![unauthorized error](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/assembly-revert-images/image_20.png)
+![unauthorized error](https://r2media.rareskills.io/assembly-revert-images/image_20.png)
 
 From the above screenshot, we can see that the error was caught in the `Error` `catch` block as expected and the reason was printed `Unauthorized`.
 

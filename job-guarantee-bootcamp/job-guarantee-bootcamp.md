@@ -65,7 +65,7 @@ Let's look at a hypothetical 30-day programming study plan just for blockchain s
 
 In fact, some of our challenges have pushed some of the strongest programmers in web3 to the limit:
 
-![screenshot of w1nt3r's tweet](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/job-guarantee-bootcamp-w1nt3r-tweet.png)
+![screenshot of w1nt3r's tweet](https://r2media.rareskills.io/job-guarantee-bootcamp-w1nt3r-tweet.png)
 
 [Original Tweet](https://x.com/w1nt3r_eth/status/1588942261730963456)
 

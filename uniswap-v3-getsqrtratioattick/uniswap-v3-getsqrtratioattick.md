@@ -8,7 +8,7 @@ $$
 
 where $i$ is the tick index. Below is a screenshot of the function:
 
-![screenshot of getsqrtratioattick()](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/GetSqrtRatioAtTick/functionScreenShot.png)
+![screenshot of getsqrtratioattick()](https://r2media.rareskills.io/GetSqrtRatioAtTick/functionScreenShot.png)
 
 This tutorial assumes the reader has understood our treatment of the [square-and-multiply algorithm](https://www.rareskills.io/post/square-and-multiply), which `getSqrtRatioAtTick()` relies on. We refer to concepts in that tutorial regularly here, so we suggest the reader review that article first.
 
@@ -24,7 +24,7 @@ The function takes the following steps:
 
 Here are the steps outlined in the code:
 
-![Five steps in getsqrtratioattick](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/GetSqrtRatioAtTick/getSqrtRatioAtTick.png)
+![Five steps in getsqrtratioattick](https://r2media.rareskills.io/GetSqrtRatioAtTick/getSqrtRatioAtTick.png)
 
 ## Part 1/5: Why Uniswap V3 computes absolute value tick, i.e. $\sqrt{1.0001^{-|i|}}$
 
@@ -148,7 +148,7 @@ We now show how Uniswap V3 derived the large constants.
 
 The large constant `0x100000000000000000000000000000000` (purple box) is the Q128.128 fixed point number $1$ (equivalent to `2 << 128`).
 
-![Constant for tick 0](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/GetSqrtRatioAtTick/absTick0.png)
+![Constant for tick 0](https://r2media.rareskills.io/GetSqrtRatioAtTick/absTick0.png)
 
 This corresponds to tick 0, $\sqrt{1.0001^0}=1$. Consider that if `tick = 0`, then `absTick & 0x1 != 0` one line 27 (orange box) will be false, triggering the second part of the ternary operator.
 
@@ -165,7 +165,7 @@ If we compute the price of tick `-1` in Q128.128 in Python we get the following:
 
 When converted to hex, it is close to the magic number highlighted below, but it is clear our estimate above has more zeros at the end, meaning it had precision loss:
 
-![Constant for tick 1](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/GetSqrtRatioAtTick/absTick1.png)
+![Constant for tick 1](https://r2media.rareskills.io/GetSqrtRatioAtTick/absTick1.png)
 
 Here is Uniswap’s constant for $\sqrt{1.0001^{-1}}$ compared to our estimate:
 
@@ -267,7 +267,7 @@ $$
 
 The line of code shown below computes the reciprocal if the original tick was positive.
 
-![reciprocal computation](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/GetSqrtRatioAtTick/reciprocal.png)
+![reciprocal computation](https://r2media.rareskills.io/GetSqrtRatioAtTick/reciprocal.png)
 
 We now explain why the code uses `type(uint256).max` in the numerator. Note that `ratio` is the price as a Q128.128 number.
 

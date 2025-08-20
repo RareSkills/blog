@@ -15,7 +15,7 @@ We will begin this chapter by studying real reserves in more detail, then move o
 Let’s consider the illustration below, which shows a single segment. The current price is represented by the red ray. This segment has $x_r$ real reserves in token X and $y_r$ real reserves in token Y, as shown geometrically in the illustration.
 
 
-![Real Reserves Depiction](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3VirtualReserves/image-01.png)
+![Real Reserves Depiction](https://r2media.rareskills.io/UniswapV3VirtualReserves/image-01.png)
 
 The real reserve of token X is the distance between the x-coordinate of the price and the x-coordinate of the upper tick. The same goes for token Y, but now it's the distance in y to the lower tick.
 
@@ -25,17 +25,17 @@ One important difference between reserves in a segment—used in Uniswap v3—an
 
 Imagine that, through a swap, the price moves to the position shown in the image below. In this case, all tokens X will be removed from the segment, and the real reserves will consist only of tokens Y.
 
-![A Uniswap V3 segment only containing token Y](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3VirtualReserves/image-02.png)
+![A Uniswap V3 segment only containing token Y](https://r2media.rareskills.io/UniswapV3VirtualReserves/image-02.png)
 
 Another possibility is that the price moves all the way to the lower tick, as illustrated below. In this case, the segment's real reserves will consist entirely of token X, and the segment will be completely depleted of token Y.
 
-![A Uniswap V3 segment only containing token X](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3VirtualReserves/image-03.png)
+![A Uniswap V3 segment only containing token X](https://r2media.rareskills.io/UniswapV3VirtualReserves/image-03.png)
 
 Such depletions are not possible in Uniswap v2 because the curve is infinite, so there is no  “boundary” to be reached.
 
 A pool in a real-world scenario is composed of more than one segment. Consider the scenario illustrated below: in this case, the price may fall below the blue segment, entering the violet segment.
 
-![Real reserves of an active and inactive segment](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3VirtualReserves/image-04.png)
+![Real reserves of an active and inactive segment](https://r2media.rareskills.io/UniswapV3VirtualReserves/image-04.png)
 
 The blue segment no longer has token Y to sell — its real reserves are only in token X — whereas the violet segment does. As long as the current price remains within the boundaries of a segment, the segment holds both tokens, and swaps can occur within it.
 
@@ -57,7 +57,7 @@ Consider the illustration below, which shows three segments—gray, purple, and 
 - The purple segment has $x_r$ real reserves in token X and $y_r$ real reserves in token Y.
 - The orange segment has $y_r$ real reserves in token Y and no real reserves in token X.
 
-![Three segments and their real reserves](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3VirtualReserves/image-05.png)
+![Three segments and their real reserves](https://r2media.rareskills.io/UniswapV3VirtualReserves/image-05.png)
 
 If the current price is outside a segment with liquidity, that segment necessarily contains only one asset. Any change in price that does not enter the segment in question will not affect the real reserves in that segment. 
 
@@ -69,17 +69,17 @@ But Unsiwap v2's math works when the segment is actually an infinite curve. In o
 
 Virtual reserves are the reserves a segment would have if it were part of an infinite curve rather than just a segment. To illustrate this, let's draw a infinite curve, dashing the parts outside the segment.
 
-![Virtual reserves of a Uniswap V3 segment](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3VirtualReserves/image-06.png)
+![Virtual reserves of a Uniswap V3 segment](https://r2media.rareskills.io/UniswapV3VirtualReserves/image-06.png)
 
 The virtual reserves are the reserves as if we were in Uniswap v2— in that case, they would be the reserves of the pool. The reserves are also the point $(x,y)$ where the current price touches the curve. 
 
 The illustration below shows both virtual $(x,y)$ and real reserves $(x_r, y_r)$ for the segment.
 
-![Real and Virtual Reserves of a Segment](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3VirtualReserves/image-07.png)
+![Real and Virtual Reserves of a Segment](https://r2media.rareskills.io/UniswapV3VirtualReserves/image-07.png)
 
 The animation below shows that, as the curve segment grows, the real reserves of the segment approach the virtual reserves. If the curve extends to infinity—as in Uniswap v2—the virtual and real reserves become the same.
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3VirtualReserves/video-01.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/UniswapV3VirtualReserves/video-01.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 ### Why don't we need virtual and real reserves in Uniswap v2?
 
@@ -93,13 +93,13 @@ Consider the swap illustrated below, in Uniswap v2. At left, the pool contains $
 
 After a swap (on the right), the price becomes $y'/x'$; the reserves in token X change to $x'$, and the reserves in token Y change to $y'$. So, $(x-x')$ tokens X leave the pool and $(y'-y)$ tokens Y enter the pool.
 
-![Price change modeled with Uniswap V2 math](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3VirtualReserves/image-08.png)
+![Price change modeled with Uniswap V2 math](https://r2media.rareskills.io/UniswapV3VirtualReserves/image-08.png)
 
 Now let's consider the same swap, but this time in Uniswap v3, as illustrated below. We no longer have an infinite curve—just segments, like the three shown: gray, violet, and orange. Suppose the swap occurs in the violet segment, which has the same liquidity as the example above. 
 
 Note that everything happens the same way, as if the violet segment were an infinite curve! The price moves from $y/x$ to $y'/x'$; $(x-x')$ tokens X leave the pool, and $(y-y')$ tokens Y enter the pool.
 
-![Locally Uniswap V2 Curve](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3VirtualReserves/image-09.png)
+![Locally Uniswap V2 Curve](https://r2media.rareskills.io/UniswapV3VirtualReserves/image-09.png)
 
 **Within a segment with liquidity $xy$, swaps occur exactly as if we were on an infinite curve with constant liquidity $xy$, as in Uniswap v2.** The only two differences are:
 
@@ -145,7 +145,7 @@ In the first sections of this chapter, we saw a visual representation of a segme
 
 In Uniswap v2, reserves depend only on price and liquidity. In Uniswap v3, this cannot be the case. Let’s look at the illustration below. Both segments, on the left and on the right, have the same liquidity, and we are considering the same price, but clearly, the real reserves on the left are larger than those on the right.
 
-![Liquidity represented with L squared](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3VirtualReserves/image-10.png)
+![Liquidity represented with L squared](https://r2media.rareskills.io/UniswapV3VirtualReserves/image-10.png)
 
 In Uniswap v3, a segment’s real reserves depend on the segment’s liquidity, the current price, and the segment’s boundaries—its upper and lower ticks. We will postpone deriving the formula for a segment’s real reserves until the next chapter.
 

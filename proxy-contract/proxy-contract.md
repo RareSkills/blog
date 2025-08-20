@@ -27,11 +27,11 @@ A proxy contract is a smart contract that stores state variables while delegatin
 
 You can think of a proxy contract as similar to apps and data on your mobile phone. The phone retains your personal data—contacts, photos, and browsing history—just as the proxy retains its state. The implementation contract is like the phone's operating system (OS) and apps, responsible for its functionality and behavior. When the OS or apps are updated, the phone's features improve, but your data remains intact.
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/Intro-Proxies/UpgradePhoneCompressed.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/Intro-Proxies/UpgradePhoneCompressed.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 This analogy illustrates how a proxy contract keeps its state while delegating functionality to an implementation contract.
 
-![a diagram showing how a proxy contract keeps its state while delegating functionality to an implementation contract](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/Intro-Proxies/delegatecallDiagram.png)
+![a diagram showing how a proxy contract keeps its state while delegating functionality to an implementation contract](https://r2media.rareskills.io/Intro-Proxies/delegatecallDiagram.png)
 
 A proxy contract and its logic contract are set up as follows:
 
@@ -46,13 +46,13 @@ Since the proxy has no logic of its own, any calls made to the proxy contract wi
 
 The proxy will then `delegatecall` the implementation using the same `calldata` the proxy received as illustrated in the diagram below:
 
-![a diagram showing how calldata is forwarded via delegatecall](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/Intro-Proxies/calldataToFallback.png)
+![a diagram showing how calldata is forwarded via delegatecall](https://r2media.rareskills.io/Intro-Proxies/calldataToFallback.png)
 
 The proxy contract always `delegatecalls`to the implementation using the same [`calldata`](https://www.rareskills.io/post/function-selector) it received.
 
 Here is an animation from [our article on delegatecall](https://www.rareskills.io/post/delegatecall) as a review:
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/Intro-Proxies/delegatecallAnimation.mp4" type="video/mp4" autoplay loop muted controls></video> 
+<video src="https://r2media.rareskills.io/Intro-Proxies/delegatecallAnimation.mp4" type="video/mp4" autoplay loop muted controls></video> 
 
 ## Why proxy contracts?
 
@@ -89,7 +89,7 @@ contract Implementation {
 
 We deploy the implementation contract using Remix as shown below. After deployment, we copy the address:
 
-![A diagram showing how to deploy the implementation contract using Remix](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/Intro-Proxies/proxiesDrawioGm.png)
+![A diagram showing how to deploy the implementation contract using Remix](https://r2media.rareskills.io/Intro-Proxies/proxiesDrawioGm.png)
 
 ### **2. Deploy a proxy contract and set the implementation address**
 
@@ -123,7 +123,7 @@ contract Proxy {
 
 Deploy the proxy contract on Remix following the illustration in the diagram below.
 
-![A diagram showing how to deploy the proxy contract and set the implementation address](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/Intro-Proxies/deployProxyCodeScreenshot.png)
+![A diagram showing how to deploy the proxy contract and set the implementation address](https://r2media.rareskills.io/Intro-Proxies/deployProxyCodeScreenshot.png)
 
 ### Testing/Interacting with your contract
 
@@ -151,7 +151,7 @@ Now that we’ve constructed the `calldata` let’s use it to call the function 
 
 Paste the `calldata` to the input box. We should expect the result to be 9 since 5+4 is 9 as shown in the screenshot below:
 
-![A diagram showing how to use the calldata to call a function in the proxy contract in Remix](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/Intro-Proxies/proxiesDrawioAgain.png)
+![A diagram showing how to use the calldata to call a function in the proxy contract in Remix](https://r2media.rareskills.io/Intro-Proxies/proxiesDrawioAgain.png)
 
 Even though the Proxy contract has no logic to emit events, we still see an event emitted when we sent the `calldata` to the proxy. That is because the event emitting logic was delegatecalled by the proxy.
 
@@ -163,19 +163,19 @@ Follow these steps after deployment to setup the proxy contract so you can inter
 
 1.  In the `CONTRACT` dropdown, select the `Implementation` contract. 
 
-![A diagram showing how to select the Implementation contract on Remix](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/Intro-Proxies/selectImplementationRemix.png)
+![A diagram showing how to select the Implementation contract on Remix](https://r2media.rareskills.io/Intro-Proxies/selectImplementationRemix.png)
 
 2. Copy the `Proxy` contract address and paste it into the `At Address` input box.
 
-![A diagram showing how to copy the Proxy contract address and paste it into the `At Address` input box](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/Intro-Proxies/pasteAddressScreenshot.png)
+![A diagram showing how to copy the Proxy contract address and paste it into the `At Address` input box](https://r2media.rareskills.io/Intro-Proxies/pasteAddressScreenshot.png)
 
 3. Click the `At Address` button to interact with the contract, as shown in the diagram below.
 
-![A diagram showing a click on the At Address and an interaction with the proxy contract in Remix](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/Intro-Proxies/atAddressScreenshot.png)
+![A diagram showing a click on the At Address and an interaction with the proxy contract in Remix](https://r2media.rareskills.io/Intro-Proxies/atAddressScreenshot.png)
 
 Now, you should be able to interact with the `addNumbers` function as shown in the diagram below:
 
-![A diagram showing an interaction with the proxy contract](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/Intro-Proxies/addNumbersFnCallRemix.png)
+![A diagram showing an interaction with the proxy contract](https://r2media.rareskills.io/Intro-Proxies/addNumbersFnCallRemix.png)
 
 *Note: even though Remix labeled the contract we are interacting with as `Implementation`, it is actually the `Proxy` contract using the `Implementation` contracts’s ABI.*
 
@@ -183,7 +183,7 @@ As we can see, when the user interacts with the Proxy contract and attempts to c
 
 The screen recording below summarizes the above steps:
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/Intro-Proxies/proxyDemo.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/Intro-Proxies/proxyDemo.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 
 So far, we've seen a basic proxy contract that delegates calls to a hardcoded implementation address. However, this approach is not upgradeable, as the implementation address is fixed in the contract bytecode because of the immutable keyword.
@@ -270,7 +270,7 @@ In the our case:
 
 This causes a conflict because when the implementation contract tries to update its `number` variable, it ends up modifying the `implementation` address in the proxy contract instead, which is stored at the same slot (slot 0). 
 
-![A diagram showing a storage overlap](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/Intro-Proxies/slot0Overlap.png)
+![A diagram showing a storage overlap](https://r2media.rareskills.io/Intro-Proxies/slot0Overlap.png)
 
 This leads to an unexpected behavior—you want to update the `number` in the proxy, but you’re actually overwriting the `implementation` address in the storage.
 
@@ -321,7 +321,7 @@ contract Implementation {
 
 You’ll notice that the increment will not work correctly because it’s updating the implementation contract’s address instead of `number` in storage:
 
-![A diagram showing a return value of 0 from the contract interaction](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/Intro-Proxies/returned0.png)
+![A diagram showing a return value of 0 from the contract interaction](https://r2media.rareskills.io/Intro-Proxies/returned0.png)
 
 ### How do we solve this storage collision problem in proxies?
 
@@ -424,7 +424,7 @@ contract Implementation {
 
 Now, if we deploy this contract and run it, we’ll get the desired result as shown below:
 
-![A diagram showing a return value of 2 from the contract interaction](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/Intro-Proxies/returned2.png)
+![A diagram showing a return value of 2 from the contract interaction](https://r2media.rareskills.io/Intro-Proxies/returned2.png)
 
 We discuss EIP-1967 extensively in our [Storage Slots for Proxies](https://www.rareskills.io/post/erc1967) article, and it is the next chapter in this book.
 

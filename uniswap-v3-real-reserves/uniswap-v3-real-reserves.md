@@ -32,7 +32,7 @@ This isn’t enough information to derive the real reserves of a segment, since 
 
 This can be seen in the animation below, which illustrates two segments with the same liquidity at the same price. Their virtual reserves are the same, but their real reserves are not.
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3RealReserves/Realres11.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/UniswapV3RealReserves/Realres11.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 Thus, we can't derive the real reserves only from the price and liquidity — the segment boundaries must also be taken into account.
 
@@ -42,7 +42,7 @@ Thus, we can't derive the real reserves only from the price and liquidity — th
 
 Consider the situation illustrated below, where the price is within the segment (left side). At this moment, the pool has $x_r$ real reserves in tokens X and $y_r$ reserves in token Y.
 
-![A segment with only real reserves y](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3RealReserves/image01.png)
+![A segment with only real reserves y](https://r2media.rareskills.io/UniswapV3RealReserves/image01.png)
 
 On the right side of the above image, a swap causes the price to move to the upper tick, and the pool now holds reserves only in tokens Y—no longer in tokens X.
 
@@ -50,7 +50,7 @@ On the right side of the above image, a swap causes the price to move to the upp
 
 The same logic can be applied to the real reserves in tokens Y, but now for a swap that moves the price to the lower tick, as illustrated below.
 
-![A segment with only real reserves x](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3RealReserves/image02.png)
+![A segment with only real reserves x](https://r2media.rareskills.io/UniswapV3RealReserves/image02.png)
 
 **The real reserves of $y$, $y_r$, are the amount of tokens that will leave the segment during a swap that moves the price to the lower tick.**
 
@@ -66,7 +66,7 @@ On the left, the virtual reserves in X are given by $x$ (virtual reserves at $p)
 
 Since Uniswap v3 has the same behavior as v2, then $x-x_u$ tokens will leave the pool also in Uniswap v3 - these are the real reserves in X of this segment, $x_r$.
 
-![diagram showing x_r tokens leaving the pool](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3RealReserves/image03.png)
+![diagram showing x_r tokens leaving the pool](https://r2media.rareskills.io/UniswapV3RealReserves/image03.png)
 
 Thus,
 
@@ -93,7 +93,7 @@ Let us consider the cases where $p$ is not within the segment.
 
 If the current price is below the lower tick, the real reserves of the segment are the difference between the virtual reserves at the lower tick, $p_l$, and at the upper tick, $p_u$, as illustrated below. This is the case because we can assume that $p$ will eventually reach $p_l$, and swaps from $p$ to $p_l$ do not interfere with the segment - we need to take into account only the swap from $p_l$ to $p_u$.
 
-![diagram showing y tokens leaving the pool](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3RealReserves/image04.png)
+![diagram showing y tokens leaving the pool](https://r2media.rareskills.io/UniswapV3RealReserves/image04.png)
 
 By substituting $x=L/\sqrt{p}$,  we have the real reserves as:
 
@@ -116,7 +116,7 @@ To calculate the real reserves in tokens Y of a segment, we will follow the same
 
 A swap that moves the price to the lower tick $p_l$ will remove all tokens Y from the segment. Thus, to calculate $y_r$, we only need to compute the amount of tokens Y that leave the segment in a swap between $p$ and $p_l$.
 
-![A seggment with only y reserves with amount calculated between two prices](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3RealReserves/image05.png)
+![A seggment with only y reserves with amount calculated between two prices](https://r2media.rareskills.io/UniswapV3RealReserves/image05.png)
 
 The swap will change the virtual reserves from $y$ to $y_l$, so the real reserves in this case are calculated as $y-y_l$. Remembering that virtual reserves in tokens Y are given by $y = L \sqrt{p}$, we have that
 
@@ -139,7 +139,7 @@ If the price is greater than the upper tick, the real reserves in tokens Y, give
 
 To calculate $y_r$, we need to consider a swap from the upper tick $p_u$ to the lower tick $p_l$, which will take the virtual reserves from $y_u$ to $y_l$.
 
-![real reserve calculation when price is outside](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3RealReserves/image06.png)
+![real reserve calculation when price is outside](https://r2media.rareskills.io/UniswapV3RealReserves/image06.png)
 
 Thus, the real reserves in tokens Y are given by:
 
@@ -166,7 +166,7 @@ Consider calculating the real reserves between prices $p_a$ and $p_b$, where $p_
 2. The current price is above the upper tick
 3. The current price is between the upper and lower ticks
 
-![scenarios showing the price in relation to lower and upper tick](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3RealReserves/image07.png)
+![scenarios showing the price in relation to lower and upper tick](https://r2media.rareskills.io/UniswapV3RealReserves/image07.png)
 
 The formulas will be as follows:
 
@@ -221,13 +221,13 @@ This function calculates and returns the amount of tokens X between two prices: 
 
 The function takes the lower price (`sqrtRatioAX96`), the upper price (`sqrtRatioBX96`), the segment’s liquidity, and a flag indicating whether the amount should be rounded up or not.
 
-![getAmount0Delta source code](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3RealReserves/image08.png)
+![getAmount0Delta source code](https://r2media.rareskills.io/UniswapV3RealReserves/image08.png)
 
 ### `getAmount1Delta`
 
 This function calculates and returns the amount of tokens Y between two prices: a lower price and an upper price. Again, the red box in the text shows the formula we derived above, now for real reserves in tokens Y, $L\sqrt{p_u} -L\sqrt{p_l}$. 
 
-![getAmount1Delta source code](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3RealReserves/image09.png)
+![getAmount1Delta source code](https://r2media.rareskills.io/UniswapV3RealReserves/image09.png)
 
 ## Summary
 

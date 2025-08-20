@@ -46,7 +46,7 @@ Actually, the above formula is not entirely correct for one reason: `sqrtPriceX9
 
 This can be seen in the illustration below, where we use a tool that can be found in our article on ticks. Note that while the price changes continuously, the corresponding tick for that price is always the one immediately below it.
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3TickToPrice/lower-tick-anim.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/UniswapV3TickToPrice/lower-tick-anim.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 Thus, the accurate formula for tick is:
 
@@ -78,7 +78,7 @@ The conversion between ticks and `sqrtPriceX96` in Solidity is handled by the [T
 
 It contains two functions: `getSqrtRatioAtTick` and `getTickAtSqrtRatio`, which perform the conversion between `sqrtPriceX96` and its corresponding tick index, as well as the opposite. This can be seen below.
 
-![Functions for converting between tick and price](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3TickToPrice/getSqrtRatioAtTick.png)
+![Functions for converting between tick and price](https://r2media.rareskills.io/UniswapV3TickToPrice/getSqrtRatioAtTick.png)
 
 We saw the mathematics of these formulas in the previous section. In this section, we will perform this calculation using Python. 
 
@@ -93,7 +93,7 @@ def getSqrtRatioAtTick(i):
 
 As an example, the value of `sqrtPriceX96` for the upper bound price can be calculated using `getSqrtRatioAtTick(887272)`, resulting in `1.4614467034780703e+48`, which (approximately) corresponds to the `MAX_SQRT_RATIO` constant from the `TickMath` library.
 
-![Max ratio constant in TickMath](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3TickToPrice/tickMathMaxRatio.png)
+![Max ratio constant in TickMath](https://r2media.rareskills.io/UniswapV3TickToPrice/tickMathMaxRatio.png)
 
 ### Using the Decimal library
 
@@ -189,7 +189,7 @@ $$
 
 Look through the [Uniswap V3 Pools](https://app.uniswap.org/explore/pools/ethereum) to find the pool address, then open the address in a block explorer. Look for the public variable `slot0` and convert the `tick` to `price` and vice versa.
 
-![Etherscan output of slot0](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3TickToPrice/etherscanSlot0.png)
+![Etherscan output of slot0](https://r2media.rareskills.io/UniswapV3TickToPrice/etherscanSlot0.png)
 
 Check that your calculation is close to what Uniswap provides and then convert the sqrtPriceX96 to dollars.
 

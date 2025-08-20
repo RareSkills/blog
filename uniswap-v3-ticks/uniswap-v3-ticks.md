@@ -4,12 +4,12 @@ This article explains what ticks are in Uniswap V3. Ticks enable gas-efficient a
 
 Concentrated liquidity means that liquidity is not necessarily constant across the price curve like Uniswap V2. Liquidity providers can choose segments in the price curve to place their liquidity. The animation below illustrates the difference between the price curves of Uniswap V2 and Uniswap V3.
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3Ticks/splitcurve3.mp4" type="video/mp4" autoplay loop muted controls>
+<video src="https://r2media.rareskills.io/UniswapV3Ticks/splitcurve3.mp4" type="video/mp4" autoplay loop muted controls>
 </video>
 
 For example, in a ETH:USDC pool, if the price of ETH is USDC 2,000, a liquidity provider might choose to place their liquidity between USDC 1,800 and USDC 2,200, so they can capture more fees in the price range where they expect the assets to trade. In the illustration below, the segment between USDC 1800 and USDC 2200 has greater liquidity compared to other segments.
 
-![Concentrated Liquidity from 1800 USDC to 2200 USDC](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3Ticks/ConcentratedLiquidity1800to2200.jpg)
+![Concentrated Liquidity from 1800 USDC to 2200 USDC](https://r2media.rareskills.io/UniswapV3Ticks/ConcentratedLiquidity1800to2200.jpg)
 
 Higher liquidity within a range means the [price impact](https://www.rareskills.io/post/uniswap-v3-concentrated-liquidity) of a swap in that range will be lower. Conversely, lower liquidity makes the price impact greater.
 
@@ -23,16 +23,16 @@ Therefore, to significantly reduce the number of times we must check if liquidit
 
 These predefined price points are called **ticks**. The figure below illustrates this concept, showing some of the ticks. Note that in Uniswap V3 there are far more ticks than those depicted below. The price curve is “sliced” by ticks (the red rays from the origin).
 
-![An illustration of Uniswap price curve getting sliced by ticks](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3Ticks/tickTickTickTick.jpg)
+![An illustration of Uniswap price curve getting sliced by ticks](https://r2media.rareskills.io/UniswapV3Ticks/tickTickTickTick.jpg)
 
 By way of review, “price” in Uniswap V2 and V3 can be interpreted as the angle of a ray from the origin to the price curve. The greater the “angle” from the x-axis, the higher the price of asset X in terms of asset Y. Therefore, ticks with a higher angle correspond to higher prices for asset X.
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3Ticks/SweepingRayC.mp4" type="video/mp4" autoplay loop muted controls>
+<video src="https://r2media.rareskills.io/UniswapV3Ticks/SweepingRayC.mp4" type="video/mp4" autoplay loop muted controls>
 </video>
 
 In the animation below, the angle of the cyan ray represents the price of asset X, while the red rays represent ticks. While the price of asset X can vary and take any value, ticks remain fixed.
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3Ticks/SweepingHyperbola.mp4" type="video/mp4" autoplay loop muted controls>
+<video src="https://r2media.rareskills.io/UniswapV3Ticks/SweepingHyperbola.mp4" type="video/mp4" autoplay loop muted controls>
 </video>
 
 It is important to understand that ticks represent points on the curve that will be used as labels. Lets relate it to an analogy of a road with mileage markers. While a car can be anywhere along the road, the mile markers are placed at specific points, typically some predictable interval. Similarly, in Uniswap v3, token prices can have any value, but ticks are statically positioned at specific locations pre-defined by the protocol.
@@ -41,7 +41,7 @@ It is important to understand that ticks represent points on the curve that will
 
 We illustrate this concept below. The ticks are shown as red rays from the origin. On the left, liquidity is adjusted between ticks, which Uniswap V3 allows. On the right, the scenario depicts an attempt to adjust liquidity between points on the curve that are not ticks, which the protocol does not allow.
 
-![Examples of providing liquidity between ticks that is permitted and not permitted](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3Ticks/allowedAndNotAllowed.png)
+![Examples of providing liquidity between ticks that is permitted and not permitted](https://r2media.rareskills.io/UniswapV3Ticks/allowedAndNotAllowed.png)
 
 We will shortly show how Uniswap V3 determines where to place the ticks, but first let’s quickly review how “price” means the “price of token X in terms of Y.”
 
@@ -82,17 +82,17 @@ The allowed tick indexes range from -887,272 to 887,272, and the reason for this
 
 Suppose we have a USDC:USDT pool, where token X is USDC and token Y is USDT. If the two assets have exactly the same value, then the price will land exactly on tick index 0, because the price of USDC in terms of USDT is 1:1. This is illustrated below (ticks are not to scale). The ticks are represented with red rays, the price at which USDC trades with USDT is represented with a yellow dotted ray terminating at the yellow dot, and the price curve is the cyan curve:
 
-![An example of the price landing on tick 0](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3Ticks/tick0.jpg)
+![An example of the price landing on tick 0](https://r2media.rareskills.io/UniswapV3Ticks/tick0.jpg)
 
 Now suppose that USDC very slightly gains in value relative to USDT. That is, someone has to trade 1.00005 USDT to get one USDC. This would put the current price of USDC slightly above tick 0, but not quite at tick 1:
 
-![An example of the price being between tick 0 and tick 1](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3Ticks/tick01.jpg)
+![An example of the price being between tick 0 and tick 1](https://r2media.rareskills.io/UniswapV3Ticks/tick01.jpg)
 
 This is perfectly fine — the protocol does not require assets to have a value that matches a tick.
 
 If USDC continued to gain value until 1.0001 USDT needs to be traded for one USDC, then the point on the price curve would land exactly on tick 1. This price lands exactly on tick 1 since $p(1)=1.0001^1=1.0001$.
 
-![An example of the price being landing exactly on tick 1](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3Ticks/tick1.jpg)
+![An example of the price being landing exactly on tick 1](https://r2media.rareskills.io/UniswapV3Ticks/tick1.jpg)
 
 ## Positive and negative ticks
 
@@ -110,7 +110,7 @@ $$
 \end{align*}
 $$
 
-![A diagram showing the relative locations of tick -1, tick 0, and tick 1](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3Ticks/tickOneZeroMinusOne.jpg)
+![A diagram showing the relative locations of tick -1, tick 0, and tick 1](https://r2media.rareskills.io/UniswapV3Ticks/tickOneZeroMinusOne.jpg)
 
 ## The relationship between token price and ticks
 
@@ -171,7 +171,7 @@ When we write a tick range as $(-10,10)$, we are actually referencing $(p_a(-10)
 
 In the illustration below, we see an example of a tick range between $p_a$ and $p_b$. 
 
-![An illustration of a price range between ticks](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3Ticks/pApB.png)
+![An illustration of a price range between ticks](https://r2media.rareskills.io/UniswapV3Ticks/pApB.png)
 
 ## The price curve represented as a line
 
@@ -179,16 +179,16 @@ Another common representation of the price curve is as a line. The price curve i
 
 On the curve, an increasing price (of token X) moves up and to the left, while on the line, it increases from left to right:
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3Ticks/twoTravelingDots.mp4" type="video/mp4" autoplay loop muted controls>
+<video src="https://r2media.rareskills.io/UniswapV3Ticks/twoTravelingDots.mp4" type="video/mp4" autoplay loop muted controls>
 </video>
 
 Thus, we will sometimes represent the price and liquidity of curve using the line diagram below, where the blue area represents the liquidity contained in the tick range.
 
-![line representation of liquidity and price](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3Ticks/lineLiquidityPlot.png)
+![line representation of liquidity and price](https://r2media.rareskills.io/UniswapV3Ticks/lineLiquidityPlot.png)
 
 We can plot the liquidity level on the corresponding line plot as follows:
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3Ticks/linePlotAndCurveWithTicks.mp4" type="video/mp4" autoplay loop muted controls>
+<video src="https://r2media.rareskills.io/UniswapV3Ticks/linePlotAndCurveWithTicks.mp4" type="video/mp4" autoplay loop muted controls>
 </video>
 
 Below is an interactive tool to further illustrate how these two representations show the same information. Change the liquidity of a price segment by moving the k sliders, then click “Sweep Price.” After clicking Sweep Price, a price indicator for both charts (a red ray for the cartesian plot and a red dot for the line plot) will appear. Note how the red ray on the Cartesian plot tracks the red dot on the line plot.
@@ -228,11 +228,11 @@ The interactive tool below illustrates how the protocol selects a tick as the cu
 
 The protocol stores the current tick in a [struct](https://www.rareskills.io/learn-solidity/struct) named `slot0` ([code link](https://github.com/Uniswap/v3-core/blob/d8b1c635c275d2a9450bd6a78f3fa2484fef73eb/contracts/UniswapV3Pool.sol#L56)). This variable is public, so anyone can read the current tick of a pool directly on Etherscan by querying `slot0`.
 
-![A screenshot of the Uniswap V3 code with the tick variable highlighted](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3Ticks/tickVarHighlight.png)
+![A screenshot of the Uniswap V3 code with the tick variable highlighted](https://r2media.rareskills.io/UniswapV3Ticks/tickVarHighlight.png)
 
 Below we show the result for the [ETH:DAI pool on Base](https://basescan.org/address/0x93e8542E6CA0eFFfb9D57a270b76712b968A38f5#readContract):
 
-![A screenshot of the ETH DAI tick on Basescan](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3Ticks/ETHDAI.png)
+![A screenshot of the ETH DAI tick on Basescan](https://r2media.rareskills.io/UniswapV3Ticks/ETHDAI.png)
 
 The current tick is 81143. The pool is ETH:DAI, so the price is expressed as Ether in terms of DAI. Both tokens have 18 decimal places. Calculating the price at tick 81143 gives $p(81143) = 1.0001^{81143} \approx 3340$. The current tick is the current price rounded down to the closest tick. Therefore we can assume that the current tick roughly corresponds to the current price. So for this pool, 1 ETH is worth approximately 3340 DAI.
 
@@ -240,7 +240,7 @@ The current tick is 81143. The pool is ETH:DAI, so the price is expressed as Eth
 
 Let’s consider another example to illustrate how decimal places affect price and tick. Below we show the result for the [ETH:USDC pool on Base](https://basescan.org/address/0xd0b53D9277642d899DF5C87A3966A349A798F224#readContract#F11):
 
-![A screenshot of the tick of the ETH USDC pool](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3Ticks/ETHUSDC.png)
+![A screenshot of the tick of the ETH USDC pool](https://r2media.rareskills.io/UniswapV3Ticks/ETHUSDC.png)
 
 The tick is now negative with a value of -195186, and the price can be calculated as $p(-195186) = 1.0001^{-195186} \approx 3.3389 \times 10^{-9}$ . The tick is negative here due to the difference in decimal places, as ETH has 18 decimals while USDC has only 6 decimals.
 

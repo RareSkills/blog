@@ -14,7 +14,7 @@ Each pool defines a value called **tick spacing**, which determines the distance
 
 For instance, if the tick spacing of the pool is set to 10, only tick indexes that are multiples of 10 are usable, such as -20, -10, 0, 10, 20, etc. If the tick spacing is set to 60, only multiples of 60 are allowed, such as -120, -60, 0, 60, 120, etc, as illustrated in the figure below. In both scenarios, a tick such as 55 cannot be used as a boundary for providing liquidity.
 
-![Ticks not allowed between spacing](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3TickSpacing/noTicksBetween0To60.png)
+![Ticks not allowed between spacing](https://r2media.rareskills.io/UniswapV3TickSpacing/noTicksBetween0To60.png)
 
 The variable that defines tick spacing in a pool is named `tickSpacing` and is set at the time of pool creation. In fact, `tickSpacing` is linked to the pool fee, with **each fee tier determining a corresponding tick spacing.**
 
@@ -28,7 +28,7 @@ More volatile pairs benefit from wider tick spacing to reduce excessive tick cro
 
 See the animation below, where we present two cases. In the first case, involving a highly volatile pair, the price can vary significantly. So, if we want to try to limit swaps to crossing only two allowed ticks, the distance between allowed ticks must be large. In the second case, involving a more stable pair, the tick spacing can be smaller.
 
-<video src="https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3TickSpacing/volatility.mp4" type="video/mp4" autoplay loop muted controls></video>
+<video src="https://r2media.rareskills.io/UniswapV3TickSpacing/volatility.mp4" type="video/mp4" autoplay loop muted controls></video>
 
 ### Volatility and fees
 
@@ -48,7 +48,7 @@ The relationship between fee and tick spacing is contained in the mapping `feeAm
 
 The initial relationship between fee and tick spacing was defined during the deployment of the Factory contract, as shown in the constructor in the image below (green box).
 
-![feeSpacingMapping code screenshot](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3TickSpacing/feeSpacingMapping.png)
+![feeSpacingMapping code screenshot](https://r2media.rareskills.io/UniswapV3TickSpacing/feeSpacingMapping.png)
 
 The current relationship between fee and tick spacing is shown in the following table. There is no strict “mathematical” relationship between the fee and tick spacing. **It’s up to protocol governance to decide the optimal fee for a given tick spacing.**
 
@@ -69,7 +69,7 @@ Fees are measured in basis points. One basis point is 1/100th of 1 percent, or 0
 
 The mapping from fee to tick spacing can be updated using the function `enableFeeAmount`, which can only be called by governance.
 
-![enable fee amount](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3TickSpacing/enableFeeAmount.png)
+![enable fee amount](https://r2media.rareskills.io/UniswapV3TickSpacing/enableFeeAmount.png)
 
 The 1 basis point tier (the 0.01% fee) is not in the constructor, but Uniswap [governance](https://www.rareskills.io/post/governance-contract-solidity) added the 1 basis point fee tier on March 5, 2022. You can see the transaction on the [tally dashboard](https://www.tally.xyz/gov/uniswap/proposal/9).
 
@@ -85,23 +85,23 @@ A pool is uniquely defined by these three parameters. Thus, it is possible to cr
 
 When the pool is deployed by the factory contract, it is passed both the `fee` and the `tickSpacing` and these are set as public immutable variables.
 
-![create pool function](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3TickSpacing/poolDeploy.png)
+![create pool function](https://r2media.rareskills.io/UniswapV3TickSpacing/poolDeploy.png)
 
 *Note that there are no restrictions on who can call `createPool` — it is permissionless as long as the pool for that token pair and fee tier hasn’t been created yet.*
 
 Both of these immutable variables (`fee` and `tickSpacing`) are public in [UniswapV3Pool.sol](https://github.com/Uniswap/v3-core/blob/main/contracts/UniswapV3Pool.sol#L48-L51). In fact, all of the arguments passed to the pool’s constructor are stored in public immutable variables:
 
-![code for fee and tick spacing](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3TickSpacing/codeFeeTickSpacing.png)
+![code for fee and tick spacing](https://r2media.rareskills.io/UniswapV3TickSpacing/codeFeeTickSpacing.png)
 
 ## Examples
 
 Let’s use the [USDC/ETH Pool](https://etherscan.io/address/0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640#readContract) as a running example. We can see the fee is 5 basis points and it has a tick spacing of 10:
 
-![fee and tickspacing variables in etherscan](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3TickSpacing/feeTickspacingEtherscan.png)
+![fee and tickspacing variables in etherscan](https://r2media.rareskills.io/UniswapV3TickSpacing/feeTickspacingEtherscan.png)
 
 This is how the [frontend for that pool](https://app.uniswap.org/explore/pools/ethereum/0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640) knows the fee tier is 0.05%.
 
-![uniswap v3 frontend displaying 0.05% fee](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/UniswapV3TickSpacing/uniswapV3Frontend005.png)
+![uniswap v3 frontend displaying 0.05% fee](https://r2media.rareskills.io/UniswapV3TickSpacing/uniswapV3Frontend005.png)
 
 ## Summary
 

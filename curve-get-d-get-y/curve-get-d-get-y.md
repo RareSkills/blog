@@ -178,7 +178,7 @@ $$
 
 This matches exactly what is in the [Vyper code](https://github.com/curvefi/curve-contract/blob/master/contracts/pools/3pool/StableSwap3Pool.vy#L210):
 
-![Screenshot of get_D() with the code annotated](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/curve-get-d-get-y/get-d-annotated.png)
+![Screenshot of get_D() with the code annotated](https://r2media.rareskills.io/curve-get-d-get-y/get-d-annotated.png)
 
 The variable $D_p$ was defined as:
 
@@ -406,7 +406,7 @@ $$
 
 This matches the Curve code exactly, see the purple box below:
 
-![screenshot of get_y() annotated](https://pub-32882f615aa84e4a94e1279ccf3ab85a.r2.dev/curve-get-d-get-y/get-y-annotated.png)
+![screenshot of get_y() annotated](https://r2media.rareskills.io/curve-get-d-get-y/get-y-annotated.png)
 
 ## Mismatch between Ann and An**ⁿ**
 
