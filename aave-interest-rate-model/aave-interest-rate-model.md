@@ -1,8 +1,8 @@
-# The interest rate model of AAVE V3 and Compound V2
+# The interest rate model of Aave V3 and Compound V2
 
 Interest rates in TradFi (traditional finance) are largely determined by central banks and influenced by market factors. In contrast, DeFi interest rates are algorithmically determined by the demand for loans and the supply of funds from lenders.
 
-Concepts in this article will be explained through the lens of AAVE, a leading DeFi lending/borrowing protocol on Ethereum. Compound V2's interest rate model is identical, with minor implementation differences. You may encounter differences when compared the implementations of other lending/borrowing protocols.
+Concepts in this article will be explained through the lens of Aave, a leading DeFi lending/borrowing protocol on Ethereum. Compound V2's interest rate model is identical, with minor implementation differences. You may encounter differences when comparing the implementations of other lending/borrowing protocols.
 
 A lending protocol uses smart contracts to aggregate liquidity from lenders, and allow for loans to be taken against this combined liquidity by borrowers. We sometimes refer to the liquidity as “funds” or “capital.”
 
@@ -38,7 +38,7 @@ Utilization in turn determines borrow interest rates
 
 ![utilization determines borrow interest rates](https://static.wixstatic.com/media/935a00_8403dcd10dd0438b92c07a53cda09008~mv2.png/v1/fill/w_350,h_51,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_8403dcd10dd0438b92c07a53cda09008~mv2.png)
 
-In a properly designed protocol, changes in utilization leads to rising/falling interest rates as explained below.
+In a properly designed protocol, changes in utilization lead to rising/falling interest rates as explained below.
 
 When utilization rises: **(indicative of high demand for borrowing)**
 
@@ -54,7 +54,7 @@ When utilization falls: **(indicative of excess idle liquidity)**
 
 ![linear interest rate curve](https://static.wixstatic.com/media/935a00_d161d6059bc24bf4b707a1e3a68f1f02~mv2.png/v1/fill/w_740,h_429,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_d161d6059bc24bf4b707a1e3a68f1f02~mv2.png)
 
-The function that translates the utilization level to the borrow interest rate is defined by the **interest rate model**.The parameters are usually set by protocol governance.
+The function that translates the utilization level to the borrow interest rate is defined by the **interest rate model**. The parameters are usually set by protocol governance.
 
 ## Calculating the relationship between the borrow interest rate and the supply interest rate
 
@@ -114,17 +114,17 @@ Any interest rate model must be a function of Utilization **𝑈** since
 
 ![utilization determines borrow interest rates](https://static.wixstatic.com/media/935a00_acae9a52be1042acbbe5fcef424eaef3~mv2.png/v1/fill/w_350,h_51,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_acae9a52be1042acbbe5fcef424eaef3~mv2.png)
 
-AAVE’s piecewise linear kinked interest rate model is as follows.
+Aave’s piecewise linear kinked interest rate model is as follows.
 
-![aave interest rate formula](https://static.wixstatic.com/media/935a00_6c64ca8ac8d84d98b4300e3bccb638b9~mv2.png/v1/fill/w_675,h_91,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_6c64ca8ac8d84d98b4300e3bccb638b9~mv2.png)
+![Aave interest rate formula](https://static.wixstatic.com/media/935a00_6c64ca8ac8d84d98b4300e3bccb638b9~mv2.png/v1/fill/w_675,h_91,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_6c64ca8ac8d84d98b4300e3bccb638b9~mv2.png)
 
 To get an intuition for the formula, we can rearrange the equations in the form of y = mx + c
 
-![aave interest rate formula y = mx + c animation](https://static.wixstatic.com/media/935a00_45b41860f6fd4d79aef63eabf238f563~mv2.gif)
+![Aave interest rate formula y = mx + c animation](https://static.wixstatic.com/media/935a00_45b41860f6fd4d79aef63eabf238f563~mv2.gif)
 
 The following animation illustrates what each part of the formula does
 
-![aave interest rate formula animated](https://static.wixstatic.com/media/935a00_c08cc9b5094f457aa4999978cc81e1a2~mv2.gif)
+![Aave interest rate formula animated](https://static.wixstatic.com/media/935a00_c08cc9b5094f457aa4999978cc81e1a2~mv2.gif)
 
 Note that **𝑈** is the independent variable here, `Rborrow` is a function of that and other parameters that are determined by protocol governance.
 
@@ -132,11 +132,11 @@ The "kink" area of the curve is what the protocol considers "optimal." If the ut
 
 ### DAI example
 
-Let’s look at AAVE’s DAI interest rate model, as defined by the contract `DefaultReserveInterestRateStrategy` on Ethereum. The four essential parameters (`U_optimal`, `R_intercept`, `R_slope1`, `R_slope2`) are publicly accessible from the smart contract.
+Let’s look at Aave’s DAI interest rate model, as defined by the contract `DefaultReserveInterestRateStrategy` on Ethereum. The four essential parameters (`U_optimal`, `R_intercept`, `R_slope1`, `R_slope2`) are publicly accessible from the smart contract.
 
 Here is the smart contract address: [https://etherscan.io/address/0x694d4cFdaeE639239df949b6E24Ff8576A00d1f2](https://etherscan.io/address/0x694d4cFdaeE639239df949b6E24Ff8576A00d1f2)
 
-![dai etherscan aave interest rate model screenshot](https://static.wixstatic.com/media/935a00_d8c82fd1ee3446c69f0aa74c15899d3f~mv2.png/v1/fill/w_740,h_1305,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/935a00_d8c82fd1ee3446c69f0aa74c15899d3f~mv2.png)
+![dai etherscan Aave interest rate model screenshot](https://static.wixstatic.com/media/935a00_d8c82fd1ee3446c69f0aa74c15899d3f~mv2.png/v1/fill/w_740,h_1305,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/935a00_d8c82fd1ee3446c69f0aa74c15899d3f~mv2.png)
 
 From the on-chain values, we can see that the following parameters were used in the interest-rate model:
 
