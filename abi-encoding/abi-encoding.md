@@ -6,9 +6,9 @@ This guide will show how to interpret ABI encoded data, how to compute the ABI e
 
 Let's get into it…
 
-## Solidity abi.encodeWithSignature and low level calls
+## Solidity abi.encodeWithSignature and low-level calls
 
-If we were to make a [low level call](https://www.rareskills.io/post/low-level-call-solidity) to another smart contract with a public function `foo(uint256 x)` (passing `x = 5` as the argument), we would do the following:
+If we were to make a [low-level call](https://www.rareskills.io/post/low-level-call-solidity) to another smart contract with a public function `foo(uint256 x)` (passing `x = 5` as the argument), we would do the following:
 
 ```solidity
 otherContractAddr.call(abi.encodeWithSignature("foo(uint256)", (5));
@@ -48,9 +48,9 @@ function transfer(address _to, uint256 amount) public {
 }
 ```
 
-is `transfer(address,uint256)`. Note that you must use the full argument data types, such as `uint256` instead of `uint`. Also, the variable names like the `_to` and `amount` are not part of the function signature. It is also important that there are no spaces in the string such as `transfer(addres, uint256)`.
+is `transfer(address,uint256)`. Note that you must use the full argument data types, such as `uint256` instead of `uint`. Also, the variable names like the `_to` and `amount` are not part of the function signature. It is also important that there are no spaces in the string such as `transfer(address, uint256)`.
 
-Per the [Solidity documentation](https://docs.soliditylang.org/en/v0.8.26/abi-spec.html#mapping-solidity-to-abi-types), are some "corner cases" to be aware of when computing the function signature:
+Per the [Solidity documentation](https://docs.soliditylang.org/en/v0.8.26/abi-spec.html#mapping-solidity-to-abi-types), there are some "corner cases" to be aware of when computing the function signature:
 
 - Structs are treated like tuples
 - Payable addresses, interfaces, and contract types are treated as addresses
@@ -210,7 +210,7 @@ However, the dynamic sized data types `bytes` and `string` are right padded. For
 Fixed-sized data types in Solidity include:    
 - bool
 - uints
-- bytes of fixed size (byteN)
+- bytes of fixed size (bytesN)
 - address
 - tuple, struct with fixed data
 - fixed-size array
@@ -226,7 +226,7 @@ Below are the dynamic data types in Solidity:
 
 So far, our focus has been on static calldata argument types like `address` and `uint256`. While static types are fairly straightforward to encode, encoding arrays and strings can be a bit complicated due to the varying size of data they hold.
 
-Let's consider a function that takes an array of uints and a single address. While the implementation details for our fuction are not relevant here, the function signature should look like this:
+Let's consider a function that takes an array of uints and a single address. While the implementation details for our function are not relevant here, the function signature should look like this:
 
 ```solidity
 transfer(uint256[],address)
