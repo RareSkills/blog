@@ -19,7 +19,7 @@ We've annotated the burn function below, we will explain the parts that aren't t
 
 On line 140 (<span style="color: purple">purple box</span>), liquidity is measured by the amount of LP tokens owned by the pool contract. It is assumed that the burner sent in LP tokens before calling burn, but advisably as part of one transaction. (If they are sent as two transactions, someone else can burn your LP tokens and remove your liquidity!) The amount the user sent to the contract will be burned. In general, we can assume that the contract will have a zero balance of LP tokens, because if LP tokens are just sitting in the pair contract, someone will burn them and claim some of the `token0` and `token1` for free. The mechanism of sending tokens as part of the transaction was introduced in the article on [Uniswap V2 Swap](https://www.rareskills.io/post/uniswap-v2-swap-function).
 
-The <span style="color: red">red boxes</span> on lines 142 and 154 denote fees, we will skip those for now as Uniswap does not apply to liquidity providers.
+The <span style="color: red">red boxes</span> on lines 142 and 154 denote fees, we will skip those for now as Uniswap does not apply fees to liquidity providers.
 
 The <span style="color: orange">orange boxes</span> on lines 144 to 145 are where the amounts that the LP provider will get back are calculated. If the total supply of liquidity tokens is 1,000, and they burn 100 LP tokens, then they get 10% of the `token0` and `token1` held by the pool. `Liquidity / totalSupply` is their burned share of the total supply of LP tokens.
 
