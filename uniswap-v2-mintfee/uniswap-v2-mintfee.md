@@ -53,7 +53,7 @@ Let’s use the following notation:
 
 - $d$ is the amount of liquidity owed to the LPs net of the protocol fee. That is, the LPs should be entitled to their original deposit and 5/6ths of the profit.
 
-- $p$ is the amount of liquidity owed to the protocol. This is 5/6ths of $\ell_2 - \ell_1$.
+- $p$ is the amount of liquidity owed to the protocol. This is 1/6ths of $\ell_2 - \ell_1$.
 
 To compute $\eta$ we observe the following invariant must be true:
 

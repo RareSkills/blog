@@ -104,7 +104,7 @@ function _setImplementation(address newImplementation) private {
 
 Now that the implementation address in the beacon's storage is changed, all the proxies will read the new address in the beacon and route their `delegatecall` to the new implementation.
 
-This way of upgrading is simple because you are just "pointing" the beacon, and in-turn the proxies, to a new implementation. You could even point the implementation back to a previous version if you needed to revert changes (be mindful of storage collisions).
+This way of upgrading is simple because you are just "pointing" the beacon, and in turn the proxies, to a new implementation. You could even point the implementation back to a previous version if you needed to revert changes (be mindful of storage collisions).
 
 ![Upgrading a beacon proxy visualized](https://static.wixstatic.com/media/706568_8366adad15e94e65801484f0885364d1~mv2.png/v1/fill/w_740,h_494,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/706568_8366adad15e94e65801484f0885364d1~mv2.png)
 
@@ -115,7 +115,7 @@ To avoid confusion, we use the terminology "BeaconProxy" to refer to the smart c
 The OpenZeppelin BeaconProxy inherits from `Proxy.sol` and adds more functionality:
 
 1. It stores the address of the beacon contract in `_beacon`
-2. a `_getBeacon()` function is added to return the `_beacon` variable
+2. A `_getBeacon()` function is added to return the `_beacon` variable
 3. The `_implementation()` function is overridden to call `.implementation()` on the `_beacon` address
 4. A constructor is added to set the `_beacon` variable and the `data` parameter initializes the proxy
     
@@ -237,7 +237,7 @@ The beacon proxy was for Kwenta vesting packages. A "vesting package" is a smart
 Why a beacon proxy specifically?
 
 1. It had to be easily upgradeable. Vesting packages had to be upgradeable because they call functions on the Kwenta staking system which is also upgradeable. If the staking system is upgraded in the future, then functionality on the vesting packages might no longer work. Making vesting packages upgradeable allows for them to be future-proof
-2. Every package had the same vesting logic ( `vest()`, `stake()`, etc..) but different initialized parameters (token amounts, vesting lengths). Part of this required making vesting packages to be standalone contracts or "siloed" because
+2. Every package had the same vesting logic ( `vest()`, `stake()`, etc.) but different initialized parameters (token amounts, vesting lengths). Part of this required making vesting packages to be standalone contracts or "siloed" because
 
     a. Simpler development: having one initializable contract per person was a lot simpler than having one large contract with complex mappings to keep track of everyone's different vesting package. Also, the KWENTA for each package was automatically staked upon package creation which meant that each person was accruing rewards. If everyone's packages were all together in 1 contract then rewards would get intermingled and messy.
 
