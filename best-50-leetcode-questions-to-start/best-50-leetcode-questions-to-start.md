@@ -1,16 +1,16 @@
-# Leetcode problems and questions - the best 50
+# LeetCode problems and questions - the best 50
 
-Whether web2 or web3, doing well on data structure, algorithm, and leetcode questions is important, not only for getting a job but developing a good foundation in computer science.
+Whether web2 or web3, doing well on data structure, algorithm, and LeetCode questions is important, not only for getting a job but developing a good foundation in computer science.
 
-Many developers know they should be practicing [leetcode](https://leetcode.com/) (or alternatively, [hackerrank](https://www.hackerrank.com/), [codecademy](https://www.codecademy.com/code-challenges), or [codewars](https://www.codewars.com/)), but if you haven’t started yet it can be very intimidating.
+Many developers know they should be practicing [LeetCode](https://leetcode.com/) (or alternatively, [HackerRank](https://www.hackerrank.com/), [Codecademy](https://www.codecademy.com/code-challenges), or [Codewars](https://www.codewars.com/)), but if you haven’t started yet it can be very intimidating.
 
-What Leetcode problems should you begin with and in what order should you go?
+What LeetCode problems should you begin with and in what order should you go?
 
 ## Getting over the psychological barrier of starting
 
-Nothing is more demoralizing than opening up on of these websites, picking a random problem marked as easy, and then getting stuck. Now you have to expend three times the energy: finding the right problem, solving it, and not psyching yourself out wondering if you picked the wrong problem or are just not cut out for the test.
+Nothing is more demoralizing than opening up one of these websites, picking a random problem marked as easy, and then getting stuck. Now you have to expend three times the energy: finding the right problem, solving it, and not psyching yourself out wondering if you picked the wrong problem or are just not cut out for the test.
 
-What we recommend doing is starting out with the leetcode questions and leetcode problems that are hilariously easy to do. No really, how’s this for a challenge?
+What we recommend doing is starting out with the LeetCode questions and LeetCode problems that are hilariously easy to do. No really, how’s this for a challenge?
 
 [https://leetcode.com/problems/add-two-integers/](https://leetcode.com/problems/add-two-integers/)
 
@@ -18,7 +18,7 @@ What we recommend doing is starting out with the leetcode questions and leetcode
 func sum(num1 int, num2 int) int {
 
 }
-```   
+```
 Easy coding problem to add two integers
 
 Not too scary right?
@@ -68,7 +68,7 @@ You might be able to get a job if you can solve all these problems! It would be 
 
 We've only included problems from the free version.
 
-> **Copyright Notice**   
+> **Copyright Notice**
 > Due to plagiarism issues we’ve had with other software training programs, this work in its entirety is licensed under the Creative Commons NonCommercial License.
 
 ---
