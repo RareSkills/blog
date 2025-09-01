@@ -89,7 +89,7 @@ The steps of the algebra are as follows:
 a * b = out;
 ```
 
-## Non quadratic constraints are not allowed!
+## Non-quadratic constraints are not allowed!
 A valid R1CS must have exactly one multiplication per constraint (a constraint is a row in R1CS, and `<==` or `===` in Circom). If we try to do two (or more) multiplications, this will fail. All constraints with more than one multiplication need to split into two constraints. Consider the following (non-compiling) example:
 
 ```javascript
@@ -136,7 +136,7 @@ template Multiply() {
   signal input c;
   signal s1;
   signal output out;
-  
+
   s1 <== a * b;
   out <== s1 * c;
 }
@@ -222,8 +222,8 @@ template SomePublic() {
     signal input c;
     signal v;
     signal output out;
-    
-    v <== a * b; 
+
+    v <== a * b;
     out <== c * v;
 }
 
@@ -243,7 +243,7 @@ pragma circom 2.1.6;
 template Powers(n) {
     signal input a;
     signal output powers[n];
-    
+
     powers[0] <== a;
     for (var i = 1; i < n; i++) {
         powers[i] <==  powers[i - 1] * a;
@@ -270,14 +270,14 @@ pragma circom 2.1.6;
 template Powers() {
     signal input a;
     signal output powers[6];
-   
+
     powers[0] <== a;
     powers[1] <== powers[0] * a;
     powers[2] <== powers[1] * a;
     powers[3] <== powers[2] * a;
     powers[4] <== powers[3] * a;
     powers[5] <== powers[4] * a;
-    
+
 }
 component main = Powers();
 ```
@@ -315,7 +315,7 @@ template Multiply() {
     signal input a;
     signal input b;
     signal output c;
-    
+
     c <-- a * b;
     c === a * b;
 }
@@ -324,7 +324,7 @@ template MultiplySame() {
     signal input a;
     signal input b;
     signal output c;
-    
+
     c <== a * b;
 }
 ```
@@ -349,10 +349,10 @@ template Multiply() {
 component main {public [c]} = Multiply();
 ```
 
-Circom does not require an output signal to exist, as that is merely syntatic sugar for a public input. Remember, an "input" is merely an entry to the witness vector, so everything is an input from a zero knowledge proof perspective. In the above example, there is no output signal, but this is a perfectly valid circuit with proper constraints.
+Circom does not require an output signal to exist, as that is merely syntactic sugar for a public input. Remember, an "input" is merely an entry to the witness vector, so everything is an input from a zero knowledge proof perspective. In the above example, there is no output signal, but this is a perfectly valid circuit with proper constraints.
 
 ## Wiring templates together
-Circom templates are reusable and composeable as the following example illustrates. Here, Square is a template used by SumOfSquares. Note how inputs a and b are "wired" to the component `Square()`.
+Circom templates are reusable and composable as the following example illustrates. Here, Square is a template used by SumOfSquares. Note how inputs a and b are "wired" to the component `Square()`.
 
 ```javascript
 pragma circom 2.1.6;
@@ -393,7 +393,7 @@ template Mul {
 
     signal input in[2]; // takes two inputs
     signal output out; // single output
-    
+
     out <== in[0] * in[1];
 }
 ```
@@ -412,14 +412,14 @@ pragma circom 2.1.6;
 template Powers {
     signal input a;
     signal output powers[6];
-   
+
     powers[0] <== a;
     powers[1] <== a * a;
     powers[2] <-- a ** 3;
     powers[3] <-- a ** 4;
     powers[4] <-- a ** 5;
     powers[5] <-- a ** 6;
-    
+
 }
 component main = Powers();
 ```
@@ -507,7 +507,7 @@ template FactorOfFiveFootgun() {
 
     signal input in;
     signal output out;
-    
+
     out <== in * 5;
 }
 
@@ -535,7 +535,7 @@ Written successfully: ./footgun.r1cs
 Everything went okay, circom safe
 ```
 
-However, if we compile the circuit with the optimizer turned off via 
+However, if we compile the circuit with the optimizer turned off via
 
 ```
 circom footgun.circom --r1cs --O0
@@ -602,7 +602,7 @@ Here is another easy mistake to make when writing circom code: the signal cannot
 template IsOver21() {
     signal input age;
     signal output oldEnough;
-    
+
     if (age >= 21) {
         oldEnough <== 1;
     } else {
@@ -648,13 +648,13 @@ The following Circomlib Num2Bits template shows how circom transforms a signal i
 template Num2Bits(n) {
     signal input in;
     signal output out[n];
-    var lc1=0; 
+    var lc1=0;
     // this serves as an accumulator to "recompute" in bit-by-bit
     var e2=1;
     for (var i = 0; i<n; i++) {
         out[i] <-- (in >> i) & 1;
         out[i] * (out[i] -1 ) === 0; // force out[i] to be 1 or 0
-        lc1 += out[i] * e2; //add to the accumulator if the bit is 1 
+        lc1 += out[i] * e2; //add to the accumulator if the bit is 1
         e2 = e2+e2; // takes on values 1,2,4,8,...
     }
 
@@ -740,13 +740,13 @@ template Over21() {
     signal input age;
     signal input ageLimit;
     signal output oldEnough;
-    
+
     // 8 bits is plenty to store age
     component gt = GreaterThan(8);
     gt.in[0] <== age;
     gt.in[1] <== 21;
 	0 === gt.out;
-    
+
     oldEnough <== gt.out;
 }
 
@@ -788,7 +788,7 @@ template ForceEqualIfEnabled() {
 ## Circom assert
 Confusingly enough, Circom has an `assert` statement that doesn’t quite do what you would expect.
 
-**The [assert statement does not add any constraints](https://chainsecurity.com/circom-assertions-misconceptions-and-deceptions/).** 
+**The [assert statement does not add any constraints](https://chainsecurity.com/circom-assertions-misconceptions-and-deceptions/).**
 
 It's merely a safety check so the dev doesn't create circuits with undesirable properties.
 
@@ -817,11 +817,11 @@ However, if you constrain `a` and `b` to be 0 and 1, you can constrain `c`, `a`,
 template And() {
     signal input in[2];
     signal output c;
-    
+
     // force inputs to be zero or one
     in[0] === in[0] * in[0];
     in[1] === in[1] * in[1];
-    
+
     // c will be 1 iff in[0] and in[1] are 1
     c <== in[0] * in[1];
 }
