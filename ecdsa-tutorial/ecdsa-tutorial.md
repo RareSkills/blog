@@ -99,15 +99,11 @@ $$
 
 With these checks, the prover can't create or produce a valid relation without knowing the discrete log of $Q$ and the discrete log of $P$.
 
-However, the verifier can compute the private key based on this information.
-
+However, the verifier can compute the private key based on the formula derived previously:
 $$
 \begin{align*}
-Q &= sP\\
-s^{-1}Q&=P\\
-s^{-1}(qG)&=P\\
-s^{-1}q &= P/G\\
-s^{-1}q &= p\\
+s = \frac{q}{p}\\
+p = \frac{q}{s}\\
 \end{align*}
 $$
 
@@ -220,7 +216,7 @@ How did we know to add $hG$ to $P$ instead of multiplying $hP$ and asking the pr
 
 The problem is that with a multiplicative shift, the prover can cancel out the factors of the discrete logs of $Q$ and $P$.
 
-As a recap: the a malicious prover does not know $q$, the discrete log of $Q$, or $p$, the discrete log of $P$. However, they do know that $Q$ is $\tilde{q}$ times larger than $P$, where $\tilde{q}$ is a number they invented and not the true discrete log of $q$.
+As a recap: the a malicious prover does not know $q$, the discrete log of $Q$, or $p$, the discrete log of $P$. However, they do know that $Q$ is $\tilde{q}$ times larger than $P$, where $\tilde{q}$ is a number they invented and not the true discrete log of $Q$.
 
 If the verifier presents $h$, and asks the prover to come up with an $s$ such that $Q = shP$, then the prover simply computes $s = \tilde{q}/h$.
 
@@ -379,11 +375,10 @@ The ECDSA algorithm to "recover" the public key given a signature is as follows:
 1. The prover publishes their public key $P$ as $P = pG$.
 2. The prover picks a message they want to sign $\text{message}$ and hashes it to get $h = \mathsf{hash}(\text{message})$.
 3. The prover picks a random scalar $k$ and computes $R = kG$.
-4. The prover computes $h = \mathsf{hash}(\text{message})$
-5. The prover solves for $s$ in $R = s^{-1}(hG + rP)$ as $s = \frac{h + rp}{k}$.
-6. The signer sends $(\text{message}, r, s, v)$ to the verifier where $v$ is a boolean indicating which $y$ value of $r$ is being used.
-7. The verifier derives $R$ from $v$ and $r$.
-8. The verifier derives the public key $P$ as
+4. The prover solves for $s$ in $R = s^{-1}(hG + rP)$ as $s = \frac{h + rp}{k}$.
+5. The prover sends $(\text{message}, r, s, v)$ to the verifier where $v$ is a boolean indicating which $y$ value of $r$ is being used.
+6. The verifier derives $R$ from $v$ and $r$.
+7. The verifier derives the public key $P$ as
 
 $$P = sr^{-1}R - r^{-1}hG$$
 
