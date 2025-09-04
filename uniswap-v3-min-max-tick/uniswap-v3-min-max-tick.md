@@ -6,7 +6,7 @@ The smallest tick in Uniswap v3 is -887,272 and the largest tick is 887,272. Thi
 
 In the previous chapter, we saw that the protocol stores the square root of the token price as fixed-point numbers of type `Q64.96`. This type of variable has a maximum whole number value of $2^{64}$. Consequently, the highest price it can store is $2^{128}$.
 
-This means the protocol cannot handle prices greater than $2^{128}$. **In other words, in Uniswap v3, a token can never reach a real price exceeding $2^{128}$.  If this limit were not respected, the token could reach a price value that the protocol cannot not store.**
+This means the protocol cannot handle prices greater than $2^{128}$. **In other words, in Uniswap v3, a token can never reach a real price exceeding $2^{128}$.  If this limit were not respected, the token could reach a price value that the protocol cannot store.**
 
 Thus, the highest tick must be the tick corresponding to the price $2^{128}$ to be consistent with the highest price.
 
@@ -29,7 +29,7 @@ $$
 
 because $\log_b(b^x)= x$ for any base $b$.
 
-The above formula allows us to calculate the tick index $i$ given the price $p(i)$. 
+The above formula allows us to calculate the tick index $i$ given the price $p(i)$.
 
 Now, we need to determine the tick index relative to the highest possible token price, which is $2^{128}.$
 
@@ -39,18 +39,18 @@ $$
 i=\log_{1.0001}(2^{128}) = 887272
 $$
 
-This calculation can be done in Python as 
+This calculation can be done in Python as
 
 ```python
 from math import log
-log(2**128,1.0001) # log_1.0001(2**128) = 887272 
+log(2**128,1.0001) # log_1.0001(2**128) = 887272
 ```
 
 For this reason, **tick index 887,272 is the highest used by the protocol**, because ticks greater than 887,272 correspond to prices greater than the maximum value that can be stored by the `sqrtPriceX96` variable.
 
 ## The lowest tick index
 
-The lowest tick index is set to -887,272, which is the negative of the highest possible tick. 
+The lowest tick index is set to -887,272, which is the negative of the highest possible tick.
 
 This symmetry is desirable because the price of token X relative to token Y is the inverse of the price of token Y relative to token X. Thus, it is desirable to limit the minimum token price to $2^{-128}$, which corresponds to tick -887272.
 
@@ -70,9 +70,9 @@ $$
 p(i) = 1.0001^i
 $$
 
-where $i$ are the tick indices. 
+where $i$ are the tick indices.
 
-It is possible to work with the square root of prices instead of the prices themselves, and to calculate the square root of the price for a given tick index. 
+It is possible to work with the square root of prices instead of the prices themselves, and to calculate the square root of the price for a given tick index.
 
 To do this, simply take the square root of the formula above:
 
@@ -129,11 +129,11 @@ This calculation can be done in Python, but it will suffer from precision loss. 
 
 The number of bits required to store 887,272 is $\log_2(887,272)\approx20$. Since we also have negative ticks, we need to store twice that amount of ticks. To hold both the original positive numbers and their negative values, our tick variable needs to support 21 bits.
 
-Since Solidity only supports `int` sizes that are multiples of 8, this smallest `int` size that will hold all the ticks we need is `int24`. Therefore, Uniswap V3 uses an `int24` to hold tick indexes ([code link](https://github.com/Uniswap/v3-core/blob/d8b1c635c275d2a9450bd6a78f3fa2484fef73eb/contracts/UniswapV3Pool.sol#L60)), as we can see below. 
+Since Solidity only supports `int` sizes that are multiples of 8, this smallest `int` size that will hold all the ticks we need is `int24`. Therefore, Uniswap V3 uses an `int24` to hold tick indexes ([code link](https://github.com/Uniswap/v3-core/blob/d8b1c635c275d2a9450bd6a78f3fa2484fef73eb/contracts/UniswapV3Pool.sol#L60)), as we can see below.
 
 ![tick variable in slot0](https://r2media.rareskills.io/UniswapV3-MinMaxTick/ImgTick.png)
 
 ## Summary
 
-- Tick index $i$ can vary between -887,272 and 887,272. These ticks represent the lowest and highest prices a token can assume in the protocol, respectively $p(i)=1.0001^{}$ and $p(i)=1.0001^{887272}$.
+- Tick index $i$ can vary between -887,272 and 887,272. These ticks represent the lowest and highest prices a token can assume in the protocol, respectively $p(i)=1.0001^{-887272}$ and $p(i)=1.0001^{887272}$.
 - The `MIN_SQRT_RATIO` and `MAX_SQRT_RATIO` values represent the smallest and largest allowed square root prices in Q64.96 format, as defined by the protocol. These values are hardcoded in the codebase.
