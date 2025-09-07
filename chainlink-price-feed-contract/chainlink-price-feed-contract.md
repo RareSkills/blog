@@ -22,7 +22,7 @@ We will use ETH / USD as a running example, but Chainlink supports many more ass
 
 This function `latestAnswer()` does not tell us the last time the price updated. If price updates are delayed, the smart contract might make decisions based on outdated prices.
 
-In the <span style="color:Green">green box</span> below, we see the same price we got from latestAnswer() and in the <span style="color:#008aff">blue box</span> we see when it was last updated as a unix timestamp.
+In the <span style="color:Green">green box</span> below, we see the same price we got from latestAnswer() and in the <span style="color:#008aff">blue box</span> we see when it was last updated as a Unix timestamp.
 
 ![latestRoundData() function return on Etherscan](https://static.wixstatic.com/media/935a00_be306db643fe4f89b18b590f3b24a006~mv2.png/v1/fill/w_740,h_430,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_be306db643fe4f89b18b590f3b24a006~mv2.png)
 
@@ -49,9 +49,9 @@ The off-chain prices enter the smart contract ecosystem via the [transmit functi
 The reader may have noticed that the `latestRoundData()` function is not in the same contract as `transmit()`. There are three smart contracts at play:
 
 1.  The [price feed contract](https://etherscan.io/address/0x5f4ec3df9cbd43714fe2740f5e3616155c5b8419)
-    
+
 2.  The [aggregator contract](https://etherscan.io/address/0xE62B71cf983019BFf55bC83B48601ce8419650CC)
-    
+
 3.  The [validator contract](https://etherscan.io/address/0x264BDDFD9D93D48d759FBDB0670bE1C6fDd50236)
 
 ## Price update transaction
@@ -66,7 +66,7 @@ During a price update, the signatures and prices of the nodes are batched togeth
 
 ### Improving the gas efficiency of reading price oracles
 
-Because viewing the price involves a cross-contract call, it is recommended to save 200 gas by “pre-warming” the aggregator call using an [accessing list transaction](https://www.rareskills.io/post/eip-2930-optional-access-list-ethereum). See an example of using an access list with a Chainlink price oracle in this [repo](https://github.com/RareSkills/access-list-benchmarks/tree/main/chainlink_oracle).
+Because viewing the price involves a cross-contract call, it is recommended to save 200 gas by “pre-warming” the aggregator call using an [access list transaction](https://www.rareskills.io/post/eip-2930-optional-access-list-ethereum). See an example of using an access list with a Chainlink price oracle in this [repo](https://github.com/RareSkills/access-list-benchmarks/tree/main/chainlink_oracle).
 
 ## Price update frequency
 
