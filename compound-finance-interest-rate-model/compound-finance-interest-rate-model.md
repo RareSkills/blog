@@ -12,11 +12,11 @@ We assume you have already read our article on [how crypto interest rates are de
 
 ## Major Changes from Compound V2
 
-In Compound V2 (and AAVE V3), the supply interest rates are the borrow interest rates multiplied by the utilization. In Compound V3, supply interest rate is directly a function of utilization and does not factor in the borrow rate. The borrow rate follows its own interest rate curve.
+In Compound V2 (and Aave V3), the supply interest rates are the borrow interest rates multiplied by the utilization. In Compound V3, supply interest rate is directly a function of utilization and does not factor in the borrow rate. The borrow rate follows its own interest rate curve.
 
 ## Variable names for interest rate model components
 
-What AAVE V3 calls the “optimal utilization,” Compound V3 calls the “kink.”
+What Aave V3 calls the “optimal utilization,” Compound V3 calls the “kink.”
 
 The [variable borrowPerSecondInterestRateBase](https://github.com/compound-finance/comet/blob/22cf923b6263177555272dde8b0791703895517d/contracts/Comet.sol#L61) is the “intercept” and currently has a value of 317097919. Our goal in this section is to show this intercept is equivalent to 1% APY. That is, when utilization is zero, borrowers pay 1% interest (according to current parameters, which governance may change).
 
@@ -40,7 +40,7 @@ In the animation above, we see the expected “Earn APR” (what lenders earn) i
 
 ## How do we know 0.01e18 translates to 1%?
 
-In the example above, we inferred that `0.01e18` translates to 1% interest. We’ll walk through the codebase to show how this is derived. It will requires five steps.
+In the example above, we inferred that `0.01e18` translates to 1% interest. We’ll walk through the codebase to show how this is derived. It will require five steps.
 
 ### Step 1: Introducing FACTOR_SCALE = 1e18
 
@@ -84,7 +84,7 @@ It takes two fixed point numbers and multiplies them to produce another fixed po
 
 ![mulFactor function](https://static.wixstatic.com/media/935a00_cb23b562ce26493ab4c76211e342e4c8~mv2.png/v1/fill/w_666,h_130,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_cb23b562ce26493ab4c76211e342e4c8~mv2.png)
 
-Since we are multiplying two numbers with 18 decimals together, we need to divide by `FACTOR_SCALE` to avoid having an 36 decimal output.
+Since we are multiplying two numbers with 18 decimals together, we need to divide by `FACTOR_SCALE` to avoid having an 36-decimal output.
 
 Just think of the function as “it multiplies two 18 decimals numbers together and returns an 18 decimal number representing their product.”
 
