@@ -22,13 +22,13 @@ Let’s revisit the [UserBasic struct in CometStorage.sol](https://github.com/c
 
 If the `principal` (<span style="color:#008aff">blue box</span>) is negative, it means the user is a borrower, and the negative value will be the **_principal_** value of their debt.
 
-`assetsIn` (<span style="color:Red">red box</span>) is a bitmap to indicate whether they’ve deposited an certain collateral asset or not. At this time of writing, the bitmap is laid out as follows:
+`assetsIn` (<span style="color:Red">red box</span>) is a bitmap to indicate whether they’ve deposited a certain collateral asset or not. At this time of writing, the bitmap is laid out as follows:
 
 ![compound collateral asset bitmap](https://static.wixstatic.com/media/935a00_7995fe43f6c0485e9dc5c9d68aad8327~mv2.png/v1/fill/w_315,h_231,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_7995fe43f6c0485e9dc5c9d68aad8327~mv2.png)
 
 The variables `baseTrackingIndex` and `baseTrackingAccrued` are for bookkeeping the distribution of rewards, and will be discussed in a separate article. The variable `_reserved` is unused.
 
-Note that this struct does not tell us how much collateral the user is holding. That is held in `balance` variable the [UserCollateral struct](https://github.com/compound-finance/comet/blob/main/contracts/CometStorage.sol#L37-L40) which is stored in the `userCollateral` nested mapping. The `_reserved` variable is unused.
+Note that this struct does not tell us how much collateral the user is holding. That is held in `balance` variable in the [UserCollateral struct](https://github.com/compound-finance/comet/blob/main/contracts/CometStorage.sol#L37-L40) which is stored in the `userCollateral` nested mapping. The `_reserved` variable is unused.
 
 ![UserCollateral struct](https://static.wixstatic.com/media/935a00_8d35628663774b9fb71c33534eae994a~mv2.png/v1/fill/w_666,h_220,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_8d35628663774b9fb71c33534eae994a~mv2.png)
 
@@ -44,7 +44,7 @@ The address of the oracle where Compound obtains the collateral price from is st
 
 ![AssetInfo struct](https://static.wixstatic.com/media/935a00_6d525717eee34f6ea4deaef6078d6719~mv2.png/v1/fill/w_315,h_201,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_6d525717eee34f6ea4deaef6078d6719~mv2.png)
 
-Observe the `AssetInfo` struct above is 432 bits large — it takes 2 slots to store it. We will revisit this in a follow section.
+Observe the `AssetInfo` struct above is 432 bits large — it takes 2 slots to store it. We will revisit this in a following section.
 
 ## Displaying AssetInfo on the Compound Finance Markets
 
@@ -84,7 +84,7 @@ The Comet.sol [isLiquidatable() function](https://github.com/compound-finance/co
 
 ![isLiquidatable formula](https://static.wixstatic.com/media/935a00_b3a8256e666c453cbb62e180ec8cd0d4~mv2.png/v1/fill/w_666,h_60,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_b3a8256e666c453cbb62e180ec8cd0d4~mv2.png)
 
-This means a borrower might have one asset below the liquidation threshold, but if other collateral assets balance it out the deficit, then the user is not liquidateable.
+This means a borrower might have one asset below the liquidation threshold, but if other collateral assets balance it out the deficit, then the user is not liquidatable.
 
 The full value of the collateral does not “count” towards the user’s collateral balance — it is reduced by the liquidation factor.
 
@@ -132,7 +132,7 @@ It doesn’t matter whether Bob has paid back the loan or not (i.e. has he trans
 
 Suppose Bob pays off the loan. Now the protocol has a balance of 110 USDC, 105 of which is due to Alice. There are still 5 USDC in reserves — nothing changed.
 
-The function `getReserves()` returns this value. The USDC the protcol “owns” is the sum of
+The function `getReserves()` returns this value. The USDC the protocol “owns” is the sum of
 
 1) the balance of USDC held by Compound i.e. `ERC20(baseToken).balanceOf(address(this))` and
 
@@ -191,9 +191,9 @@ To incentivize liquidators, collateral held by Compound is sold at a discount vi
 There are two crucial pieces of business logic in this function:
 
 1.  If the reserves amount is larger than the target reserves ($5 million) this function will revert, not allowing liquidators to purchase collateral. (<span style="color:#c1c146">yellow box</span> in the code below). As mentioned above, Compound wishes to speculate on the collateral. Since it is already in a cash-heavy position, they don’t wish to accumulate more cash.
-    
+
 2.  The exchange rate the protocol sells the collateral at is determined by the `quoteCollateral()` function (<span style="color:Red">red box</span> in the code below).
-    
+
 
 The rest of the code should be self-explanatory.
 
@@ -211,7 +211,7 @@ A user’s collateral balance is tracked via a combination of a bitmap indicatin
 
 Liquidations are all-or-nothing. When a user is liquidated, they will lose `1 - liquidationRatio` of their collateral and the leftover will be used to pay off the debt and assign the user a positive balance.
 
-The protocol now holds excess collateral and makes this available for sale at a discount according to the `quoteCollateral()` function. It will not sell however if the reservers are higher than the `targetReserves`.
+The protocol now holds excess collateral and makes this available for sale at a discount according to the `quoteCollateral()` function. It will not sell however if the reserves are higher than the `targetReserves`.
 
 Reserves are simply the money owed to the protocol plus the USDC balance of the protocol minus the amount the protocol owes to lenders. This money is withdrawable by governance.
 
