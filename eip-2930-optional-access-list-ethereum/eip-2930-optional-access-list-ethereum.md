@@ -14,7 +14,7 @@ This article was co-written by Jesse Raymond ([LinkedIn](https://www.linkedin.co
 
 ## How it works
 
-An EIP-2930 transaction is carried out the same way as any other transaction, except that the cold storage cost is paid upfront with a discount, rather during the execution of the SLOAD operation.
+An EIP-2930 transaction is carried out the same way as any other transaction, except that the cold storage cost is paid upfront with a discount, rather than during the execution of the SLOAD operation.
 
 It does not require any modifications to the Solidity code and is purely specified client-side.
 
@@ -296,13 +296,13 @@ Another example is storage slots that depend on when the transaction occurred. S
 
 ## When does the access list save gas?
 
-**Whenever you make a cross-contract call, consider adding using an access list transaction**
+**Whenever you make a cross-contract call, consider using an access list transaction**
 
-Making a cross contract call normally incurs an additional 2600 gas, but using an access list transaction costs 2400 and prewarms the contract access so that it only charges 100 gas, meaning the net cost goes from 2600 to 2500.
+Making a cross-contract call normally incurs an additional 2600 gas, but using an access list transaction costs 2400 and pre-warms the contract access so that it only charges 100 gas, meaning the net cost goes from 2600 to 2500.
 
-This is also applies for accessing storage variables in another contract. It normally costs 2100 for cold access, but an access list transaction pays 1900 gas to prewarm the stroage slot, leading to a net 100 gas savings.
+This is also applies for accessing storage variables in another contract. It normally costs 2100 for cold access, but an access list transaction pays 1900 gas to pre-warm the storage slot, leading to a net 100 gas savings.
 
-We provide further examples of access list transactions for common cross contract calls such as
+We provide further examples of access list transactions for common cross-contract calls such as
 
 - accessing the price in a [Chainlink oracle](https://www.rareskills.io/post/chainlink-price-feed-contract),
 - a [proxy](https://www.rareskills.io/proxy-patterns) doing a [delegatecall](https://www.rareskills.io/post/delegatecall) to an implementation contract
@@ -315,7 +315,7 @@ There is no “added fee” for directly calling a smart contract, it is include
 
 ## Conclusion
 
-EIP-2930 Ethereum access list transactions are a quick way to save up to 200 gas per storage slot when the address and storage slot of a cross contract call can be predicted. It should not be used when no cross-contract calls are made or when the address and storage slot pair is not deterministic.
+EIP-2930 Ethereum access list transactions are a quick way to save up to 200 gas per storage slot when the address and storage slot of a cross-contract call can be predicted. It should not be used when no cross-contract calls are made or when the address and storage slot pair is not deterministic.
 
 ### Learn more
 
