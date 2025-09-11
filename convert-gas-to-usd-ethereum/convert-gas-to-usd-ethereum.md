@@ -17,7 +17,7 @@ You can use this handy [calculator](https://www.rareskills.io/ethereum-gas-price
 
 ## Gas Price
 
-The "gas price" is usually priced in units of Gwei. The values fluctuate between 15 during periods of low use to over 100 gwei during periods of high use. What exactly is a "gwei" in this context?
+The "gas price" is usually priced in units of Gwei. The values fluctuate between 15 gwei during periods of low use to over 100 gwei during periods of high use. What exactly is a "gwei" in this context?
 
 Ethereum, as a cryptocurrency, can be subdivided into decimal places of 10^-18. Each of these tiny units is called one "wei." One billion wei, or one giga-wei, is one billionth of an Ether, or 1 billion wei. (Multiplying 10^-18 by one billion is 10^-9, or one billionth).
 
@@ -35,17 +35,17 @@ Gas can be conceptualized as a "unit of computation" or very roughly, one clock 
 
 (21,000 gas) $\times$ (price of gas in gwei) $\times$ (price of ether in dollars) / (1 billion to normalize the gwei)
 
-At the time of writing, Ether is about $1,600, the price of gas in gwei is 22 according to [etherscan](https://etherscan.io/gastracker), and an eth transfer requires 21,000 gas. Multiply that together and the gas cost of transferring Ether in dollars is 74 cents.
+At the time of writing, Ether is about $1,600, the price of gas in gwei is 22 according to [etherscan](https://etherscan.io/gastracker), and an ETH transfer requires 21,000 gas. Multiply that together and the gas cost of transferring Ether in dollars is 74 cents.
 
 ### How the units cancel each other out
 
-21,000 gas x (unit of ether / gas) $\times$ (dollars / unit of ether). 
+21,000 gas x (unit of ether / gas) $\times$ (dollars / unit of ether).
 
 The "gas" terms cancel out, and the "unit of ether" cancel out, so our final transaction is priced in dollars.
 
 ## Why gas prices fluctuate
 
-Ethereum limits each block to only use 30 million gas. Divide that by 21,000, and that means up to 1,428 Eth transfers can be done in one block. If more than 1,428 people want to make a transfer, they'll have to wait or pay a higher gas price. Remember, they can't change the 21,000 cost of a transfer, or the price of Ether (directly). The gas price is discretionary, transactors can pay as high a price as they chose, but for their transaction to be included, they must pay higher than the other transactors.
+Ethereum limits each block to only use 30 million gas. Divide that by 21,000, and that means up to 1,428 Eth transfers can be done in one block. If more than 1,428 people want to make a transfer, they'll have to wait or pay a higher gas price. Remember, they can't change the 21,000 cost of a transfer, or the price of Ether (directly). The gas price is discretionary, transactors can pay as high a price as they choose, but for their transaction to be included, they must pay higher than the other transactors.
 
 Because block space is limited, there is a supply and demand phenomenon at play. If more people want to send transactions than Ethereum has space for, then the most motivated buyer must outbid the other transactors.
 
@@ -59,11 +59,11 @@ Here is a snapshot taking during the writing of this article. The local timezone
 
 ## Gas Guzzlers
 
-Scroll down on the [etherscan gas page](https://etherscan.io/gasTracker#gasguzzler), and you'll see the smart contracts that cause the most gas consumption. The pattern of gas consumption follows the Pareto principle (80 20 rule), 80% of the gas consumption comes from 20% of the ecosystem.
+Scroll down on the [etherscan gas page](https://etherscan.io/gasTracker#gasguzzler), and you'll see the smart contracts that cause the most gas consumption. The pattern of gas consumption follows the Pareto principle (80/20 rule), 80% of the gas consumption comes from 20% of the ecosystem.
 
 At the time of writing, transaction fees associated with Uniswap consumes 10% of the network.
 
-Ethereum burns most of the transaction fee (the miner receives a small portion), so this indicates that Uniswap alone has resulted in over 400 Ether being deleted over the past 24 hours.
+Ethereum burns most of the transaction fee (the miner receives a small portion), so this indicates that Uniswap alone has resulted in over 400 Ether being burned over the past 24 hours.
 
 ![](https://static.wixstatic.com/media/935a00_927b4ff5d99b46afa6bfd1753963d83d~mv2.png/v1/fill/w_666,h_544,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/935a00_927b4ff5d99b46afa6bfd1753963d83d~mv2.png)
 
