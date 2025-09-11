@@ -1,11 +1,11 @@
 # The Solidity Engineer Salary is a Myth
 
-![Stack of gold bars owned by a blockchain engineer](https://static.wixstatic.com/media/935a00_ba4c2369012948e3a3eb48baa2314a45~mv2.webp/v1/fill/w_740,h_740,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_ba4c2369012948e3a3eb48baa2314a45~mv2.webp)   
+![Stack of gold bars owned by a blockchain engineer](https://static.wixstatic.com/media/935a00_ba4c2369012948e3a3eb48baa2314a45~mv2.webp/v1/fill/w_740,h_740,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_ba4c2369012948e3a3eb48baa2314a45~mv2.webp)
 Is gold in your future if you study blockchain?
 
 ## There is no shortcut to a high solidity developer salary
 
-This might sound funny coming from a [blockchain bootcamp](https://www.rareskills.io/web3-blockchain-bootcamps), but it’s true.  
+This might sound funny coming from a [blockchain bootcamp](https://www.rareskills.io/web3-blockchain-bootcamps), but it’s true.
 It’s not that you can’t improve your blockchain engineer salary. You absolutely can. But the problem is, it’s ***way*** harder than taking an online course and sticking a few projects on your GitHub.
 
 Think about it this way. Imagine you are hiring an accountant to handle your business’ books. A candidate proudly strolls up to your desk with a certificate and tells you he has twelve weeks of experience.
@@ -24,7 +24,7 @@ There is so much misunderstanding about web3 salaries out there. The first misun
 
 ### Bad data science and the myth of Solidity developer salaries
 
-Google around and you’ll see tables comparing solidity engineer salaries to other variants of software specialties sorted by salary — with blockchain engineers on top of course, making somewhere between \$120,00 to \$150,000 on average.
+Google around and you’ll see tables comparing solidity engineer salaries to other variants of software specialties sorted by salary — with blockchain engineers on top of course, making somewhere between \$120,000 to \$150,000 on average.
 
 That’s **not** the average salary of a “solidity engineer.” That’s the average salary of an **employed** solidity engineer.
 
@@ -48,20 +48,20 @@ Claiming a \$150,000 salary is “high” is very misleading. It’s high in an 
 
 Don’t believe me? Let’s let the data speak for itself shall we?
 
-We can get a sense of the distribution of salaries by looking at entry to mid level software developer jobs at established but not elite tech companies. The most reliable source online for this is [](https://levels.fyi/)[levels.fyi](https://levels.fyi/).
+We can get a sense of the distribution of salaries by looking at entry to mid level software developer jobs at established but not elite tech companies. The most reliable source online for this is [levels.fyi](https://levels.fyi/).
 
 Let’s go
 
-**American Express**  
-Lowest level: \$100,000  
+**American Express**
+Lowest level: \$100,000
 Mid level: \$150,000
 
-**Boeing**  
-Lowest level: \$83,000  
+**Boeing**
+Lowest level: \$83,000
 Mid level: \$140,000
 
-**Charles Schwab**  
-Lowest level: \$90,000  
+**Charles Schwab**
+Lowest level: \$90,000
 Mid level: \$150,000
 
 You get the point?
@@ -80,11 +80,11 @@ If money is purely your goal, master algorithm and system architecture interview
 
 Master means you can solve most medium difficulty problems in 30 minutes without mistakes, and handling every corner case. You should be able to code a perfect solution to easy problems in 15 minutes. And your variables need to be well named. This will put you in a position where you can easily secure multiple job offers and get companies to bid against each other for you.
 
-Even if you are terrible at negotiating, the competing offers will handle that for you. Getting these roles is straightforward. Practice algorithmic interview questions like crazy, and when you are ready, send a cold DM to some recruiters at these companies and show them some evidence on leetcode or hackerrank that you really know the stuff and have a good shot at passing the interview. The recruiter, who stands to get a nice bonus if you pass, so they will pass your profile along. Pass the interview, and boom. Now you are rich.
+Even if you are terrible at negotiating, the competing offers will handle that for you. Getting these roles is straightforward. Practice algorithmic interview questions like crazy, and when you are ready, send a cold DM to some recruiters at these companies and show them some evidence on leetcode or hackerrank that you really know the stuff and have a good shot at passing the interview. The recruiter, who stands to get a nice bonus if you pass, they will pass your profile along. Pass the interview, and boom. Now you are rich.
 
 Alright that’s cool, but everybody hates algorithmic interview questions. Is blockchain a solution to this?
 
-No it isn’t. To make your application stand out from the hordes of applicants who have all written ERC20 tokens and put an NFT on Opensea, you’re going to have to put in work that outshines them by a large margin. And that work is going to quickly become as long and laborious as practicing algorithmic interview questions. But the outcome is a lot less guaranteed because web3 is a very volatile space.
+No it isn’t. To make your application stand out from the hordes of applicants who have all written ERC20 tokens and put an NFT on OpenSea, you’re going to have to put in work that outshines them by a large margin. And that work is going to quickly become as long and laborious as practicing algorithmic interview questions. But the outcome is a lot less guaranteed because web3 is a very volatile space.
 
 Grinding [leetcode](https://www.rareskills.io/post/best-50-leetcode-questions-to-start) is an established path to a high income. It’s life’s ultimate cheat code. The fact that everyone hates doing it is precisely why it will remain life’s ultimate cheat code. If you are willing to do what other people aren’t, you will get the salaries they don’t. Plain and simple.
 
@@ -92,7 +92,7 @@ Yes, leetcode can be hard (no pun intended). But it’s far easier than passing 
 
 ### Learning a language does not make you a developer
 
-If you know Kotlin, you are not automatically an Android Developer. If you know Swift, you are are not automatically an iOS developer. If you know JavaScript, you are not automatically a frontend developer. Why? You have to know the ecosystems and frameworks to be a true developer in that field. A language can be learned in a weekend, frameworks and ecosystems take months and years to master. Why would anyone pay you six figures just to learn an easy programming language like Solidity? That makes no sense.
+If you know Kotlin, you are not automatically an Android Developer. If you know Swift, you are not automatically an iOS developer. If you know JavaScript, you are not automatically a frontend developer. Why? You have to know the ecosystems and frameworks to be a true developer in that field. A language can be learned in a weekend, frameworks and ecosystems take months and years to master. Why would anyone pay you six figures just to learn an easy programming language like Solidity? That makes no sense.
 
 Looking back at the six figures quoted above, do you think those companies are paying that kind of money because those engineers took a few Java tutorials and completed an online course? Of course not! Employers who pay a lot of money expect comprehensive mastery, not a bullet point on your resume that claims you know a programming language.
 
@@ -110,7 +110,7 @@ Then there are cultural issues, which are very, very real. In America, it’s co
 
 And don’t underestimate timezones. In an ideal world, teams can pass tasks around asynchronously and one person works on it at night, while another team works on it the next day. In reality, if you need a key detail while another team member is asleep, this tiny inconvenience can compound into a productivity killer. The larger the team, the more likely this is to happen.
 
-Saving \$500,000 and then having routine misunderstandings cause team productivity plummet to zero isn’t worth it.
+Saving \$500,000 and then having routine misunderstandings cause team productivity to plummet to zero isn’t worth it.
 
 This isn’t to say you can’t make it work. But it gets harder as the organization gets larger, and the effort put into making it work has a real business cost that can easily offset the money saved on payroll.
 
@@ -148,7 +148,7 @@ Ah yes, “just study Solidity for four months and get a \$100,000 salary” the
 
 That’s not gonna happen if your first programming job is Solidity.
 
-Maybe if you have enough privilege to not need to work for an extended time, a degree in physics from a top university, and an IQ of 160, ***maybe*** you can get your six figure Solidity developer salary on the first go, but that’s not a template most people can follow.  
+Maybe if you have enough privilege to not need to work for an extended time, a degree in physics from a top university, and an IQ of 160, ***maybe*** you can get your six figure Solidity developer salary on the first go, but that’s not a template most people can follow.
 
 There have been so many get rich quick schemes in crypto and programmers (or people with an interest in programming) are not immune to it. Now of course, to fool most would-be programmers, you can’t promise tokens going to the moon or 1,000% returns. The market for scamming people like that is a bit saturated and unoriginal now.
 
@@ -204,7 +204,7 @@ Wrong.
 
 It really is more fulfilling to study a technology that is “owned” by collective humanity than owned by a large corporation. I’m not knocking platforms like AWS. The engineering genius that went into them is astonishing. But it lacks the timeless soul of pure algorithms living in real and useful applications.
 
-Why does \$100 wine usually taste better than \$2.50 wine they sell for \$15 on an economy airplane ride even though both taste like sour grape juice? I can’t articulate it, and unless you are a sommelier, you can’t articulate it either. But we both know the difference is real.  
+Why does \$100 wine usually taste better than \$2.50 wine they sell for \$15 on an economy airplane ride even though both taste like sour grape juice? I can’t articulate it, and unless you are a sommelier, you can’t articulate it either. But we both know the difference is real.
 (For those of you trying to catch me on a technicality in my analogy that wine tasters get fooled while blindfolded, I *can* detect United Airlines economy wine in a blind test — it has the distinctive characteristic of making my jaw hurt while swallowing it).
 
 Blockchain doesn’t have to be “better” than other models of computation. Being “different but useful” is good enough and a welcome break from building the same application for the 12th time. Getting bored with the same old same old and working on something new is more than a good enough reason to study blockchain, as long as you are honest with your motivations and keep your financial expectations in check.
@@ -217,7 +217,7 @@ Let that sync in. (See what I did there?)
 
 We know *so little* about distributed systems that we don’t know the theoretical performance gap between decentralized compute and centralized compute — *or even if that gap is necessarily consequential*!
 
-Yeah, that seems like a big hole in our collective knowledge, doesn’t it? Welcome to the forefront of innovation! Things are exciting here, and not because prices swing like crazy!  
+Yeah, that seems like a big hole in our collective knowledge, doesn’t it? Welcome to the forefront of innovation! Things are exciting here, and not because prices swing like crazy!
 
 In a practical sense, yes. Current centralized computers are orders of magnitude more efficient. But it’s also received orders of magnitude more research funding. Don’t confuse the outcome of capital investment with theoretical limits.
 
@@ -227,20 +227,20 @@ Blockchain has an intrinsic appeal to polymaths. Where else are you going to fin
 
 Thinking about how all these domains interact with each other is fun!
 
-Instead of learning random topics for the fun of it, you can learn topics that seem initially disparate but combined make you a stronger contributor to the web3 space.  
+Instead of learning random topics for the fun of it, you can learn topics that seem initially disparate but combined make you a stronger contributor to the web3 space.
 This unexplored map leads to a bigger opportunity.
 
 ### You have a realistic shot at becoming a thought leader
 
 You’re probably not going to be a thought leader in an established technology field. The leaders are too entrenched and there is too much ground to cover. In blockchain, or any nascent field for that matter, you can come up with industry leading solutions as a relatively normal person (assuming you are smart, motivated, and have the time). Consider this, a pair of students in the RareSkills [solidity bootcamp](https://www.rareskills.io/solidity-bootcamp) developed a presale / airdrop [solution](https://www.rareskills.io/post/solidity-rsa-signatures-for-aidrops-and-presales-beating-ecdsa-and-merkle-trees-in-gas-efficiency) in solidity that outperformed the “established” solutions of ECDSA and Merkle Trees. (The mirror article even trended on [hackernoon](https://hackernoon.com/u/rareskills) for a time despite being highly technical).
 
-In case you sped through the sentence, let me emphasize this: students, not MIT professors!  
+In case you sped through the sentence, let me emphasize this: students, not MIT professors!
 
 This does mean you have to pick your niche in blockchain carefully. The resources and tools for NFTs are oversaturated right now. Most DeFi solutions are some variation of over-collateralized loans powered by an oracle. You won’t be a thought leader doing what everyone else is doing.
 
 Look for where the literature is sparse but plausibly useful.
 
-This is how [I (Jeffrey)](https://www.rareskills.io/instructors) established myself in blockchain. I noticed there were no resources online for studying gas optimization in Ethereum, so I created a [Udemy course](https://www.udemy.com/course/advanced-solidity-understanding-and-optimizing-gas-costs/). After a short time, it became a bestseller that appears at the top of the search results for “solidity.” As I looked around, I noticed it wasn’t just gas optimization that was under-explained, pretty much every topic that isn’t about how to make NFTs, use DeFi in a basic way, or program solidity was under-explained too. So now [RareSkills is going after those topics](https://www.rareskills.io/web3-blockchain-bootcamps) full bore.  
+This is how [I (Jeffrey)](https://www.rareskills.io/instructors) established myself in blockchain. I noticed there were no resources online for studying gas optimization in Ethereum, so I created a [Udemy course](https://www.udemy.com/course/advanced-solidity-understanding-and-optimizing-gas-costs/). After a short time, it became a bestseller that appears at the top of the search results for “solidity.” As I looked around, I noticed it wasn’t just gas optimization that was under-explained, pretty much every topic that isn’t about how to make NFTs, use DeFi in a basic way, or program solidity was under-explained too. So now [RareSkills is going after those topics](https://www.rareskills.io/web3-blockchain-bootcamps) full bore.
 
 We aren’t just focusing on expert topics to be cool. If the blockchain space is going to move forward, it needs innovative engineers who understand the technology thoroughly at a fundamental, foundational, and theoretical level. Only from that vantage point, they can notice what isn’t working and come up with sound solutions for it.
 
