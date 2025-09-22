@@ -102,17 +102,17 @@ Absorbs are all or nothing — there is no option to liquidate part of the colla
 
 ### Example absorb
 
-Suppose Bob deposited $1000 of ETH into Compound V3 and borrowed $800 USDC. This satisfies the collateralization ratio of 80%. The value of ETH drops to $880 causing the LTV (loan to value) to hit 90.9%, triggering the 90% liquidation threshold.
+Suppose Bob deposited \$1000 of ETH into Compound V3 and borrowed \$800 USDC. This satisfies the collateralization ratio of 80%. The value of ETH drops to \$880 causing the LTV (loan to value) to hit 90.9%, triggering the 90% liquidation threshold.
 
-A liquidator calls `absorb()` on Bob’s account and the $880 of ETH collateral are absorbed into the protocol.
+A liquidator calls `absorb()` on Bob’s account and the \$880 of ETH collateral are absorbed into the protocol.
 
 Let’s say the liquidation penalty is 5%.
 
-Since the collateral value is currently $880 ETH, 5% of that is $44 in ETH.
+Since the collateral value is currently \$880 ETH, 5% of that is \$44 in ETH.
 
-The protocol will deduct $44 from Bob’s collateral as a penalty, leaving $836. Since Bob borrowed $800 USDC, there is a $36 surplus. That is, $800 is taken by the protocol to cover the debt leaving $36 left over. This is credited to Bob who now becomes a lender with a $36 USDC deposit.
+The protocol will deduct $44 from Bob’s collateral as a penalty, leaving \$836. Since Bob borrowed \$800 USDC, there is a \$36 surplus. That is, \$800 is taken by the protocol to cover the debt leaving \$36 left over. This is credited to Bob who now becomes a lender with a \$36 USDC deposit.
 
-Bob has already withdrawn the $800 USDC when he took out the loan, so his total holdings are now $836.
+Bob has already withdrawn the \$800 USDC when he took out the loan, so his total holdings are now $836.
 
 Note that nothing in the `absorb()` interaction directly rewarded the liquidator.
 
