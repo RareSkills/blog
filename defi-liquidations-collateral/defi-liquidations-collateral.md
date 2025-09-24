@@ -63,9 +63,9 @@ The liquidation factor is always a higher percentage than the collateral factor.
 There are three ways for the loan-to-value to increase and to approach the liquidation factor.
 
 1.  The loan accrues [interest](https://www.rareskills.io/post/aave-interest-rate-model) and has a larger notional value
-    
+
 2.  The collateral falls in value
-    
+
 3.  The borrowed asset rises in value
 
 **1) Example: the loan accrues interest and has a larger notional value**
@@ -88,7 +88,7 @@ A user deposits $1,000 ETH and borrows $800 USDC. USDC depegs and becomes worth 
 
 The exact mechanism of the liquidation varies by protocol. In a simple case, the liquidator pays off the USDC loan of the borrower and receives a portion of the collateral at a discount.
 
-Liquidation is usually permissionless. Anyone call the function on the smart contract to trigger the liquidation.
+Liquidation is usually permissionless. Anyone can call the function on the smart contract to trigger the liquidation.
 
 ### Compound V3’s mechanism
 
@@ -100,7 +100,7 @@ There is no financial incentive for calling `absorb()` in Compound V3 (though go
 
 **Example liquidation**
 
-Compound V3 has $100,000 in USDC deposited by lenders. A borrower deposits $50,000 of collateral in LINK and borrows $25,000 USDC. Now $75,000 USDC is idle, sitting unused in Compound V3. The LINK value drops to $30,000 causing the collateral to go underwater and a liquidator calls `absorb()`. After `absorb()` is called, the balance in Compound V3 is still $75,000 (because the delinquent borrower holds $25,000). However, the protocol now takes possession of the $30,000 LINK the borrower deposited. The liquidator will purchase the $30,000 LINK for $28,000 USDC due to the discount. The 28,000 USDC is added to protocol’s 75,000. the Now the protocol has $103,000 USDC and no collateral.
+Compound V3 has $100,000 in USDC deposited by lenders. A borrower deposits $50,000 of collateral in LINK and borrows $25,000 USDC. Now $75,000 USDC is idle, sitting unused in Compound V3. The LINK value drops to $30,000 causing the collateral to go underwater and a liquidator calls `absorb()`. After `absorb()` is called, the balance in Compound V3 is still $75,000 (because the delinquent borrower holds $25,000). However, the protocol now takes possession of the $30,000 LINK the borrower deposited. The liquidator will purchase the $30,000 LINK for $28,000 USDC due to the discount. The 28,000 USDC is added to protocol’s 75,000. Now the protocol has $103,000 USDC and no collateral.
 
 ### Considerations for changing the liquidation factor while loans are active
 
@@ -120,7 +120,7 @@ Typically, the liquidation penalty is split between the liquidator and the proto
 
 ## Danger of Small Loans
 
-If the amount of collateral deposited is too low, then the liquidation penalty that goes to the liquidator might not pay for the gas of the transaction to liquidate the borrower. With no incentive to liquidate loans that are close to getting underwater, then the protocol will accumulate bad debt. To avoid this problems, lending protocols generally enforce that loans have a minimum size.
+If the amount of collateral deposited is too low, then the liquidation penalty that goes to the liquidator might not pay for the gas of the transaction to liquidate the borrower. With no incentive to liquidate loans that are close to getting underwater, then the protocol will accumulate bad debt. To avoid these problems, lending protocols generally enforce that loans have a minimum size.
 
 ## Danger of Large Loans
 
@@ -148,7 +148,7 @@ The protocol could enforce a liquidation threshold of 10%, in which case the mar
 
 Although parameters are set by governance, the parameters are usually recommended by consulting agencies that specialize in financial models.
 
-[Gauntlet](https://www.gauntlet.xyz/) currently suggests the risk parameters for AAVE and Compound. They maintain [risk dashboards for these protocols](https://risk.gauntlet.xyz/).
+[Gauntlet](https://www.gauntlet.xyz/) currently suggests the risk parameters for Aave and Compound. They maintain [risk dashboards for these protocols](https://risk.gauntlet.xyz/).
 
 Gauntlet attempts to predict the worst case liquidation scenarios at times of market stress and set the parameters such that Compound will not incur bad debt during all the liquidations. Factors they consider include asset volatility and correlation of asset prices during normal times and times of market stress. You can read here about their [risk methodology](https://medium.com/gauntlet-networks/improved-var-methodology-9f4f0c4cdb6f).
 
