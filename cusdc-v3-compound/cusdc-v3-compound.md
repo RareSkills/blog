@@ -1,18 +1,18 @@
 # cUSDC V3 (Compound V3) as a non-standard Rebasing Token, CometExt.sol
 
-The Compound V3 contract behaves like a rebasing ERC 20 token. A rebasing token is a token which has an algorithmically adjusted supply rather than a fixed one. The “token” here represents the present value of positive USDC balances. That is, lenders can transfer the present value of their principal to other addresses as if it were an ERC 20 token. Since the principal value is generally increasing due to interest accrual, this ERC 20 token is rebasing upwards over time.
+The Compound V3 contract behaves like a rebasing ERC-20 token. A rebasing token is a token which has an algorithmically adjusted supply rather than a fixed one. The “token” here represents the present value of positive USDC balances. That is, lenders can transfer the present value of their principal to other addresses as if it were an ERC-20 token. Since the principal value is generally increasing due to interest accrual, this ERC-20 token is rebasing upwards over time.
 
 **Compound V3 does not use a token vault standard (e.g. [ERC-4626](https://www.rareskills.io/post/erc4626)) to track “shares” of the lending pool.**
 
-As we noted in our discussion of principal and present value, a user may have deposited 100 USDC but have a credit of 110 USDC due to interest accrued — the 110 is the present value. It is this unit of account that the ERC20 functionality of Compound V3 manages.
+As we noted in our discussion of principal and present value, a user may have deposited 100 USDC but have a credit of 110 USDC due to interest accrued — the 110 is the present value. It is this unit of account that the ERC-20 functionality of Compound V3 manages.
 
-## P**rerequisites**
+## Prerequisites
 
 Users must be familiar with interest indexes and Compound V3’s notion of [present value and principal value](https://www.rareskills.io/post/defi-interest-rate-indexes). The terms Compound V3 and Comet are used interchangeably in this article since Comet is the name of the primary smart contract which has the functions we discuss here.
 
 ## Structure of this article
 
-Each heading will discuss an ERC 20 function that Compound V3 implements, and how it implements the function. Some of the functions are not part of the ERC 20 standard but are relevant to this discussion.
+Each heading will discuss an ERC-20 function that Compound V3 implements, and how it implements the function. Some of the functions are not part of the ERC-20 standard but are relevant to this discussion.
 
 ## totalSupply and totalBorrow (Comet.sol)
 
@@ -24,7 +24,7 @@ Below we show a screenshot of the Compound V3 UI showing this value and Ethersca
 
 Similarly, the totalSupply() is not the amount of USDC lenders deposited into Compound — it is the _present value_ of the total deposits.
 
-The [totalSupply and totalBorrow code](https://github.com/compound-finance/comet/blob/main/contracts/Comet.sol#L1267C1-L1285C6) screenshotted below should the relationship to the present value clear.
+The [totalSupply and totalBorrow code](https://github.com/compound-finance/comet/blob/main/contracts/Comet.sol#L1267C1-L1285C6) screenshotted below should make the relationship to the present value clear.
 
 ![totalSupply() and totalBorrow() functions](https://static.wixstatic.com/media/935a00_1daf2c3dffb24611aaf6de16b6554213~mv2.png/v1/fill/w_666,h_352,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_1daf2c3dffb24611aaf6de16b6554213~mv2.png)
 
@@ -32,7 +32,7 @@ Below we have screenshotted two queries of totalSupply. Note that the `totalSupp
 
 ![totalSupply() increasing](https://static.wixstatic.com/media/935a00_c208f71cb0d942129f825de5a37d9689~mv2.png/v1/fill/w_666,h_251,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_c208f71cb0d942129f825de5a37d9689~mv2.png)
 
-**The totalSupply() function behaves as totalSupply() from ERC 20.**
+**The totalSupply() function behaves as totalSupply() from ERC-20.**
 
 Borrowers are not able to transfer debt, so totalBorrow is not used for any token-like interfaces.
 
@@ -52,13 +52,13 @@ Both these functions call `transferInternal` under the hood. The right way to t
 
 Note that there is no mechanism for borrowers to transfer collateral to other addresses, as `transferCollateral` is only internal. This function is used for liquidations.
 
-## The remainder of the ERC 20 functions are in CometExt.sol
+## The remainder of the ERC-20 functions are in CometExt.sol
 
-Because of the 24 kb deployment limit, Comet splits off some of its functionality to CometExt.sol using the [fallback extension pattern](https://www.rareskills.io/post/fallback-extension-pattern). The majority of the functions in CometExt are related to the ERC 20 functionality.
+Because of the 24 KB deployment limit, Comet splits off some of its functionality to CometExt.sol using the [fallback extension pattern](https://www.rareskills.io/post/fallback-extension-pattern). The majority of the functions in CometExt are related to the ERC-20 functionality.
 
 ## approve (CometExt.sol)
 
-The approve() functionality for cUSDCv3 is nonstandard in that it only accepts [type(uint256).max](https://www.rareskills.io/post/uint-max-value-solidity) or zero. Since the balance of an account is constantly changing due to the rebasing, it isn’t possible to give someone an allowance for exactly the entire balance, since the balance keeps increasing as interest accumulates.
+The approve() functionality for cUSDCv3 is non-standard in that it only accepts [type(uint256).max](https://www.rareskills.io/post/uint-max-value-solidity) or zero. Since the balance of an account is constantly changing due to the rebasing, it isn’t possible to give someone an allowance for exactly the entire balance, since the balance keeps increasing as interest accumulates.
 
 ![approve()](https://static.wixstatic.com/media/935a00_b5a2f63e5d84476eb21b2c428bebbff6~mv2.png/v1/fill/w_666,h_356,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_b5a2f63e5d84476eb21b2c428bebbff6~mv2.png)
 
@@ -66,7 +66,7 @@ The approve() functionality for cUSDCv3 is nonstandard in that it only accepts 
 
 ### allow() and allowInternal()
 
-The function allow() not part of ERC20, but it behaves the same as approve() in that it gives an address maximum allowance. Both approve() and allow() use allowInternal() under the hood to accomplish giving an address maximum allowance.
+The function allow() not part of ERC-20, but it behaves the same as approve() in that it gives an address maximum allowance. Both approve() and allow() use allowInternal() under the hood to accomplish giving an address maximum allowance.
 
 Because approve is essentially binary, allow behaves like approve except it takes a boolean argument to give approval for the full value instead of a uint256.
 
@@ -76,7 +76,7 @@ The “allowances” storage variable is kept in [CometStorage.sol](https://gith
 
 ![isAllowed() storage variable](https://static.wixstatic.com/media/935a00_0f8d1fce0e3e443390300a964d392f17~mv2.png/v1/fill/w_666,h_103,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_0f8d1fce0e3e443390300a964d392f17~mv2.png)
 
-Allowance is all or nothing in Compound V3. That’s why `approve` only accepts the maximum uint256 value. There is no storage variable for storing allowance as a number like traditional ERC 20 tokens do.
+Allowance is all or nothing in Compound V3. That’s why `approve` only accepts the maximum uint256 value. There is no storage variable for storing allowance as a number like traditional ERC-20 tokens do.
 
 ## allowance (CometExt.sol)
 
@@ -84,13 +84,13 @@ Allowance is binary, you only have approval for the max uint256 value or zero. A
 
 `hasPermission` simply returns a Boolean value signifying an address has unlimited approvals or none at all.
 
-## allowBySig() is a non-standard ERC 20 permit() function
+## allowBySig() is a non-standard ERC-20 permit() function
 
 CometStorage exposes `mapping(address => uint256)` public userNonce as a public variable rather than the `nonces(address owner) external returns (uint)` specified by [EIP 2612](https://eips.ethereum.org/EIPS/eip-2612).
 
 ## name() and symbol() (CometExt.sol)
 
-The functions `name()` and `symbol()` are optional ERC 20 functions that return strings.
+The functions `name()` and `symbol()` are optional ERC-20 functions that return strings.
 
 [CometExt.sol](https://github.com/compound-finance/comet/blob/main/contracts/CometExt.sol) does not store these values in string variables, but instead in immutable `bytes32` variables for gas efficiency purposes. Solidity does not allow for casting `bytes32` to strings directly, so the immutable variables are converted to strings on the fly using the code below.
 
@@ -99,7 +99,7 @@ One lesser known detail about `bytes1`, `bytes2`, …, and `bytes32` datatypes 
 ```solidity!
 contract Example {
     bytes32 immutable x = 0x3300000000000000000000000000000000000000000000000000000000000000;
-    
+
 	function main() external pure returns (bytes1) {
         return x[0]; // returns 0x33
     }
@@ -120,7 +120,7 @@ Here is an example calling `name()` and `symbol()` using Foundry’s cast.
 
 ## Conclusion
 
-CometV3 behaves like a rebasing ERC 20 token that represents the positive balances of lenders. This positive balance can be transferred to other addresses like a regular ERC 20 token. The `approve()` function is non-standard — it can only do an infinite approve or none at all. Similarly, the `permit()` function for gasless approvals is non-standard.
+CometV3 behaves like a rebasing ERC-20 token that represents the positive balances of lenders. This positive balance can be transferred to other addresses like a regular ERC-20 token. The `approve()` function is non-standard — it can only do an infinite approve or none at all. Similarly, the `permit()` function for gasless approvals is non-standard.
 
 ## Learn More with RareSkills
 
