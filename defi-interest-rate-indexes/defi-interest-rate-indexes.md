@@ -4,7 +4,7 @@ The intuitive way to track lender deposits is to record the amount of USDC they 
 
 Instead, similar to [SushiSwap Masterchef Staking Algorithm](https://www.rareskills.io/post/staking-algorithm), Compound V3 tracks the hypothetical gain of one dollar lent “since the beginning of time.” (Readers not already familiar with this algorithm should read the linked resource).
 
-The hypothetical gain of one dollar lent since the beginning of time is tracked in the [`baseSupplyIndex`](https://github.com/compound-finance/comet/blob/main/contracts/CometStorage.sol#L50) [(in CometStorage.sol)](https://github.com/compound-finance/comet/blob/main/contracts/CometStorage.sol#L50). It behaves very similar to to the “rewardPerTokenAccumulator” from Sushiswap. It starts at 1.0 and each time a state-changing operation occurs (deposit, withdraw, borrow, etc), it is increased proportional to the time passed and the interest rate over that period. For example, if 100 seconds passed, and the interest rate was 0.001 per second (unrealistically high, but easy to reason about), then `baseSupplyIndex` will be updated to 1.1. Specifically, the following formula is used:
+The hypothetical gain of one dollar lent since the beginning of time is tracked in the [`baseSupplyIndex`](https://github.com/compound-finance/comet/blob/main/contracts/CometStorage.sol#L50) [(in CometStorage.sol)](https://github.com/compound-finance/comet/blob/main/contracts/CometStorage.sol#L50). It behaves very similar to the “rewardPerTokenAccumulator” from Sushiswap. It starts at 1.0 and each time a state-changing operation occurs (deposit, withdraw, borrow, etc), it is increased proportional to the time passed and the interest rate over that period. For example, if 100 seconds passed, and the interest rate was 0.001 per second (unrealistically high, but easy to reason about), then `baseSupplyIndex` will be updated to 1.1. Specifically, the following formula is used:
 
 ```
 baseSupplyIndex += supplyInterestRatePerSecond(utilization) × secondsElapsed
@@ -18,13 +18,13 @@ The only place baseSupplyIndex is ever changed is on line [403 in Comet.sol](htt
 
 The following hypothetical plot shows the `baseSupplyIndex` and `baseBorrowIndex` increasing at different rates depending on the utilization. Generally, borrowers pay a higher interest than lenders are paid, so the `baseBorrowIndex` increases faster.
 
-![interest indices as a function of uitilization](https://static.wixstatic.com/media/935a00_784bf43b4a03429da1a90b57ca2cb419~mv2.jpeg/v1/fill/w_666,h_499,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_784bf43b4a03429da1a90b57ca2cb419~mv2.jpeg)
+![interest indices as a function of utilization](https://static.wixstatic.com/media/935a00_784bf43b4a03429da1a90b57ca2cb419~mv2.jpeg/v1/fill/w_666,h_499,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_784bf43b4a03429da1a90b57ca2cb419~mv2.jpeg)
 
 The following example illustrates how this variable is used.
 
 ## Example and Terminology
 
-Alice deposits $1,000 at a time when the baseSupplyIndex is 2.5. She is not credited with depositing $1000, instead she is credited with depositing $400, which is her deposit divided by the current baseSupplyIndex ($1,000 ÷ 2.5). Alice has a “principal value” of $400 in her account (<span style="color:#c1c146">yellow box</span>). This is the value Compound stores for users ([CometStorage.sol](https://github.com/compound-finance/comet/blob/main/contracts/CometStorage.sol)[)](https://github.com/compound-finance/comet/blob/main/contracts/CometStorage.sol).
+Alice deposits $1,000 at a time when the baseSupplyIndex is 2.5. She is not credited with depositing $1000, instead she is credited with depositing $400, which is her deposit divided by the current baseSupplyIndex ($1,000 ÷ 2.5). Alice has a “principal value” of $400 in her account (<span style="color:#c1c146">yellow box</span>). This is the value Compound stores for users [CometStorage.sol](https://github.com/compound-finance/comet/blob/main/contracts/CometStorage.sol).
 
 ![userBasic struct](https://static.wixstatic.com/media/935a00_96f306254b1046ecb6d59875297ed103~mv2.png/v1/fill/w_666,h_355,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_96f306254b1046ecb6d59875297ed103~mv2.png)
 
@@ -36,16 +36,16 @@ Compound V3 does not “remember” that her original real deposit was $1,000. T
 
 Readers coming from a traditional finance background may find Compound’s use of the terms “principal value” and “present value” confusing — we suggest not trying to relate the terms to their traditional meanings and just accept Compound’s usage.
 
-If she were to wait until the baseSupplyIndex increases to 3.0, the principal value would still be $400, but the present value would increase to $1,200 $1,200 ($400 x 3.0 = 1,200).
+If she were to wait until the baseSupplyIndex increases to 3.0, the principal value would still be $400, but the present value would increase to $1,200 ($400 x 3.0 = 1,200).
 
 ![example growth of present value](https://static.wixstatic.com/media/935a00_842fcd2cb6b44ac2a2b37adf8e541804~mv2.png/v1/fill/w_666,h_126,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_842fcd2cb6b44ac2a2b37adf8e541804~mv2.png)
 
 In [CometCore.sol](https://github.com/compound-finance/comet/blob/main/contracts/CometCore.sol), we see that:
 
 1.  the “principal value” is computed by **dividing** the "present value" by the `baseSupplyIndex`
-    
+
 2.  the “present value” is computed by **multiplying** by the "principal value" by the `baseSupplyIndex`.
-    
+
 
 ![principal and present value functions](https://static.wixstatic.com/media/935a00_fdd438e4c4e348b4ae777e95e2d21cb5~mv2.png/v1/fill/w_666,h_298,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_fdd438e4c4e348b4ae777e95e2d21cb5~mv2.png)
 
@@ -75,7 +75,7 @@ Therefore, `principal` is the only essential variable for lender accounting. No
 
 To illustrate that Compound V3 stores the principal value, but values the account at the present value, consider the [balanceOf() function in Comet.sol](https://github.com/compound-finance/comet/blob/main/contracts/Comet.sol#L1293) shown below.
 
-First it will read the updated baseSupplyIndex without updating it, as this is a view function. Then it read’s out the principal balance of the lender and multiplies it by the baseSupplyIndex.
+First it will read the updated baseSupplyIndex without updating it, as this is a view function. Then it reads out the principal balance of the lender and multiplies it by the baseSupplyIndex.
 
 Interest accrued is a function of time and utilization, so as long as the utilization is not zero, each time balanceOf is queried, it will return a higher value.
 
