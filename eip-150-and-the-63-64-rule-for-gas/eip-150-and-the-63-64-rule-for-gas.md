@@ -68,7 +68,7 @@ Reserved portion of the available gas  = available gas at Stack depth N - ((63/6
 Let's test the above formula!
 
 ```
-Assume; available gas at Stack depth 0 = 1000
+Assume: available gas at Stack depth 0 = 1000
 
 Reserved portion of the available gas  = 1000 - ((63/64) * 1000) = 15
 ```
@@ -106,7 +106,7 @@ Aside from the modification previously mentioned, EIP-150 also introduced a chan
 
 ## Conclusions
 
-To summarize, the EIP-150 was introduced to prevent the Call Depth Attack. It does this by enforcing 63/64 rule specification, the implications for this are that even when explicitly forwarding all the [gas left](https://www.rareskills.io/post/solidity-gasleft) in a call, a fraction will still be reserved for the calling contract.
+To summarize, the EIP-150 was introduced to prevent the Call Depth Attack. It does this by enforcing the 63/64 rule specification, the implications for this are that even when explicitly forwarding all the [gas left](https://www.rareskills.io/post/solidity-gasleft) in a call, a fraction will still be reserved for the calling contract.
 
 ### Learn more
 
