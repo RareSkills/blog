@@ -1,6 +1,6 @@
 # How Compound V3 Allocates COMP Rewards
 
-Compound issues rewards in COMP tokens to lenders and borrowers in proportion to their share of the a market’s lending and borrowing.
+Compound issues rewards in COMP tokens to lenders and borrowers in proportion to their share of a market’s lending and borrowing.
 
 The algorithm is extremely similar to the [MasterChef Staking Algorithm](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjOoYf13uWCAxUT1zgGHW39CBc4HhAWegQIChAB&url=https%3A%2F%2Fwww.rareskills.io%2Fpost%2Fstaking-algorithm&usg=AOvVaw1rOJ_0I4WKVtnWoSAwHbE1&opi=89978449), so the reader should familiarize themselves with that first.
 
@@ -30,7 +30,7 @@ The Comet Rewards contract does not mint COMP tokens, it relies on Governance tr
 
 [https://compound.finance/governance/proposals/164](https://compound.finance/governance/proposals/164) (June 29, 2023)
 
-The mainnnet address for the rewards contract is 
+The mainnet address for the rewards contract is
 
 [0x1B0e765F6224C21223AeA2af16c1C46E38885a40](https://etherscan.io/address/0x1B0e765F6224C21223AeA2af16c1C46E38885a40#code)
 
@@ -72,7 +72,7 @@ If you are an auditor, this may be a fairly overlooked medium vulnerability beca
 
 The `trackingSupplyIndex` and `trackingBorrowIndex` are updated whenever `accrueInternal()` is called.
 
-The code below implements the logic described in the above sections. The `if` conditions in <span style="color:Red">red boxes</span> prevent `trackingSupplyIndex` or `trackingBorrowIndex` from accumulating more rewards if the supply or borrow amount is below `baseMinForRewards`. The `baseTrackingSupplySpeed` and `baseTrackingBorowSpeed` (blue boxes) are immutable variables, so the amount the indexes are incremented by only depends on `timeElapsed` and (inversely) to `totalSupplyBase` (or `totalBorrowBase`).
+The code below implements the logic described in the above sections. The `if` conditions in <span style="color:Red">red boxes</span> prevent `trackingSupplyIndex` or `trackingBorrowIndex` from accumulating more rewards if the supply or borrow amount is below `baseMinForRewards`. The `baseTrackingSupplySpeed` and `baseTrackingBorrowSpeed` (blue boxes) are immutable variables, so the amount the indexes are incremented by only depends on `timeElapsed` and (inversely) to `totalSupplyBase` (or `totalBorrowBase`).
 
 ![accrueInternal](https://static.wixstatic.com/media/935a00_20d5aa07bc4e40dfb37ac76ab8b0d071~mv2.png/v1/fill/w_666,h_242,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_20d5aa07bc4e40dfb37ac76ab8b0d071~mv2.png)
 
@@ -130,7 +130,7 @@ To claim rewards, a user simply calls the `claim()` function in CometReward.sol
 
 ![claim rewards function](https://static.wixstatic.com/media/935a00_e4cf5e213d7344999fcfdb0e0d167d99~mv2.png/v1/fill/w_666,h_576,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/935a00_e4cf5e213d7344999fcfdb0e0d167d99~mv2.png)
 
-### what is the shouldAccrue argument for?
+### What is the shouldAccrue argument for?
 
 If someone is claiming rewards as the only action in a transaction, then `shouldAccrue` (<span style="color:Green">green box</span>) should be `true`. However, if it is after other function calls, then other state-changing function calls will call `accrueAccount()` making the another call unnecessary.
 
@@ -138,7 +138,7 @@ If someone is claiming rewards as the only action in a transaction, then `should
 
 In the <span style="color:#008aff">blue box</span> above, `getRewardAccrued` determining how much to pay the user. This simply queries the `baseTrackingAccrued` from the user struct in Comet. CometRewards then subtract it by their reward debt (`rewardsClaimed`) and pay the user the difference.
 
-![getRewardsAccrued() function](https://static.wixstatic.com/media/935a00_adebd04e15024b37980b464458fd0daa~mv2.png/v1/fill/w_666,h_183,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_adebd04e15024b37980b464458fd0daa~mv2.png)
+![getRewardsAccrued function](https://static.wixstatic.com/media/935a00_adebd04e15024b37980b464458fd0daa~mv2.png/v1/fill/w_666,h_183,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_adebd04e15024b37980b464458fd0daa~mv2.png)
 
 ## Quirks in the COMP token itself
 
@@ -152,6 +152,6 @@ If you try to `transfer` or `approve` an amount greater than the uint96 maximu
 
 ## Learn More With RareSkills
 
-Please see our [solidity bootcamp](https://www.rareskills.io/solidity-bootcamp) to learn more advanced smart contract development.
+Please see our [Solidity bootcamp](https://www.rareskills.io/solidity-bootcamp) to learn more advanced smart contract development.
 
 *Originally Published January 10, 2024*
