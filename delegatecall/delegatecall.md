@@ -6,7 +6,7 @@ This article explains how delegatecall works in detail. The **E**thereum **V**ir
 - **`CALLCODE (F2)`**
 - **`STATICCALL (FA)`**
 - and **`DELEGATECALL (F4)`**.
-    
+
 Notably, the **`CALLCODE`** opcode has been deprecated since Solidity v5, being replaced by **`DELEGATECALL`**. These opcodes have a direct implementation in Solidity and can be executed as methods of variables of type `address`.
 
 To gain a better understanding of how delegatecall works, let's first review the functionality of the **`CALL`** opcode.
@@ -56,7 +56,7 @@ To retrieve the `call` return, we can modify the `callIncrement` function as fol
 function callIncrement() public {
     (bool success, bytes memory data) = called.call(
         abi.encodeWithSignature("increment()")
-    );    
+    );
 }
 ```
 
@@ -169,7 +169,7 @@ contract Caller {
 
     uint public myNumber;
 
-    function callIncrement() public {        
+    function callIncrement() public {
         called.delegatecall(
             abi.encodeWithSignature("increment()")
         );
@@ -234,7 +234,7 @@ After creating the new implementation contract, `NewCalled`, one can simply depl
 
 We have successfully modified the business logic utilized by the Caller contract. **Separating data from execution logic allows us to create upgradable smart contracts in Solidity.**
 
-![delegtecall() allows a contract to separate data and business logic](https://static.wixstatic.com/media/706568_41c80f67f6a2487e8094cbeb661ccd27~mv2.png/v1/fill/w_484,h_339,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/706568_41c80f67f6a2487e8094cbeb661ccd27~mv2.png)
+![delegatecall() allows a contract to separate data and business logic](https://static.wixstatic.com/media/706568_41c80f67f6a2487e8094cbeb661ccd27~mv2.png/v1/fill/w_484,h_339,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/706568_41c80f67f6a2487e8094cbeb661ccd27~mv2.png)
 
 In the image above, the contract on the left handles both the data and the logic. On the right, the top contract holds the data, but the mechanism to update the data is held in the logic contract. To update the data, a delegatecall is made to the logic contract.
 
@@ -245,7 +245,7 @@ Just like **`call`**, **`delegatecall`** also returns a tuple containing two val
 ```solidity
 contract Called {
     function calculateDiscountPrice(
-        uint256 amount, 
+        uint256 amount,
         uint256 discountRate
     ) public pure returns (uint) {
         return amount - (amount * _discountRate)/100;
@@ -264,8 +264,8 @@ contract Caller {
     function setDiscountPrice() public  {
         (bool success, bytes memory data) = called.delegatecall(
             abi.encodeWithSignature(
-                "calculateDiscountPrice(uint256,uint256)", 
-                price, 
+                "calculateDiscountPrice(uint256,uint256)",
+                price,
             discountRate)
         );
 
@@ -286,7 +286,7 @@ A crucial point to understand is when the success value will be `true` or `false
 - if it encounters a REVERT opcode,
 - if it runs out of gas,
 - if it attempts something prohibited, such as dividing by zero.
-    
+
 If the function being executed via `delegatecall` (or **`call`**) encounters any of these conditions, it will revert, and the return value of the `delegatecall` will be false
 
 A question that often confuses developers is why a `delegatecall` for a non-existent contract doesn't revert and still reports that the execution was successful. Based on what we said, an empty address will never meet one of the three conditions for reverting, so it will never revert.
@@ -315,7 +315,7 @@ contract Caller {
     function setDiscount() public  {
         (bool success, bytes memory data) =called.delegatecall(
             abi.encodeWithSignature(
-                "calculateDiscountPrice(uint256)", 
+                "calculateDiscountPrice(uint256)",
                 price
             )
         );
@@ -360,7 +360,7 @@ The question is: when executing `getValueDelegate`, will the return be 2 or 3? L
 - The `getValueDelegate` function executes the `getValue` function, which supposedly returns the value corresponding to the state variable in slot 0.
 - Since it's delegatecall, we should examine the slot in the calling contract, not the called contract.
 - The value of variable `a` in `Caller` is 3, so the response must be 3. Nailed it.
-    
+
 Surprisingly, the correct answer is 2. WHY?!
 
 **Immutable or constant state variables are not true state variables: they do not occupy a slot**. When we declare immutable variables, their value is hardcoded in the contract bytecode which is executed during the delegatecall. Thus, the `getValue` function returns the hardcoded value 2.
@@ -384,11 +384,11 @@ contract Called {
 contract Caller {
     function getDelegatedInfo(
         address _called
-    ) public payable returns (address, uint, address) {        
+    ) public payable returns (address, uint, address) {
         (bool success, bytes memory data) = _called.delegatecall(
             abi.encodeWithSignature("getInfo()")
         );
-        return abi.decode(data, (address, uint, address));    	
+        return abi.decode(data, (address, uint, address));
     }
 }
 ```
@@ -422,7 +422,7 @@ contract Called {
 
 contract Caller {
     function delegateMsgData(
-        address _called    
+        address _called
     ) public returns (bytes memory data) {
         (, data) = _called.delegatecall(
             abi.encodeWithSignature("returnMsgData()"));
@@ -499,7 +499,7 @@ If the `codesize` function returned the size of the `Caller` contract, the value
 
 ### Delegatecall a delegatecall
 
-One might wonder: What happens if a contract issues a **`delegatecall`** to a second contract that issues a **`delegatecall`** to a third contract? In such a case, the context will persist as that of the contract that initiated the first **`delegatecall`**, rather than the intermediate contract.   
+One might wonder: What happens if a contract issues a **`delegatecall`** to a second contract that issues a **`delegatecall`** to a third contract? In such a case, the context will persist as that of the contract that initiated the first **`delegatecall`**, rather than the intermediate contract.
 
 It works as follows:
 
@@ -507,7 +507,7 @@ It works as follows:
 - This function is intended to emit an event that logs **`msg.sender`**.
 - Additionally, the `CalledFirst` contract, apart from creating this log, also delegatecalls the `CalledLast` contract.
 - The `CalledLast` contract also emits an event, which also logs the **`msg.sender`**.
-    
+
 
 A diagram depicting this flow is presented below.
 
@@ -559,7 +559,7 @@ msg.sender is the same in CalledFirst and CalledLast
 
 One source of confusion is some might describe this operation as "`Caller` delegatecalls `CalledFirst` and `CalledFirst` delegatecalls `CalledLast`." But this makes it sound like `CalledFirst` is doing the delegatecall — that is not the case. `CalledFirst` is providing the bytecode to `Called` — and that bytecode is making a delegatecall to `CalledLast` — from `Called`.
 
-Call from a delegatecall   
+Call from a delegatecall
 Let's introduce a plot twist and modify the CalledFirst contract. Now, CalledFirst will invoke CalledLast using **`call`**, not **`delegatecall`**.
 
 ![three contracts calling one another sequentially using delegatecall() and logsender()](https://static.wixstatic.com/media/706568_4378e2e1267f4b459d0ab1416b5af2d7~mv2.png/v1/fill/w_462,h_330,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/706568_4378e2e1267f4b459d0ab1416b5af2d7~mv2.png)
@@ -615,7 +615,7 @@ The explanation of each argument is as follows (taken from [evm.codes](http://ev
 5. **retOffset**: byte offset in the memory in bytes, where to store the return data of the sub context.
 6. **retSize**: byte size to copy (size of the return data).
 
-Sending ether to a contract using delegatecall is not allowed (imagine the potential exploits if it were!). The `CALL` opcode, on the other hand, permits ether transfer and includes an additional parameter to indicate how much ether should be sent.   
+Sending ether to a contract using delegatecall is not allowed (imagine the potential exploits if it were!). The `CALL` opcode, on the other hand, permits ether transfer and includes an additional parameter to indicate how much ether should be sent.
 
 In YUL, the **`delegatecall`** function mirrors the **`DELEGATECALL`** opcode and includes the same 6 arguments mentioned above. Its syntax is:
 
@@ -654,7 +654,7 @@ contract Called {
 }
 ```
 
-In the `delegateInSolidity` function, I utilize the **`delegatecall`** method in Solidity, passing as a parameter the signature of the `sayOne` function, calculated using the `abi.encodeWithSignature` method.   
+In the `delegateInSolidity` function, I utilize the **`delegatecall`** method in Solidity, passing as a parameter the signature of the `sayOne` function, calculated using the `abi.encodeWithSignature` method.
 
 If we don't know the size of the return in advance, don't worry, we can use the returndatacopy function later to handle this. In another article, when we delve deeper into writing upgradable contracts using delegatecall, we will cover all these details.
 
