@@ -18,7 +18,7 @@ In this tier list, we are talking specifically about engineering jobs that apply
 
 You can get a (good!) job in blockchain while knowing relatively little about smart contracts and consensus algorithms by working on tooling, front-end web applications, data science, and backend infrastructure. Ironically, there are more web2 programming jobs in web3 than Solidity or blockchain roles. Smart contracts are fairly small compared to the amount of code that goes into the frontend and backend part of the application.
 
-However, what most engineer’s have in mind when they say “get a job in web3” they mean working on the “unique stuff,” specifically the blockchain itself, the smart contracts, and the security auditing. These are specialized and new skills that aren’t used elsewhere.
+However, what most engineers have in mind when they say “get a job in web3” they mean working on the “unique stuff,” specifically the blockchain itself, the smart contracts, and the security auditing. These are specialized and new skills that aren’t used elsewhere.
 
 ## **Clarification 2: Innovators and Derivatives**
 
@@ -27,11 +27,11 @@ To understand the tier list, you must understand the concept of Innovators and D
 Every industry has a few innovators and some derivative projects. This is not meant to praise “innovators” and demean “derivatives.” This dichotomy always comes out in a healthy market because no single company can make every potential customer happy. Let’s look at some examples:
 
 -   [Ethereum](https://ethereum.org/): Innovator. [Fantom](https://fantom.foundation/): Derivative
-    
--   [Uniswap](https://uniswap.org/): Innovator. [Sushiswap](https://www.sushi.com/): Derivative
-    
+
+-   [Uniswap](https://uniswap.org/): Innovator. [SushiSwap](https://www.sushi.com/): Derivative
+
 -   [OpenSea](https://opensea.io/): Innovator. [LooksRare](https://looksrare.org/): Derivative
-    
+
 This happens in every industry. Machine learning, SaaS, food delivery, coupon apps, and so on. There is absolutely nothing wrong with copying market leaders. It’s good business practice, and gives customers more choice. It also keeps the market leader under pressure to keep innovating to stay ahead. But you should be aware that getting a job at an innovator company is going to be much harder than getting a job at a derivative company. This does not mean however that getting a blockchain job at a derivative company is easy, these are only relative comparisons!
 
 ## **Clarification 3: Legitimate and Questionable Projects**
@@ -42,18 +42,18 @@ Web3 has more than its fair share of projects and companies who want to build as
 
 As if it wasn’t obvious already, this article is for software developers. What we say here doesn’t necessarily apply to other verticals within web3.
 
-  
+
 
 Without further ado, let’s share the tier list! In honor of our gamer constituents, S tier (superb tier) is the highest.
 
 ### **S tier**
 
 -   Senior protocol engineer at Ethereum, [Solana](https://www.rareskills.io/solana-tutorial), or an established and fundamentally innovative blockchain.
-    
+
 -   Architect for tokenomics and protocol design of fundamentally innovative DeFi applications.
-    
+
 -   Lead auditor at a company like [Trail of Bits](https://www.trailofbits.com/services/software-assurance), [OpenZeppelin](https://www.openzeppelin.com/security-audits), or [Consensys](https://consensys.net/diligence).
-    
+
 ### **A tier**
 
 -   Lead Protocol engineer at an EVM derivative blockchain.
@@ -63,7 +63,7 @@ Without further ado, let’s share the tier list! In honor of our gamer constitu
 -   Lead auditor at a derivative but legitimate auditing firm.
 
 -   Auditor (not lead) at a leading auditing firm
-    
+
 
 ### **B tier**
 
@@ -81,19 +81,19 @@ Without further ado, let’s share the tier list! In honor of our gamer constitu
 
 -   DeFi Engineer (not lead) at a derivative protocol.
 
--   Lead DeFi engineer at questionable [DeFi](https://www.rareskills.io/defi-bootcamp) Protocol. Copies and pastes DeFi protocols to less popular [EVM](https://www.rareskills.io/solidity-bootcamp) compatible blockchains with minor modifications.  
+-   Lead DeFi engineer at questionable [DeFi](https://www.rareskills.io/defi-bootcamp) Protocol. Copies and pastes DeFi protocols to less popular [EVM](https://www.rareskills.io/solidity-bootcamp) compatible blockchains with minor modifications.
 
 -   Smart contract auditor at a questionable security firm.
-    
+
 ### **D tier**
 
 -   Freelance NFT and basic ERC20 tokens for small projects. Usually short term gigs. Projects are of reasonable engineering quality.
 
 -   Smart contract auditing at this level is a joke or a scam.
-    
+
 ### **F tier**
 
--   Any job that accepts developers who only have an online certificate from a developer education website. Produces poorly written [smart contracts](https://www.rareskills.io/post/smart-contract-creation-cost). Doesn’t know anything about security. 
+-   Any job that accepts developers who only have an online certificate from a developer education website. Produces poorly written [smart contracts](https://www.rareskills.io/post/smart-contract-creation-cost). Doesn’t know anything about security.
 
 ## **How your web2 experience affects your tier**
 
@@ -109,7 +109,7 @@ Area of experience matters too.
 
 If you’ve been working in cryptography, distributed systems, systems programming, or some subfields of cybersecurity, this will count for a lot more than working on traditional full stack applications. If you are really stellar in one of the first four aforementioned fields, you might be able to go straight to the B tier with minimal [blockchain training](https://www.rareskills.io/web3-blockchain-bootcamps) and get promoted to the A tier within a year.
 
-  
+
 
 ## **What tier do RareSkill’s graduates get?**
 
@@ -137,7 +137,7 @@ If you are looking for remote flexibility that allows you to travel around the w
 
 ## **Why we wrote this**
 
-It’s worth re-iterating. If your goal is to “get a job in blockchain,” you need to be clear in your mind “what kind of job and at what company.” The tier of the job role will significantly inform what kind of preparation you need to get that job.
+It’s worth reiterating. If your goal is to “get a job in blockchain,” you need to be clear in your mind “what kind of job and at what company.” The tier of the job role will significantly inform what kind of preparation you need to get that job.
 
 Also, this should serve as a useful tool for you to filter out people who claim they can "get you a job in web3." What tier of job?
 
