@@ -2,11 +2,11 @@
 
 Uniswap v3 uses two types of reserves: real reserves and virtual reserves.
 
-Real reserves represent the actual amount of tokens present in a segment. 
+Real reserves represent the actual amount of tokens present in a segment.
 
-Each segment has a pair of real reserves: the real reserves in token X, denoted by $x_r$, and the real reserves in token Y, denoted by $y_r$.The reserves for one of the tokens may be zero, but not for both — otherwise, there is no liquidity in the segment.
+Each segment has a pair of real reserves: the real reserves in token X, denoted by $x_r$, and the real reserves in token Y, denoted by $y_r$. The reserves for one of the tokens may be zero, but not for both — otherwise, there is no liquidity in the segment.
 
-Virtual reserves represent the amount of tokens a segment would have if it were part of an infinite curve—in other words, if the segment extended to infinity, like Uniswap v2. 
+Virtual reserves represent the amount of tokens a segment would have if it were part of an infinite curve—in other words, if the segment extended to infinity, like Uniswap v2.
 
 We will begin this chapter by studying real reserves in more detail, then move on to virtual reserves.
 
@@ -21,7 +21,7 @@ The real reserve of token X is the distance between the x-coordinate of the pric
 
 The reason for this definition is that we are dealing with a curve segment. If the curve were infinite, the values $x_r$ and $y_r$ would be equal to $x$ and $y$, respectively.
 
-One important difference between reserves in a segment—used in Uniswap v3—and in an infinite curve—used in Uniswap v2—is that, in a segment, a token can be completely depleted. 
+One important difference between reserves in a segment—used in Uniswap v3—and in an infinite curve—used in Uniswap v2—is that, in a segment, a token can be completely depleted.
 
 Imagine that, through a swap, the price moves to the position shown in the image below. In this case, all tokens X will be removed from the segment, and the real reserves will consist only of tokens Y.
 
@@ -51,7 +51,7 @@ As one can see, the real reserves of a segment depend on the current price. The 
 
 Real reserves exist for each segment—that is, each segment has a pair of values, $x_r$ and $y_r$, one of which can be zero but not both. If both are zero, there is no liquidity, and we can disregard the segment.
 
-Consider the illustration below, which shows three segments—gray, purple, and orange (other possible segments are not shown). The current price is indicated by the red ray. Each segment has an amount for its real reserves. 
+Consider the illustration below, which shows three segments—gray, purple, and orange (other possible segments are not shown). The current price is indicated by the red ray. Each segment has an amount for its real reserves.
 
 - The gray segment has $x_r$ real reserves in token X and no real reserves in token Y.
 - The purple segment has $x_r$ real reserves in token X and $y_r$ real reserves in token Y.
@@ -59,11 +59,11 @@ Consider the illustration below, which shows three segments—gray, purple, and 
 
 ![Three segments and their real reserves](https://r2media.rareskills.io/UniswapV3VirtualReserves/image-05.png)
 
-If the current price is outside a segment with liquidity, that segment necessarily contains only one asset. Any change in price that does not enter the segment in question will not affect the real reserves in that segment. 
+If the current price is outside a segment with liquidity, that segment necessarily contains only one asset. Any change in price that does not enter the segment in question will not affect the real reserves in that segment.
 
-When the price moves within a segment, tokens X and Y are exchanged through swaps. Thus, each segment functions like Uniswap v2 when the price is within it but becomes inactive when the price is outside it. 
+When the price moves within a segment, tokens X and Y are exchanged through swaps. Thus, each segment functions like Uniswap v2 when the price is within it but becomes inactive when the price is outside it.
 
-But Unsiwap v2's math works when the segment is actually an infinite curve. In order to treat each segment as if it were an infinite curve—and thus behave like Uniswap v2—we introduce the concept of virtual reserves.
+But Uniswap v2's math works when the segment is actually an infinite curve. In order to treat each segment as if it were an infinite curve—and thus behave like Uniswap v2—we introduce the concept of virtual reserves.
 
 ## Virtual reserves
 
@@ -71,7 +71,7 @@ Virtual reserves are the reserves a segment would have if it were part of an inf
 
 ![Virtual reserves of a Uniswap V3 segment](https://r2media.rareskills.io/UniswapV3VirtualReserves/image-06.png)
 
-The virtual reserves are the reserves as if we were in Uniswap v2— in that case, they would be the reserves of the pool. The reserves are also the point $(x,y)$ where the current price touches the curve. 
+The virtual reserves are the reserves as if we were in Uniswap v2— in that case, they would be the reserves of the pool. The reserves are also the point $(x,y)$ where the current price touches the curve.
 
 The illustration below shows both virtual $(x,y)$ and real reserves $(x_r, y_r)$ for the segment.
 
@@ -89,13 +89,13 @@ In Uniswap v2, since there is only a single, infinite price curve—and not seve
 
 Even though virtual reserves do not represent an actual amount of tokens for a segment—or for the pool—they are important because, within a segment, we want to use the same math as Uniswap v2. In other words, we want each segment to behave as if we were on an infinite curve —which is exactly what virtual reserves provide. We can make this simplification as long as a trade does not cause the price to move outside the segment.
 
-Consider the swap illustrated below, in Uniswap v2. At left, the pool contains $x$ tokens X and $y$ tokens Y, so the price is $y/x$ and liquidity is $xy$. 
+Consider the swap illustrated below, in Uniswap v2. At left, the pool contains $x$ tokens X and $y$ tokens Y, so the price is $y/x$ and liquidity is $xy$.
 
 After a swap (on the right), the price becomes $y'/x'$; the reserves in token X change to $x'$, and the reserves in token Y change to $y'$. So, $(x-x')$ tokens X leave the pool and $(y'-y)$ tokens Y enter the pool.
 
 ![Price change modeled with Uniswap V2 math](https://r2media.rareskills.io/UniswapV3VirtualReserves/image-08.png)
 
-Now let's consider the same swap, but this time in Uniswap v3, as illustrated below. We no longer have an infinite curve—just segments, like the three shown: gray, violet, and orange. Suppose the swap occurs in the violet segment, which has the same liquidity as the example above. 
+Now let's consider the same swap, but this time in Uniswap v3, as illustrated below. We no longer have an infinite curve—just segments, like the three shown: gray, violet, and orange. Suppose the swap occurs in the violet segment, which has the same liquidity as the example above.
 
 Note that everything happens the same way, as if the violet segment were an infinite curve! The price moves from $y/x$ to $y'/x'$; $(x-x')$ tokens X leave the pool, and $(y-y')$ tokens Y enter the pool.
 
@@ -106,7 +106,7 @@ Note that everything happens the same way, as if the violet segment were an infi
 1. When the price reaches the segment boundaries, swaps can no longer occur in that segment—they must occur in the next segment.
 2. The $x$ and $y$  values of the segment do not represent the actual amount of tokens in that segment—they are the segment’s virtual reserves.
 
-Other than that, we continue to use the same definitions as in Uniswap v2. The price of a token is defined by $p =y/x$, and liquidity follows the constant product formula $k=xy$. 
+Other than that, we continue to use the same definitions as in Uniswap v2. The price of a token is defined by $p =y/x$, and liquidity follows the constant product formula $k=xy$.
 
 The only difference is that we replace $k$ with $L^2$ and define liquidity as $L^2=xy$. The reason for this will become clear in a later section.
 
@@ -115,10 +115,10 @@ The only difference is that we replace $k$ with $L^2$ and define liquidity as $L
 In Uniswap v3, we define price as the ratio between the virtual reserves,
 
 $$
-p = y/x 
+p = y/x
 $$
 
-where price is always the price of token X. 
+where price is always the price of token X.
 
 Liquidity $L$ of a segment is defined by the formula
 
@@ -164,7 +164,7 @@ First, let's divide $L^2$ by $p$ to derive $x$ in terms of $L$ and $p$:
 $$
 \begin{align*}
 
-\frac{L^2}{p} &= \frac{xy}{p} && \text{divide both sides of }L^2=xy\text{ by }p\\ 
+\frac{L^2}{p} &= \frac{xy}{p} && \text{divide both sides of }L^2=xy\text{ by }p\\
 \frac{L^2}{p} &= \frac{xy}{y/x}&& \text{substitute }p \text{ on the right hand side to } y/x \\
 &= (x\bcancel{y}) \left(\frac{x}{\bcancel{y}}\right) &&\text{cancel }y\\ \frac{L^2}{p} &= x^2 &&\text{simplify}\\
 \sqrt{\frac{L^2}{p}} &= \sqrt{x^2} &&\text{square root both sides}\\
@@ -189,18 +189,18 @@ We derived the two formulas we need: the virtual reserves calculated from $L$ an
 $$
 \begin{align*}
 x &= \frac{L}{\sqrt{p}} \\
-y &= L \sqrt{p} 
+y &= L \sqrt{p}
 \end{align*}
 $$
 
 ## Why do we use $L^2$ instead of $L$ when defining liquidity
 
-If we had defined liquidity as $xy=L$ instead of $xy=L^2$, the above equations for $x$ and $y$ would have depended on $\sqrt{L}$ instead of $L.$ This can be seen in the derivation below, where we used $xy=L$ instead of $xy=L^2$. 
+If we had defined liquidity as $xy=L$ instead of $xy=L^2$, the above equations for $x$ and $y$ would have depended on $\sqrt{L}$ instead of $L.$ This can be seen in the derivation below, where we used $xy=L$ instead of $xy=L^2$.
 
 $$
 \begin{align*}
 \frac{L}{p} &= \frac{xy}{p} \\
-\frac{L}{p} &= \frac{xy}{y/x}\\ 
+\frac{L}{p} &= \frac{xy}{y/x}\\
 \frac{L}{p}&= (x\bcancel{y}) \left(\frac{x}{\bcancel{y}}\right) \\ \frac{L}{p} &= x^2 \\
 \sqrt{\frac{L}{p}} &= \sqrt{x^2} \\
 \frac{\sqrt{L}}{\sqrt{p}} &= x \\
@@ -211,7 +211,7 @@ Uniswap v3 uses $xy=L^2$ instead of $xy=L$ to avoid the costly operation of comp
 
 ## Motivation behind tracking the square root price instead of the price
 
-Using $L^2$ allows us to avoid taking the square root of $L$ to compute $x$ and $y$, and it would be convenient if we could do the same for $p$. That is, it would be convenient if we could compute $x$ and $y$ from $L$ and $p$, rather than from $L$ and $\sqrt{p}$.  
+Using $L^2$ allows us to avoid taking the square root of $L$ to compute $x$ and $y$, and it would be convenient if we could do the same for $p$. That is, it would be convenient if we could compute $x$ and $y$ from $L$ and $p$, rather than from $L$ and $\sqrt{p}$.
 
 Unfortunately, this is not possible, since we don’t want to change how price is defined - we want to keep the same formula as v2. Thus, virtual reserves must be calculated using the formulas $x=L/\sqrt{p}$ and $y = L \sqrt{p}$.
 
