@@ -37,8 +37,8 @@ The interactive tool below calculates the same as `getAmount0Delta` and `getAmou
 
 <iframe
   src="https://rareskills.io/get-amount-delta-price"
-  width="900"
-  height="900"
+  width="700"
+  height="1200"
   frameborder="0">
 </iframe>
 
