@@ -1,6 +1,6 @@
 # Q Number Format
 
-Q number format is a notation for describing binary [fixed-point numbers](https://www.rareskills.io/post/solidity-fixed-point).
+Q number format is a notation for describing binary [fixed-point numbers](https://rareskills.io/post/solidity-fixed-point).
 
 A fixed-point number is a popular design pattern in Solidity for storing fractional values, since the language does not support floating point numbers. Thus, to “capture” the fractional portion of a number, we multiply the fraction by a whole number so that the fractional portions become whole numbers (with some potential precision loss).
 
@@ -87,14 +87,14 @@ $$
 \end{matrix}
 $$
 
-Each bit in the fraction additively represents a fractional power of two. For example, `0.1₂` represents 0.5, `0.11₂` represents 0.75, and `0.001₂` represents 0.125 or one eight.
+Each bit in the fraction additively represents a fractional power of two. For example, `0.1₂` represents 0.5, `0.11₂` represents 0.75, and `0.001₂` represents 0.125 or one eighth.
 
 Q numbers can only encode fractions that can be represented as sums of 1 over a power of 2. If we try to represent a number like 1/3, there must necessarily be a rounding error.
 
 Try plugging in various fractional values into the interactive tool below to see how they are converted to a fixed point representation:
 
 <iframe
-  src="https://www.rareskills.io/fixed-point-demo"
+  src="https://rareskills.io/fixed-point-demo"
   width="700"
   height="470"
   frameborder="0">
@@ -170,7 +170,7 @@ $$
 (2^{96}-1) + (1 - \frac{1}{2^{64}})
 $$
 
-or 
+or
 
 79228162514264337593543950335.9999999999999999999457898913757247782996273599565029144287109375
 
@@ -203,7 +203,7 @@ function divToQ64x64(uint64 x, uint64 y) public pure returns (uint128) {
     // convert x (a uint64 integer)
     // to a Q64.64 fixed-point number by left-shifting 64 bits.
     uint128 x64_64 = x << 64;
-			
+
     // divide by y
     return x64_64 / y;
 }
@@ -225,7 +225,7 @@ When we multiply two fixed point numbers together, we need to ensure they don’
 ```solidity
 function mulU64x64(uint128 x, uint128 y) public pure returns (uint128) {
     // note: Solidity performs multiplication using uint128 unless
-    // explicitly upcasted. This could overflow and revert. 
+    // explicitly upcasted. This could overflow and revert.
     uint256 temp = uint256(x) * uint256(y);
     return uint128(temp >> 64);
 }
@@ -241,10 +241,10 @@ As a variation to the example above, we want to multiply 5 (an integer) by 0.5 (
 
 ```solidity
 function mulUint64ByQ64x64(uint64 x, uint128 y) public pure returns (uint128) {
-        
+
     // convert uint64 to fixed point
     uint128 x_fp = uint128(x) << 64;
-        
+
     uint256 temp = uint256(x_fp) * uint256(y);
     return uint128(temp >> 64);
 }
@@ -267,7 +267,7 @@ mulUint64ByQ64x64(5, 2**64 / 2) // returns 46116860184273879040
 
 ### Dividing Q Numbers
 
-If we compute 1 ÷ 1 we expect the result to be 1. Suppose we are using Q64.64. “1” is $2^{64}$. If we compute $2^{64}\div2^{64}$ we get 1 as the result, not $2^{64}$. To correct this, we could leftshift the result by `n` bits, but this violates the principle of “multiply before divide to avoid precision loss.” Therefore, the correct way to divide two Q numbers is to first left-shift the numerator, then do the division: 
+If we compute 1 ÷ 1 we expect the result to be 1. Suppose we are using Q64.64. “1” is $2^{64}$. If we compute $2^{64}\div2^{64}$ we get 1 as the result, not $2^{64}$. To correct this, we could leftshift the result by `n` bits, but this violates the principle of “multiply before divide to avoid precision loss.” Therefore, the correct way to divide two Q numbers is to first left-shift the numerator, then do the division:
 
 ```solidity
 function divQ64x64ByQ64x64(uint128 x, uint128 y) public pure returns (uint128) {
@@ -288,6 +288,6 @@ divQ64x64ByQ64x64(5, 2**64 / 2) // returns 46116860184273879040
 - If we divide a Q number by $2^{n}$ in a language that supports floating points, we can see the intended fractional representation.
 - Given two integers `a` and `b`, ensure `a` fits within `m` bits. Compute their ratio as a Qm.n number via `a << n / b`. The number of bits used to hold the resulting fixed-point number must be the number of bits of `a` (`m`) plus the `n`, i.e. Qm.n.
 - Q numbers can be added together “as is” as long as the decimals are aligned.
-- If we multiply two Q numbers together, we need to leftshift the result by `n` so that the result has `n` decimals.
+- If we multiply two Q numbers together, we need to rightshift the result by `n` so that the result has `n` decimals.
 - If we divide two Q numbers together, we need to first leftshift the numerator by `n`.
 - Both division and multiplication need to be careful to avoid temporary overflow.
