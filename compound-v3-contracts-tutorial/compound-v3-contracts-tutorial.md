@@ -17,9 +17,9 @@ This article gives a high level overview of how to use this smart contract and t
 There are three major actions that can be taken with Compound V3:
 
 1.  lending the base asset
-    
+
 2.  supplying collateral and borrowing the base asset
-    
+
 3.  liquidating under-collateralized loans.
 
 ### Lending USDC
@@ -68,19 +68,19 @@ Compound V3 has 4,304 lines of Solidity code, not counting comments or blank spa
 
 ## Compound V3 architecture from 10,000 feet
 
-Below we have screenshotted the [Github repo of Compound V3](https://github.com/compound-finance/comet/tree/main/contracts).
+Below we have screenshotted the [GitHub repo of Compound V3](https://github.com/compound-finance/comet/tree/main/contracts).
 
 -   All of the files highlighted in <span style="color:Green">green</span> hold the core borrowing and lending functionality. The inheritance relationship between them will be shown later. **Comet is the primary lending and borrowing smart contract of Compound V3.**
 -   All the files highlighted in <span style="color:#008aff">blue</span> form the smart contract that deploys new Comet instances during an upgrade. Again, the inheritance relationship between them will be shown later.
 -   The <span style="color:Pink">pink</span> highlighted file is the contract that distributes rewards
 
-![An image of Github repo Compound V3](https://static.wixstatic.com/media/935a00_496ce460835a4cffb299bb4b4b0ee060~mv2.jpg/v1/fill/w_666,h_364,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_496ce460835a4cffb299bb4b4b0ee060~mv2.jpg)
+![An image of GitHub repo Compound V3](https://static.wixstatic.com/media/935a00_496ce460835a4cffb299bb4b4b0ee060~mv2.jpg/v1/fill/w_666,h_364,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_496ce460835a4cffb299bb4b4b0ee060~mv2.jpg)
 
 The following diagram summarizes the deployed smart contracts that make up Compound V3. This is only a high level overview, a more detailed one will be given later. Note that the color coding matches the highlights above. Specifically, the primary lending and borrowing contract (Comet) is <span style="color:Green">green</span>, the contracts related to deploying new Comet instances are blue, and the reward contract is <span style="color:Pink">pink</span>.
 
 ![An image of a high level overview Compound V3](https://static.wixstatic.com/media/935a00_5e3774507c414cdcb03d6e7a01c6ac60~mv2.jpeg/v1/fill/w_666,h_499,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_5e3774507c414cdcb03d6e7a01c6ac60~mv2.jpeg)
 
-Most users will interact with Compound V3 through the comet proxy (not shown in Github) or with the <span style="color:Pink">rewards</span> contract to earn COMP for participating as a lender or borrower. All of the user facing logic is in the <span style="color:Green">comet</span> contract where the comet proxy delegates its functionality to.
+Most users will interact with Compound V3 through the comet proxy (not shown in GitHub) or with the <span style="color:Pink">rewards</span> contract to earn COMP for participating as a lender or borrower. All of the user-facing logic is in the <span style="color:Green">comet</span> contract where the comet proxy delegates its functionality to.
 
 The <span style="color:#008aff">configuration and factory</span> contracts are to deploy new comet instances when governance votes for an upgrade.
 
@@ -99,7 +99,7 @@ We will examine the lifecycle of a parameter change later.
 
 ## Comet Inheritance
 
-Comet’s ancestors are shown in the diagram below. We will give a high level overview of each of the ancestor contracts in this section.
+Comet’s ancestors are shown in the diagram below. We will give a high-level overview of each of the ancestor contracts in this section.
 
 ![An image of Comet Inheritance](https://static.wixstatic.com/media/935a00_e9a7d9296860483389f5685d36b6af94~mv2.jpg/v1/fill/w_666,h_499,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_e9a7d9296860483389f5685d36b6af94~mv2.jpg)
 
@@ -107,7 +107,7 @@ Comet’s ancestors are shown in the diagram below. We will give a high level ov
 
 Comet math simply contains a bunch of functions for casting unsigned integers to unsigned integers of lower bit value and reverting if it would cause an overflow. For example, if we cast from [uint256](https://www.rareskills.io/post/uint-max-value-solidity) to uint104, but the value of the uint256 is larger than what can be stored in uint104, it will revert. You’ll see functions like `safe64` scattered throughout the codebase. Hopefully these are easy enough to understand without further explanation. The file is small, so we show it in its entirety here:
 
-![An image of ComethMath.sol](https://static.wixstatic.com/media/935a00_77dd92cf4e554066a6eff8dc2fab727d~mv2.png/v1/fill/w_315,h_675,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_77dd92cf4e554066a6eff8dc2fab727d~mv2.png)
+![An image of CometMath.sol](https://static.wixstatic.com/media/935a00_77dd92cf4e554066a6eff8dc2fab727d~mv2.png/v1/fill/w_315,h_675,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_77dd92cf4e554066a6eff8dc2fab727d~mv2.png)
 
 ### CometStorage.sol (<span style="color:Red">red ellipse</span>)
 
@@ -127,7 +127,7 @@ As the name implies, [CometMainInterface.sol](https://github.com/compound-financ
 
 ### CometExt is an extension to Comet via [delegatecall](https://www.rareskills.io/post/delegatecall)
 
-To avoid hitting the 24kb deployment limit, Comet offloads several extra functions to CometExt using the [fallback-extension pattern](https://www.rareskills.io/post/fallback-extension-pattern). For example, the function `name()` is not in Comet.sol and thus [cannot be seen on Etherscan](https://etherscan.io/address/0xc3d688B66703497DAA19211EEdff47f25384cdc3#readProxyContract).
+To avoid hitting the 24 KB deployment limit, Comet offloads several extra functions to CometExt using the [fallback-extension pattern](https://www.rareskills.io/post/fallback-extension-pattern). For example, the function `name()` is not in Comet.sol and thus [cannot be seen on Etherscan](https://etherscan.io/address/0xc3d688B66703497DAA19211EEdff47f25384cdc3#readProxyContract).
 
 However, if we call that function via [Foundry](https://www.rareskills.io/post/foundry-testing-solidity) cast, we can see the contract behaves as if it exists.
 
@@ -181,7 +181,7 @@ Below we show a snapshot of the code for [CometConfiguration](https://github.com
 
 ![A snapshot of the code for CometConfiguration and ConfiguratorStorage](https://static.wixstatic.com/media/935a00_f46e1a66450e4277893c4b9e38a6d5ae~mv2.jpeg/v1/fill/w_666,h_369,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_f46e1a66450e4277893c4b9e38a6d5ae~mv2.jpeg)
 
-This is a much more preferable way to deploying new Comet instances instead supplying an extremely large struct in the calldata.
+This is a much more preferable way to deploying new Comet instances than supplying an extremely large struct in the calldata.
 
 When a new Comet instance is deployed with an update, we only need to update a particular storage variable, leaving the others unchanged. For example, if we change the liquidation threshold for the collateral wBTC, only that storage variable in the configurator will be affected.
 
