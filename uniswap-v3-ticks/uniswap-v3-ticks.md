@@ -1,6 +1,6 @@
 # Introducing ticks in Uniswap V3
 
-This article explains what ticks are in Uniswap V3. Ticks enable gas-efficient accounting of concentrated liquidity, so let’s quickly review [concentrated liquidity](https://www.rareskills.io/post/uniswap-v3-concentrated-liquidity) first.
+This article explains what ticks are in Uniswap V3. Ticks enable gas-efficient accounting of concentrated liquidity, so let’s quickly review [concentrated liquidity](https://rareskills.io/post/uniswap-v3-concentrated-liquidity) first.
 
 Concentrated liquidity means that liquidity is not necessarily constant across the price curve like Uniswap V2. Liquidity providers can choose segments in the price curve to place their liquidity. The animation below illustrates the difference between the price curves of Uniswap V2 and Uniswap V3.
 
@@ -11,7 +11,7 @@ For example, in a ETH:USDC pool, if the price of ETH is USDC 2,000, a liquidity 
 
 ![Concentrated Liquidity from 1800 USDC to 2200 USDC](https://r2media.rareskills.io/UniswapV3Ticks/ConcentratedLiquidity1800to2200.jpg)
 
-Higher liquidity within a range means the [price impact](https://www.rareskills.io/post/uniswap-v3-concentrated-liquidity) of a swap in that range will be lower. Conversely, lower liquidity makes the price impact greater.
+Higher liquidity within a range means the [price impact](https://rareskills.io/post/uniswap-v3-concentrated-liquidity) of a swap in that range will be lower. Conversely, lower liquidity makes the price impact greater.
 
 ## Introducing ticks and why they are necessary in Uniswap V3
 
@@ -35,7 +35,7 @@ In the animation below, the angle of the cyan ray represents the price of asset 
 <video src="https://r2media.rareskills.io/UniswapV3Ticks/SweepingHyperbola.mp4" type="video/mp4" autoplay loop muted controls>
 </video>
 
-It is important to understand that ticks represent points on the curve that will be used as labels. Lets relate it to an analogy of a road with mileage markers. While a car can be anywhere along the road, the mile markers are placed at specific points, typically some predictable interval. Similarly, in Uniswap v3, token prices can have any value, but ticks are statically positioned at specific locations pre-defined by the protocol.
+It is important to understand that ticks represent points on the curve that will be used as labels. Let's relate it to an analogy of a road with mileage markers. While a car can be anywhere along the road, the mile markers are placed at specific points, typically some predictable interval. Similarly, in Uniswap v3, token prices can have any value, but ticks are statically positioned at specific locations pre-defined by the protocol.
 
 **Ticks serve as reference points in the price curve for where liquidity can change.**
 
@@ -47,7 +47,7 @@ We will shortly show how Uniswap V3 determines where to place the ticks, but fir
 
 ## In Uniswap v3, we use the price of token X
 
-**In Uniswap v3, prices always refers to the price of token X in terms of token Y.** Thus, anytime we write $p$, it refers to the price of token X, given by $p=p_x=y/x$.
+**In Uniswap v3, prices always refer to the price of token X in terms of token Y.** Thus, anytime we write $p$, it refers to the price of token X, given by $p=p_x=y/x$.
 
 The price of token Y in terms of token X, given by $p_y=x/y$, can be calculated from $p$ as $p_y=1/p$.  Thus, the protocol just needs to keep track of the prices in X ($p$). The prices in Y ($p_y$) can be calculated accordingly.
 
@@ -63,15 +63,15 @@ $$
 p(i) = 1.0001^i
 $$
 
-where $i$  is an integer named **tick index** and $p(i)$ is the price that the tick index represents. We will refer to this as the "tick price". Remember, each tick is simply a label for a fixed price.       
+where $i$  is an integer named **tick index** and $p(i)$ is the price that the tick index represents. We will refer to this as the "tick price". Remember, each tick is simply a label for a fixed price.
 
- 
 
-Some example of ticks are:
 
-1. Tick index 0 defines price 1:1, because $p(0) = 1.0001^0=1$. 
-2. Tick index 1 defines price 1:1.0001, because $p(1)=1.0001^1 = 1.0001$. 
-3. Tick index 2 defines price 1:1.00020001, because $p(2) = 1.0001^2 = 1.00020001$. 
+Some examples of ticks are:
+
+1. Tick index 0 defines price 1:1, because $p(0) = 1.0001^0=1$.
+2. Tick index 1 defines price 1:1.0001, because $p(1)=1.0001^1 = 1.0001$.
+3. Tick index 2 defines price 1:1.00020001, because $p(2) = 1.0001^2 = 1.00020001$.
 4. Tick index -1 defines price approximately 1:0.99990001, because $p(-1)=1.0001^{-1} \approx 0.99990001$.
 
 The allowed tick indexes range from -887,272 to 887,272, and the reason for this range will be explained in the next chapter.
@@ -165,17 +165,17 @@ Now the difference is 0.000100100045012 (0.0001 or approximately 1 basis point) 
 
 ## Tick range
 
-When we write $(p_a, p_b)$, assuming that $p_a$  and $p_b$ are ticks, we are referring to the price range between $p_a$ and $p_b$, excluding the boundaries. In this context, $p_a$ is called the **lower tick** and $p_b$ is called the **upper tick**. 
+When we write $(p_a, p_b)$, assuming that $p_a$  and $p_b$ are ticks, we are referring to the price range between $p_a$ and $p_b$, excluding the boundaries. In this context, $p_a$ is called the **lower tick** and $p_b$ is called the **upper tick**.
 
 When we write a tick range as $(-10,10)$, we are actually referencing $(p_a(-10), p_b(10))$, where -10 and 10 are the tick indexes, and $p_a(-10)$ and $p_b(10)$ are the corresponding tick prices.
 
-In the illustration below, we see an example of a tick range between $p_a$ and $p_b$. 
+In the illustration below, we see an example of a tick range between $p_a$ and $p_b$.
 
 ![An illustration of a price range between ticks](https://r2media.rareskills.io/UniswapV3Ticks/pApB.png)
 
 ## The price curve represented as a line
 
-Another common representation of the price curve is as a line. The price curve is plotted on the x and y axes, while on the number line each point represents a price. 
+Another common representation of the price curve is as a line. The price curve is plotted on the x and y axes, while on the number line each point represents a price.
 
 On the curve, an increasing price (of token X) moves up and to the left, while on the line, it increases from left to right:
 
@@ -194,7 +194,7 @@ We can plot the liquidity level on the corresponding line plot as follows:
 Below is an interactive tool to further illustrate how these two representations show the same information. Change the liquidity of a price segment by moving the k sliders, then click “Sweep Price.” After clicking Sweep Price, a price indicator for both charts (a red ray for the cartesian plot and a red dot for the line plot) will appear. Note how the red ray on the Cartesian plot tracks the red dot on the line plot.
 
 <iframe
-  src="https://www.rareskills.io/bar-chart-liquidity"
+  src="https://rareskills.io/bar-chart-liquidity"
   width="900"
   height="800"
   frameborder="0">
@@ -206,18 +206,18 @@ We expect the reader to understand both representations of the price curve: one 
 
 In Uniswap V2, the value of x is the literal amount of token X (the reserves) held by the pool (same for y). However in Uniswap V3, “reserves” are a more complicated concept because each curve segment holds different amounts of token X and/or Y.
 
-It is still helpful to think of the x and y axes as measuring "amount" of tokens, but there is a quite a bit of nuance to what this "amount" is, so we defer discussion to a later chapter. We mention this so that the axes are not misinterpreted as the price of a token, since simply labeling an axes "x" could be ambiguous without clarification.
+It is still helpful to think of the x and y axes as measuring "amount" of tokens, but there is a quite a bit of nuance to what this "amount" is, so we defer discussion to a later chapter. We mention this so that the axes are not misinterpreted as the price of a token, since simply labeling an axis "x" could be ambiguous without clarification.
 
 ## The current tick
 
-Uniswap V3 keeps track of the “active tick” or “current tick” or sometimes just “tick.” **The “current tick” is the current price rounded down to the nearest tick**. If the price increases and crosses a tick, then the tick that was just crossed becomes the current tick. “Crossed” doesn’t require that the priced “passed over” the tick. If the price stops on the tick, the tick is considered crossed.
+Uniswap V3 keeps track of the “active tick” or “current tick” or sometimes just “tick.” **The “current tick” is the current price rounded down to the nearest tick**. If the price increases and crosses a tick, then the tick that was just crossed becomes the current tick. “Crossed” doesn’t require that the price “passed over” the tick. If the price stops on the tick, the tick is considered crossed.
 
 If the price decreases and crosses a tick, then it must have crossed the prior current tick, so the tick below that tick becomes the new current tick.
 
 The interactive tool below illustrates how the protocol selects a tick as the current tick. Move the slider at the top of the tool to see how ticks (gray) become the current tick (green) as the price crosses the tick:
 
 <iframe
-  src="https://www.rareskills.io/uniswap-v3-active-tick-tool"
+  src="https://rareskills.io/uniswap-v3-active-tick-tool"
   width="900"
   height="800"
   frameborder="0">
@@ -226,7 +226,7 @@ The interactive tool below illustrates how the protocol selects a tick as the cu
 
 ## The `slot0` variable holds the current tick
 
-The protocol stores the current tick in a [struct](https://www.rareskills.io/learn-solidity/struct) named `slot0` ([code link](https://github.com/Uniswap/v3-core/blob/d8b1c635c275d2a9450bd6a78f3fa2484fef73eb/contracts/UniswapV3Pool.sol#L56)). This variable is public, so anyone can read the current tick of a pool directly on Etherscan by querying `slot0`.
+The protocol stores the current tick in a [struct](https://rareskills.io/learn-solidity/struct) named `slot0` ([code link](https://github.com/Uniswap/v3-core/blob/d8b1c635c275d2a9450bd6a78f3fa2484fef73eb/contracts/UniswapV3Pool.sol#L56)). This variable is public, so anyone can read the current tick of a pool directly on Etherscan by querying `slot0`.
 
 ![A screenshot of the Uniswap V3 code with the tick variable highlighted](https://r2media.rareskills.io/UniswapV3Ticks/tickVarHighlight.png)
 
