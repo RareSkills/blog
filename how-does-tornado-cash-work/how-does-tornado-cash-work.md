@@ -4,9 +4,9 @@
 
 ## Introduction to Tornado Cash
 
-Tornado cash is a cryptocurrency smart contract mixer that enables users to deposit crypto with one address and withdraw with another wallet without creating a traceable link between those two addresses.
+Tornado Cash is a cryptocurrency smart contract mixer that enables users to deposit crypto with one address and withdraw with another wallet without creating a traceable link between those two addresses.
 
-Tornado cash is probably the most iconic zero knowledge smart contract application, so we will explain how it works at a sufficiently low level that a programmer can reproduce the application.
+Tornado Cash is probably the most iconic zero knowledge smart contract application, so we will explain how it works at a sufficiently low level that a programmer can reproduce the application.
 
 It is assumed that the reader knows how Merkle Trees work and that inverting a cryptographic hash is infeasible. The reader is also assumed to be at least a strong intermediate at Solidity (since we will be reading snippets of the source code).
 
@@ -18,9 +18,9 @@ Tornado Cash is a fairly advanced smart contract, so check out our [Solidity Tut
 
 Tornado Cash is currently sanctioned by the United States government, interacting with it may "taint" your wallet and cause transactions from it to be flagged later when interacting with centralized exchanges.
 
-**Update for 2024**: As of November 28, 2024 the saction has been lifted by the US Appeals Court.
+**Update for 2024**: As of November 28, 2024 the sanction has been lifted by the US Appeals Court.
 
-### Tornado cash hack
+### Tornado Cash hack
 
 On May 27, the [Tornado Cash governance smart contracts](https://github.com/tornadocash/tornado-governance) (not the smart contracts we will review here) were hacked when an attacker passed a malicious proposal that gave them the majority of the ERC20 voting tokens for governance [ERC20 voting tokens for governance](https://www.rareskills.io/post/erc20-votes-erc5805-and-erc6372). They have since [handed back control](https://www.ccn.com/tornado-cash-hack-saga-comes-to-an-end-did-the-hacker-win-this-battle/), keeping a relatively small amount for themselves.
 
@@ -47,7 +47,7 @@ In the context of RSA, you can think of the public key being the result of the c
 The computation and output are public. We agree that we are using a certain hash function and got a certain output. The proof "hides" the input that was used and only proves the hash function was executed and produced the output.
 
 ![zero knowledge proof flowchart](https://static.wixstatic.com/media/935a00_84da717f7427457d8018eed3bfc6a9ee~mv2.png/v1/fill/w_740,h_740,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/935a00_84da717f7427457d8018eed3bfc6a9ee~mv2.png)
- 
+
 Given only the proof a verifier can **not** calculate the `public_output`. The verification step does not conduct the calculation, it only verifies that the claimed calculation that produces the public output based on the proof.
 
 We aren’t going to teach zero knowledge algorithms in this article, but as long as you can accept that we can prove a computation took place without conducting the computation ourselves, we are good to go.
@@ -64,7 +64,7 @@ There is an obvious problem that if _anyone_ could take the cash out of the pile
 
 ### Mixing can never be totally private
 
-When you send Ether to Tornado Cash, this is fully public. When you withdraw from Tornado Cash, this is fully public too. What isn’t public is that the two addresses involved are associate with each other (assuming there are enough other depositors and withdrawers).
+When you send Ether to Tornado Cash, this is fully public. When you withdraw from Tornado Cash, this is fully public too. What isn’t public is that the two addresses involved are associated with each other (assuming there are enough other depositors and withdrawers).
 
 All people can tell about an address is "this address got its Ether from Tornado Cash" or "this other address deposited to Tornado Cash." When an address withdraws from Tornado Cash, people can’t tell which depositor the crypto came from.
 
@@ -72,7 +72,7 @@ All people can tell about an address is "this address got its Ether from Tornado
 
 Let’s try to solve this problem without worrying about privacy.
 
-The depositor creates two secret numbers, concatenates them, and puts the hash of it on chain when depositing the Eth (we will discuss later why we generated two secret numbers rather than one). When several people deposit, there are several public hashes sitting in a smart contract that we don’t know the preimage of.
+The depositor creates two secret numbers, concatenates them, and puts the hash of it on chain when depositing the ETH (we will discuss later why we generated two secret numbers rather than one). When several people deposit, there are several public hashes sitting in a smart contract that we don’t know the preimage of.
 
 The withdrawer shows up, the withdrawer reveals the preimage (the two secret numbers) of one of the hashes and takes their deposit out.
 
@@ -83,12 +83,12 @@ However, if the withdrawer can demonstrate they know the preimage of _one of the
 The naïve solution to this is to create a computation where we go over the hashes in a loop:
 
 ```python
-zkproof_preimage_is_valid(proof, hash_{1}) OR 
+zkproof_preimage_is_valid(proof, hash_{1}) OR
 zkproof_preimage_is_valid(proof, hash_{2}) OR
 zkproof_preimage_is_valid(proof, hash_{3}) OR
 ...
 zkproof_preimage_is_valid(proof, hash_{n-1}) OR
-zkproof_preimage_is_valid(proof, hash_{n}) 
+zkproof_preimage_is_valid(proof, hash_{n})
 ```
 
 Remember, the verifier isn’t actually carrying out the above computation, so we don’t know which hash is the valid one. The verifier (tornado cash), is simply verifying the prover carried out the above computation and it returned true. How it returned true is irrelevant, only that it did; and it can only return true if the prover knows one of the preimages.
@@ -113,7 +113,7 @@ This of course ties the depositor to the withdrawer, but **if we do both the Mer
 
 Zero knowledge proofs let us prove **that** we generated a valid Merkle proof against the public Merkle root as well as the preimage of the leaf – without showing **how** we conducted that computation.
 
-It is not secure enough to simply provide an zero knowledge proof of having a Merkle proof and producing the root, the withdrawer must also prove they know the preimage of the leaf.
+It is not secure enough to simply provide a zero knowledge proof of having a Merkle proof and producing the root, the withdrawer must also prove they know the preimage of the leaf.
 
 The Merkle Tree’s leaves are all public. Every time someone deposits, they supply a hash which is stored publicly. Since the Merkle tree is fully public, anyone can compute a Merkle proof for any of the leaves.
 
@@ -151,7 +151,7 @@ In the context of Tornado Cash, the verifier is the Tornado Cash smart contract 
 
 The prover is the withdrawer who can prove they carried out a hash computation to produce one of the leaves. Generally, the only person who can withdraw is the same person who deposited, as they would be the only party that can prove they know the hash preimages. Of course, this user must use a different and completely unassociated address for withdrawal!
 
-The withdrawer actually caries out the above computation (Merkle proof and leaf hash generation), produces the zk-proof that they carried it out properly, then supplies this proof to the smart contract.
+The withdrawer actually carries out the above computation (Merkle proof and leaf hash generation), produces the zk-proof that they carried it out properly, then supplies this proof to the smart contract.
 
 The `merkleProof` and `{secret1, secret2}` are hidden in the proof, but with the proof of computation, a verifier can validate the withdrawer actually ran the computation to correctly produce the leaf and Merkle root.
 
@@ -177,7 +177,7 @@ So let’s summarize:
 
 The scheme above has an issue: what prevents us from withdrawing multiple times? Presumably, we’d have to "remove" the leaf from the Merkle Tree to account for the withdrawn deposit, but that would reveal which deposit is ours!
 
-Tornado cash handles this by never removing leaves from the Merkle Tree. Once a leaf is added to the Merkle Tree, it stays there forever.
+Tornado Cash handles this by never removing leaves from the Merkle Tree. Once a leaf is added to the Merkle Tree, it stays there forever.
 
 To prevent multiple withdrawals, the smart contract uses what is called a "nullifier scheme," which is quite common in zero-knowledge applications and protocols.
 
@@ -229,7 +229,7 @@ Here are some important features of an incremental Merkle tree
 - The Merkle Tree starts off as a tree where all the leaves are `hash(bytes32(0))`.
 - As deposits are made, the left-most unused leaf is overwritten with the commitment hash. Deposits are added to the leaves in a "left to right" manner.
 - Once a deposit is made into the Merkle Tree, it cannot be removed.
-- With every new deposit, a new root is stored. Tornado cash calls this a "Merkle Tree with history." So Tornado cash really stores an array of Merkle roots, not a single one. Obviously, the Merkle root changes as members are added.
+- With every new deposit, a new root is stored. Tornado Cash calls this a "Merkle Tree with history." So Tornado Cash really stores an array of Merkle roots, not a single one. Obviously, the Merkle root changes as members are added.
 
 Now we have a problem: building a Merkle Tree with `2^32 - 1` leaves on-chain is going to run out of gas. Just computing the first level will require over 4 million iterations, which obviously won’t work.
 
@@ -296,7 +296,7 @@ When computing the Merkle root, we always know the “z-level” we are at and c
 
 #### A technicality about “zero roots”
 
-Tornado cash doesn’t actually use the `hash(bytes32(0))` as the empty value, it uses `hash(“tornado”)`. This doesn’t affect the algorithm, as it is just a constant. However, it’s easier to discuss Incremental Merkle Trees using a notion of zeroness being zero rather than a funny constant.
+Tornado Cash doesn’t actually use the `hash(bytes32(0))` as the empty value, it uses `hash(“tornado”)`. This doesn’t affect the algorithm, as it is just a constant. However, it’s easier to discuss Incremental Merkle Trees using a notion of zeroness being zero rather than a funny constant.
 
 ### Clever shortcut 2: all subtrees to the left of the newest member consist of subtrees whose roots can be cached rather than recalculated
 
@@ -404,7 +404,7 @@ function _processDeposit() internal override {
 
 ## Hyperoptimized MiMC Hash
 
-To compute the Merkle root on-chain, one must use a hash algorithm (obviously) but Tornado cash isn’t using the traditional `keccak256`; it uses MiMC instead.
+To compute the Merkle root on-chain, one must use a hash algorithm (obviously) but Tornado Cash isn’t using the traditional `keccak256`; it uses MiMC instead.
 
 Why this is so is a bit out of scope, but the reason is that some hashes are more computationally cheap for zero knowledge proof generation than others. MiMC was designed to be "zk friendly" but `keccak256` was not.
 "Zk friendly" means the algorithm maps naturally to how zero knowledge proof algorithms represents computations.
@@ -425,7 +425,7 @@ interface IHasher {
 }
 ```
 
-We know it’s "interface" based on the code in Tornado cash referenced above. ([github link](https://github.com/tornadocash/tornado-core/blob/master/contracts/MerkleTreeWithHistory.sol#L15)).
+We know it’s "interface" based on the code in Tornado Cash referenced above. ([github link](https://github.com/tornadocash/tornado-core/blob/master/contracts/MerkleTreeWithHistory.sol#L15)).
 
 On a circom library github [issue](https://github.com/iden3/circomlib/issues/32), you can see the justification for why the code does not have a solidity version, even with assembly blocks: direct stack manipulation isn’t possible.
 
@@ -447,7 +447,7 @@ The tornado cash contract will check
     b. The user actually knows the `nullifierHash` preimage
     c. The user created a Merkle proof using that leaf which results in the proposed root.
     d. The proposed root is one of the last 30 roots (this is checked publicly in the Solidity code)
-    
+
 Here is a visualization of the above steps:
 
 ![tornado cash withdraw workflow diagram](https://static.wixstatic.com/media/935a00_e392067a72614272907a69b012da4898~mv2.png/v1/fill/w_740,h_738,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/935a00_e392067a72614272907a69b012da4898~mv2.png)
@@ -544,7 +544,7 @@ Security researchers may have noticed the Solidity code has no defense against f
 
 This is something we glossed over for simplicity, but the `Withdraw.circom` file includes dummy signals that square the recipient (and the other parameters needed for relayers). This means the zk-proof must also demonstrate that the withdrawer squared the recipient’s address and got the square of their address (remember, addresses are just 20 byte numbers). Computing the square of the addresses and the hash of the `nullifier` and `secret` is one computation, so getting any parts of this wrong invalidates the whole proof.
 
-![Tornado cash withdraw circom](https://static.wixstatic.com/media/935a00_68d3199ac59a4773becba63c5d3ce79d~mv2.png/v1/fill/w_740,h_185,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_68d3199ac59a4773becba63c5d3ce79d~mv2.png)
+![Tornado Cash withdraw circom](https://static.wixstatic.com/media/935a00_68d3199ac59a4773becba63c5d3ce79d~mv2.png/v1/fill/w_740,h_185,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_68d3199ac59a4773becba63c5d3ce79d~mv2.png)
 
 ### What is a relayer and fee?
 
@@ -558,15 +558,15 @@ The relayer’s withdraw address must also use the same frontrunning protection 
 
 When deposit is called:
 - The user submits `hash(concat(nullifier, secret))`, along with the cryptocurrency they are depositing.
-- Tornado cash validates the amount deposited is the denomination it accepts.
-- Tornado cash adds the commitment to the next leaf. Leaves are never removed.
+- Tornado Cash validates the amount deposited is the denomination it accepts.
+- Tornado Cash adds the commitment to the next leaf. Leaves are never removed.
 
 When withdraw is called:
 - The user reconstructs the Merkle Tree based on the events emitted by Tornado Cash
 - The user must supply the hash of the `nullifier` (publicly), the Merkle root they are verifying against, and a zk proof that they know the `nullifier`, `secret`, and Merkle proof
-- Tornado cash verifies the `nullifier` hasn’t been used before
-- Tornado cash verifies the proposed root is one of the last 30 roots
-- Tornado cash verifies the zero knowledge proof
+- Tornado Cash verifies the `nullifier` hasn’t been used before
+- Tornado Cash verifies the proposed root is one of the last 30 roots
+- Tornado Cash verifies the zero knowledge proof
 
 There is nothing stopping a user from submitting a nonsense leaf with no known preimage. In that case, the submitted cryptocurrency will remain stuck in the contract forever.
 
