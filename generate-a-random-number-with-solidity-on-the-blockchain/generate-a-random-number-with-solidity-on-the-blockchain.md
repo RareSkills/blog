@@ -1,6 +1,6 @@
 # Generate a random number with Solidity on the blockchain
 
-![Random Number Solidity](https://static.wixstatic.com/media/935a00_d8f2322b08f14d80bf0d8aa8b1dbf9f6~mv2.jpg/v1/fill/w_740,h_317,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_d8f2322b08f14d80bf0d8aa8b1dbf9f6~mv2.jpg)   
+![Random Number Solidity](https://static.wixstatic.com/media/935a00_d8f2322b08f14d80bf0d8aa8b1dbf9f6~mv2.jpg/v1/fill/w_740,h_317,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_d8f2322b08f14d80bf0d8aa8b1dbf9f6~mv2.jpg)
 Random Number
 
 Randomness is tricky on the [blockchain](https://www.rareskills.io/web3-blockchain-bootcamps) because the blockchain is deterministic, but randomness requires non-determinism (otherwise it becomes predictable). This article assumes the user has some familiarity with [solidity](https://www.rareskills.io/solidity-bootcamp) already, especially the operations block.number(), block.hash(), and digital signatures.
@@ -41,9 +41,9 @@ The smart contract that wants a random number calls the chainlink smart contract
 
 Chainlink will accept the request and wait a specified number of blocks and call back the contract that requested the random number. Chainlink’s algorithm for generating the random number is transparent, so anyone can validate it was created in a fair manner.
 
-Chainlink cannot do this in on transaction, or a malicious player could revert the transaction if they get an outcome they don’t like.
+Chainlink cannot do this in one transaction, or a malicious player could revert the transaction if they get an outcome they don’t like.
 
-Due to the possibility of chain reorganization, the application specify that the callback happen further into the future for high value use cases.
+Due to the possibility of chain reorganization, the application should specify that the callback happen further into the future for high value use cases.
 
 Chainlink initiates the second transaction, so this saves the user the trouble of authorizing a second transaction. However, there is a literal price to this convenience, as not only must the user pay the gas cost, they (or the application) must also pay LINK token to use the service.
 
@@ -51,15 +51,15 @@ Chainlink initiates the second transaction, so this saves the user the trouble o
 
 I have to give credit to a conversation I had with [gaspack.xyz](http://gaspack.xyz/) who came up with the core of this idea.
 
-On obvious UX problem with the above solutions is that they require a delay of some sort, and potentially two transactions. In a blockchain game, players might not appreciate the delay.
+One obvious UX problem with the above solutions is that they require a delay of some sort, and potentially two transactions. In a blockchain game, players might not appreciate the delay.
 
 How can you do this without creating a vulnerable smart contract?
 
-A semi-decentralized way to get random numbers is to have an offchain random number generator create **and cryptographically sign** a random number, the sender, and a future blocknumber.
+A semi-decentralized way to get random numbers is to have an offchain random number generator create **and cryptographically sign** a random number, the sender, and a future block number.
 
 That random number will be concatenated with the future blockhash, and the resulting string will be hashed. This produces the random number. The smart contract responsible for distributing the reward verifies the signature against the sender and block number.
 
-Even if the offchain random number generator isn’t perfectly random, or even slightly malicious, it can’t predict future blockhashes, and doesn’t know what it’s random number will be concatenated with. Because the signature is only valid at a particular block, the player cannot wait for a favorable block before they roll the dice.
+Even if the offchain random number generator isn’t perfectly random, or even slightly malicious, it can’t predict future blockhashes, and doesn’t know what its random number will be concatenated with. Because the signature is only valid at a particular block, the player cannot wait for a favorable block before they roll the dice.
 
 There are three ways this scheme can be weak:
 
