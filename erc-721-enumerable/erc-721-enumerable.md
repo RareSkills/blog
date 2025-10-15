@@ -1,14 +1,14 @@
 # How ERC721 Enumerable Works
 
-An Enumerable ERC721 is an ERC721 with added functionality that enables a smart contract to list all the NFTs an address owns. This article describes how `ERC721Enumerable` functions and how we can integrate it into an existing ERC721 project. We'll use Open Zeppelin's popular implementation of [ERC721Enumerable](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/extensions/ERC721Enumerable.sol) for our explanation.
+An Enumerable ERC721 is an ERC721 with added functionality that enables a smart contract to list all the NFTs an address owns. This article describes how `ERC721Enumerable` functions and how we can integrate it into an existing ERC721 project. We'll use OpenZeppelin's popular implementation of [ERC721Enumerable](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/extensions/ERC721Enumerable.sol) for our explanation.
 
 ## Prerequisites
 
-Since `ERC721Enumerable` is an extension of ERC721 , this article assumes that the reader has read our [ERC721 article](https://www.rareskills.io/post/erc721) or has knowledge about the ERC721 standard.
+Since `ERC721Enumerable` is an extension of ERC721, this article assumes that the reader has read our [ERC721 article](https://www.rareskills.io/post/erc721) or has knowledge about the ERC721 standard.
 
 ### Swap and Pop
 
-Removing an item from an list in Solidity is typically done by copying the last element to the destination of the item that will be removed, then popping the array (deleting the last element). It's too expensive gas-wise to shift all the elements to the left. The operation to delete from a list is shown in the animation below, which removes the item at index 1 (number 5):
+Removing an item from a list in Solidity is typically done by copying the last element to the destination of the item that will be removed, then popping the array (deleting the last element). It's too expensive gas-wise to shift all the elements to the left. The operation to delete from a list is shown in the animation below, which removes the item at index 1 (number 5):
 
 <video src="https://video.wixstatic.com/video/935a00_0e88f0ef81d54484b6c0c2f58f16da3c/720p/mp4/file.mp4" style="width: 100%; height: 100%;" autoplay loop muted controls></video>
 
@@ -22,7 +22,7 @@ Let's assume that the total supply of NFTs is 1000 and an address owns two NFTs,
 
 ![An array of token ids](https://static.wixstatic.com/media/706568_dd37b28a663646c09792429ecc60a6cb~mv2.png/v1/fill/w_740,h_231,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/706568_dd37b28a663646c09792429ecc60a6cb~mv2.png)
 
-To find the 2 `tokenIDs` owned by the address (token #1 and token #1000, we would have to loop over all the `NFTs` in a contract and query `ownerOf()` on that `ID` (from 1 to 1000), which is computationally expensive. Furthermore, we don't always know all the tokenIDs in the contract, so we might not be able to do this.
+To find the 2 `tokenIDs` owned by the address (token #1 and token #1000), we would have to loop over all the `NFTs` in a contract and query `ownerOf()` on that `ID` (from 1 to 1000), which is computationally expensive. Furthermore, we don't always know all the tokenIDs in the contract, so we might not be able to do this.
 
 In the upcoming sections, we'll learn how `ERC721Enumerable` solves this problem.
 
@@ -37,12 +37,12 @@ mapping(address owner => uint256[] ownedIDs) public ownedTokens;
 However, this solution is inefficient and incomplete for the following reasons:
 
 1.  If the user owns a lot of tokens, a smart contract reading their array might run out of gas storing the very long array in memory.
-    
+
 2.  There are more gas-efficient ways to store a list of data (discussed later).
-    
+
 3.  If we want to remove a particular token from the user's list of tokens, we need to scan the entire list to find it. If the array is very long, we might run out of gas.
 
-To solve issues **1** and **2** ERC721 Enumerable uses an array instead of a mapping (see the next section) and to solve the 3rd issue, an additional data structure is needed, which maps the a `tokenID` to the index it is in.
+To solve issues **1** and **2** ERC721 Enumerable uses an array instead of a mapping (see the next section) and to solve the 3rd issue, an additional data structure is needed, which maps the `tokenID` to the index it is in.
 
 ### Using a mapping as an array
 
@@ -65,7 +65,7 @@ ERC721 Enumerable tracks two things:
 1.  all the `tokenIDs` in existence.
 2.  all the `tokenIDs` an address owns.
 
-To accomplish **1**, it uses the data structures `_allTokens` _and_ `_allTokensIndex`. 
+To accomplish **1**, it uses the data structures `_allTokens` _and_ `_allTokensIndex`.
 
 To accomplish **2**, it uses the data structures `_ownedTokens` and `_ownedTokensIndex`
 
@@ -111,9 +111,9 @@ Just like how `_allTokensIndex` is the mirror image of `_allTokens`, `_ownedToke
 
 If we plug tokenID `2` or `9` into `_ownedTokensIndex`, we get 0 back for both, because it is the "first owned token" for both Alice and Bob.
 
-Also just like `_allTokensIndex`, the purpose of this data structure is to find a specific tokenID in `_ownedTokens` so we can efficiently remove it (such as when the user transfer or burns token).
+Also just like `_allTokensIndex`, the purpose of this data structure is to find a specific tokenID in `_ownedTokens` so we can efficiently remove it (such as when the user transfers or burns token).
 
-_Since these data structures are private, they cannot be directly interacted with. In the next section, we'll understand the functions that read and manipulate these data structure._
+_Since these data structures are private, they cannot be directly interacted with. In the next section, we'll understand the functions that read and manipulate these data structures.
 
 ## ERC721Enumerable: Functions
 
@@ -181,7 +181,7 @@ _`_removeTokenFromAllTokensEnumeration`_ _follows a deletion process that is sim
 
 ![_removeTokenFromAllTokensEnumeration() function](https://static.wixstatic.com/media/706568_9c5d8079465d423e98faec61dfe95ceb~mv2.png/v1/fill/w_740,h_283,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/706568_9c5d8079465d423e98faec61dfe95ceb~mv2.png)
 
-## Putting The Pieces Together: The _updateFunction
+## Putting The Pieces Together: The _update Function
 
 The _four_ private functions that we briefly learned about in the previous section are used by the `_update` function to mint, burn, or transfer NFTs.
 
