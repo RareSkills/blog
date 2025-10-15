@@ -63,19 +63,19 @@ contract Caller {
 }
 ```
 
-This difference between a high level call and a low level call is illustrated in the figure below.
+This difference between a high-level call and a low-level call is illustrated in the figure below.
 
-![Low level call handling a revert vs a high level call handling a revert](https://static.wixstatic.com/media/935a00_e48b1ce51e9f40a3a1641c1e7d0009d9~mv2.png/v1/fill/w_455,h_514,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_e48b1ce51e9f40a3a1641c1e7d0009d9~mv2.png)
+![Low level call handling a revert vs a high-level call handling a revert](https://static.wixstatic.com/media/935a00_e48b1ce51e9f40a3a1641c1e7d0009d9~mv2.png/v1/fill/w_455,h_514,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_e48b1ce51e9f40a3a1641c1e7d0009d9~mv2.png)
 
 ## The difference between call and call by interface when calling an empty address
 
-Solidity's low level **`call`** method doesn't perform a prior check to verify whether the called address corresponds to a contract. The contract can [check if the address is a smart contract](https://www.rareskills.io/post/solidity-code-length) using **`EXTCODESIZE`**, which is the opcode behind the scenes for **`address.code.length`**. If the size is zero, it indicates that there's no contract deployed at that address. However, the `call` method doesn't incorporate this check; it directly executes the **`CALL`** opcode regardless.
+Solidity's low-level **`call`** method doesn't perform a prior check to verify whether the called address corresponds to a contract. The contract can [check if the address is a smart contract](https://www.rareskills.io/post/solidity-code-length) using **`EXTCODESIZE`**, which is the opcode behind the scenes for **`address.code.length`**. If the size is zero, it indicates that there's no contract deployed at that address. However, the `call` method doesn't incorporate this check; it directly executes the **`CALL`** opcode regardless.
 
 When using the interface, checks the target’s code size. In other words, in the bytecode generated for the `callByInterface` function, the **`EXTCODESIZE`** opcode is executed at the specified address before executing the **`CALL`** opcode. If the size returned by **`EXTCODESIZE`** is zero, indicating that there's no contract at that address, the function reverts before executing the **`CALL`** opcode. This explains why the `callByInterface` function reverts if executed with a non-existent contract address, while `callByCall` does not.
 
-This difference between how a low level call and a high level call interacts with an empty contract is illustrated below.
+This difference between how a low-level call and a high-level call interacts with an empty contract is illustrated below.
 
-![low level call calling an empty contract vs a high level call calling an empty contract](https://static.wixstatic.com/media/935a00_40eac90b8e0f4d72be51f31720c970c3~mv2.png/v1/fill/w_494,h_630,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_40eac90b8e0f4d72be51f31720c970c3~mv2.png)
+![low-level call calling an empty contract vs a high-level call calling an empty contract](https://static.wixstatic.com/media/935a00_40eac90b8e0f4d72be51f31720c970c3~mv2.png/v1/fill/w_494,h_630,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_40eac90b8e0f4d72be51f31720c970c3~mv2.png)
 
 
 Fundamentally, an execution can revert if it encounters a **`REVERT`** opcode, runs out of gas, or attempts something prohibited, such as dividing by zero. When a call is made to an empty address, none of the above conditions can occur.
@@ -88,5 +88,5 @@ See our free [Solidity course](https://www.rareskills.io/learn-solidity) if you 
 
 This article was written by [João Paulo Morais](https://www.linkedin.com/in/jpmorais/) in collaboration with RareSkills.
 
- 
+
  *Originally Published May 1, 2024*
