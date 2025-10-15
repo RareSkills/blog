@@ -2,11 +2,11 @@
 
 ## Introduction
 
-In this article, we will discuss invariants and how to perform an invariant test on solidity smart contracts using foundry test suites.
+In this article, we will discuss invariants and how to perform an invariant test on Solidity smart contracts using Foundry test suites.
 
-Invariant testing is another test methodology like unit test and fuzzing to verify the correctness of code. If you are unfamiliar with unit tests, please see our [article on unit tests using foundry](https://www.rareskills.io/post/foundry-testing-solidity).
+Invariant testing is another test methodology like unit tests and fuzzing to verify the correctness of code. If you are unfamiliar with unit tests, please see our [article on unit tests using Foundry](https://www.rareskills.io/post/foundry-testing-solidity).
 
-To follow up with the practical aspect of this article, you are expected to be familiar with solidity and have foundry installed on your computer. Otherwise, see how to do that [here](https://book.getfoundry.sh/getting-started/installation).
+To follow up with the practical aspect of this article, you are expected to be familiar with Solidity and have Foundry installed on your computer. Otherwise, see how to do that [here](https://book.getfoundry.sh/getting-started/installation).
 
 ### Accompanying Repo
 
@@ -29,9 +29,9 @@ Whereas unit tests verify specific behavior, invariants say something about the 
 
 ## Getting started
 
-An invariant test in foundry is a **stateful fuzz test**, where a contract’s functions are called randomly with random inputs by the fuzzer, all to try to break any specified invariant. A stateful fuzz test means that the state of the test at one call is saved for the next call.
+An invariant test in Foundry is a **stateful fuzz test**, where a contract’s functions are called randomly with random inputs by the fuzzer, all to try to break any specified invariant. A stateful fuzz test means that the state of the test at one call is saved for the next call.
 
-Let us initialize a new foundry project to perform an invariant test on a smart contract.
+Let us initialize a new Foundry project to perform an invariant test on a smart contract.
 
 Run the following command:
 
@@ -40,7 +40,7 @@ forge init invariant-exercise
 cd invariant-exercise
 ```
 
-Now we have our foundry project ready.
+Now we have our Foundry project ready.
 
 ## Foundry configs
 
@@ -61,7 +61,7 @@ Alternatively, these parameters can be set in environment variables, for example
 
 ## A simple example
 
-Now rename the `Counter.sol` that comes with foundry to `Deposit.sol` and paste this code.
+Now rename the `Counter.sol` that comes with Foundry to `Deposit.sol` and paste this code.
 
 ```solidity
 contract Deposit {
@@ -83,15 +83,15 @@ contract Deposit {
 
 This is a simple contract that allows anyone to deposit ether and withdraw them.
 
-Deposited ether should always be withdraw-able by the depositor at all times since there are no restrictions.
+Deposited ether should always be withdrawable by the depositor at all times since there are no restrictions.
 
-ur invariant should be that any amount deposited should be withdraw-able by the same person and the same amount.
+Our invariant should be that any amount deposited should be withdrawable by the same person and the same amount.
 
 We will implement an invariant test to confirm that:
 - The depositor can withdraw ether deposited.
 - The same amount deposited would be the same amount withdrawn by the depositor.
 
-Let us verify our code is correct by writing an invariant test for both cases. Head over to the test folder in our foundry project, rename the `Counter.t.sol` to `Deposit.t.sol`, and paste the code below.
+Let us verify our code is correct by writing an invariant test for both cases. Head over to the test folder in our Foundry project, rename the `Counter.t.sol` to `Deposit.t.sol`, and paste the code below.
 
 ```solidity
 // SPDX-License-Identifier: UNLICENSED
@@ -139,7 +139,7 @@ function invariant_alwaysWithdrawable() external payable {
 }
 ```
 
-Notice that the test function starts with an `invariant` keyword. This is important because foundry uses this to recognize that this is an invariant test.
+Notice that the test function starts with an `invariant` keyword. This is important because Foundry uses this to recognize that this is an invariant test.
 
 We start depositing one ether from the test contract. Since the Deposit contract keeps track of the amount deposited through the `balance` mapping, we then use it to take note of our balance immediately after depositing {this should equal one ether since it is what we deposited).
 
@@ -151,7 +151,7 @@ We expect the amount we deposited to be one ether, so we confirm that with `asse
 
 To confirm that the invariant holds, we expect the `balanceBefore` to be greater than `balanceAfter` since this was our balance when we deposited.
 
-To verify this, we use the foundry assertion `assertGt(balanceBefore, balanceAfter);`
+To verify this, we use the Foundry assertion `assertGt(balanceBefore, balanceAfter);`
 
 If we run the test with `forge test --mt invariant_alwaysWithdrawable` , we get the following output:
 
@@ -219,7 +219,7 @@ function changeBalance(address depositor, uint amount) public {
 }
 ```
 
-Now we rerun the test with, 
+Now we rerun the test with,
 
 ```terminal
 forge test --mt invariant_alwaysWithdrawable
@@ -246,7 +246,7 @@ Encountered 1 failing test in test/Deposit.t.sol:InvariantDeposit
 Encountered a total of 1 failing tests, 0 tests succeeded
 ```
 
-Pay attention to the last function call in the call sequence. We can see that the `changeBalance` function is called. The parameters passed here are; **1. The `address` of the foundry test contract and 2. `2193` (totally random number).**
+Pay attention to the last function call in the call sequence. We can see that the `changeBalance` function is called. The parameters passed here are; **1. The `address` of the Foundry test contract and 2. `2193` (totally random number).**
 
 This will change the balance of the test contract, which we used in depositing one ether before. So instead of having a balance of one ether, we now have `2193` as our balance. Hence this breaks the invariant that “the same amount deposited would be the same amount withdrawn by the depositor”.
 
@@ -344,7 +344,7 @@ Test result: ok. 1 passed; 0 failed; finished in 4.39s
 
 The test still passes, but this time the number of `runs`, `calls`, and `revert` is significantly higher than usual because we have modified it in our config. You can choose to use any number from zero to `uint32.max`.
 
-If we set the `runs` parameter to a number greater than `uint32`, foundry would throw an error when we try to run the test.
+If we set the `runs` parameter to a number greater than `uint32`, Foundry would throw an error when we try to run the test.
 
 For example, let’s set it to 23000000000000 and try to run the test.
 
@@ -360,7 +360,7 @@ A larger number means more test scenarios, but larger numbers make the test slow
 
 ## Near real-life examples
 
-We have covered at least the basics of invariant testing with foundry with our contract, but let us go further and perform an invariant test on a popular contract.
+We have covered at least the basics of invariant testing with Foundry with our contract, but let us go further and perform an invariant test on a popular contract.
 
 We’ll be testing the `SideEntranceLenderPool` contract, which is the contract of the fourth level in the popularly known [Damn Vulnerable DeFi CTF](https://www.damnvulnerabledefi.xyz/).
 
@@ -412,7 +412,7 @@ interface IFlashLoanEtherReceiver {
 }
 ```
 
-The contract has been modified a little (also note the openzeppelin import) to fit in our foundry project and what we want. We have also installed the necessary dependencies (the OpenZeppelin Address library import).
+The contract has been modified a little (also note the openzeppelin import) to fit in our Foundry project and what we want. We have also installed the necessary dependencies (the OpenZeppelin Address library import).
 
 This contract is vulnerable in the `flashLoan` function that lets someone exploit it and drain its ether balance. An attacker could call the `flashLoan` function to take a loan and deposit the same loan back into the contract with the `deposit` function as the attacker’s balance, later they can withdraw the balance and get away with it even if it was originally a loan and not their ether.
 
@@ -420,10 +420,10 @@ So what’s going to be our invariant here?
 
 First, it is important to note that the contract has a `payable` constructor, and the ether used for loans is deposited during deployment. There is also no way for that initially deposited ether to be withdrawn. Ether can only be added to the contract using the `deposit` function and withdrawn with the `withdraw` function (only if the function caller has deposited prior).
 
-So if we have this in mind, we can say that the invariant would be 
+So if we have this in mind, we can say that the invariant would be
 
 ```solidity
-assert(address(SideEntranceLenderPool).balance >= SideEntranceLenderPool.initialPoolBalance()); 
+assert(address(SideEntranceLenderPool).balance >= SideEntranceLenderPool.initialPoolBalance());
 ```
 
 (`initialPoolBalance` is a public state variable used to store how much ether was deposited during deployment).
@@ -432,7 +432,7 @@ We assert that the `SideEntranceLenderPool` ether balance is always greater than
 
 If everything works fine, this invariant should hold. But as said earlier, a vulnerability allows someone to deposit a loan taken from the contract and withdraw it later.
 
-In the next section, we will introduce a new concept in foundry invariant testing called a ---  _Handler_ to achieve better results.
+In the next section, we will introduce a new concept in Foundry invariant testing called a ---  _Handler_ to achieve better results.
 
 ## Handler-based testing
 
@@ -446,9 +446,9 @@ Because of this, only the functions of the handler contract would be called rand
 
 Another benefit is that if a function in the main contract (`SideEntranceLenderPool` contract in this case) requires a certain condition before it can be called, we can easily define it in the handler contract before the function call.
 
-The handler contract can also inherit the `forge-std Test` and use foundry cheatsheets like `vm.deal`, `vm.prank`, etc. We will demonstrate this as we go.
+The handler contract can also inherit the `forge-std Test` and use Foundry cheatsheets like `vm.deal`, `vm.prank`, etc. We will demonstrate this as we go.
 
-Let’s create a `/handler` folder inside the `test` folder and a `handler.sol` file inside it. 
+Let’s create a `/handler` folder inside the `test` folder and a `handler.sol` file inside it.
 
 This will be the code for our handler contract.
 
@@ -460,7 +460,7 @@ import "forge-std/Test.sol";
 contract Handler is Test {
     // the pool contract
     SideEntranceLenderPool pool;
-    
+
     // used to check if the handler can withdraw ether after the exploit
     bool canWithdraw;
 
@@ -469,13 +469,13 @@ contract Handler is Test {
 
         vm.deal(address(this), 10 ether);
     }
-    
+
     // this function will be called by the pool during the flashloan
     function execute() external payable {
         pool.deposit{value: msg.value}();
         canWithdraw = true;
     }
-    
+
     // used for withdrawing ether balance in the pool
     function withdraw() external {
         if (canWithdraw) pool.withdraw();
@@ -531,7 +531,7 @@ contract InvariantSideEntranceLenderPool is Test {
         // set the handler contract as the target for our test
         targetContract(address(handler));
     }
-    
+
     // invariant test function
     function invariant_poolBalanceAlwaysGtThanInitialBalance() external {
         // assert that the pool balance will never go below the initial balance (the 10 ether deposited during deployment)
@@ -565,30 +565,30 @@ The test was able to break the invariant and find the exploit.
 
 The `flashLoan` function was called first, and then the `withdraw` function.
 
-To see the complete stack trace and call sequence, we can rerun the test with 
+To see the complete stack trace and call sequence, we can rerun the test with
 
 ```terminal
 forge test --mt invariant_poolBalanceAlwaysGtThanInitialBalance -vvvv
 ```
 
 ```terminal
-[45514] Handler::flashLoan(3041954473) 
-    ├─ [40246] SideEntranceLenderPool::flashLoan(3041954473) 
-    │   ├─ [32885] Handler::execute{value: 3041954473}() 
-    │   │   ├─ [22437] SideEntranceLenderPool::deposit{value: 3041954473}() 
+[45514] Handler::flashLoan(3041954473)
+    ├─ [40246] SideEntranceLenderPool::flashLoan(3041954473)
+    │   ├─ [32885] Handler::execute{value: 3041954473}()
+    │   │   ├─ [22437] SideEntranceLenderPool::deposit{value: 3041954473}()
     │   │   │   └─ ← ()
     │   │   └─ ← ()
     │   └─ ← ()
     └─ ← ()
 
-  [14076] Handler::withdraw() 
-    ├─ [9828] SideEntranceLenderPool::withdraw() 
-    │   ├─ [55] Handler::receive{value: 3041954473}() 
+  [14076] Handler::withdraw()
+    ├─ [9828] SideEntranceLenderPool::withdraw()
+    │   ├─ [55] Handler::receive{value: 3041954473}()
     │   │   └─ ← ()
     │   └─ ← ()
     └─ ← ()
-    
-    [7724] InvariantSideEntranceLenderPool::invariant_poolBalanceAlwaysGtThanInitialBalance() 
+
+    [7724] InvariantSideEntranceLenderPool::invariant_poolBalanceAlwaysGtThanInitialBalance()
     ├─ [2261] SideEntranceLenderPool::initialPoolBalance() [staticcall]
     │   └─ ← 25000000000000000000 #initial balance was 25 ether
     └─ ← "Assertion violated"
@@ -673,7 +673,7 @@ contract InvariantQuadratic is Test {
 
 We have defined our invariant in the `invariant_NotOkay` function.
 
-Run the test with 
+Run the test with
 
 ```terminal
 forge test --mt invariant_NotOkay
@@ -776,66 +776,66 @@ Logs:
   Bound result 11112
 
 Traces:
-  [14840] Handler_2::notOkay(-5675015641267) 
+  [14840] Handler_2::notOkay(-5675015641267)
     ├─ [0] VM::toString(23762) [staticcall]
     │   └─ ← 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000053233373632000000000000000000000000000000000000000000000000000000
     ├─ [0] console::log(Bound result, 23762) [staticcall]
     │   └─ ← ()
-    ├─ [607] Quadratic::notOkay(23762) 
+    ├─ [607] Quadratic::notOkay(23762)
     │   └─ ← ()
     └─ ← ()
 
-  [14840] Handler_2::notOkay(-3) 
+  [14840] Handler_2::notOkay(-3)
     ├─ [0] VM::toString(89998) [staticcall]
     │   └─ ← 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000053839393938000000000000000000000000000000000000000000000000000000
     ├─ [0] console::log(Bound result, 89998) [staticcall]
     │   └─ ← ()
-    ├─ [607] Quadratic::notOkay(89998) 
+    ├─ [607] Quadratic::notOkay(89998)
     │   └─ ← ()
     └─ ← ()
 
-  [14772] Handler_2::notOkay(1912195698230241887953774934318906299036) 
+  [14772] Handler_2::notOkay(1912195698230241887953774934318906299036)
     ├─ [0] VM::toString(44363) [staticcall]
     │   └─ ← 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000053434333633000000000000000000000000000000000000000000000000000000
     ├─ [0] console::log(Bound result, 44363) [staticcall]
     │   └─ ← ()
-    ├─ [607] Quadratic::notOkay(44363) 
+    ├─ [607] Quadratic::notOkay(44363)
     │   └─ ← ()
     └─ ← ()
 
-  [14772] Handler_2::notOkay(57896044618658097711785492504343953926634992332820282019728792003956564819794) 
+  [14772] Handler_2::notOkay(57896044618658097711785492504343953926634992332820282019728792003956564819794)
     ├─ [0] VM::toString(88972) [staticcall]
     │   └─ ← 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000053838393732000000000000000000000000000000000000000000000000000000
     ├─ [0] console::log(Bound result, 88972) [staticcall]
     │   └─ ← ()
-    ├─ [607] Quadratic::notOkay(88972) 
+    ├─ [607] Quadratic::notOkay(88972)
     │   └─ ← ()
     └─ ← ()
 
-  [14772] Handler_2::notOkay(5137619242564313626262060176411679498446697733570) 
+  [14772] Handler_2::notOkay(5137619242564313626262060176411679498446697733570)
     ├─ [0] VM::toString(11664) [staticcall]
     │   └─ ← 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000053131363634000000000000000000000000000000000000000000000000000000
     ├─ [0] console::log(Bound result, 11664) [staticcall]
     │   └─ ← ()
-    ├─ [607] Quadratic::notOkay(11664) 
+    ├─ [607] Quadratic::notOkay(11664)
     │   └─ ← ()
     └─ ← ()
 
-  [14772] Handler_2::notOkay(57896044618658097711785492504343953926634992332813620401282714769779013280756) 
+  [14772] Handler_2::notOkay(57896044618658097711785492504343953926634992332813620401282714769779013280756)
     ├─ [0] VM::toString(33484) [staticcall]
     │   └─ ← 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000053333343834000000000000000000000000000000000000000000000000000000
     ├─ [0] console::log(Bound result, 33484) [staticcall]
     │   └─ ← ()
-    ├─ [607] Quadratic::notOkay(33484) 
+    ├─ [607] Quadratic::notOkay(33484)
     │   └─ ← ()
     └─ ← ()
 
-  [15887] Handler_2::notOkay(-57896044618658097711785492504343953926634992332820282019728792003956564809711) 
+  [15887] Handler_2::notOkay(-57896044618658097711785492504343953926634992332820282019728792003956564809711)
     ├─ [0] VM::toString(11112) [staticcall]
     │   └─ ← 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000053131313132000000000000000000000000000000000000000000000000000000
     ├─ [0] console::log(Bound result, 11112) [staticcall]
     │   └─ ← ()
-    ├─ [4500] Quadratic::notOkay(11112) 
+    ├─ [4500] Quadratic::notOkay(11112)
     │   └─ ← ()
     └─ ← ()
 ```
@@ -846,13 +846,13 @@ Using the bound function in cases where a particular range of numbers should be 
 
 ## Conclusion
 
-In this article, we learned what invariants are, why they are important, and how to perform invariant testing in a foundry.
+In this article, we learned what invariants are, why they are important, and how to perform invariant testing in a Foundry.
 
 We also discussed conditional invariants, handler-based setup, and how and when to bound the range of fuzzed’s input values.
 
 ## Learn More
 
-Our [advanced solidity training](https://www.rareskills.io/solidity-bootcamp) teaches modern smart contract testing beyond unit tests. Check it out to learn more.
+Our [advanced Solidity training](https://www.rareskills.io/solidity-bootcamp) teaches modern smart contract testing beyond unit tests. Check it out to learn more.
 
 ## Authorship
 
