@@ -1,8 +1,8 @@
 # Governance Contract in Solidity
 
-The pattern of governance many DeFi applications follows is heavily inspired by Compound Finance’s implementation. Although, there isn’t an Ethereum Improvement Proposal related to create a standard governance interface, most DeFi governance implementations generally follow the same set of principles.
+The pattern of governance many DeFi applications follows is heavily inspired by Compound Finance’s implementation. Although, there isn’t an Ethereum Improvement Proposal related to creating a standard governance interface, most DeFi governance implementations generally follow the same set of principles.
 
-Ultimately, governance contracts tend behave like multisignature wallets with votes weighted by token balances of the voters.
+Ultimately, governance contracts tend to behave like multisignature wallets with votes weighted by token balances of the voters.
 
 A proposal is an Ethereum transaction: an address or list of addresses, and a calldata or list of calldatas. The community (holders of tokens that give them the right to vote), propose Ethereum transactions and based on the outcome of the vote, the transaction is executed on chain, or defeated if it doesn’t pass the election.
 
@@ -14,9 +14,9 @@ Before we start explaining the contracts, it’s helpful to know the technical t
 
 ### Proposal
 
-Every vote begins with a proposal, which was described earlier. It is always an Ethereum transaction that can be signed, I.e. it has a target address(es) and calldata(s).
+Every vote begins with a proposal, which was described earlier. It is always an Ethereum transaction that can be signed, i.e. it has a target address(es) and calldata(s).
 
-To prevent proposal spam, contracts usually have some kind of a filter for who can create the proposal, usually an adddress that must hold a certain percentage of the total supply of the governance token.
+To prevent proposal spam, contracts usually have some kind of a filter for who can create the proposal, usually an address that must hold a certain percentage of the total supply of the governance token.
 
 Under the hood, a proposal is usually a [Solidity](https://www.rareskills.io/learn-solidity) struct with some flags about its current state, the votes applied to it, and what transactions will be executed if the proposal passes.
 
@@ -36,13 +36,13 @@ Proposals don’t wait around indefinitely waiting for the quorum to be reached.
 
 ### Queued and Execution
 
-If enough votes passed the quorum threshold in favor of the proposal, before the voting period expired, then the proposal is considered the have passed. For safety reasons, there is usually a time delay between when a proposal succeeds and when it actually gets executed.
+If enough votes passed the quorum threshold in favor of the proposal, before the voting period expired, then the proposal is considered to have passed. For safety reasons, there is usually a time delay between when a proposal succeeds and when it actually gets executed.
 
 ### Timelock
 
 Not to be confused with the voting period, this is a delay between when a proposal has been approved and when the action is actually executed.
 
-Consider a situation where a controversial proposal is in the governance contract, and a subset of dissenting users will withdraw liquidity if the proposal is enacted. The timelock gives them a window to leave after they see the lost the vote.
+Consider a situation where a controversial proposal is in the governance contract, and a subset of dissenting users will withdraw liquidity if the proposal is enacted. The timelock gives them a window to leave after they see they lost the vote.
 
 Giving users a chance to take action against unfavorable proposals incentives proposers to only include proposals that won’t cause a revolt.
 
@@ -68,7 +68,7 @@ And this is [Uniswap](https://www.rareskills.io/uniswap-v2-book)'s
 
 https://docs.uniswap.org/contracts/v2/reference/Governance/governance-reference
 
-Who has the authority to create a proposal (and move it to pending) is protocol dependent. A common pattern is that wallets which hold enough of the governance token can create a proposal. Similarly, who can transition the state to “canceled” is protocol dependant also. There is no universal standard for who has the authority to execute these actions.
+Who has the authority to create a proposal (and move it to pending) is protocol dependent. A common pattern is that wallets which hold enough of the governance token can create a proposal. Similarly, who can transition the state to “canceled” is protocol dependent also. There is no universal standard for who has the authority to execute these actions.
 
 When unsure about when a state transition can occur, it’s best to simply read the governance solidity smart contract directly.
 
