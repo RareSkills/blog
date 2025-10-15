@@ -1,10 +1,10 @@
 # Understanding the Function Selector in Solidity
 
-The function selector is a 4 byte id that Solidity uses to identify functions under the hood.
+The function selector is a 4-byte id that Solidity uses to identify functions under the hood.
 
 The function selector is how a Solidity contract knows which function you are trying to call in the transaction.
 
-You can see the 4 byte id using the `.selector` method:
+You can see the 4-byte id using the `.selector` method:
 
 ```solidity!
 pragma solidity 0.8.25;
@@ -31,7 +31,7 @@ contract CallFoo {
     function callFooLowLevel(address _contract) external {
         bytes4 fooSelector = 0xc2985578;
 
-        (bool ok, ) = _contract.call(abi.encodePacked(fooSelector)); 
+        (bool ok, ) = _contract.call(abi.encodePacked(fooSelector));
         require(ok, "call failed");
     }
 
@@ -76,14 +76,14 @@ contract SelectorTest {
     }
 
     function testSelectors() external pure returns (bool) {
-        
+
         assert(this.foo.selector == 0xc2985578);
         assert(this.bar.selector == 0xfebb0f7e);
-        
+
         return true;
     }
 }
-```  
+```
 
 ## Solidity function signature
 
@@ -123,20 +123,20 @@ pragma solidity 0.8.25;
 contract FunctionSignatureTest {
 
     function foo() external {}
-    
+
     function point(uint256 x, uint256 y) external {}
-    
+
     function setName(string memory name) external {}
-    
+
     function testSignatures() external pure returns (bool) {
-    
+
     // NOTE: Casting to bytes4 takes the first 4 bytes
     // and removes the rest
 
     assert(bytes4(keccak256("foo()")) == this.foo.selector);
         assert(bytes4(keccak256("point(uint256,uint256)")) == this.point.selector);
         assert(bytes4(keccak256("setName(string)")) == this.setName.selector);
-    
+
     return true;
 
     }
@@ -189,7 +189,7 @@ contract FunctionSignatureTest {
 
 Here is the [**code on Remix**](https://remix.ethereum.org/#code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IE1JVApwcmFnbWEgc29saWRpdHkgMC44LjI1OwoKY29udHJhY3QgRnVuY3Rpb25TaWduYXR1cmVUZXN0IHsKCiAgICBldmVudCBMb2dTZWxlY3RvcihieXRlczQpOwoKICAgIGZhbGxiYWNrKCkgZXh0ZXJuYWwgcGF5YWJsZSB7CiAgICAgICAgZW1pdCBMb2dTZWxlY3Rvcihtc2cuc2lnKTsKICAgIH0KfQ&lang=en&optimize=false&runs=200&evmVersion=null&version=soljson-v0.8.25+commit.b61c2a91.js) to test the above contract. Below is a video showing how to trigger the fallback function on Remix:
 
-<video src="https://video.wixstatic.com/video/706568_e6a59aac2cb04bad8146e0f232de73d7/720p/mp4/file.mp4" style="width: 100%; height: 100%;" autoplay loop muted controls></video>  
+<video src="https://video.wixstatic.com/video/706568_e6a59aac2cb04bad8146e0f232de73d7/720p/mp4/file.mp4" style="width: 100%; height: 100%;" autoplay loop muted controls></video>
 
 ## Probability of a function selector collision
 
