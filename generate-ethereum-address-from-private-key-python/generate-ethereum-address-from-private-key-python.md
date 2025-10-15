@@ -2,11 +2,11 @@
 
 ## Generate Ethereum Address from Public Key
 
-An Ethereum address is the last 20 bytes of the keccack256 of the public key. The public key algorithm is secp256k1, the same used in bitcoin.
+An Ethereum address is the last 20 bytes of the keccak256 of the public key. The public key algorithm is secp256k1, the same used in Bitcoin.
 
-Because it is an elliptic curve algorithm, the public key is an (x, y) pair corresponds to a point on the elliptic curve.
+Because it is an elliptic curve algorithm, the public key is an (x, y) pair that corresponds to a point on the elliptic curve.
 
-## Generate the Elliptic Curve Public Key.
+## Generate the Elliptic Curve Public Key
 
 The public key is the concatenation of x and y, and that is what we take the hash of.
 
@@ -33,13 +33,13 @@ print('private key: ', hex(private_key))
 print('eth_address: ', eth_addr)
 ```
 
-The ecpy library is here [https://github.com/cslashm/ECPy](https://github.com/cslashm/ECPy). This library implements the elliptic curve math in python, so it won't be as fast as a wrapper around the bitcoin C implementation, which is used by the [coincurve](https://github.com/ofek/coincurve/) library.
+The ecpy library is here [https://github.com/cslashm/ECPy](https://github.com/cslashm/ECPy). This library implements the elliptic curve math in Python, so it won't be as fast as a wrapper around the Bitcoin C implementation, which is used by the [coincurve](https://github.com/ofek/coincurve/) library.
 
-However, the python implementation allows you to see step by step the elliptic curve math used to derive the public key.
+However, the Python implementation allows you to see step by step the elliptic curve math used to derive the public key.
 
 You can use this code to generate an Ethereum vanity address with brute force, but be mindful that if your source of randomness is not secure or has too few bits of randomness, you may fall victim to a hack similar to [this](https://cointelegraph.com/news/almost-1m-in-crypto-stolen-from-vanity-address-exploit).
 
-## Generate private key with python and coin flips or dice
+## Generate private key with Python and coin flips or dice
 
 You can generate an Ethereum address from a private key yourself by flipping a coin 256 times and writing to a string a 1 if it's heads and 0 if it is tails.
 
@@ -49,12 +49,12 @@ Let's say you get the following outcome
 result = b'1100001011001101010001001100101000001111101101111011001000110001101100011101101011010001011000101111100110010101001001101110111011001000100001010101111100001100100110010010111110110100000010011111100000110101001110000101100101011111001101010001100001000'
 ```
 
-You can convert that to a private key using the following python code
+You can convert that to a private key using the following Python code
 
 ```python
 # 2 means base 2 for binary
 
-private_key = hex(int(result, 2)) 
+private_key = hex(int(result, 2))
 
 # private key is 0x1859a89941f6f646363b5a2c5f32a4ddd910abe19325f6813f06a70b2be6a308
 ```
@@ -63,7 +63,7 @@ Then, plug that private key into the code from the above section and you've gene
 
 The same thing can be accomplished faster by rolling a 16-sided dice 64 times and writing out the hex string that is produced character by character. Be mindful that most dice don't have a representation for the number zero, so you'll have to subtract 1 from each result.
 
-If you only have traditional six-sided, you can write out a string in base 6 (don't forget to subtract 1 from each roll) and do a base conversion to binary. You'll need to keep rolling until you have at least 256 bits for your private key. If you are particularly paranoid about randomness, you can use casino grade dice.
+If you only have traditional six-sided dice, you can write out a string in base 6 (don't forget to subtract 1 from each roll) and do a base conversion to binary. You'll need to keep rolling until you have at least 256 bits for your private key. If you are particularly paranoid about randomness, you can use casino grade dice.
 
 Be cautious using the built-in random number library for Python. It's not intended to be cryptographically secure. We recommend familiarizing yourself with [cryptographically secure randomness](https://www.google.com/search?q=cryptographically+secure+randomness) if you are new to the topic.
 
@@ -89,7 +89,7 @@ x = 5506626302227734366957871889516853432625060345377759417550018736038911672924
 y = 32670510020758816978083085130507043184471273380659243275938904335757337482424
 ```
 
-To see G is a valid point, we can plug the numbers into python
+To see G is a valid point, we can plug the numbers into Python
 
 ```python
 x = 55066263022277343669578718895168534326250603453777594175500187360389116729240
