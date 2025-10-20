@@ -170,7 +170,7 @@ contract Caller {
     uint public myNumber;
 
     function callIncrement() public {
-        called.delegatecall(
+        calledAddress.delegatecall(
             abi.encodeWithSignature("increment()")
         );
     }
