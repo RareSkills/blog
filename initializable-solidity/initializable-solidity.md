@@ -106,7 +106,7 @@ Each modifier is only used in a specific scenario and serves a distinct purpose.
 - The `initializer` modifier should be used during the initial deployment of the upgradable contract and exclusively in the childmost contract.
 - The `reinitializer` modifier should be used to initialize new versions of the implementation contract, again only within childmost contracts.
 - The `onlyInitializing` modifier is used with parent initializers to run during initialization and prevents those initializers from being called in a later transaction. This solves the problem mentioned in the previous section, where the parent initializers could not run due to the childmost initializer disabling them. With this scheme, it is possible to initialize all parent contracts, as well as the childmost contract.
-    
+
 Below is a visual diagram illustrating these scenarios. A more detailed explanation of the use of these modifiers will be provided in the following sections.
 
 ![Visual diagram showing the purpose of the three core Initializable.sol modifiers: initializer, reinitializer and onlyInitializing.](https://static.wixstatic.com/media/706568_805b0817d9cf42768bf504d5a5b4553a~mv2.png/v1/fill/w_719,h_428,al_c,lg_1,q_85,enc_auto/706568_805b0817d9cf42768bf504d5a5b4553a~mv2.png)
@@ -140,10 +140,10 @@ The `initializer` modifier is as follows. Some parts of the code will be explain
 
 ![Code snippet of the initializable.sol initializer modifier](https://static.wixstatic.com/media/706568_77b7b566ccf3432889f75a0ea986b382~mv2.png/v1/fill/w_740,h_630,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/706568_77b7b566ccf3432889f75a0ea986b382~mv2.png)
 
-The code above is not straightforward due to the necessity to address backward compatibility issues with previous versions. However, the main idea is twofold:  
+The code above is not straightforward due to the necessity to address backward compatibility issues with previous versions. However, the main idea is twofold:
 1. Set the `_initialized` variable to `1` to prevent the function from being executed again (<span style="color:Green">green box</span>).
-2. Temporarily allow the parent initializers, modified with `onlyInitializing`, to run while `_initializing` is true. As can be seen in the code above, `_initializing` is false when the contract has not been initialized, true while intialization transaction is running, and false when the initialization transaction finishes.
-    
+2. Temporarily allow the parent initializers, modified with `onlyInitializing`, to run while `_initializing` is true. As can be seen in the code above, `_initializing` is false when the contract has not been initialized, true while initialization transaction is running, and false when the initialization transaction finishes.
+
 Because `initializer` requires that `_initializing` be false, it cannot be used in parent contracts within the inheritance chain, since `_initializing` is true while these are executing. Instead, initialization functions of parent contracts must use a different modifier, specifically `onlyInitializing`, which allows the function to execute only when `_initializing` is true.
 
 ## The onlyInitializing modifier
@@ -167,7 +167,7 @@ Below is a visual representation of this flow.
 
 ![Visual representation of the onlyInitializing modifier flow](https://static.wixstatic.com/media/706568_4bd611d6b66e48b7bfbea85a1d08ef9f~mv2.png/v1/fill/w_697,h_622,al_c,lg_1,q_90,enc_auto/706568_4bd611d6b66e48b7bfbea85a1d08ef9f~mv2.png)
 
-To summarize, parent initializers are protected by the `onlyInitializing` modifier which prevents them from being called unless the childmost contract's `inititializer` is currently executing.
+To summarize, parent initializers are protected by the `onlyInitializing` modifier which prevents them from being called unless the childmost contract's `initializer` is currently executing.
 
 ## The reinitializer modifier
 
@@ -200,7 +200,7 @@ function  initialize() reinitializer(2) public {
 }
 ```
 
-To summarize how to proceed with upgrades: 
+To summarize how to proceed with upgrades:
 
 1. You can't use `initializer` on a new version.
 2. You must use `reinitializer` *if* you want to change any state variables in an initialization function.
@@ -251,7 +251,7 @@ constructor() initializer {}
 
 This was just a security measure to prevent an attacker from initializing storage variables in the implementation to become the owner. This modifier was intended to be placed in constructors in all implementation contracts of an inheritance chain.
 
-For childmost contracts, the variable `initialSetup` will always be true. However, in parent contracts of the implementation contracts, during deployment, `initialized` will be 1 and `address(this).code.length == 0`. It is for this scenario that the `construction` variable exists—to enable the initialization of parent contracts of the implementation contract. 
+For childmost contracts, the variable `initialSetup` will always be true. However, in parent contracts of the implementation contracts, during deployment, `initialized` will be 1 and `address(this).code.length == 0`. It is for this scenario that the `construction` variable exists—to enable the initialization of parent contracts of the implementation contract.
 
 In other words, the line in question is designed to account for cases such as the contract schema below, where parent contracts need to be initialized as well. The `initializer` modifier should be used; the `onlyInitializing` modifier is not intended to initialize constructors.
 
@@ -311,8 +311,8 @@ The function that initializes upgradeable contracts can have any name, but OpenZ
 The `<Contract Name>_init_unchained` function contains all the code that must be executed when the implementation contract is initialized. For example, in the case of an ERC20 token, this function sets the token's name and symbol.
 
 ```solidity
-function __ERC20_init_unchained(string memory name_, string memory symbol_)    
-    internal    
+function __ERC20_init_unchained(string memory name_, string memory symbol_)
+    internal
     onlyInitializing
 {
     ERC20Storage storage $ = _getERC20Storage();
@@ -327,7 +327,7 @@ Let's consider the case of the [GovernorUpgradeable.sol v5](https://github.com/O
 
 ![Codesnippet of the _Governor_init functioin in GovernorUpgradeable.sol v5 contract](https://static.wixstatic.com/media/706568_6a9ccdc272414479a5a9eac6fba47ac8~mv2.png/v1/fill/w_740,h_251,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/706568_6a9ccdc272414479a5a9eac6fba47ac8~mv2.png)
 
-In general, it is sufficient to execute the `_init` function of a contract, which also initializes the parent contracts. Care must be taken to not initialize the same contract twice, which can occur in an inheritance chain where two contracts share the same parent.  
+In general, it is sufficient to execute the `_init` function of a contract, which also initializes the parent contracts. Care must be taken to not initialize the same contract twice, which can occur in an inheritance chain where two contracts share the same parent.
 
 That is the reason why there are two functions, `_init` and `_init_unchained`. If one needs to initialize a contract without initializing its parents, the `_init_unchained` function must be used.
 
@@ -344,7 +344,7 @@ Note that it calls the `__<Contract Name>_init` on its parents. Regardless of th
 Before concluding this article, some recommendations should be given for the correct use of the **Initializable.sol** contract.
 
 1. OpenZeppelin has another contract called [Initializable.sol](https://github.com/OpenZeppelin/openzeppelin-upgrades/blob/master/packages/core/contracts/Initializable.sol) in its openzeppelin-upgrades library. This contract exists for backward compatibility reasons and should not be used in new projects. The recommended way to import it is via `import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`.
-2. Since the initialization function is a regular function there is a risk of it being frontrun by another transaction. If this happens, the proxy contract must be redeployed. To prevent this, the [ERC1967Proxy](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/proxy/ERC1967/ERC1967Proxy.sol) contract constructor makes a call to the implementation at deploy time. The initialization call must be made at this moment, encoded in the `_data` variable.  
+2. Since the initialization function is a regular function there is a risk of it being frontrun by another transaction. If this happens, the proxy contract must be redeployed. To prevent this, the [ERC1967Proxy](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/proxy/ERC1967/ERC1967Proxy.sol) contract constructor makes a call to the implementation at deploy time. The initialization call must be made at this moment, encoded in the `_data` variable.
 3. As mentioned in the previous section, when the contract is part of an inheritance chain, manual care must be taken to not invoke a parent initializer twice. The schema does not identify such potential problems, so verification must be done manually. One way to solve this is to ensure all initialization functions are idempotent, meaning they have the same effect regardless of how many times they are executed.
 
 *Originally Published Jul 8*
