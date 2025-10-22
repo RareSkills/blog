@@ -4,13 +4,13 @@
 
 ![forge coverage lcov report](https://static.wixstatic.com/media/935a00_95a73f5f70b24200a5bde10b3a0243b6~mv2.webp/v1/fill/w_740,h_178,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_95a73f5f70b24200a5bde10b3a0243b6~mv2.webp)
 
-If you run "forge coverage" in a [foundry](https://book.getfoundry.sh/) project, you'll get a table showing how much of your lines and branches are covered.
+If you run "forge coverage" in a [Foundry](https://book.getfoundry.sh/) project, you'll get a table showing how much of your lines and branches are covered.
 
-![foundry forge coverage](https://static.wixstatic.com/media/935a00_ed8796a9a0814f54a73a0844cd7675f0~mv2.webp/v1/fill/w_740,h_216,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_ed8796a9a0814f54a73a0844cd7675f0~mv2.webp)
+![Foundry forge coverage](https://static.wixstatic.com/media/935a00_ed8796a9a0814f54a73a0844cd7675f0~mv2.webp/v1/fill/w_740,h_216,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_ed8796a9a0814f54a73a0844cd7675f0~mv2.webp)
 
 If you want to see visually which lines and branches are or are not covered, use the following steps
 
-## Instructions to get line visual coverage in foundry
+## Instructions to get line visual coverage in Foundry
 
 ### 1. Install genhtml
 
@@ -18,7 +18,7 @@ If you want to see visually which lines and branches are or are not covered, use
 brew install genhtml
 ```
 
-### 2. Create a coverage directory in your foundry project
+### 2. Create a coverage directory in your Foundry project
 
 ```shell
 mkdir coverage
@@ -40,7 +40,7 @@ And you'll be able to see a coverage report like what you see at the top of the 
 
 ### No available formula with the name "genhtml". Did you mean ekhtml?
 
-If you get this error, do 
+If you get this error, do:
 
 ```shell
 brew install ekhtml
