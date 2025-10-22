@@ -19,8 +19,8 @@ The **bytecode** stores immutable information. These include the values of `immu
 
 ```solidity
 contract ImmutableVariables{
-    uint256 constant   myConstant = 100; 
-    uint256 immutable  myImmutable; 
+    uint256 constant   myConstant = 100;
+    uint256 immutable  myImmutable;
 }
 ```
 
@@ -75,7 +75,7 @@ A smart contract's **storage** is organized into **storage slots**. Each slot ha
 
 **Storage slots** are indexed from $0$ to $2^{256} - 1$. These numbers act as a unique identifier for locating individual slots.
 
-The solidity compiler allocates storage space to storage variables in a sequential and deterministic manner, based on their declaration order within the contract.
+The Solidity compiler allocates storage space to storage variables in a sequential and deterministic manner, based on their declaration order within the contract.
 
 Consider the contract below, it contains two storage variables: `uint256 x` and `uint256 y`.
 
@@ -134,7 +134,7 @@ All the <span style="color:Green">green zeros</span> seen in the image above cor
 
 ![Text and raw bit representation of Storage slot 0 keeping the value of 20](https://static.wixstatic.com/media/706568_c4e5c17749894730a6618499a981a8d3~mv2.gif)
 
-Reading the contents of a storage slot in raw 256 bit format is less human readable, therefore, solidity devs usually read it in hexadecimal format.
+Reading the contents of a storage slot in raw 256 bit format is less human readable, therefore, Solidity devs usually read it in hexadecimal format.
 
 **Raw 256 bit:** `00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000`
 
@@ -164,9 +164,9 @@ Complex datatypes such as structs (`struct{}`), arrays (`array[]`), mappings (`m
 
 ## Storage Packing
 
-So far, we've conveniently dealt with `uint256` variables, which span the entire 32 bytes of a storage slot. Other primitive data types, such as `uint8`, `uint32`, `uint128`, `address`, and `bool`, are smaller in size and uses less storage space. They can be packed together within the same storage slot.
+So far, we've conveniently dealt with `uint256` variables, which span the entire 32 bytes of a storage slot. Other primitive data types, such as `uint8`, `uint32`, `uint128`, `address`, and `bool`, are smaller in size and use less storage space. They can be packed together within the same storage slot.
 
-On a side note, any multiple of 8 up to 256 is a valid `uint`, and `bytes1`, `bytes2`, all the fixed byte sizes `bytes1`, `bytes2`, ... way to `bytes32` are all valid datatypes.
+On a side note, any multiple of 8 up to 256 is a valid `uint`, and `bytes1`, `bytes2`, all the fixed byte sizes `bytes1`, `bytes2`, ... up to `bytes32` are all valid datatypes.
 
 The table below illustrates the storage size of some primitive data types.
 
@@ -191,13 +191,13 @@ In the contract above, `owner` will use up 20 bytes of the 32 bytes available in
 
 ![Storage slot allocation for a single address variable](https://static.wixstatic.com/media/706568_c59675b6711d48d0a1be99a536d42c2c~mv2.png/v1/fill/w_740,h_190,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/706568_c59675b6711d48d0a1be99a536d42c2c~mv2.png)
 
-**Solidity packs variables in storage slots starting from the least significant byte (right most byte) and progresses to the left.**
+**Solidity packs variables in storage slots starting from the least significant byte (rightmost byte) and progresses to the left.**
 
 We can verify this by reading the bytes32 representation of the slot:
 
-![Mapping of address owner to it byte sequence](https://static.wixstatic.com/media/706568_cd9feb6ee44c4cc58c9aac57940b47cb~mv2.png/v1/fill/w_740,h_198,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/706568_cd9feb6ee44c4cc58c9aac57940b47cb~mv2.png)
+![Mapping of address owner to its byte sequence](https://static.wixstatic.com/media/706568_cd9feb6ee44c4cc58c9aac57940b47cb~mv2.png/v1/fill/w_740,h_198,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/706568_cd9feb6ee44c4cc58c9aac57940b47cb~mv2.png)
 
-As shown in the diagram above, the value of <span style="color:Orange;">owner</span>, <span style="color:Orange;">0x5B38Da6a701c568545dCfcB03FcB875f56beddC4</span>, is stored starting from the right most byte or the least significant byte. The remaining 12 bytes in slot 0 will be unused storage space that another variable can occupy.
+As shown in the diagram above, the value of <span style="color:Orange;">owner</span>, <span style="color:Orange;">0x5B38Da6a701c568545dCfcB03FcB875f56beddC4</span>, is stored starting from the rightmost byte or the least significant byte. The remaining 12 bytes in slot 0 will be unused storage space that another variable can occupy.
 
 **When declared in sequence, smaller sized variables live in the same storage slot if their total size is less than 256 bits or 32 bytes.**
 
@@ -213,7 +213,7 @@ contract AddressVariable {
 }
 ```
 
-<span style="color:#8d28a4;">Boolean</span>, the second declared storage variable, will store its value at the first byte to the left of <span style="color:Orange;">owner</span>'s byte sequence, or, at the least significant byte of the unused storage space. Remember, solidity packs variables from the right to left.
+<span style="color:#8d28a4;">Boolean</span>, the second declared storage variable, will store its value at the first byte to the left of <span style="color:Orange;">owner</span>'s byte sequence, or, at the least significant byte of the unused storage space. Remember, Solidity packs variables from the right to left.
 
 ![Diagram showing the byte sequence that belong to address owner and bool boolean variable](https://static.wixstatic.com/media/706568_1ad9cf209ce34fd7b874f6932ef2e756~mv2.png/v1/fill/w_740,h_201,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/706568_1ad9cf209ce34fd7b874f6932ef2e756~mv2.png)
 
@@ -234,7 +234,7 @@ contract AddressVariable {
 }
 ```
 
-![Storage sot allocation diagram of 4 state variables.](https://static.wixstatic.com/media/706568_09add3feb5c64e1db65cf69e40b4e55b~mv2.png/v1/fill/w_740,h_132,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/706568_09add3feb5c64e1db65cf69e40b4e55b~mv2.png)
+![Storage slot allocation diagram of 4 state variables.](https://static.wixstatic.com/media/706568_09add3feb5c64e1db65cf69e40b4e55b~mv2.png/v1/fill/w_740,h_132,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/706568_09add3feb5c64e1db65cf69e40b4e55b~mv2.png)
 
 This is because <span style="color:#008aff;">admin</span>'s value **in its entirety** cannot fit into slot 0's unused storage space. There are 7 bytes of storage space left but 20 bytes of consecutive storage space is needed. Therefore, instead of splitting <span style="color:#008aff;">admin</span>'s data between slot 0 and slot 1 (7 bytes in slot 0 and 13 bytes in slot 1), <span style="color:#008aff;">admin</span>'s value will be stored in a new storage slot, **slot 1.**
 
@@ -243,8 +243,8 @@ If a variable's value cannot fit entirely into the remaining space of the curren
 ### Declare smaller variables together
 
 ```solidity
-uint16 public a;    
-uint256 public x; // uint256 in the middle    
+uint16 public a;
+uint256 public x; // uint256 in the middle
 uint32 public b;
 ```
 
@@ -257,9 +257,9 @@ Instead, `a` will be stored at slot 0, `x` at slot 1, and `b` at slot 2, using u
 A better practice is to reorder the declarations to allow the smaller datatypes to be packed together.
 
 ```solidity
-uint256 public x; 
-// packed together  
-uint16 public a; 
+uint256 public x;
+// packed together
+uint16 public a;
 uint32 public b;
 ```
 
@@ -302,10 +302,10 @@ You should be able to deduce that `x`, `y` and `z` store their values in slot 0,
 For example, to query `x`'s storage slot, append `.slot` to the variable name: `x.slot` in assembly.
 
 ```solidity
-function getSlotX() external pure returns (uint256 slot) {        
-    assembly {// yul            
-        slot := x.slot // returns slot location of x        
-    }    
+function getSlotX() external pure returns (uint256 slot) {
+    assembly {// yul
+        slot := x.slot // returns slot location of x
+    }
 }
 ```
 
@@ -368,7 +368,7 @@ function readSlotX() external view returns (uint256 value) {
 - `sload(1)` reads from slot 1, which stores the value of 22.
 - `sload(2)` reads from slot 2, which stores the value of 33.
 - `sload(3)` reads from slot 3, which stores nothing, it is still in its default state.
-    
+
 The animation below visualizes how the `sload` opcode functions.
 
 <video src="https://video.wixstatic.com/video/706568_665a627d4bce4eb1bfb7a340f059937a/1080p/mp4/file.mp4" type="video/mp4" autoplay loop muted controls></video>
@@ -387,7 +387,7 @@ function sloadOpcode(uint256 slotNumber)
 }
 ```
 
-Notably, **`sload()`** **does not perform a type check.**    
+Notably, **`sload()`** **does not perform a type check.**
 
 In Solidity, we cannot return a uint256 variable in bool format as it will incur a type error.
 
@@ -404,7 +404,7 @@ But if the same set of operation is performed in Yul, the code will still compil
 function readSlotX_bool() external view returns(bool value) {
     // return in bool
     assembly{
-        value:= sload(x.slot) // will compile    
+        value:= sload(x.slot) // will compile
     }
 }
 ```
@@ -435,7 +435,7 @@ Yul gives us direct access to modify the value of a storage slot using the `ssto
 
 - `slot`: This is the targeted storage slot which we are writing to.
 - `value`: The 32-byte value to be stored at the specified storage slot. If the value is less than 32 bytes, it will be left padded with zeroes
-    
+
 `sstore(slot, value)` overwrites the entire storage slot with a new value.
 
 The contract below demonstrates how to use `sstore()`; we use it to change the values of `x` and `y`:
