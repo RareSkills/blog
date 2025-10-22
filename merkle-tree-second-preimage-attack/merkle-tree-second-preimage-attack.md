@@ -1,6 +1,6 @@
 # The second preimage attack for Merkle Trees in Solidity
 
-The _second preimage attack_ in Merkle trees can happen when an intermediate node in a merkle tree is presented as a leaf.
+The _second preimage attack_ in Merkle trees can happen when an intermediate node in a Merkle tree is presented as a leaf.
 
 The name of this attack is quite misleading because it implies hashes have a second preimage. Modern hash functions do not have multiple (computable) preimages.
 
@@ -12,13 +12,13 @@ We assume the reader is familiar with Merkle trees and Merkle proofs.
 
 ## Notation
 
-We refer to `h(x)` to be the hash of x. `h(x + y)` is the hash of the concatenation of `x` and `y`. In this article, we’ll focus on keccak256 as our hash function; picking a specific function will help make some of the reasoning clearer later in the article. However, keep in mind that the ideas in this article will apply for any hash function. We refer to the leaves of a merkle tree with ℓ. The _ith_ leaf is referred to with ℓᵢ.
+We refer to `h(x)` to be the hash of x. `h(x + y)` is the hash of the concatenation of `x` and `y`. In this article, we’ll focus on keccak256 as our hash function; picking a specific function will help make some of the reasoning clearer later in the article. However, keep in mind that the ideas in this article will apply for any hash function. We refer to the leaves of a Merkle tree with ℓ. The _ith_ leaf is referred to with ℓᵢ.
 
 ## An Example Attack
 
 Suppose we wish to create a proof for leaf 2 (`ℓ₂`) in the tree below. The leaf will be `ℓ₂`, and the proof will be `\[h(ℓ₁), h(b), h(f)\]`. The values a, b, c, …, g are the concatenation of the child values. We accept the proof if `h(g)` equals the Merkle root.
 
-![merkle tree with merkle proof](https://static.wixstatic.com/media/935a00_c3c84938cff54f0f93b905ecbc65ca91~mv2.jpg/v1/fill/w_740,h_555,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_c3c84938cff54f0f93b905ecbc65ca91~mv2.jpg)
+![Merkle tree with Merkle proof](https://static.wixstatic.com/media/935a00_c3c84938cff54f0f93b905ecbc65ca91~mv2.jpg/v1/fill/w_740,h_555,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_c3c84938cff54f0f93b905ecbc65ca91~mv2.jpg)
 
 The proof will be `\[h(ℓ₁), h(b), h(f)\]` which are marked in green. The proof to the root is
 
@@ -37,7 +37,7 @@ What if the attacker provides a as a leaf and `\[h(b), h(f)\]` as the proof?
 
 The contract will see `a` as a leaf, where `a = h(ℓ₁), h(ℓ₂))`. If the proof is `[h(b), h(f)]`, the Merkle proof will be accepted as valid.
 
-Essentially, if a merkle proof is valid, then a shortened version of it is also valid if we pass the first value in the original proof as a leaf.
+Essentially, if a Merkle proof is valid, then a shortened version of it is also valid if we pass the first value in the original proof as a leaf.
 
 **Therefore, the attacker will have provided a “leaf” and a proof the contract accepts, but the “leaf” given is not a leaf in the original Merkle tree!**
 
