@@ -96,7 +96,7 @@ tokenContract.queryFilter(filter).then((events) => {
 });
 ```
 
-If you wanted to look for a trade between to particular addresses (if such a transaction exists), the ethers js javscript code would be as follows:
+If you wanted to look for a trade between two particular addresses (if such a transaction exists), the ethers.js JavaScript code would be as follows:
 
 ```javascript
 tokenContract.filters.Transfer(address1, address2, null);
@@ -173,14 +173,14 @@ contract Donations {
         uint256 amount;
     }
     Donation[] public donations; // frontend queries this
-    
+
     fallback() external payable {
         donations.push(Donation({
             donator: msg.sender,
             amount: msg.value
         }));
     }
-    
+
     // more functions for the owner to withdraw
 }
 ```
@@ -227,7 +227,7 @@ Not every state change requires an event. The question the Solidity developers s
 
 ### Index the right event parameters
 
-This will requires some subjective judgement. Remember, an unindexed parameter cannot be searched for directly. A good way to get an intuition for this is to look at how established codebases design their events
+This will require some subjective judgment. Remember, an unindexed parameter cannot be searched for directly. A good way to get an intuition for this is to look at how established codebases design their events
 
 -   [Gnosis Safe](https://github.com/safe-global/safe-contracts/blob/main/contracts/Safe.sol)
 -   [Uniswap](https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2Pair.sol)
@@ -240,7 +240,7 @@ As a general rule of thumb, cryptocurrency amounts should not be indexed, and an
 
 An example of this would be adding an event when tokens are minted, because underlying libraries already emit this event.
 
-  
+
 
 ## Events cannot be used in view functions
 
