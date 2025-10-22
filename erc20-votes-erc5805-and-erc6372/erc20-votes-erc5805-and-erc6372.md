@@ -42,7 +42,7 @@ This function returns the account that `account` in the argument has delegated i
 
 The function delegateBySig allows for a user to delegate voting power through a gasless transaction and have another account pay the gas fee and execute the transaction.
 
-The expiring sets the time over which the delegation is valid, and v, r, and s are the components of the Elliptic Curve Digital Signature.
+The expiration sets the time over which the delegation is valid, and v, r, and s are the components of the Elliptic Curve Digital Signature.
 
 This signature expected to be in the [EIP 712](https://eips.ethereum.org/EIPS/eip-712) format. Internally, the contract increments the nonce per address, which is described next.
 
@@ -69,11 +69,11 @@ This means, unlike ERC20 snapshot, there is no "global" snapshot id. If you want
 
 ### **Events**
 
-ERC5805 has two events which signify what their name sounds like: `DelegateChange` and `DelegateVotesChagned`.
+ERC5805 has two events which signify what their name sounds like: `DelegateChange` and `DelegateVotesChanged`.
 
 ### **ERC5805 is an interface, not a token**
 
-In this article, we are explaining ERC20 Votes, but that doesn't mean ERC5805 has to be a fungible token. It could be an NFT, or even an accounting of votes managed some other way, such as a centralized entity assigning votes to addresses to addresses, but wanting to keep an immutable history of how voting power was distributed.
+In this article, we are explaining ERC20 Votes, but that doesn't mean ERC5805 has to be a fungible token. It could be an NFT, or even an accounting of votes managed some other way, such as a centralized entity assigning votes to addresses, but wanting to keep an immutable history of how voting power was distributed.
 
 ## **ERC6372**
 
@@ -83,13 +83,13 @@ ERC6372 is a standard to allow contracts to query what kind of "clock" the contr
 
 ### `clock()`
 
-This returns a uint48 which could be the block number or block timestamp or a function of these. Uint48 was chosen because it has enough bits to represent all sensible representations of time and the blocknumber farther into the future than humanity has recorded history.
+This returns a uint48 which could be the block number or block timestamp or a function of these. uint48 was chosen because it has enough bits to represent all sensible representations of time and the block number farther into the future than humanity has recorded history.
 
 ### `CLOCK_MODE()`
 
 Yes, a snake-case all upper case function is very unusual in Solidity, but that is what the EIP specifies. This returns a string that tells the reader what unit the clock uses.
 
--   If it is a timestamp, it will be 
+-   If it is a timestamp, it will be
 "mode=timestamp".
 -   If it is a block number it will be `mode=blocknumber&from=default`.
 
