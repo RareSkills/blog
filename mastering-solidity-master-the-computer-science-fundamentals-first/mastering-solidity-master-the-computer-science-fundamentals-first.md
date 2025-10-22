@@ -6,7 +6,7 @@
 
 I'll spare you the traditional arguments for why you should study and practice what is considered "the fundamentals."
 
-I know, the relationship between reversing a LinkedList and writing a secure and gas-efficient [smart contract](https://www.rareskills.io/post/solana-smart-contract-language) seems non-existent.
+I know, the relationship between reversing a linked list and writing a secure and gas-efficient [smart contract](https://www.rareskills.io/post/solana-smart-contract-language) seems non-existent.
 
 You've probably never needed to implement an algorithm that runs in log(n) time in production.
 
@@ -228,11 +228,11 @@ Everything in computer science is a bit string that goes into some box and comes
 
 If you are completely new to coding (chances are you aren't if you are reading this article, but I'll include this section), I don't think learning the fundamentals *first* is strictly necessary. I see a lot of CS undergrads going through the same experiences I went through as a young martial artist. Studying material without understanding why it is important is not optimal. It's great if you have a teacher who inspires you to have confidence in mastering the first principles, but not everyone has that luxury.
 
-I think a reasonable learning journey can look like the following. This is what very successful self-taught engineers or web2 bootcamp grad's learning journey looks like.  
+I think a reasonable learning journey can look like the following. This is what very successful self-taught engineers or web2 bootcamp grad's learning journey looks like.
 
 Just starting off → tutorial hell → learning from doing → mastering the fundamentals.
 
-A successful four-year degree CS student might have a learning journey that looks like this:  
+A successful four-year degree CS student might have a learning journey that looks like this:
 
 Mastering the fundamentals → learning from doing → revisiting the fundamentals.
 
