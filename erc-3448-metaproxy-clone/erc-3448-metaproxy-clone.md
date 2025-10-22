@@ -14,7 +14,7 @@ Let’s take a look at the bytecode of the MetaProxy without the metadata.
 600b380380600b3d393df3363d3d373d3d3d3d60368038038091363936013d73bebebebebebebebebebebebebebebebebebebebe5af43d3d93803e603457fd5bf3
 ```
 
-The length of the Metaproxy bytecode is 65 bytes, consisting of an 11 bytes init code and 54 bytes runtime code.
+The length of the MetaProxy bytecode is 65 bytes, consisting of an 11 bytes init code and 54 bytes runtime code.
 
 Although the bytecode of the MetaProxy contract is similar to the Minimal Proxy standard, some parts of the bytecode are different, for example, the green section of the bytecode (below) has some additional opcode commands, which we will explain later.
 
@@ -105,7 +105,7 @@ contract ERC20Implementation is ERC20Upgradeable {
             calldatacopy(memPtr, dataPtr, size)
         }
 
-        //return the decoded the metadata
+        //return the decoded metadata
         return abi.decode(data, (string, string, uint256));
     }
 }
@@ -175,7 +175,7 @@ function _metaProxyFromBytes (address targetContract, bytes memory metadata) int
 
 ### Deploying the clone
 
-Here’s a hardhat script that deploys the contracts and interacts with a deployed clone on the sepolia network:
+Here’s a hardhat script that deploys the contracts and interacts with a deployed clone on the Sepolia network:
 
 ```javascript=
 const hre = require("hardhat");
@@ -247,9 +247,9 @@ ERC20 name of clone from metadata:  MetaProxy Token
 We have also deployed our contracts on the sepolia network and here are the details for the 3 contracts.
 
 1.  [The MetaProxy factory contract](https://sepolia.etherscan.io/address/0xd45f2c555ba30aCb89EB0a3fff6a4416f8cC06e2#code)
-    
+
 2.  [The ERC20 implementation contract](https://sepolia.etherscan.io/address/0x20d9cd49f7d235637bb48c88f1f77308f85673ac#code)
-    
+
 3.  [The ERC20 MetaProxy contract](https://sepolia.etherscan.io/address/0x5170672424194899F52B29E60e85C1632F0C732e#readProxyContract)
 
 Notice the "read" and "write as proxy" for the ERC20 MetaProxy contract, this means that Etherscan recognizes the proxy contract is not just another smart contract, but a proxy contract.
@@ -279,7 +279,7 @@ try {
 And boom! we got an error.
 
 ```
-Error: VM Exception while processing transaction: reverted with reason 
+Error: VM Exception while processing transaction: reverted with reason
 string 'ERC20: insufficient allowance'
 ```
 
@@ -353,45 +353,45 @@ Let’s walk through the mnemonics of the bytecode.
 // This is because RETURNDATASIZE (2 gas) costs less gas than a PUSH1 0 (3 gas).
 
 // copy transaction calldata
-[00]	CALLDATASIZE	
-[01]	RETURNDATASIZE	
-[02]	RETURNDATASIZE	
-[03]	CALLDATACOPY	
+[00]	CALLDATASIZE
+[01]	RETURNDATASIZE
+[02]	RETURNDATASIZE
+[03]	CALLDATACOPY
 
 // prepare the stack for a delegate call
-[04]	RETURNDATASIZE	
-[05]	RETURNDATASIZE	
-[06]	RETURNDATASIZE	
-[07]	RETURNDATASIZE	
+[04]	RETURNDATASIZE
+[05]	RETURNDATASIZE
+[06]	RETURNDATASIZE
+[07]	RETURNDATASIZE
 [08]	PUSH1	36		// 0x36 == 54, this is the length of the runtime code
-[0a]	DUP1	
+[0a]	DUP1
 [0b]	CODESIZE		// get the length of the clone's bytecode + the metadata, which is 310 bytes
 [0c]	SUB    			// subtract the runtime code from the bytecode, to get the metadata (the remaining 256 bytes). this is used in the delegatecall
-[0d]	DUP1	
-[0e]	SWAP2	
-[0f]	CALLDATASIZE	
+[0d]	DUP1
+[0e]	SWAP2
+[0f]	CALLDATASIZE
 [10]	CODECOPY               // copy the metadata to memory and forward it to the implementation contract during the delegatecall.
-[11]	CALLDATASIZE	
-[12]	ADD	
-[13]	RETURNDATASIZE	
+[11]	CALLDATASIZE
+[12]	ADD
+[13]	RETURNDATASIZE
 
 // push the address of the implementation contract to the stack and perform the delegatecall
-[14]	PUSH20	1bf70065f6b4e424b7b642b3a76a5e01f208e3fc  
-[29]	GAS	
-[2a]	DELEGATECALL	
+[14]	PUSH20	1bf70065f6b4e424b7b642b3a76a5e01f208e3fc
+[29]	GAS
+[2a]	DELEGATECALL
 
 // copy the return data (the result of the call) to memory and set up the stack for a conditional jump
-[2b]	RETURNDATASIZE	
-[2c]	RETURNDATASIZE	
-[2d]	SWAP4	
-[2e]	DUP1	
-[2f]	RETURNDATACOPY	
+[2b]	RETURNDATASIZE
+[2c]	RETURNDATASIZE
+[2d]	SWAP4
+[2e]	DUP1
+[2f]	RETURNDATACOPY
 [30]	PUSH1	34
 
 //jump to line 34 and return the result of the call if it was successful, else revert on line 33
-[32]	JUMPI	
-[33]	REVERT	
-[34]	JUMPDEST	
+[32]	JUMPI
+[33]	REVERT
+[34]	JUMPDEST
 [35]	RETURN
 
 <<=== the metadata starts from here ===>>
