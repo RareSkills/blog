@@ -16,7 +16,7 @@ There is a saying in computer science that "Every problem in computer science ca
 
 ## Efficient but Naive Solution
 
-Let's take the example of the balances mapping.   
+Let's take the example of the balances mapping.
 Here is a buggy [solidity](https://www.rareskills.io/solidity-bootcamp) solution, but a step in the right direction.
 
 ```solidity
@@ -31,7 +31,7 @@ This way, we can query someone's balance by supplying both the `snapshotNumber` 
 
 Ah, but there is a problem! Every time we do a snapshot, everyone's balances are set to zero! It is possible to solve this with some accounting — just track the last snapshot the user transacted at, but this quickly gets complicated as the engineer tries to cover all the corner cases.
 
-## Openzeppelin solution
+## OpenZeppelin solution
 
 This is how OpenZeppelin accomplishes it. [code](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v4.9/contracts/token/ERC20/extensions/ERC20Snapshot.sol
 )
@@ -119,11 +119,11 @@ Because the `currentId` was just incremented, the if statement will be true. Ins
 
 Hence, once the snapshot ID increases, any transfers that happen after the snapshot transaction will store the balances *before* the transaction takes place and store that into the array. This effectively "freezes" everyone's current balance because any transfer that happens after the snapshot causes the "old" value to get stored. What happens if two snapshots happen, but an address does not transact during those snapshots? In that case, the snapshot ids will not be contiguous.
 
-Because of this, we cannot access an accounts balance at a snapshot by doing "ids[snapshotId]". Instead, [binary search](https://en.wikipedia.org/wiki/Binary_search_algorithm) is used to find the snapshot id the user is requesting. If the id is not found, then we use the previous adjacent snapshot value. For example, if we want to know a user's balance at snapshot 5, but they didn't transfer tokens during snapshots 3 and 4, we would look at snapshot 2.
+Because of this, we cannot access an account's balance at a snapshot by doing "ids[snapshotId]". Instead, [binary search](https://en.wikipedia.org/wiki/Binary_search_algorithm) is used to find the snapshot id the user is requesting. If the id is not found, then we use the previous adjacent snapshot value. For example, if we want to know a user's balance at snapshot 5, but they didn't transfer tokens during snapshots 3 and 4, we would look at snapshot 2.
 
 ## Total supply is tracked the same way
 
-The reader may note that the struct Snapshots has seemingly overgeneric variable names, like ids and values. Shouldn't it just be named "balance" to be more precise?  
+The reader may note that the struct Snapshots has seemingly overgeneric variable names, like ids and values. Shouldn't it just be named "balance" to be more precise?
 ERC20 Snapshot keeps track of the total supply using the same strategy, so the variable names capture the fact that the same struct is used both for tracking user balances and the total supply.
 
 Only mint and burn change the total supply, so when these functions are invoked, the struct storing the total supply is checked to see if the snapshot has changed before updating these values.
@@ -136,7 +136,7 @@ Regular transfers are more expensive because we check if the last id in the ids 
 
 ## Getting hacked
 
-If someone takes out a flashloan and creates a snapshot in the same transaction, they can artificially inflate their voting power. If the tokens can be borrowed at a low interest rate, and an attacker knows when the next snapshot will occur, they can borrow tokens leading up to the snapshot to accomplish something similar. However, a flashloan will not be a viable way to inflate voting power, since they will need the balance to stay high during a *separate* snapshot transaction.
+If someone takes out a flash loan and creates a snapshot in the same transaction, they can artificially inflate their voting power. If the tokens can be borrowed at a low interest rate, and an attacker knows when the next snapshot will occur, they can borrow tokens leading up to the snapshot to accomplish something similar. However, a flash loan will not be a viable way to inflate voting power, since they will need the balance to stay high during a *separate* snapshot transaction.
 
 ## Tallying votes
 
