@@ -17,7 +17,7 @@ We will also perform some Ethereum transaction related concepts like signing and
 ## Prerequisites
 
 -   The Go language should be installed on your computer; if not, [**see the download instructions**](https://go.dev/doc/install).
--   Some basic Go programming.  
+-   Some basic Go programming.
 
 ## Getting started
 
@@ -48,7 +48,7 @@ Install the necessary dependencies:
 ```go!
 go get -u github.com/ethereum/go-ethereum@v1.13.14
 go get github.com/ethereum/go-ethereum/rpc@v1.13.14
-```  
+```
 
 This will generate a 'go.sum' file.
 
@@ -57,9 +57,9 @@ This will generate a 'go.sum' file.
 If you encounter module-related issues, try the following:
 
 1.  Delete your 'go.mod' and 'go.sum' files and re-initialize it with `go mod init eth-rpc`.
-    
+
 2.  Run `go mod tidy` to synchronize dependencies.
-    
+
 3.  If the issue remains, clear your module cache with `go clean -modcache` and repeat steps 1 and 2.
 
 Now paste the following code to a 'main.go' file inside the project:
@@ -80,25 +80,25 @@ const (
 )
 
 func main() {
-    
+
     fmt.Println("using ethclient...")
 
 }
 ```
 
-We will update the main.go file as we move on.  
+We will update the main.go file as we move on.
 
-You can run this with `go run main.go`  
+You can run this with `go run main.go`
 
-Now, let's start creating our project functions.  
+Now, let's start creating our project functions.
 
 ### 1. Fetching the suggested gas price on the network
 
 With Geth's `ethclient` package we can use the SuggestGasPrice API to set the gas price for our transaction appropriate for current network conditions.
 
-Behind the scene, this method calls the `eth_gasPrice` JSON-RPC API.
+Behind the scenes, this method calls the `eth_gasPrice` JSON-RPC API.
 
-Create a `getGasPrice.go` file in the project directory and paste the following code:  
+Create a `getGasPrice.go` file in the project directory and paste the following code:
 
 ```go!
 package main
@@ -137,7 +137,7 @@ Now update the main function in main.go:
 func main() {
     fmt.Println("using ethclient...")
 
-    getSuggestedGasPrice(sepoliaRpcUrl) 
+    getSuggestedGasPrice(sepoliaRpcUrl)
     // get gas price on sepolia testnet. This was just added.
 
 }
@@ -177,7 +177,7 @@ package main import (
     "github.com/ethereum/go-ethereum/ethclient"
 )
 
-// estimateGas tries estimates the suggested amount of gas that required to execute a given transaction.
+// estimateGas tries to estimate the suggested amount of gas that is required to execute a given transaction.
 
 func estimateGas(rpcUrl, from, to, data string, value uint64) uint64 {
 
@@ -256,7 +256,7 @@ The raw transaction data is the encoding of the nonce, recipient address(to), tr
 
 When manually creating raw transactions for Ethereum, there are several transaction types to choose from, ranging from the old legacy transaction (also referred to as type 0), with explicit gas price specification to EIP-1559 transactions (type 2), which introduces a base fee, a priority fee (miners tip), and a max fee per gas for better gas price predictability.
 
-The base fee is determined by the network and remains fixed for all transactions within a block. However, it adjusts between blocks based on netowrk congestion. You can influence your transaction's priority by increasing the priority fee (tip) offered to miners.
+The base fee is determined by the network and remains fixed for all transactions within a block. However, it adjusts between blocks based on network congestion. You can influence your transaction's priority by increasing the priority fee (tip) offered to miners.
 
 Additionally, there is the [EIP-2930 transaction (type 1)](https://www.rareskills.io/post/eip-2930-optional-access-list-ethereum) and EIP-4844 blob transactions (type 3, which we will discuss later in this article).
 
@@ -311,7 +311,7 @@ func createRawTransaction(rpcURL, to, data, privKey string, gasLimit, wei uint64
     // Suggest a gas tip cap (priority fee) for miner incentive.
     priorityFee, err := client.SuggestGasTipCap(context.Background())
     if err != nil {
-        log.Fatalln(err)    
+        log.Fatalln(err)
     }
 
     // Calculate the maximum gas fee cap, adding a 2 GWei margin to the base fee plus priority fee.
@@ -324,21 +324,21 @@ func createRawTransaction(rpcURL, to, data, privKey string, gasLimit, wei uint64
     if err != nil {
         log.Fatalln(err)
     }
-    
+
     // Convert the private key bytes to an ECDSA private key.
     ecdsaPrivateKey, err := crypto.ToECDSA(pKeyBytes)
     if err != nil {
         log.Fatalln(err)
     }
-    
+
     // Extract the public key from the ECDSA private key.
     publicKey := ecdsaPrivateKey.Public()
     publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
-    
+
     if !ok {
         log.Fatal("Error casting public key to ECDSA")
     }
-    
+
     // Compute the Ethereum address of the signer from the public key.
     fromAddress := crypto.PubkeyToAddress(*publicKeyECDSA)
     // Retrieve the nonce for the signer's account, representing the transaction count.
@@ -382,18 +382,18 @@ func createRawTransaction(rpcURL, to, data, privKey string, gasLimit, wei uint64
     if err != nil {
         log.Fatalln(err)
     }
-    
+
     // Encode the signed transaction into RLP (Recursive Length Prefix) format for transmission.
     var buf bytes.Buffer
     err = signedTx.EncodeRLP(&buf)
-    
+
     if err != nil {
         log.Fatalln(err)
     }
-    
+
     // Return the RLP-encoded transaction as a hexadecimal string.
     rawTxRLPHex := hex.EncodeToString(buf.Bytes())
-    
+
     return rawTxRLPHex
 }
 ```
@@ -401,14 +401,14 @@ func createRawTransaction(rpcURL, to, data, privKey string, gasLimit, wei uint64
 Update the main function in main.go:
 
 ```go!
-func main() {    
-    fmt.Println("using ethclient...") 
-   
-    getSuggestedGasPrice(sepoliaRpcUrl)  
-  
-    eGas := estimateGas(sepoliaRpcUrl, from, to, data, wei)        fmt.Println("\nestimate gas for the transaction is:", eGas) 
-   
-    rawTxRLPHex := createRawTransaction(sepoliaRpcUrl, to, data, privKey, gasLimit, wei) // This was just added.                
+func main() {
+    fmt.Println("using ethclient...")
+
+    getSuggestedGasPrice(sepoliaRpcUrl)
+
+    eGas := estimateGas(sepoliaRpcUrl, from, to, data, wei)        fmt.Println("\nestimate gas for the transaction is:", eGas)
+
+    rawTxRLPHex := createRawTransaction(sepoliaRpcUrl, to, data, privKey, gasLimit, wei) // This was just added.
     fmt.Println("\nRaw TX:\n", rawTxRLPHex) // This was just added.
 }
 ```
@@ -435,129 +435,129 @@ Create a `sendRawTX.go` file in the project and paste the code below:
 ```go!
 package main
 
-import (    
-    "context"    
-    "encoding/hex"    
-    "encoding/json"    
-    "fmt"    
-    "log"    
-    "reflect"    
-    "strconv"    
-    "time"    
-    "github.com/ethereum/go-ethereum/core/types"        
-    "github.com/ethereum/go-ethereum/ethclient"        
+import (
+    "context"
+    "encoding/hex"
+    "encoding/json"
+    "fmt"
+    "log"
+    "reflect"
+    "strconv"
+    "time"
+    "github.com/ethereum/go-ethereum/core/types"
+    "github.com/ethereum/go-ethereum/ethclient"
     "github.com/ethereum/go-ethereum/rlp"
 )
 
 // Transaction represents the structure of the transaction JSON.
-type Transaction struct {    
-    Type                 string   `json:"type"`    
-    ChainID              string   `json:"chainId"`    
-    Nonce                string   `json:"nonce"`    
-    To                   string   `json:"to"`    
-    Gas                  string   `json:"gas"`    
-    GasPrice             string   `json:"gasPrice,omitempty"`    
-    MaxPriorityFeePerGas string   `json:"maxPriorityFeePerGas"`    
-    MaxFeePerGas         string   `json:"maxFeePerGas"`    Value                string   `json:"value"`    
-    Input                string   `json:"input"`    
-    AccessList           []string `json:"accessList"`    
-    V                    string   `json:"v"`    
-    R                    string   `json:"r"`    
-    S                    string   `json:"s"`    
-    YParity              string   `json:"yParity"`    
-    Hash                 string   `json:"hash"`    
-    TransactionTime      string   `json:"transactionTime,omitempty"`    
+type Transaction struct {
+    Type                 string   `json:"type"`
+    ChainID              string   `json:"chainId"`
+    Nonce                string   `json:"nonce"`
+    To                   string   `json:"to"`
+    Gas                  string   `json:"gas"`
+    GasPrice             string   `json:"gasPrice,omitempty"`
+    MaxPriorityFeePerGas string   `json:"maxPriorityFeePerGas"`
+    MaxFeePerGas         string   `json:"maxFeePerGas"`    Value                string   `json:"value"`
+    Input                string   `json:"input"`
+    AccessList           []string `json:"accessList"`
+    V                    string   `json:"v"`
+    R                    string   `json:"r"`
+    S                    string   `json:"s"`
+    YParity              string   `json:"yParity"`
+    Hash                 string   `json:"hash"`
+    TransactionTime      string   `json:"transactionTime,omitempty"`
     TransactionCost      string   `json:"transactionCost,omitempty"`
 }
 
 // sendRawTransaction sends a raw Ethereum transaction.
-func sendRawTransaction(rawTx, rpcURL string) {            
-    rawTxBytes, err := hex.DecodeString(rawTx)    
-    if err != nil {        
-        log.Fatalln(err)    
-    }    
+func sendRawTransaction(rawTx, rpcURL string) {
+    rawTxBytes, err := hex.DecodeString(rawTx)
+    if err != nil {
+        log.Fatalln(err)
+    }
 
-    // Initialize an empty Transaction struct to hold the decoded data.    
-    tx := new(types.Transaction)    
+    // Initialize an empty Transaction struct to hold the decoded data.
+    tx := new(types.Transaction)
 
-    // Decode the raw transaction bytes from hexadecimal to a Transaction struct.    
-    // This step converts the RLP (Recursive Length Prefix) encoded bytes back into    
-    // a structured Transaction format understood by the Ethereum client.    
-    err = rlp.DecodeBytes(rawTxBytes, &tx)    
-    if err != nil {        
-        log.Fatalln(err)    
-    }    
+    // Decode the raw transaction bytes from hexadecimal to a Transaction struct.
+    // This step converts the RLP (Recursive Length Prefix) encoded bytes back into
+    // a structured Transaction format understood by the Ethereum client.
+    err = rlp.DecodeBytes(rawTxBytes, &tx)
+    if err != nil {
+        log.Fatalln(err)
+    }
 
-    // Establish an RPC connection to the specified RPC url        client, err := ethclient.Dial(rpcURL)    
-    if err != nil {        
-        log.Fatalln(err)    
-    }    
+    // Establish an RPC connection to the specified RPC url        client, err := ethclient.Dial(rpcURL)
+    if err != nil {
+        log.Fatalln(err)
+    }
 
-    // Propagate the transaction    
-    err = client.SendTransaction(context.Background(), tx)        
-    if err != nil {        
-        log.Fatalln(err)    
-    }    
+    // Propagate the transaction
+    err = client.SendTransaction(context.Background(), tx)
+    if err != nil {
+        log.Fatalln(err)
+    }
 
-    // Unmarshal the transaction JSON into a struct    
-    var txDetails Transaction    
-    txBytes, err := tx.MarshalJSON()    
-    if err != nil {        
-        log.Fatalln(err)    
-    }    
-    if err := json.Unmarshal(txBytes, &txDetails); err != nil {        
-        log.Fatalln(err)    
-    }    
+    // Unmarshal the transaction JSON into a struct
+    var txDetails Transaction
+    txBytes, err := tx.MarshalJSON()
+    if err != nil {
+        log.Fatalln(err)
+    }
+    if err := json.Unmarshal(txBytes, &txDetails); err != nil {
+        log.Fatalln(err)
+    }
 
-    // Add additional transaction details        
-    txDetails.TransactionTime = tx.Time().Format(time.RFC822)    
-    txDetails.TransactionCost = tx.Cost().String()    
+    // Add additional transaction details
+    txDetails.TransactionTime = tx.Time().Format(time.RFC822)
+    txDetails.TransactionCost = tx.Cost().String()
 
-    // Format some hexadecimal string fields to decimal string    
-    convertFields := []string{"Nonce", "MaxPriorityFeePerGas", "MaxFeePerGas", "Value", "Type", "Gas"}    
-    for _, field := range convertFields {        
-        if err := convertHexField(&txDetails, field); err != nil {            
-            log.Fatalln(err)        
-        }    
-    }    
+    // Format some hexadecimal string fields to decimal string
+    convertFields := []string{"Nonce", "MaxPriorityFeePerGas", "MaxFeePerGas", "Value", "Type", "Gas"}
+    for _, field := range convertFields {
+        if err := convertHexField(&txDetails, field); err != nil {
+            log.Fatalln(err)
+        }
+    }
 
-    // Marshal the struct back to JSON    
-    txJSON, err := json.MarshalIndent(txDetails, "", "\t")    
-    if err != nil {        
-        log.Fatalln(err)    
-    }    
+    // Marshal the struct back to JSON
+    txJSON, err := json.MarshalIndent(txDetails, "", "\t")
+    if err != nil {
+        log.Fatalln(err)
+    }
 
-    // Print the entire JSON with the added fields    
+    // Print the entire JSON with the added fields
     fmt.Println("\nRaw TX Receipt:\n", string(txJSON))
 }
 
-func convertHexField(tx *Transaction, field string) error {    
+func convertHexField(tx *Transaction, field string) error {
 
-    // Get the type of the Transaction struct    
-    typeOfTx := reflect.TypeOf(*tx)    
+    // Get the type of the Transaction struct
+    typeOfTx := reflect.TypeOf(*tx)
 
-    // Get the value of the Transaction struct    
-    txValue := reflect.ValueOf(tx).Elem()    
+    // Get the value of the Transaction struct
+    txValue := reflect.ValueOf(tx).Elem()
 
-    // Parse the hexadecimal string as an integer    
-    hexStr := txValue.FieldByName(field).String()    
+    // Parse the hexadecimal string as an integer
+    hexStr := txValue.FieldByName(field).String()
 
-    intValue, err := strconv.ParseUint(hexStr[2:], 16, 64)    
-    if err != nil {        
-        return err    
-    }    
+    intValue, err := strconv.ParseUint(hexStr[2:], 16, 64)
+    if err != nil {
+        return err
+    }
 
-    // Convert the integer to a decimal string    
-    decimalStr := strconv.FormatUint(intValue, 10)    
+    // Convert the integer to a decimal string
+    decimalStr := strconv.FormatUint(intValue, 10)
 
-    // Check if the field exists    
-    _, ok := typeOfTx.FieldByName(field)    
-    if !ok {        
-        return fmt.Errorf("field %s does not exist in Transaction struct", field)    
-    }    
+    // Check if the field exists
+    _, ok := typeOfTx.FieldByName(field)
+    if !ok {
+        return fmt.Errorf("field %s does not exist in Transaction struct", field)
+    }
 
-    // Set the field value to the decimal string    
-    txValue.FieldByName(field).SetString(decimalStr)    
+    // Set the field value to the decimal string
+    txValue.FieldByName(field).SetString(decimalStr)
 
     return nil
 }
@@ -566,16 +566,16 @@ func convertHexField(tx *Transaction, field string) error {
 Now update the main function in main.go:
 
 ```go!
-func main() {    
-    fmt.Println("using ethclient...")    
+func main() {
+    fmt.Println("using ethclient...")
 
-    getSuggestedGasPrice(sepoliaRpcUrl)    
+    getSuggestedGasPrice(sepoliaRpcUrl)
 
-    eGas := estimateGas(sepoliaRpcUrl, from, to, data, wei)     
-    fmt.Println("\nestimate gas for the transaction is:", eGas)     
+    eGas := estimateGas(sepoliaRpcUrl, from, to, data, wei)
+    fmt.Println("\nestimate gas for the transaction is:", eGas)
 
-    rawTxRLPHex := createRawTransaction(sepoliaRpcUrl, to, data, privKey, gasLimit, wei)    
-    fmt.Println("\nRaw TX:\n", rawTxRLPHex)     
+    rawTxRLPHex := createRawTransaction(sepoliaRpcUrl, to, data, privKey, gasLimit, wei)
+    fmt.Println("\nRaw TX:\n", rawTxRLPHex)
 
     sendRawTransaction(rawTxRLPHex, sepoliaRpcUrl) // This was just added.
 }
@@ -610,65 +610,65 @@ Note that `signing messages is completely done off-chain and offline`. It doesn'
 Add the code below a 'signMessage.go' file, in the project directory.
 
 ```go!
-package mainimport (    
-    "crypto/ecdsa"    
-    "encoding/json"    
-    "fmt"    
-    "log"    
-    "github.com/ethereum/go-ethereum/common/hexutil"    
+package mainimport (
+    "crypto/ecdsa"
+    "encoding/json"
+    "fmt"
+    "log"
+    "github.com/ethereum/go-ethereum/common/hexutil"
     "github.com/ethereum/go-ethereum/crypto"
 )
     // SignatureResponse represents the structure of the signature response.
-type SignatureResponse struct {    
-    Address string `json:"address,omitempty"`    
-    Msg     string `json:"msg,omitempty"`    
-    Sig     string `json:"sig,omitempty"`    
+type SignatureResponse struct {
+    Address string `json:"address,omitempty"`
+    Msg     string `json:"msg,omitempty"`
+    Sig     string `json:"sig,omitempty"`
     Version string `json:"version,omitempty"`
 }
 
 // signMessage signs a message using the provided private key.
-func signMessage(message, privKey string) (string, string) {    
-    // Convert the private key from hex to ECDSA format        
-    ecdsaPrivateKey, err := crypto.HexToECDSA(privKey)    
-    if err != nil {        
-        log.Fatalln(err)    
-    }    
+func signMessage(message, privKey string) (string, string) {
+    // Convert the private key from hex to ECDSA format
+    ecdsaPrivateKey, err := crypto.HexToECDSA(privKey)
+    if err != nil {
+        log.Fatalln(err)
+    }
 
-    // Construct the message prefix    
-    prefix := []byte(fmt.Sprintf("\x19Ethereum Signed Message:\n%d", len(message)))    messageBytes := []byte(message)    
+    // Construct the message prefix
+    prefix := []byte(fmt.Sprintf("\x19Ethereum Signed Message:\n%d", len(message)))    messageBytes := []byte(message)
 
-    // Hash the prefix and message using Keccak-256    
-    hash := crypto.Keccak256Hash(prefix, messageBytes)    
-    
-    // Sign the hashed message    
-    sig, err := crypto.Sign(hash.Bytes(), ecdsaPrivateKey)    
-    if err != nil {        
-        log.Fatalln(err)    
-    }    
+    // Hash the prefix and message using Keccak-256
+    hash := crypto.Keccak256Hash(prefix, messageBytes)
 
-    // Adjust signature ID to Ethereum's format    
-    sig[64] += 27    
+    // Sign the hashed message
+    sig, err := crypto.Sign(hash.Bytes(), ecdsaPrivateKey)
+    if err != nil {
+        log.Fatalln(err)
+    }
 
-    // Derive the public key from the private key        
-    publicKeyBytes := crypto.FromECDSAPub(ecdsaPrivateKey.Public().(*ecdsa.PublicKey))    
-    pub, err := crypto.UnmarshalPubkey(publicKeyBytes)    
-    if err != nil {        
-        log.Fatal(err)    
-    }    
-    rAddress := crypto.PubkeyToAddress(*pub)    
+    // Adjust signature ID to Ethereum's format
+    sig[64] += 27
 
-    // Construct the signature response    
-    res := SignatureResponse{        
-        Address: rAddress.String(),        
-        Msg:     message,        
-        Sig:     hexutil.Encode(sig),        
-        Version: "2",    }    
+    // Derive the public key from the private key
+    publicKeyBytes := crypto.FromECDSAPub(ecdsaPrivateKey.Public().(*ecdsa.PublicKey))
+    pub, err := crypto.UnmarshalPubkey(publicKeyBytes)
+    if err != nil {
+        log.Fatal(err)
+    }
+    rAddress := crypto.PubkeyToAddress(*pub)
 
-    // Marshal the response to JSON with proper formatting        
-    resBytes, err := json.MarshalIndent(res, " ", "\t")    
-    if err != nil {        
-        log.Fatalln(err)    
-    }    
+    // Construct the signature response
+    res := SignatureResponse{
+        Address: rAddress.String(),
+        Msg:     message,
+        Sig:     hexutil.Encode(sig),
+        Version: "2",    }
+
+    // Marshal the response to JSON with proper formatting
+    resBytes, err := json.MarshalIndent(res, " ", "\t")
+    if err != nil {
+        log.Fatalln(err)
+    }
 
     return res.Sig, string(resBytes)
 }
@@ -677,20 +677,20 @@ func signMessage(message, privKey string) (string, string) {
 Again, update the main function in main.go:
 
 ```go!
-func main() {    
-    fmt.Println("using ethclient...")    
-    
-    getSuggestedGasPrice(sepoliaRpcUrl)     
+func main() {
+    fmt.Println("using ethclient...")
 
-    eGas := estimateGas(sepoliaRpcUrl, from, to, data, wei)         
-    fmt.Println("\nestimate gas for the transaction is:", eGas)     
+    getSuggestedGasPrice(sepoliaRpcUrl)
 
-    rawTxRLPHex := createRawTransaction(sepoliaRpcUrl, to, data, privKey, gasLimit, wei)    
-    fmt.Println("\nRaw TX:\n", rawTxRLPHex)     
+    eGas := estimateGas(sepoliaRpcUrl, from, to, data, wei)
+    fmt.Println("\nestimate gas for the transaction is:", eGas)
 
-    sendRawTransaction(rawTxRLPHex, sepoliaRpcUrl)    
+    rawTxRLPHex := createRawTransaction(sepoliaRpcUrl, to, data, privKey, gasLimit, wei)
+    fmt.Println("\nRaw TX:\n", rawTxRLPHex)
 
-    sig, sDetails := signMessage(data, privKey) // This was just added.    
+    sendRawTransaction(rawTxRLPHex, sepoliaRpcUrl)
+
+    sig, sDetails := signMessage(data, privKey) // This was just added.
     fmt.Println("\nsigned message:", sDetails) // This was just added.
 }
 ```
@@ -712,46 +712,46 @@ Create a `verifySignedMessage.go` file in the project and add this code:
 ```go!
 package main
 
-import (    
-    "fmt"    
-    "log"    "strings"    
-    "github.com/ethereum/go-ethereum/common/hexutil"    
+import (
+    "fmt"
+    "log"    "strings"
+    "github.com/ethereum/go-ethereum/common/hexutil"
     "github.com/ethereum/go-ethereum/crypto"
 )
 
 // handleVerifySig verifies the signature against the provided public key and hash.
-func verifySig(signature, address, message string) bool {    
-    // Decode the signature into bytes    
-    sig, err := hexutil.Decode(signature)    
-    if err != nil {        
-        log.Fatalln(err)    
-    }    
+func verifySig(signature, address, message string) bool {
+    // Decode the signature into bytes
+    sig, err := hexutil.Decode(signature)
+    if err != nil {
+        log.Fatalln(err)
+    }
 
-    // Adjust signature to standard format (remove Ethereum's recovery ID)    
-    sig[64] = sig[64] - 27    
+    // Adjust signature to standard format (remove Ethereum's recovery ID)
+    sig[64] = sig[64] - 27
 
-    // Construct the message prefix    
-    prefix := []byte(fmt.Sprintf("\x19Ethereum Signed Message:\n%d", len(message)))    
-    data := []byte(message)    
-    
-    // Hash the prefix and data using Keccak-256    
-    hash := crypto.Keccak256Hash(prefix, data)    
+    // Construct the message prefix
+    prefix := []byte(fmt.Sprintf("\x19Ethereum Signed Message:\n%d", len(message)))
+    data := []byte(message)
 
-    // Recover the public key bytes from the signature        
-    sigPublicKeyBytes, err := crypto.Ecrecover(hash.Bytes(), sig)    
-    if err != nil {        
-        log.Fatalln(err)    
-    }    
-    ecdsaPublicKey, err := crypto.UnmarshalPubkey(sigPublicKeyBytes)    
-    if err != nil {        
-        log.Fatalln(err)    
-    }    
+    // Hash the prefix and data using Keccak-256
+    hash := crypto.Keccak256Hash(prefix, data)
 
-    // Derive the address from the recovered public key    
-    rAddress := crypto.PubkeyToAddress(*ecdsaPublicKey)    
-    
-    // Check if the recovered address matches the provided address    
-    isSigner := strings.EqualFold(rAddress.String(), address)    
+    // Recover the public key bytes from the signature
+    sigPublicKeyBytes, err := crypto.Ecrecover(hash.Bytes(), sig)
+    if err != nil {
+        log.Fatalln(err)
+    }
+    ecdsaPublicKey, err := crypto.UnmarshalPubkey(sigPublicKeyBytes)
+    if err != nil {
+        log.Fatalln(err)
+    }
+
+    // Derive the address from the recovered public key
+    rAddress := crypto.PubkeyToAddress(*ecdsaPublicKey)
+
+    // Check if the recovered address matches the provided address
+    isSigner := strings.EqualFold(rAddress.String(), address)
 
     return isSigner
 }
@@ -760,26 +760,26 @@ func verifySig(signature, address, message string) bool {
 Update the main function in main.go:
 
 ```go!
-func main() {    
-    fmt.Println("using ethclient...")    
+func main() {
+    fmt.Println("using ethclient...")
 
-    getSuggestedGasPrice(sepoliaRpcUrl)     
+    getSuggestedGasPrice(sepoliaRpcUrl)
 
-    eGas := estimateGas(sepoliaRpcUrl, from, to, data, wei)     
-    fmt.Println("\nestimate gas for the transaction is:", eGas)     
+    eGas := estimateGas(sepoliaRpcUrl, from, to, data, wei)
+    fmt.Println("\nestimate gas for the transaction is:", eGas)
 
-    rawTxRLPHex := createRawTransaction(sepoliaRpcUrl, to, data, privKey, gasLimit, wei)    
-    fmt.Println("\nRaw TX:\n", rawTxRLPHex)     
+    rawTxRLPHex := createRawTransaction(sepoliaRpcUrl, to, data, privKey, gasLimit, wei)
+    fmt.Println("\nRaw TX:\n", rawTxRLPHex)
 
-    sendRawTransaction(rawTxRLPHex, sepoliaRpcUrl)    
+    sendRawTransaction(rawTxRLPHex, sepoliaRpcUrl)
 
-    sig, sDetails := signMessage(data, privKey)    
-    fmt.Println("\nsigned message:", sDetails)    
+    sig, sDetails := signMessage(data, privKey)
+    fmt.Println("\nsigned message:", sDetails)
 
-    if isSigner := verifySig(sig, from, data); isSigner { // This was just added.        
-        fmt.Printf("\n%s signed %s\n", from, data)    
-    } else {        
-        fmt.Printf("\n%s did not sign %s\n", from, data)    
+    if isSigner := verifySig(sig, from, data); isSigner { // This was just added.
+        fmt.Printf("\n%s signed %s\n", from, data)
+    } else {
+        fmt.Printf("\n%s did not sign %s\n", from, data)
     }
 }
 ```
@@ -803,32 +803,32 @@ Now, create a 'getNonce.go' file and paste the code below:
 ```go!
 package main
 
-import (    
-    "context"    
-    "fmt"    
-    "log"    
-    "github.com/ethereum/go-ethereum/common"    
+import (
+    "context"
+    "fmt"
+    "log"
+    "github.com/ethereum/go-ethereum/common"
     "github.com/ethereum/go-ethereum/ethclient"
 )
 
 // getNonce fetches and prints the current and next nonce for a given Ethereum address.
-func getNonce(address, rpcUrl string) (uint64, uint64) {    
-    client, err := ethclient.Dial(rpcUrl)    
-    if err != nil {        
-        log.Fatalln(err)    
-    }    
+func getNonce(address, rpcUrl string) (uint64, uint64) {
+    client, err := ethclient.Dial(rpcUrl)
+    if err != nil {
+        log.Fatalln(err)
+    }
 
-    // Retrieve the next nonce for the address    
-    nextNonce, err := client.PendingNonceAt(context.Background(), common.HexToAddress(address))    
-    if err != nil {        
-        log.Fatalln(err)    
-    }    
+    // Retrieve the next nonce for the address
+    nextNonce, err := client.PendingNonceAt(context.Background(), common.HexToAddress(address))
+    if err != nil {
+        log.Fatalln(err)
+    }
 
-    var currentNonce uint64 // Variable to hold the current nonce.    
-    if nextNonce > 0 {        
-        currentNonce = nextNonce - 1    
-    }    
-    
+    var currentNonce uint64 // Variable to hold the current nonce.
+    if nextNonce > 0 {
+        currentNonce = nextNonce - 1
+    }
+
     return currentNonce, nextNonce
 }
 ```
@@ -836,30 +836,30 @@ func getNonce(address, rpcUrl string) (uint64, uint64) {
 Update the main function:
 
 ```go!
-func main() {    
-    fmt.Println("using ethclient...")    
+func main() {
+    fmt.Println("using ethclient...")
 
-    getSuggestedGasPrice(sepoliaRpcUrl)     
+    getSuggestedGasPrice(sepoliaRpcUrl)
 
-    eGas := estimateGas(sepoliaRpcUrl, from, to, data, wei)     
-    fmt.Println("\nestimate gas for the transaction is:", eGas)     
+    eGas := estimateGas(sepoliaRpcUrl, from, to, data, wei)
+    fmt.Println("\nestimate gas for the transaction is:", eGas)
 
-    rawTxRLPHex := createRawTransaction(sepoliaRpcUrl, to, data, privKey, gasLimit, wei)    
-    fmt.Println("\nRaw TX:\n", rawTxRLPHex)     
+    rawTxRLPHex := createRawTransaction(sepoliaRpcUrl, to, data, privKey, gasLimit, wei)
+    fmt.Println("\nRaw TX:\n", rawTxRLPHex)
 
-    sendRawTransaction(rawTxRLPHex, sepoliaRpcUrl)    
+    sendRawTransaction(rawTxRLPHex, sepoliaRpcUrl)
 
-    sig, sDetails := signMessage(data, privKey)    
-    fmt.Println("\nsigned message:", sDetails)    
-    
-    if isSigner := verifySig(sig, from, data); isSigner {        
-        fmt.Printf("\n%s signed %s\n", from, data)    
-    } else {        
-        fmt.Printf("\n%s did not sign %s\n", from, data)    
-    }    
+    sig, sDetails := signMessage(data, privKey)
+    fmt.Println("\nsigned message:", sDetails)
 
-    cNonce, nNonce := getNonce(to, sepoliaRpcUrl) // This was just added.    
-    fmt.Printf("\n%s current nonce: %v\n", to, cNonce) // This was just added.    
+    if isSigner := verifySig(sig, from, data); isSigner {
+        fmt.Printf("\n%s signed %s\n", from, data)
+    } else {
+        fmt.Printf("\n%s did not sign %s\n", from, data)
+    }
+
+    cNonce, nNonce := getNonce(to, sepoliaRpcUrl) // This was just added.
+    fmt.Printf("\n%s current nonce: %v\n", to, cNonce) // This was just added.
     fmt.Printf("%s next nonce: %v\n", to, nNonce) // This was just added.
 }
 ```
@@ -879,22 +879,22 @@ For this, we will focus on two main methods: `debug_traceTransaction` and a cust
 
 `debug_traceTransaction` uses Geth's native transaction tracing, which takes in the transaction hash and a trace configuration, specifying the type of trace to do. Geth has different native tracers, but we will be using the "callTracer". To see all available Geth native tracers, you can read the [**documentation**](https://geth.ethereum.org/docs/developers/evm-tracing/built-in-tracers#native-tracers) later.
 
-`debug_traceTransaction` leverages Geth's built-in transaction tracing capabilities. It requires two arguments:  
+`debug_traceTransaction` leverages Geth's built-in transaction tracing capabilities. It requires two arguments:
 
 -   The transaction hash, and
-    
+
 -   A trace configuration: This specifies the details of the trace, such as the type of information to capture. Geth offers various native tracers, but for this example, we'll focus on the "callTracer". This tracer tracks all the call frames (function call) executed during a transaction execution.
 
 An example of a trace generated using the 'callTracer' configuration:
 
 ```go!
 client.CallContext(
-    context.Background(), 
-    &result, 
-    "debug_traceTransaction", 
-"0xd12e31c3274ff32d5a73cc59e8deacbb0f7ac4c095385add3caa2c52d01164c1", 
+    context.Background(),
+    &result,
+    "debug_traceTransaction",
+"0xd12e31c3274ff32d5a73cc59e8deacbb0f7ac4c095385add3caa2c52d01164c1",
     map[string]any{
-        "tracer": "callTracer", 
+        "tracer": "callTracer",
         "tracerConfig": map[string]any{"withLog": true}}
 )
 ```
@@ -908,39 +908,39 @@ Create a `traceTx.go` file in our project and paste the code below:
 ```go!
 package main
 
-import (    
-    "context"    
-    "encoding/json"    
-    "fmt"    
-    "log"    
+import (
+    "context"
+    "encoding/json"
+    "fmt"
+    "log"
     "github.com/ethereum/go-ethereum/rpc"
 )
 
-func traceTx(hash, rpcUrl string) string {    
-    var (        
-        client *rpc.Client // Define a variable to hold the RPC client.        
-        err    error       // Variable to catch errors.            
-    )    
+func traceTx(hash, rpcUrl string) string {
+    var (
+        client *rpc.Client // Define a variable to hold the RPC client.
+        err    error       // Variable to catch errors.
+    )
 
-    // Connect to the Ethereum RPC endpoint using the provided URL.    
-    client, err = rpc.Dial(rpcUrl)    
-    if err != nil {        
-        log.Fatalln(err)    
-    }    
+    // Connect to the Ethereum RPC endpoint using the provided URL.
+    client, err = rpc.Dial(rpcUrl)
+    if err != nil {
+        log.Fatalln(err)
+    }
 
-    var result json.RawMessage // Variable to hold the raw JSON result of the call.    
+    var result json.RawMessage // Variable to hold the raw JSON result of the call.
 
-    // Make the RPC call to trace the transaction using its hash. `ots_traceTransaction` is the method name.    
-    err = client.CallContext(context.Background(), &result, "ots_traceTransaction", hash) // or use debug_traceTransaction with a supported RPC URL and params: hash, map[string]any{"tracer": "callTracer", "tracerConfig": map[string]any{"withLog": true}} for Geth tracing    
-    if err != nil {        
-        log.Fatalln(err)    
-    }    
+    // Make the RPC call to trace the transaction using its hash. `ots_traceTransaction` is the method name.
+    err = client.CallContext(context.Background(), &result, "ots_traceTransaction", hash) // or use debug_traceTransaction with a supported RPC URL and params: hash, map[string]any{"tracer": "callTracer", "tracerConfig": map[string]any{"withLog": true}} for Geth tracing
+    if err != nil {
+        log.Fatalln(err)
+    }
 
-    // Marshal the result into a formatted JSON string    
-    resBytes, err := json.MarshalIndent(result, " ", "\t")    
-    if err != nil {        
-        log.Fatalln(err)    
-    }    
+    // Marshal the result into a formatted JSON string
+    resBytes, err := json.MarshalIndent(result, " ", "\t")
+    if err != nil {
+        log.Fatalln(err)
+    }
 
     return string(resBytes))
 }
@@ -949,33 +949,33 @@ func traceTx(hash, rpcUrl string) string {
 Update the main function:
 
 ```go!
-func main() {    
-    fmt.Println("using ethclient...")    
+func main() {
+    fmt.Println("using ethclient...")
 
-    getSuggestedGasPrice(sepoliaRpcUrl)     
+    getSuggestedGasPrice(sepoliaRpcUrl)
 
-    eGas := estimateGas(sepoliaRpcUrl, from, to, data, wei)     
-    fmt.Println("\nestimate gas for the transaction is:", eGas)     
+    eGas := estimateGas(sepoliaRpcUrl, from, to, data, wei)
+    fmt.Println("\nestimate gas for the transaction is:", eGas)
 
-    rawTxRLPHex := createRawTransaction(sepoliaRpcUrl, to, data, privKey, gasLimit, wei)    
-    fmt.Println("\nRaw TX:\n", rawTxRLPHex)     
+    rawTxRLPHex := createRawTransaction(sepoliaRpcUrl, to, data, privKey, gasLimit, wei)
+    fmt.Println("\nRaw TX:\n", rawTxRLPHex)
 
-    sendRawTransaction(rawTxRLPHex, sepoliaRpcUrl)    
+    sendRawTransaction(rawTxRLPHex, sepoliaRpcUrl)
 
-    sig, sDetails := signMessage(data, privKey)    
-    fmt.Println("\nsigned message:", sDetails)    
+    sig, sDetails := signMessage(data, privKey)
+    fmt.Println("\nsigned message:", sDetails)
 
-    if isSigner := verifySig(sig, from, data); isSigner {        
-        fmt.Printf("\n%s signed %s\n", from, data)    } 
-    else {        
-        fmt.Printf("\n%s did not sign %s\n", from, data)    
-    }    
+    if isSigner := verifySig(sig, from, data); isSigner {
+        fmt.Printf("\n%s signed %s\n", from, data)    }
+    else {
+        fmt.Printf("\n%s did not sign %s\n", from, data)
+    }
 
-    cNonce, nNonce := getNonce(to, sepoliaRpcUrl)    
-    fmt.Printf("\n%s current nonce: %v\n", to, cNonce)    
-    fmt.Printf("%s next nonce: %v\n", to, nNonce)    
+    cNonce, nNonce := getNonce(to, sepoliaRpcUrl)
+    fmt.Printf("\n%s current nonce: %v\n", to, cNonce)
+    fmt.Printf("%s next nonce: %v\n", to, nNonce)
 
-    res := traceTx("0xd12e31c3274ff32d5a73cc59e8deacbb0f7ac4c095385add3caa2c52d01164c1", mainnetRpcUrl) // This was just added.    
+    res := traceTx("0xd12e31c3274ff32d5a73cc59e8deacbb0f7ac4c095385add3caa2c52d01164c1", mainnetRpcUrl) // This was just added.
     fmt.Println("\ntrace result:\n", res) // This was just added.
 
 }
@@ -1022,7 +1022,7 @@ func CalcBlobHashV1(hasher hash.Hash, commit *Commitment) (vh [32]byte) {
     hasher.Write(commit[:])
     hasher.Sum(vh[:0]) // save the commitment hash to `vh`
     vh[0] = 0x01 // set hash version
-    
+
     return vh
 }
 ```
@@ -1069,7 +1069,7 @@ Note that the blob versioned hashes are stored as references to blobs in the exe
 
 Finally, creating a blob transaction in Go follows a very similar step to a normal transaction, except that we use the `types.BlobTx` struct and pass the blob related fields as hinted earlier.
 
-  
+
 
 Create a `blobTx.go` file and paste the following code:
 
@@ -1084,12 +1084,12 @@ import (
     "github.com/ethereum/go-ethereum/common"
     "github.com/ethereum/go-ethereum/common/hexutil"
     "github.com/ethereum/go-ethereum/core/types"
-    "github.com/ethereum/go-ethereum/crypto"    
+    "github.com/ethereum/go-ethereum/crypto"
     "github.com/ethereum/go-ethereum/crypto/kzg4844"=
-    "github.com/ethereum/go-ethereum/ethclient"    
+    "github.com/ethereum/go-ethereum/ethclient"
     "github.com/holiman/uint256"
 )
-    
+
 // SendBlobTX sends a transaction with an EIP-4844 blob payload to the Ethereum network.
 
 func sendBlobTX(rpcURL, toAddress, data, privKey string) (string, error) {
@@ -1105,7 +1105,7 @@ func sendBlobTX(rpcURL, toAddress, data, privKey string) (string, error) {
     if err != nil {
         return "", fmt.Errorf("failed to get chain ID: %s", err)
     }
-    
+
     var Blob [131072]byte // Define a blob array to hold the large data payload, blobs are 128kb in length
 
     // If necessary, convert the input data to a byte slice in hex format
@@ -1129,13 +1129,13 @@ func sendBlobTX(rpcURL, toAddress, data, privKey string) (string, error) {
             copy(Blob[:], data)
         }
     }
-    
+
     // Compute the commitment for the blob data using KZG4844 cryptographic algorithm
     BlobCommitment, err := kzg4844.BlobToCommitment(Blob)
     if err != nil {
         return "", fmt.Errorf("failed to compute blob commitment: %s", err)
     }
-    
+
     // Compute the proof for the blob data, which will be used to verify the transaction
     BlobProof, err := kzg4844.ComputeBlobProof(Blob, BlobCommitment)
     if err != nil {
@@ -1145,29 +1145,29 @@ func sendBlobTX(rpcURL, toAddress, data, privKey string) (string, error) {
     // Prepare the sidecar data for the transaction, which includes the blob and its cryptographic proof
     sidecar := types.BlobTxSidecar{
         Blobs: []kzg4844.Blob{Blob},
-        Commitments: []kzg4844.Commitment{BlobCommitment},    
+        Commitments: []kzg4844.Commitment{BlobCommitment},
     Proofs: []kzg4844.Proof{BlobProof},
     }
-    
+
     // Decode the sender's private key
     pKeyBytes, err := hexutil.Decode("0x" + privKey)
     if err != nil {
         return "", fmt.Errorf("failed to decode private key: %s", err)
     }
-    
+
     // Convert the private key into the ECDSA format
     ecdsaPrivateKey, err := crypto.ToECDSA(pKeyBytes)
     if err != nil {
         return "", fmt.Errorf("failed to convert private key to ECDSA: %s", err)
     }
-    
+
     // Compute the sender's address from the public key
     fromAddress := crypto.PubkeyToAddress(ecdsaPrivateKey.PublicKey)
 
     // Retrieve the nonce for the transaction
     nonce, err := client.PendingNonceAt(context.Background(), fromAddress)
     fmt.Println(nonce)
-    
+
     if err != nil {
         return "", fmt.Errorf("failed to get nonce: %s", err)
     }
@@ -1177,7 +1177,7 @@ func sendBlobTX(rpcURL, toAddress, data, privKey string) (string, error) {
         ChainID: uint256.MustFromBig(chainID),
         Nonce: nonce,
         GasTipCap: uint256.NewInt(1e10), // max priority fee per gas
-        GasFeeCap: uint256.NewInt(50e10), // max fee per gas    
+        GasFeeCap: uint256.NewInt(50e10), // max fee per gas
         Gas: 250000, // gas limit for the transaction
         To: common.HexToAddress(toAddress), // recipient's address
         Value: uint256.NewInt(0), // value transferred in the transaction
@@ -1186,26 +1186,26 @@ func sendBlobTX(rpcURL, toAddress, data, privKey string) (string, error) {
         BlobHashes: sidecar.BlobHashes(), // blob hashes in the transaction
         Sidecar: &sidecar, // sidecar data in the transaction
     }), err
-    
+
     if err != nil {
         return "", fmt.Errorf("failed to create transaction: %s", err)
     }
-    
+
     // Sign the transaction with the sender's private key
     signedTx, err := types.SignTx(tx, types.LatestSignerForChainID(chainID), ecdsaPrivateKey)
-    
+
     if err != nil {
     return "", fmt.Errorf("failed to sign transaction: %s", err)
     }
-    
+
     // Send the signed transaction to the Ethereum network
     if err = client.SendTransaction(context.Background(), signedTx); err != nil {
         return "", fmt.Errorf("failed to send transaction: %s", err)
     }
-    
+
     // Return the transaction hash
     txHash := signedTx.Hash().Hex()
-    
+
     return txHash, nil
 }
 
@@ -1220,37 +1220,37 @@ func IsHexWithOrWithout0xPrefix(data string) bool {
 Update the main function:
 
 ```go!
-func main() {    
-    fmt.Println("using ethclient...")    
+func main() {
+    fmt.Println("using ethclient...")
 
-    getSuggestedGasPrice(sepoliaRpcUrl)     
+    getSuggestedGasPrice(sepoliaRpcUrl)
 
-    eGas := estimateGas(sepoliaRpcUrl, from, to, data, wei)     
-    fmt.Println("\nestimate gas for the transaction is:", eGas)     
+    eGas := estimateGas(sepoliaRpcUrl, from, to, data, wei)
+    fmt.Println("\nestimate gas for the transaction is:", eGas)
 
-    rawTxRLPHex := createRawTransaction(sepoliaRpcUrl, to, data, privKey, gasLimit, wei)    
-    fmt.Println("\nRaw TX:\n", rawTxRLPHex)     sendRawTransaction(rawTxRLPHex, sepoliaRpcUrl)    
+    rawTxRLPHex := createRawTransaction(sepoliaRpcUrl, to, data, privKey, gasLimit, wei)
+    fmt.Println("\nRaw TX:\n", rawTxRLPHex)     sendRawTransaction(rawTxRLPHex, sepoliaRpcUrl)
 
-    sig, sDetails := signMessage(data, privKey)    
-    fmt.Println("\nsigned message:", sDetails)    
+    sig, sDetails := signMessage(data, privKey)
+    fmt.Println("\nsigned message:", sDetails)
 
-    if isSigner := verifySig(sig, from, data); isSigner {        
-        fmt.Printf("\n%s signed %s\n", from, data)    
-    } else {        
-        fmt.Printf("\n%s did not sign %s\n", from, data)    
-    }    
+    if isSigner := verifySig(sig, from, data); isSigner {
+        fmt.Printf("\n%s signed %s\n", from, data)
+    } else {
+        fmt.Printf("\n%s did not sign %s\n", from, data)
+    }
 
-    cNonce, nNonce := getNonce(to, sepoliaRpcUrl)    
-    fmt.Printf("\n%s current nonce: %v\n", to, cNonce)    
-    fmt.Printf("%s next nonce: %v\n", to, nNonce)    
+    cNonce, nNonce := getNonce(to, sepoliaRpcUrl)
+    fmt.Printf("\n%s current nonce: %v\n", to, cNonce)
+    fmt.Printf("%s next nonce: %v\n", to, nNonce)
 
-    res := traceTx("0xd12e31c3274ff32d5a73cc59e8deacbb0f7ac4c095385add3caa2c52d01164c1", mainnetRpcUrl)    
-    fmt.Println("\ntrace result:\n", res)    
+    res := traceTx("0xd12e31c3274ff32d5a73cc59e8deacbb0f7ac4c095385add3caa2c52d01164c1", mainnetRpcUrl)
+    fmt.Println("\ntrace result:\n", res)
 
-    blob, err := sendBlobTX(sepoliaRpcUrl, to, data, privKey) // This was just added.    
-    if err != nil {        
-        log.Fatalln(err)    
-    }    
+    blob, err := sendBlobTX(sepoliaRpcUrl, to, data, privKey) // This was just added.
+    if err != nil {
+        log.Fatalln(err)
+    }
 
     fmt.Println("\nBlob transaction hash:", blob) // This was just added.
 }
