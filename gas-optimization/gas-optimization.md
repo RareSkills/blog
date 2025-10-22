@@ -7,7 +7,7 @@
 ## TABLE OF CONTENTS
 
 [**The RareSkills Book of Gas Optimization**](#viewer-dfkcg)
-- [Gas optimization tricks do not always work](#viewer-9e1fi)   
+- [Gas optimization tricks do not always work](#viewer-9e1fi)
 - [Beware of complexity and readability](#viewer-51g52)
 - [Comprehensive treatment of each topic isn't possible here](#viewer-au84m)
 - [We do not discuss application-specific tricks](#viewer-14r0q)
@@ -186,7 +186,7 @@ Initializing a storage variable is one of the most expensive operations a contra
 
 When a storage variable goes from zero to non-zero, the user must pay 22,100 gas total (20,000 gas for a zero to non-zero write and 2,100 for a cold storage access).
 
-This is why the Openzeppelin reentrancy guard registers functions as active or not with 1 and 2 rather than 0 and 1. It only costs 5,000 gas to alter a storage variable from non-zero to non-zero.
+This is why the OpenZeppelin reentrancy guard registers functions as active or not with 1 and 2 rather than 0 and 1. It only costs 5,000 gas to alter a storage variable from non-zero to non-zero.
 
 <a id="viewer-8lubg"></a>
 ### 2. Cache storage variables: write and read storage variables exactly once
@@ -286,7 +286,7 @@ contract NonGasSavingExample {
     function loadVars() external view returns (uint256, uint256) {
         return (var1, var2);
     }
-}    
+}
 ```
 
 <a id="viewer-f8m1r"></a>
@@ -330,7 +330,7 @@ contract Packed_Struct {
         address person; // Same slot as `time`. Together they occupy 224 bits (28 bytes) out of 256 bits (32 bytes).
         uint256 money; // This will take a new slot because it is a complete 256 bits (32 bytes) value and thus cannot be packed with the previous value.
     }
-    
+
     // Starts at slot 0
     packedStruct details = packedStruct(53_000, address(0xdeadbeef), 21_000);
 
@@ -372,7 +372,7 @@ contract StringStorage1 {
 
 ```solidity
 contract StringStorage2 {
-    // Length is more than 32 bytes. 
+    // Length is more than 32 bytes.
     // Slot 0: 0x00...(length*2+1).
     // keccak256(0x00): stores hex representation of "hello"
     // Has increased gas cost due to size.
@@ -416,9 +416,9 @@ contract StringStorageTest is Test {
         emit log_named_bytes32("Length of string", length);
 
         // uncomment to get original length as number
-        // emit log_named_uint("Real length of string (no. of bytes)", uint256(length) / 2); 
+        // emit log_named_uint("Real length of string (no. of bytes)", uint256(length) / 2);
         // divide by 2 to get the original length
-        
+
         bytes32 data1 = vm.load(address(store2), keccak256(abi.encode(0))); // slot keccak256(0)
         emit log_named_bytes32("First string chunk", data1);
 
@@ -448,16 +448,16 @@ contract EfficientString {
         assembly {
             // get slot 0
             let slot0Value := sload(shortString.slot)
-            
+
             // to get the byte that holds the length info, we mask it to rmove the string and divide it by 2 to get the length
             let len := div(and(slot0Value, 0xff), 2)
 
             // to get string, we mask the slot value to remove the length// we are sure that it can't take more than a byte because of the length check in the `storeShortString` function
             let str := and(slot0Value, 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00)
-            
+
             // store length in memory
             mstore(0x80, len)
-            
+
             // store string in memory
             mstore(0xa0, str)
 
@@ -533,7 +533,7 @@ When storing a list or group of items that you wish to organize in a specific or
 See the example below
 
 ```solidity
-/// get(0) gas cost: 4860 
+/// get(0) gas cost: 4860
 contract Array {
     uint256[] a;
 
@@ -571,7 +571,7 @@ Due to the way mappings are (simply a key => value pair), no check like that exi
 <a id="viewer-do9b4"></a>
 ### 8. Using unsafeAccess on arrays to avoid redundant length checks
 
-An alternative to using mappings to avoid the length checks that solidity does when reading from arrays (while still using arrays), is using the unsafeAccess function in Openzeppelin's [Arrays.sol](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Arrays.sol) library. This allows developers to directly access values of any given index of an array while skipping the length overflow check. It's still important to only use this if you are sure that indexes parsed into the function cannot exceed the length of the array parsed in.
+An alternative to using mappings to avoid the length checks that solidity does when reading from arrays (while still using arrays), is using the unsafeAccess function in OpenZeppelin's [Arrays.sol](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Arrays.sol) library. This allows developers to directly access values of any given index of an array while skipping the length overflow check. It's still important to only use this if you are sure that indexes parsed into the function cannot exceed the length of the array parsed in.
 
 <a id="viewer-eutn0"></a>
 ### 9. Use bitmaps instead of bools when a significant amount of booleans are used
@@ -607,11 +607,11 @@ Example:
 Our goal is to store a specific data (in bytes format) as the contract's bytecode. To achieve this, we need to do 2 things:
 1. Copy our data to memory first, as EVM then takes this data from memory and store it as runtime code. You can learn more in our article about [contract creation code](https://www.rareskills.io/post/ethereum-contract-creation-code).
 2. Return and store the newly deployed contract address for future use.
-    - We add the contract code size in place of the four zeroes(0000) between 61 and 80 in the below code  
+    - We add the contract code size in place of the four zeroes(0000) between 61 and 80 in the below code
 `0x61000080600a3d393df300`. Hence if code size is 65, it will become `0x61004180600a3d393df300` (0x0041 = 65)
     - This bytecode is responsible for step 1 we mentioned.
     - Now we return the newly deployed address for step 2.
-    
+
 Final contract bytecode = 00 + data (00 = STOP is prepended to ensure the bytecode cannot be executed by calling the address mistakenly).
 
 ##### Reading data
@@ -629,12 +629,12 @@ Ref: [solady](https://github.com/Vectorized/solady/blob/main/src/utils/SSTORE2.s
 To understand `SSTORE3`, first let's recap an important property of `SSTORE2`.
 - The newly deployed address is dependent on the data we intend to store.
 
-Write data  
+Write data
 `SSTORE3` implements a design such that the newly deployed address is independent of our provided data. The provided data is first stored in storage using `SSTORE`. Then we pass a constant `INIT_CODE` as data in `CREATE2` which internally reads the provided data stored in storage to deploy it as code.
 
 This design choice enables us to efficiently calculate the pointer address of our data just by providing the salt(which can be less than 20 bytes). Thus enabling us to pack our pointer with other variables, thereby reducing storage costs.
 
-Read data  
+Read data
 Try to imagine how we could be reading the data.
 - Answer is we can easily compute the deployed address just by providing salt.
 - Then after we receive the pointer address, use the same `EXTCODECOPY` opcode to get the required data.
@@ -697,7 +697,7 @@ contract StoragePointerOptimized {
     mapping(uint256 => User) public users;
 
     function returnLastSeenSecondsAgoOptimized(uint256 _id) public view returns (uint256) {
-        User storage _user = users[_id]; 
+        User storage _user = users[_id];
         uint256 lastSeen = block.timestamp - _user.lastSeen;
         return lastSeen;
     }
@@ -707,7 +707,7 @@ contract StoragePointerOptimized {
 
 "The above implementation results in approximately 5,000 gas savings compared to the first version". Why so, the only change here was changing memory to storage and we were told that anything storage is expensive and should be avoided?
 
-Here we store the storage pointer for `users[_id]` in a fixed sized variable on the stack (the pointer of a struct is basically the storage slot of the start of the struct, in this case, this will be the storage slot of `user[_id].id`). Since storage pointers are lazy (meaning they only act(read or write) when called or referenced). Next we only access the lastSeen key of the struct. This way we make a single storage load then store it on the stack, instead of 3 or possibly more storage loads and a memory store before taking a small chunk from memory unto the stack.
+Here we store the storage pointer for `users[_id]` in a fixed sized variable on the stack (the pointer of a struct is basically the storage slot of the start of the struct, in this case, this will be the storage slot of `user[_id].id`). Since storage pointers are lazy (meaning they only act(read or write) when called or referenced). Next we only access the lastSeen key of the struct. This way we make a single storage load then store it on the stack, instead of 3 or possibly more storage loads and a memory store before taking a small chunk from memory onto the stack.
 
 Note: When using storage pointers, it's important to be careful not to reference [dangling pointers](https://docs.soliditylang.org/en/v0.8.21/types.html#dangling-references-to-storage-array-elements). (Here is a [video tutorial on dangling pointers](https://www.youtube.com/watch?v=Zi4BANKFNP8) by one of RareSkills' instructors).
 
@@ -748,7 +748,7 @@ The below implementation is a naive approach to this problem. It handles it by h
 contract StorageContract {
     address immutable public writer;
     uint256 public x;
-    
+
     constructor(address _writer) {
         writer = _writer;
     }
@@ -785,7 +785,7 @@ import {LibRLP} from "https://github.com/vectorized/solady/blob/main/src/utils/L
 contract StorageContract {
     address immutable public writer;
     uint256 public x;
-    
+
     constructor(address _writer) {
         writer = _writer;
     }
@@ -799,7 +799,7 @@ contract StorageContract {
 
 contract Writer {
     StorageContract immutable public storageContract;
-    
+
     constructor(StorageContract _storageContract) {
         storageContract = _storageContract;
     }
@@ -867,7 +867,7 @@ Although selfdestruct is set for removal in an upcoming hardfork, it will still 
 
 Modifiers inject its implementation bytecode where it is used while internal functions jump to the location in the runtime code where the its implementation is. This brings certain trade-offs to both options.
 - Using modifiers more than once means repetitiveness and increase in size of the runtime code but reduces gas cost because of the absence of jumping to the internal function execution offset and jumping back to continue. This means that if runtime gas cost matter most to you, then modifiers should be your choice but if deployment gas cost and/or reducing the size of the creation code is most important to you then using internal functions will be best.
-- However, modifiers have the tradeoff that they can only be executed at the start or end of a functon. This means executing it at the middle of a function wouldn't be directly possible, at least not without internal functions which kill the original purpose. This affects it's flexibility. Internal functions however can be called at any point in a function.
+- However, modifiers have the tradeoff that they can only be executed at the start or end of a function. This means executing it at the middle of a function wouldn't be directly possible, at least not without internal functions which kill the original purpose. This affects it's flexibility. Internal functions however can be called at any point in a function.
 
 Example showing difference in gas cost using modifiers and an internal function
 
@@ -1178,7 +1178,7 @@ Solmate is a library that provides a number of gas-efficient implementations of 
 
 It is cheaper to use vanity addresses with leading zeros, this saves calldata gas cost.
 
-A good example is OpenSea [Seaport contract](https://etherscan.io/address/0x00000000000000adc04c56bf30ac9d3c0aaf14dc#code) with this address:  
+A good example is OpenSea [Seaport contract](https://etherscan.io/address/0x00000000000000adc04c56bf30ac9d3c0aaf14dc#code) with this address:
 `0x00000000000000ADc04C56Bf30aC9d3c0aAF14dC`.
 
 This will not save gas when calling the address directly. However, if that contract's address is used as an argument to a function, that function call will cost less gas due to having more zeros in the calldata.
@@ -1310,7 +1310,7 @@ contract Assembly {
             }
 
             let success := call(gas(), addr, 0x00, 0x00, 0x24, 0x00, 0x00)
-            
+
             if iszero(success) {
                 revert(0x00, 0x00)
             }
@@ -1463,7 +1463,7 @@ contract CheapLogger {
             mstore(0x20, number())
             mstore(0x40, gaslimit())
 
-            log1(0x00, 
+            log1(0x00,
                 0x60,
                 0x9ae98f1999f57fc58c1850d34a78f15d31bee81788521909bea49d7f53ed270b // event hash of BlockData
             )
@@ -1508,9 +1508,9 @@ contract CheapHasher {
     // cost: 112107
     function setOnchainHash(Values calldata _values) external {
         assembly {
-            // cache the free memory pointer because we are about to override it 
+            // cache the free memory pointer because we are about to override it
             let fmp := mload(0x40)
-            
+
             // use 0x00 to 0x60
             calldatacopy(0x00, 0x04, 0x60)
             sstore(hash.slot, keccak256(0x00, 0x60))
@@ -1529,7 +1529,7 @@ In the above example, similar to the first one, we use assembly to store values 
 <a id="viewer-7fv0a"></a>
 ### 8. Use assembly to reuse memory space when making more than one external call.
 
-An operation that causes the solidity compiler to expand memory is making external calls. When making external calls the compiler has to encode the function signature of the function it wishes to call on the external contract alongside it's arguments in memory. As we know, solidity does not clear or reuse memory memory so it'll have to store these data in the next free memory pointer which expands memory further.
+An operation that causes the solidity compiler to expand memory is making external calls. When making external calls the compiler has to encode the function signature of the function it wishes to call on the external contract alongside it's arguments in memory. As we know, solidity does not clear or reuse memory so it'll have to store these data in the next free memory pointer which expands memory further.
 
 With inline assembly, we can either use the scratch space and free memory pointer offset to store this data (as above) if the function arguments do not take up more than 96 bytes in memory. Better still, if we are making more than one external call we can reuse the same memory space as the first calls to store the new arguments in memory without expanding memory unnecessarily. Solidity in this scenario would expand memory by as much as the returned data length is. This is because the returned data is stored in memory (in most cases). If the return data is less than 96 bytes, we can use the scratch space to store it to prevent expanding memory.
 
@@ -1669,7 +1669,7 @@ The conventional way to check if a number is even or odd is to do `x % 2 == 0` w
 
 The following tricks are known to improve gas efficiency in the Solidity compiler. However, it is expected that the Solidity compiler will improve over time making these tricks less useful or even counterproductive.
 
-You shouldn't blindly use the tricks listed here, but benchmark both alternatives. 
+You shouldn't blindly use the tricks listed here, but benchmark both alternatives.
 
 Some of these tricks are already incorporated by the compiler when using the `--via-ir` compiler flag, and may even make the code less efficient when that flag is used
 
@@ -1701,7 +1701,7 @@ contract Require {
 
 contract RequireTwo {
     function splitRequireStatement(uint256 x, uint256 y) external pure returns (uint256) {
-        require(x > 0); // if x <= 0, the call reverts and "y > 0" is not checked. 
+        require(x > 0); // if x <= 0, the call reverts and "y > 0" is not checked.
         require(y > 0);
 
         return x * y;
@@ -1819,9 +1819,9 @@ This is what a gas-optimal for loop looks like, if you combine the two tricks ab
 
 ```solidity
 for (uint256 i; i < limit; ) {
-    
+
     // inside the loop
-    
+
     unchecked {
         ++i;
     }
@@ -1917,9 +1917,9 @@ The Solidity optimizer focuses on optimizing two primary aspects:
 1. The deployment cost of a smart contract.
 2. The execution cost of functions within the smart contract.
 
-There's a trade-off involved in selecting the runs parameter for the optimizer. Smaller run values prioritize minimizing the deployment cost, resulting in smaller creation code but potentially unoptimized runtime code. While this reduces gas costs during deployment, it may not be as efficient during execution. 
+There's a trade-off involved in selecting the runs parameter for the optimizer. Smaller run values prioritize minimizing the deployment cost, resulting in smaller creation code but potentially unoptimized runtime code. While this reduces gas costs during deployment, it may not be as efficient during execution.
 
-Conversely, larger values of the runs parameter prioritize the execution cost. This leads to larger creation code but an optimized runtime code that is more cheaper to execute. While this may not significantly affect deployment gas costs, it can significantly reduce gas costs during execution. 
+Conversely, larger values of the runs parameter prioritize the execution cost. This leads to larger creation code but an optimized runtime code that is more cheaper to execute. While this may not significantly affect deployment gas costs, it can significantly reduce gas costs during execution.
 
 Considering this trade-off, if your contract will be used frequently it is advisable to use a larger value for the optimizer. As this will save up gas costs in a long term.
 
@@ -1940,12 +1940,12 @@ pragma solidity 0.8.20;
 
 contract FunctionWithLeadingZeros {
     uint256 public totalSupply;
-    
+
     // selector = 0xa0712d68
     function mint(uint256 amount) public {
         totalSupply += amount;
     }
-    
+
     // selector = 0x000071c3 (this cheaper than the above function)
     function mint_184E17(uint256 amount) public {
         totalSupply += amount;
@@ -1976,7 +1976,7 @@ and this is also equivalent
 
 Bit shifting operations opcodes in the EVM, such as shr (shift right) and shl (shift left), cost 3 gas while multiplication and division operations (mul and div) cost 5 gas each.
 
-Majority of gas savings also comes the fact that solidity does no overflow/underflow or division by check for shr and shl operations. It's important to have this in mind when using these operators so that overflow and underflow bugs don't happen.
+Majority of gas savings also comes the fact that solidity does not overflow/underflow or division by check for shr and shl operations. It's important to have this in mind when using these operators so that overflow and underflow bugs don't happen.
 
 <a id="viewer-bts45"></a>
 ### 16. It is sometimes cheaper to cache calldata
