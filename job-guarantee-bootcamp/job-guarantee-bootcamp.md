@@ -12,7 +12,7 @@ Who created the contract between you and the company? You, or the company? So, h
 
 Let's use some typical requirements they enforce on you before you get your money back.
 
-### Apply to 10 jobs per day  
+### Apply to 10 jobs per day
 
 Newsflash: there aren't even that many jobs posted per day that you qualify for.
 
@@ -42,7 +42,7 @@ Here is how a bootcamp, or a coach in general, can help you:
 - Pre-emptively point out common mistakes students make
 - Help you stay motivated longer by giving honest feedback about how far away you are from your goal
 - Explain difficult to understand or hard-to-find material in a way that makes sense for you. This is faster than spending extra time trying to make sense of an explanation of a topic intended for someone else.
-    
+
 A good coach will help you
 
 - Use your study and practice time more efficiently
@@ -81,7 +81,7 @@ You just spent two months working harder than most, and there's still a lot you 
 
 ### Duration matters
 
-You may have noticed that we frequently point out that our courses are longer than everyone else's. Our advanced solidity bootcamp is 22 weeks long, but all of our Etheruem-related courses are taken in sequence: Dapp Bootcamp (8 weeks), [Advanced Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp) (22 weeks), [DeFi](https://www.rareskills.io/defi-bootcamp) (8 weeks), and [Zero Knowledge Proofs](https://www.rareskills.io/zk-bootcamp) (9 weeks) is just shy of a year in duration.
+You may have noticed that we frequently point out that our courses are longer than everyone else's. Our Advanced Solidity Bootcamp is 22 weeks long, but all of our Ethereum-related courses are taken in sequence: Dapp Bootcamp (8 weeks), [Advanced Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp) (22 weeks), [DeFi](https://www.rareskills.io/defi-bootcamp) (8 weeks), and [Zero Knowledge Proofs](https://www.rareskills.io/zk-bootcamp) (9 weeks) is just shy of a year in duration.
 
 I can count on one hand the number of engineers who have been in web3 for less than a year and know as comprehensive as what is covered by the sum of those courses.
 
@@ -97,7 +97,7 @@ Depending on what jurisdiction the company is in, they may have to pay taxes on 
 
 ## 6. If a bootcamp could guarantee a high-paying job, why would any employees work there?
 
-Look at the job openings of a bootcamp that guarantees a job. If they are offering less salary than what they guarantee their graduates will make, than that means the employees implicitly know the guarantee holds no real weight. Why work at a bootcamp for \$30,000 a year when it is guaranteeing you can get a job for \$60,000 if you take its bootcamp? Any employee taking the lower salary must be aware the bootcamp doesn't *really* guarantee a job. Otherwise, they would be a customer of that bootcamp, not an employee.
+Look at the job openings of a bootcamp that guarantees a job. If they are offering less salary than what they guarantee their graduates will make, then that means the employees implicitly know the guarantee holds no real weight. Why work at a bootcamp for \$30,000 a year when it is guaranteeing you can get a job for \$60,000 if you take its bootcamp? Any employee taking the lower salary must be aware the bootcamp doesn't *really* guarantee a job. Otherwise, they would be a customer of that bootcamp, not an employee.
 
 ## Conclusion
 
