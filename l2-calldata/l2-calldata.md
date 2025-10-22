@@ -1,6 +1,6 @@
 # Layer 2 Calldata Gas Optimization
 
-**Update for mid 2024** As of the Dencun upgrade, calldata optimization doesn't have as much of an impact since the transactions on most L2s are stored on blobs, instead calldata. We keep this article for historical purposes.
+**Update for mid 2024**: As of the Dencun upgrade, calldata optimization doesn't have as much of an impact since the transactions on most L2s are stored on blobs, instead of calldata. We keep this article for historical purposes.
 
 When developing applications on an L2, the majority of gas costs come from calldata. Therefore, gas optimization for L2 emphasizes minimizing that cost.
 
@@ -8,13 +8,13 @@ This article explores how calldata optimization works, provide some examples, an
 
 ## Prerequisites
 
--   The reader should be familiar with Solidity and Ethereum Virtual Environment (EVM).
+-   The reader should be familiar with Solidity and Ethereum Virtual Machine (EVM).
 -   The reader should at least know some simple [gas optimization](https://www.rareskills.io/post/gas-optimization) techniques.
 -   The reader should know what ABI encoding/decoding, this [video on ABI encoding](https://www.rareskills.io/post/abi-encoding) is a good starting point to learn.
 
 ## Authorship
 
-This article was written by Rati Montreewat ([Linkedin](https://www.linkedin.com/in/rati-montreewat/), [Twitter](https://twitter.com/RATi_MOn)), a blockchain engineer and an author of [Solid Grinder](https://github.com/Ratimon/solid-grinder), an L2 calldata optimization tool, and an alumni of the RareSkills [solidity bootcamp](https://hackmd.io/6dXGm0IxQJWongosS25O2w?view).
+This article was written by Rati Montreewat ([LinkedIn](https://www.linkedin.com/in/rati-montreewat/), [Twitter](https://twitter.com/RATi_MOn)), a blockchain engineer and an author of [Solid Grinder](https://github.com/Ratimon/solid-grinder), an L2 calldata optimization tool, and an alumni of the RareSkills [Solidity Bootcamp](https://hackmd.io/6dXGm0IxQJWongosS25O2w?view).
 
 ## The Cost of Calldata
 
@@ -36,7 +36,7 @@ Although it is true that most of the gas spent on L2s comes from data/security p
 
 Moreover, these rules will have been evolving, as the client & Ethereum ecosystem matures overtime. By way of illustration, EIP4844 (aka [Proto-Danksharding](https://www.eip4844.com/) ) will make gas L2 data/security component even cheaper and the L2 execution part more significant, resulting in possible changes in how L2 execution fee will be calculated in order to reflect appropriate incentive & economic model.
 
-Here is how different L2s’ transaction gas are calculated:
+Here is how different L2s’ transaction gas is calculated:
 
 ### Arbitrum
 
@@ -46,7 +46,7 @@ The following is the formula that Arbitrum uses to calculate the gas cost of a t
 
 The `ExecutionFee` is calculated similar to how transactions are computed on an EVM chain, except that it is subject to a `PriceFloor`.
 
-Arbitrum attempts to compresses the calldata using the [Brotli algorithm](https://research.arbitrum.io/t/compression-in-nitro/20) before posting it to the L1.
+Arbitrum attempts to compress the calldata using the [Brotli algorithm](https://research.arbitrum.io/t/compression-in-nitro/20) before posting it to the L1.
 
 ### Optimism
 
@@ -58,18 +58,18 @@ You can think of the blue underlined terms as what Ethereum charges and the red 
 
 ## Methods of Optimizing Calldata
 
-The key factor to determine the amount of gas required for the calldata component is the calldata size, and this is specified by the **ABI encoding** rule. In particular, the **ABI** (Application Binary Interface),according to [Solidity’s Official Documentation](https://docs.soliditylang.org/en/latest/abi-spec.html).
+The key factor to determine the amount of gas required for the calldata component is the calldata size, and this is specified by the **ABI encoding** rule. In particular, the **ABI** (Application Binary Interface), according to [Solidity’s Official Documentation](https://docs.soliditylang.org/en/latest/abi-spec.html).
 
 The best way to get an intuition for calldata formatting is with an example.
 
-First, let install cast, a toolkit to interact with EVM, and we use Foundryup as a toolchain installer:
+First, let's install cast, a toolkit to interact with EVM, and we use Foundryup as a toolchain installer:
 
 ```bash
 curl -L https://foundry.paradigm.xyz | bash
 foundryup
 ```
 
-Then we use the following cast command shows how solidity encodes the function with arguments:
+Then we use the following cast command that shows how Solidity encodes the function with arguments:
 
 ```solidity!
 cast calldata "addLiquidity(address,address,uint256,uint256,uint256,uint256,address,uint256)" 0xdeaDDeADDEaDdeaDdEAddEADDEAdDeadDEADDEaD 0xdeaDDeADDEaDdeaDdEAddEADDEAdDeadDEADDEaD 1200000000000000000000 2500000000000000000000 1000000000000000000000 2000000000000000000000 0xdeaDDeADDEaDdeaDdEAddEADDEAdDeadDEADDEaD 100
@@ -83,7 +83,7 @@ The result has the total bytes count of 520 hexadecimal = 520/2 = 260 bytes:
 
 As you can see, the first 4 bytes of the calldata are the first four bytes of the Keccak256 hash of the function signature (addLiquidity(address,..)). After the [function selector](https://www.rareskills.io/post/function-selector), the following chunks of 32 bytes are the function arguments. If the argument is shorter than 32 bytes, it is, by default, “left padded” with extra zeroes to fit inside the 32 byte.
 
-To illustrate, the chunks of calldata can be split as following:
+To illustrate, the chunks of calldata can be split as follows:
 
 -   0xe8e33700 as **function selector**
 -   000000000000000000000000deaddeaddeaddeaddeaddeaddeaddeaddeaddead as **address** of 0xdeaDDeADDEaDdeaDdEAddEADDEAdDeadDEADDEaD
@@ -97,7 +97,7 @@ To illustrate, the chunks of calldata can be split as following:
 
 There are a bunch of techniques to reduce total bytes of calldata, without losing the information. The concept is to try to encode calldata in a compact way in order to use as little bytes of calldata as possible. Then, the encoded data is later decoded into usable format.
 
-The overhead of decompressing the calldata is usually negligible compared to the gas save by compressing the calldata.
+The overhead of decompressing the calldata is usually negligible compared to the gas saved by compressing the calldata.
 
 The tricks discussed here will not work in every possible context. The amount of bytes saved heavily depend on specific business logic in the smart contract.
 
@@ -124,21 +124,21 @@ We can save 32 bytes of calldata by removing one parameter from the function
 For instance, the **address** of ERC20 contract can be hardcoded as constant and could removed from the function. This can possibly save total of 20 non-zero bytes (same as **address** size ) and 12 zero bytes ( padded bytes to full 32 bytes).
 
 ```solidity
-  address public constant USDC = <address>;  
+  address public constant USDC = <address>;
 
   function TEST() external {
     // business logic using  USDC
   }
 ```
 
-If your are curious and would like to explore more about the implementation in practice you can checkout the following projects with interesting designs:
+If you are curious and would like to explore more about the implementation in practice you can checkout the following projects with interesting designs:
 
 -   [Scopelift’s calldata-optimized router](https://scopelift.co/blog/calldata-optimizooooors)
 -   [op-kompressor’s ERC4337](https://github.com/clabby/op-kompressor)
 
 ### Caching addresses using an address table
 
-**AddressTable** can be thought as a cached database which store previously registered addresses using an id.
+**AddressTable** can be thought as a cached database which stores previously registered addresses using an id.
 
 For instance, the user registers the address first, then the address is automatically mapped to an id. Later, user can just use the id instead of the full address. This results in greatly reduced size of calldata from 20 bytes to only a few bytes.
 
@@ -217,7 +217,7 @@ This decoder function is application-specific to **Uniswapv2** and it is generat
 
 ## Tradeoffs
 
-The clearest tradeoffs of above calldata gas optimization tricks are readabillity and complexity. For example,
+The clearest tradeoffs of above calldata gas optimization tricks are readability and complexity. For example,
 
 Adding encode and decode logics into smart contract and explicitly removing function’s parameters will not only confuse users who directly interact with the contract via **Etherscan**, but will also make harder job for the developer who want to build on-top of your modified smart contract, reducing composability which is the unique strength of permissionless world.
 
