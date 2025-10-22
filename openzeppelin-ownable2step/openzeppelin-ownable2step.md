@@ -1,4 +1,4 @@
-# Openzeppelin Ownable: Use Ownable2Step Instead
+# OpenZeppelin Ownable: Use Ownable2Step Instead
 
 The `onlyOwner` modifier is probably one of the most common patterns in Solidity.
 
@@ -10,7 +10,7 @@ function setMessage(string calldata _message) external onlyOwner {
 }
 ```
 
-However, the commonly used Openzeppelin ownable implementation has a shortcoming that it allows the owner to transfer ownership to a non-existent or mistyped address.
+However, the commonly used OpenZeppelin Ownable implementation has a shortcoming that it allows the owner to transfer ownership to a non-existent or mistyped address.
 
 Ownable2Step is safer than Ownable for smart contracts because the owner cannot accidentally transfer smart contract ownership to a mistyped address. Rather than directly transferring to the new owner, the transfer only completes when the new owner accepts ownership.
 
