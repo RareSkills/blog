@@ -16,14 +16,14 @@ This article was co-authored by Aymeric Taylor ([LinkedIn](https://www.linkedin.
 
 Just run the following commands and it will set up the environment, create tests, and run them for you. (This assumes you have Foundry installed of course).
 
-``` 
+```
 forge init
 forge test
 ```
 
 ## Solidity Testing Best Practices
 
-Regardless of the framework, the quality of a solidity unit tests depends on three factors:
+Regardless of the framework, the quality of a Solidity unit tests depends on three factors:
 - Line coverage
 - branch coverage, and
 - completely defined state transitions.
@@ -82,11 +82,11 @@ How many branches are there to test in this case?
 
 It is possible to get 100% line coverage on this test by sending more ether than the loan size and less ether than the loan size. This would execute both branches of the if else, and the final if statement at the end. But this would not test the else statement where the loan is paid off exactly to zero.
 
-The more branches your functions has, the exponentially harder it gets to unit test them. The technical word for this is [cylomatic complexity](https://en.wikipedia.org/wiki/Cyclomatic_complexity).
+The more branches your functions has, the exponentially harder it gets to unit test them. The technical word for this is [cyclomatic complexity](https://en.wikipedia.org/wiki/Cyclomatic_complexity).
 
 ### 3. Fully defined state transitions
 
-Quality unit tests in solidity document state transitions as thoroughly as possible. State transitions include:
+Quality unit tests in Solidity document state transitions as thoroughly as possible. State transitions include:
 - a change in storage variables
 - contracts getting deployed or self-destructed
 - ether balances changing
@@ -312,7 +312,7 @@ In our example, we’ve created a parameterized custom error. For the test to pa
 
 ## Testing logs and events with vm.expectEvent
 
-Although [solidity events](https://www.rareskills.io/post/ethereum-events) don’t alter the functionality of a smart contract, incorrectly implementing them can break client applications that read the state of a smart contract. To ensure our events function as expected, we can use the `vm.expectEmit`. This API behaves rather counterintuitively because you must emit the event in the test to ensure it worked in the smart contract.
+Although [Solidity events](https://www.rareskills.io/post/ethereum-events) don’t alter the functionality of a smart contract, incorrectly implementing them can break client applications that read the state of a smart contract. To ensure our events function as expected, we can use the `vm.expectEmit`. This API behaves rather counterintuitively because you must emit the event in the test to ensure it worked in the smart contract.
 
 Here is a minimal example.
 
@@ -534,7 +534,7 @@ contract DepositTest is Test {
     }
 
     function testUserDepositTwice() public startAtPresentDay {
-        // This test checks that a user cannot deposit twice 
+        // This test checks that a user cannot deposit twice
 
         vm.startPrank(buyer); // msg.sender == buyer
         deposit.buyerDeposit{value: 1 ether}();
@@ -549,7 +549,7 @@ contract DepositTest is Test {
 
         vm.startPrank(SELLER); // msg.sender == SELLER
         vm.expectRevert();
-        deposit.sellerWithdraw(buyer); 
+        deposit.sellerWithdraw(buyer);
     }
 
     function testBuyerBuysAgain() public startAtPresentDay {
@@ -615,14 +615,14 @@ contract DepositTest is Test {
 
     function testRejectedWithdrawl() public startAtPresentDay {
         // This test checks that the entry for the buyer is deleted (this allows the buyer to buy again)
-        
+
 				vm.startPrank(buyer); // msg.sender == buyer
         faildeposit.buyerDeposit{value: 1 ether}();
         vm.stopPrank();
         assertEq(address(faildeposit).balance, 1 ether, "assertion failed");
 
         vm.warp(1680616584 + 3 days + 1 seconds); // 3 days and 1 second later...
-        
+
         vm.startPrank(address(rejector)); // msg.sender == rejector
         vm.expectRevert();
         faildeposit.sellerWithdraw(buyer);
@@ -692,11 +692,11 @@ forge test -vv
 
 ## Testing signatures
 
-Refer to our tutorial on [solidity signature verification](https://www.rareskills.io/post/openzeppelin-verify-signature) with foundry, so we refer you to that.
+Refer to our tutorial on [Solidity signature verification](https://www.rareskills.io/post/openzeppelin-verify-signature) with foundry, so we refer you to that.
 
 ## Solidity test internal functions
 
-Refer to our tutorial on [testing internal functions in solidity](https://www.rareskills.io/post/solidity-test-internal-function).
+Refer to our tutorial on [testing internal functions in Solidity](https://www.rareskills.io/post/solidity-test-internal-function).
 
 ## Setting address balances with vm.deal and vm.hoax
 
@@ -726,6 +726,6 @@ By the same token (pun intended), [ERC-721](https://www.rareskills.io/post/erc72
 
 ## Learn More Testing
 
-To learn advanced solidity testing beyond unit tests and basic fuzzing, please see our advanced [solidity bootcamp](https://www.rareskills.io/solidity-bootcamp).
+To learn advanced Solidity testing beyond unit tests and basic fuzzing, please see our advanced [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp).
 
 *Originally Published April 11, 2023*
