@@ -129,7 +129,7 @@ This will store the value exactly as you specified, with `0xff` at the beginning
 
 ![mstore opcode visual diagram](https://r2media.rareskills.io/assembly-revert-images/image_5.png)
 
-Here is a test run of the code in remix:
+Here is a test run of the code in Remix:
 
 ![solidity code using mstore](https://r2media.rareskills.io/assembly-revert-images/image_6.png)
 
@@ -156,7 +156,7 @@ assembly {
 }
 ```
 
-we will now have `0xCC` at the `0th` position, while the rest of the memory remains unchanged, as illustrated in the diagram below.
+We will now have `0xCC` at the `0th` position, while the rest of the memory remains unchanged, as illustrated in the diagram below.
 
 ![mstore8 opcode usage example](https://r2media.rareskills.io/assembly-revert-images/image_8.png)
 
@@ -479,7 +479,7 @@ This is how Solidity will store the revert data in memory and the result of the 
 
 ## 3. Revert with a reason in assembly
 
-When a revert with a reason string such as `revert("reason")` is triggered, the reverting contract returns the ABI encoding of `Error(string)`, along with the string argument. This is the same as how `require` with a reason work in Solidity.
+When a revert with a reason string such as `revert("reason")` is triggered, the reverting contract returns the ABI encoding of `Error(string)`, along with the string argument. This is the same as how `require` with a reason works in Solidity.
 
 To simulate the revert with a reason string in assembly, we need to ABI encode the same function and the string argument in memory.
 
@@ -570,15 +570,15 @@ mstore(0x04, 0x20) // 4 is 0x04 in hex
 
 Remember, we mentioned that it's possible to overwrite memory if two memory locations overlap, right? Initially, the function selector was stored starting at the `0th` byte as a 32-byte word. Now, we are storing the offset starting at the 4th byte.
 
-This means that the remaining data from the function selector (the padded zeros in this case) will be replaced, starting from the 4th byte as shown in the diagram below:
+This means that the remaining data from the function selector (the padded zeros in this case) will be replaced, starting from the 4th byte, as shown in the diagram below:
 
 ![storing the offset to the error message string](https://r2media.rareskills.io/assembly-revert-images/image_14.png)
 
 ### 3. Store the length of the error message string
 
-The third part of the string we need to store is the length of the string data. Recall that we stored the function selector at the `0x00` location and it took up 4 bytes. Then the next memory location was the offset at memory location `0x04` which took up 32 bytes. 
+The third part of the string we need to store is the length of the string data. Recall that we stored the function selector at the `0x00` location, and it took up 4 bytes. Then the next memory location was the offset at memory location `0x04` which took up 32 bytes. 
 
-That means 4 bytes selector + 32 bytes offset tells us that the next memory slot should be at 36 bytes which is where we’ll store the length of the string.
+That means 4 bytes selector + 32 bytes offset tells us that the next memory slot should be at 36 bytes, which is where we’ll store the length of the string.
 
 The length of the string `Unauthorized` is 12 (`0xc`) bytes.
 
@@ -634,25 +634,28 @@ pragma solidity >=0.7.0 <0.9.0;
 contract ContractA {
     
     function revertWithAssembly() external pure {
-            assembly {
-                mstore(
-                    0x00,
-                    0x08c379a000000000000000000000000000000000000000000000000000000000
-                ) // store the selector
-                mstore(0x04, 0x20) // store the offset
-                mstore(0x24, 0xc) // store the length of the string
-                mstore(
-                    0x44,
-                    0x556E617574686F72697A65640000000000000000000000000000000000000000
-                ) // store the actual data
-                revert(0x00, 0x64) // trigger a revert
-            }
+        assembly {
+            mstore(
+                0x00,
+                0x08c379a000000000000000000000000000000000000000000000000000000000
+            ) // store the selector
+
+            mstore(0x04, 0x20) // store the offset
+
+            mstore(0x24, 0xc) // store the length of the string
+
+            mstore(
+                0x44,
+                0x556E617574686F72697A65640000000000000000000000000000000000000000
+            ) // store the actual data
+
+            revert(0x00, 0x64) // trigger a revert
         }
-   }
+    }
 }
 ```
 
-Here is a screenshot showing the output of the revert when you call the `revertWithAssembly()` the  function. The result is the same as what we saw when we triggered `revert(“Unauthorized”)` in Solidity.
+Here is a screenshot showing the output of the revert when you call the `revertWithAssembly()` function. The result is the same as what we saw when we triggered `revert(“Unauthorized”)` in Solidity.
 
 ![revert with assembly raw output](https://r2media.rareskills.io/assembly-revert-images/image_18.png)
 
@@ -712,7 +715,7 @@ We covered:
     - custom error reverts
     - and reverts with reason
 
-We also saw how we could save some gas by using revert via assembly. I encourage you to experiment it yourself as that’s the best way to fully understand how it all comes together.
+We also saw how we could save some gas by using revert via assembly. I encourage you to experiment with it yourself, as that’s the best way to fully understand how it all comes together.
 
 Happy coding
 
