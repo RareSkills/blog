@@ -11,7 +11,7 @@ First two lines
 Of course your code will compile without it, but you’ll get a warning, so just make the warning go away.
 
 
-### 2\. Fix the solidity pragma unless writing a library
+### 2\. Fix the Solidity pragma unless writing a library
 
 
 You’ve probably seen pragmas such as the following:
@@ -107,13 +107,13 @@ Contract Level
 --------------
 
 
-### 6\. Apply contract-level natspec
+### 6\. Apply contract-level NatSpec
 
 
-The point of natspec (natural language specification) is to provide an easily human-readable inline documentation.
+The point of NatSpec (natural language specification) is to provide an easily human-readable inline documentation.
 
 
-An example natspec for a contract is shown below.
+An example NatSpec for a contract is shown below.
 
 
 ```solidity
@@ -160,7 +160,7 @@ contract ProperLayout {
         error NotOwner();
         error FooError();
         error BarError();
-        
+
         // modifiers
         modifier onlyOwner() {
                 if (msg.sender != owner) {
@@ -185,7 +185,7 @@ contract ProperLayout {
 
         }
 
-    
+
         // functions are first grouped by
         // - external
         // - public
@@ -248,7 +248,7 @@ If you see the number 100 just sitting in the code, what is it? 100 percent? 100
 Generally, numbers should be written as a constant at the top of the contract.
 
 
-### 9\. If numbers are used to measure ether or time, use the solidity keywords
+### 9\. If numbers are used to measure Ether or time, use the Solidity keywords
 
 
 Instead of writing
@@ -334,13 +334,13 @@ function bar() internal view virtual override onlyAdmin {
 }
 ```
 
-### 13\. Use natspec properly
+### 13\. Use NatSpec properly
 
 
-Sometimes referred to as "solidity comment style," its proper name is natspec:
+Sometimes referred to as "Solidity comment style," its proper name is NatSpec:
 
 
-The rules are similar to the contract natspec, except that we also specify params based on the function arguments and what gets returned.
+The rules are similar to the contract NatSpec, except that we also specify params based on the function arguments and what gets returned.
 
 
 This can be a good way to describe argument names without using long argument variables.
@@ -359,7 +359,7 @@ function deposit(address token, uint256 amount) public returns (uint256) {
 }
 
 
-// If the contract inherits functions, you can also inherit their natspec
+// If the contract inherits functions, you can also inherit their NatSpec
 /// @inheritdoc Lendable
 function calculateAccumulatedInterest(address token, uint256 since) public override view returns (uint256 interest) {
 
@@ -367,18 +367,18 @@ function calculateAccumulatedInterest(address token, uint256 since) public overr
 ```
 
 
-For the dev parameters, it’s good to notify what kind of state changes it can do, for example emitting an event, sending ether, selfdestructing, etc.
+For the dev parameters, it’s good to notify what kind of state changes it can do, for example emitting an event, sending Ether, selfdestructing, etc.
 
 
-The notice and param natspec are read by Etherscan.
+The notice and param NatSpec are read by Etherscan.
 
-![etherscan screenshot showing natspec](https://static.wixstatic.com/media/935a00_1d2d183903ae4fef94eee1672b2a843e~mv2.png/v1/fill/w_1348,h_659,al_c,q_90,enc_auto/935a00_1d2d183903ae4fef94eee1672b2a843e~mv2.png)
+![etherscan screenshot showing NatSpec](https://static.wixstatic.com/media/935a00_1d2d183903ae4fef94eee1672b2a843e~mv2.png/v1/fill/w_1348,h_659,al_c,q_90,enc_auto/935a00_1d2d183903ae4fef94eee1672b2a843e~mv2.png)
 
 
 You can see where Etherscan got that information from in the following screenshot of the [code](https://etherscan.io/token/0xc00e94cb662c3520282e6f5717214004a7f26888?a=0x3d9819210a31b4961b30ef54be2aed79b9c9cd3b#code).
 
 
-![screenshot of approve() with natspec on etherscan](https://static.wixstatic.com/media/935a00_43675ce1341e4858aab1b843864f945c~mv2.png/v1/fill/w_1437,h_604,al_c,q_90,enc_auto/935a00_43675ce1341e4858aab1b843864f945c~mv2.png)
+![screenshot of approve() with NatSpec on etherscan](https://static.wixstatic.com/media/935a00_43675ce1341e4858aab1b843864f945c~mv2.png/v1/fill/w_1437,h_604,al_c,q_90,enc_auto/935a00_43675ce1341e4858aab1b843864f945c~mv2.png)
 
 
 
@@ -402,21 +402,21 @@ Some tips:
 
 
 *   Avoid “generic nouns” like “user.” Be more precise, for example “admin”, “buyer”, “seller”.
-    
+
 *   The word “data” is usually an indicator of imprecision. Instead of “userData” do “userAccount”.
-    
+
 *   Don’t use two different nouns to apply to the same real-world entity. For example, if “depositor” and “liquidityProvider” refer to the same entity in the real world, just stick to one term, don’t use both in the code.
-    
+
 *   Include units in variable names. Instead of “interestRate” do “interestRatesBasisPoints” or “feeInWei”.
-    
+
 *   State changing functions should have a verb in the name.
-    
+
 *   Be consistent about the use of underscores to distinguish internal variables and functions vs function arguments that overshadow state variables. If prepending a variable with an underscore means “internal” ensure that it isn’t used to mean something else in another context, for example, function arguments that have the same name as a state variable.
-    
+
 *   using “get” for viewing data and “set” for changing data is a widely followed programming convention. Consider incorporating it.
-    
+
 *   After you finish writing your code, step away from the computer, then come back in 15 minutes and ask yourself for each variable and function name if you were as precise as possible. This deliberate effort will do more good for you than any checklist can provide, since you know the intent of the codebase better than anyone.
-    
+
 
 
 Additional Tricks for organizing large codebases
@@ -424,13 +424,13 @@ Additional Tricks for organizing large codebases
 
 
 *   If you have a lot of storage variables, you can define all the storage variables in a single contract, then inherit from that contract to gain access to those storage variables.
-    
+
 *   If your functions require a significant amount of parameters, use a struct to pass the information around.
-    
-*   If you need a lot of imports, you can import all the files and types into one solidity file, then import that file (you would need to intentionally break the rule about named imports).
-    
+
+*   If you need a lot of imports, you can import all the files and types into one Solidity file, then import that file (you would need to intentionally break the rule about named imports).
+
 *   Use libraries to group functions of the same category together and make files smaller.
-    
+
 
 
 Organizing large codebases is an art. The best way to learn it is to study codebases of large established projects.
@@ -440,6 +440,6 @@ Learn More with RareSkills
 ---
 
 
-This checklist is used in our advanced [solidity bootcamp](https://www.rareskills.io/solidity-bootcamp) for code reviews.
+This checklist is used in our advanced [Solidity bootcamp](https://www.rareskills.io/solidity-bootcamp) for code reviews.
 
 *Originally Published August 12, 2024*
