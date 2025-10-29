@@ -1,4 +1,4 @@
-# Solidity RSA signatures for aidrops and presales: Beating ECDSA and Merkle Trees in Gas Efficiency
+# Solidity RSA signatures for airdrops and presales: Beating ECDSA and Merkle Trees in Gas Efficiency
 
 Updated: Aug 4, 2023
 
@@ -19,7 +19,7 @@ A mapping presale works by the seller entering the addresses of the customers in
 
 Because of this, Merkle Trees and ECDSA signatures (using the [ethereum precompile](https://www.rareskills.io/post/solidity-precompiles) ecerecover, or better yet, the [more secure wrapper around it](https://docs.openzeppelin.com/contracts/2.x/api/cryptography#ECDSA) published by OpenZeppelin), are often preferred to mappings. The gas cost (for the buyer) of executing the ECDSA signature verification is 29,293 gas. This includes the 21,000 to initiate the transaction, so the ECDSA cost is 8,293. Note that this includes reading the signing address from storage, but this cost is necessary or we won’t be able to invalidate signatures.
 
-Merke Trees vary in cost based on tree size (larger trees require larger Merkle proofs), but if over 1,000 addresses are in the Merkle tree, it will cost at least 32,000 gas (or more) to verify the address. This cost is clearly inferior to ECDSA.
+Merkle Trees vary in cost based on tree size (larger trees require larger Merkle proofs), but if over 1,000 addresses are in the Merkle tree, it will cost at least 32,000 gas (or more) to verify the address. This cost is clearly inferior to ECDSA.
 
 The goal then, is to beat ECDSA which costs 8,293 gas. To keep solutions apples-to-apples, the alternative solution must:
 
@@ -42,12 +42,12 @@ To understand the proposed methodology, the reader should be familiar with the f
 
 If we want to substantially beat ECDSA, we need to find a different cryptographic algorithm that allows for the proof of set membership. ECDSA is actually the newer, cooler version of the original digital signature algorithm, RSA. ECDSA relies on discrete logarithms over elliptic curves being hard (hence the name – elliptic curve digital signature algorithm). RSA (named after its authors, Rivest, Shamir, Adleman) relies on large integers being hard to factor. In terms of age, RSA was published in the 1970s, but ECDSA became a formal specification in the early 2000s.
 
-![Admiral Piett approves of RSA cryptography](https://static.wixstatic.com/media/b09095_e8b9d06bc1134d3f84d29dd2e83c4ce5~mv2.png/v1/fill/w_728,h_493,al_c,lg_1,q_85,enc_auto/b09095_e8b9d06bc1134d3f84d29dd2e83c4ce5~mv2.png)   
+![Admiral Piett approves of RSA cryptography](https://static.wixstatic.com/media/b09095_e8b9d06bc1134d3f84d29dd2e83c4ce5~mv2.png/v1/fill/w_728,h_493,al_c,lg_1,q_85,enc_auto/b09095_e8b9d06bc1134d3f84d29dd2e83c4ce5~mv2.png)
 Admiral Piett approves of RSA cryptography
 
 We will not explain RSA in detail here, but some prerequisites are in order.
 
-The signer picks two large prime numbers `p` and `q`, and multiplies them together to produce `n`. This `n` is the first part of the public key. Second, the signer picks a small prime `e` (can be hardcoded to 3 for our usecase), and publishes the pair (`n`, `e`) as the public key. Behind the scenes, the signer computes
+The signer picks two large prime numbers `p` and `q`, and multiplies them together to produce `n`. This `n` is the first part of the public key. Second, the signer picks a small prime `e` (can be hardcoded to 3 for our use case), and publishes the pair (`n`, `e`) as the public key. Behind the scenes, the signer computes
 
 ```solidity
 t = (p - 1) * (q - 1)
@@ -128,7 +128,7 @@ Because the address is determined in advance, we can store the address of this m
 
 ## Benchmarks: Gas cost vs key size
 
-Most of the gas cost comes from having very large calldata as a result of large signatures. If the key size is set to 1024 bits, then the call data will be 128 bytes. Each byte costs 16 gas, so the total gas cost just to have calldata that large is 2,048 gas.
+Most of the gas cost comes from having very large calldata as a result of large signatures. If the key size is set to 1024 bits, then the calldata will be 128 bytes. Each byte costs 16 gas, so the total gas cost just to have calldata that large is 2,048 gas.
 
 Compared to most other use cases, ours uses a considerable amount of memory and Ethereum charges for this.
 
@@ -138,7 +138,7 @@ The benchmarks make clear that the larger the key (and hence the signature), the
 
 ## Choosing a key size
 
-Although a key with 829 bits has been factored, it requires a modern supercomputer to do so. For applications such as airdropping lower value tokens or putting NFTs on a presale, an attacker does not have an incentive to spend six figures to a million dollars to factor a public key and obtain an NFT in a presale. The most expensive Ethereum tokens at this time of writing ([Fidenza](https://opensea.io/collection/fidenza-by-tyler-hobbs) and [Bored Ape Yacht Club](https://opensea.io/collection/boredapeyachtclub)) cost approximately \$100,000 a piece, so for the vast majority of applications, it is not economical for an attacker to try to factor the public key.
+Although a key with 829 bits has been factored, it requires a modern supercomputer to do so. For applications such as airdropping lower value tokens or putting NFTs on a presale, an attacker does not have an incentive to spend six figures to a million dollars to factor a public key and obtain an NFT in a presale. The most expensive Ethereum tokens at the time of writing ([Fidenza](https://opensea.io/collection/fidenza-by-tyler-hobbs) and [Bored Ape Yacht Club](https://opensea.io/collection/boredapeyachtclub)) cost approximately \$100,000 a piece, so for the vast majority of applications, it is not economical for an attacker to try to factor the public key.
 
 Remember, each bit doubles the difficulty of factoring the integer, so as of 2022, most low value token presales are probably safe with 896 bits. In this case, saving users over 2,500 gas compared to ECDSA is compelling.
 
