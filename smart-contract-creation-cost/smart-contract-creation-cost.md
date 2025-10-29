@@ -1,6 +1,6 @@
 # Smart contract creation cost
 
-Smart contract creation cost can be anywhere from \$10 to \$2,000 assuming Ether costs between \$1,500 to \$2,000. The biggest factors are 1) Ethereum price, 2) the size of the compiled contract (in bytes), 3) the current gas price on the Ethereum network.
+Smart contract creation cost can be anywhere from \$10 to \$2,000 assuming ETH costs between \$1,500 to \$2,000. The biggest factors are 1) Ethereum price, 2) the size of the compiled contract (in bytes), 3) the current gas price on the Ethereum network.
 
 There are a total of six components that determine the amount of gas required to deploy the contract. The cost of the gas in dollar terms depends on market conditions and network conditions. We will work out all of these numbers in this article.
 
@@ -9,7 +9,7 @@ There are a total of six components that determine the amount of gas required to
 1. The 21,000 gas that all [Ethereum](https://www.rareskills.io/post/generate-ethereum-address-from-private-key-python) transactions must pay
 2. A fixed cost of 32,000 gas for creating a new contract
 3. 22,100 for each storage variable set
-4. 4 gas for each zero byte in the transaction data 16 gas for each non-zero byte in the transaction.
+4. 4 gas for each zero byte in the transaction data, and 16 gas for each non-zero byte in the transaction.
 5. The cost to execute each bytecode during the initialization
 6. 200 gas per byte of deployed bytecode
 
@@ -25,7 +25,7 @@ contract Minimal {
 }
 ```
 
-![smart contract creation gas cost remix screenshot](https://static.wixstatic.com/media/935a00_9cc8fd7efa05455aba159385ec5e3f4e~mv2.webp/v1/fill/w_740,h_421,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_9cc8fd7efa05455aba159385ec5e3f4e~mv2.webp)  
+![smart contract creation gas cost remix screenshot](https://static.wixstatic.com/media/935a00_9cc8fd7efa05455aba159385ec5e3f4e~mv2.webp/v1/fill/w_740,h_421,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_9cc8fd7efa05455aba159385ec5e3f4e~mv2.webp)
 smart contract creation gas cost
 
 Note that the deployment cost according to remix was 66,862. We will break down this cost in this article.
@@ -110,7 +110,7 @@ print(len(deployment_code.split(' ')))
 # 63
 ```
 
-$63 \times 200 = 12,600$ gas  
+$63 \times 200 = 12,600$ gas
 So here is the breakdown so far
 
 ```
@@ -147,7 +147,7 @@ INVALID    | not executed
 
 And the total is 42, as expected. These gas costs were obtained by running the remix debugger.
 
-![smart contract deployment gas debugging](https://static.wixstatic.com/media/935a00_dea1e4e39bb84107ac57cfd801f23f5d~mv2.webp/v1/fill/w_740,h_416,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_dea1e4e39bb84107ac57cfd801f23f5d~mv2.webp)   
+![smart contract deployment gas debugging](https://static.wixstatic.com/media/935a00_dea1e4e39bb84107ac57cfd801f23f5d~mv2.webp/v1/fill/w_740,h_416,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_dea1e4e39bb84107ac57cfd801f23f5d~mv2.webp)
 smart contract deployment gas debugging
 
 And we are done, we have accounted for each component of the deployment of a smart contract.
