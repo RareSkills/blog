@@ -1,10 +1,10 @@
 # Solidity Staticcall EIP 214
 
-Staticcall is like a regular Ethereum call except that it reverts if a state change happens. It cannot be used to transfer Ether. Both the EVM opcode, the Yul assembly function, and the built-in solidity function named staticcall.
+Staticcall is like a regular Ethereum call except that it reverts if a state change happens. It cannot be used to transfer Ether. Both the EVM opcode, the Yul assembly function, and the built-in Solidity function named staticcall.
 
 ## EIP 214
 
-Staticcall was introduced in [EIP 214](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-214.md) added to Ethereum in 2017 as part of the [Byzantium hard fork](https://ethereum.org/en/history/#byzantium). For functions where only a return value is desired and state changes are unwanted, it adds a layer of safety. Staticcall will revert if the contract called causes a state change which includes: logging an event, sending ether, creating a contract, destroying a contract, or setting a storage variable. Reading a storage variable is ok. A call that does not transfer ether is allowed as long as it doesn't result in a state change.
+Staticcall was introduced in [EIP 214](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-214.md) and added to Ethereum in 2017 as part of the [Byzantium hard fork](https://ethereum.org/en/history/#byzantium). For functions where only a return value is desired and state changes are unwanted, it adds a layer of safety. Staticcall will revert if the contract called causes a state change which includes: logging an event, sending Ether, creating a contract, destroying a contract, or setting a storage variable. Reading a storage variable is ok. A call that does not transfer Ether is allowed as long as it doesn't result in a state change.
 
 ## View functions
 
@@ -25,12 +25,12 @@ contract ERC20User {
     function myBalanceLowLevelEquivalent() public view returns (uint256 balance) {
         (bool ok, bytes memory result) = token.staticcall(abi.encodeWithSignature("balanceOf(address)", address(this)));
         require(ok);
-        
+
         balance = abi.decode(result, (uint256));
-        
-    } 
+
+    }
 }
-```  
+```
 If `balanceOf` changes the state, the code will revert.
 
 ## Meta Arguments
@@ -47,9 +47,9 @@ Although staticcall is in some sense "safer" than a regular call, that doesn't m
 
 ### Denial of Service
 
-Statticcall is still subject to denial of service attacks with gas griefing. Consider the situation where the ERC20 token above put an infinite loop inside the balanceOf function. The calling contract will still have gas left over, but only 1/64th of the original amount, per [EIP 150](https://www.rareskills.io/post/eip-150-and-the-63-64-rule-for-gas).
+Staticcall is still subject to denial of service attacks with gas griefing. Consider the situation where the ERC20 token above put an infinite loop inside the balanceOf function. The calling contract will still have gas left over, but only 1/64th of the original amount, per [EIP 150](https://www.rareskills.io/post/eip-150-and-the-63-64-rule-for-gas).
 
-### Read only Re-entrancy
+### Read-only reentrancy
 
 Another attack vector for the static call is getting the wrong values back. In the [read-only reentrancy attack](https://www.rareskills.io/post/where-to-find-solidity-reentrancy-attacks), token values are temporarily manipulated with a flashloan, so that any smart contract that is viewing the values (via staticcall) could be hacked with oracle manipulation.
 
@@ -69,7 +69,7 @@ See this example:
 
 ```solidity
 returndatacopy(0, 0, returndatasize())
-```  
+```
 The variables in and insize point to the region in memory where the (usually abi-encoded) data portion of the call to the external contract is.
 
 The variable ok returns true if the staticcall succeeds and false if it reverts. Reverts are not bubbled up.
@@ -78,15 +78,15 @@ The variable ok returns true if the staticcall succeeds and false if it reverts.
 
 Staticcall is the appropriate way to interact with [Ethereum precompiled contracts](https://www.rareskills.io/post/solidity-precompiles) (addresses 0x01 to 0x09) as none of them are state changing.
 
-The following example will compute the SHA256 of a uint. Note that this precompile hashes the data directly, and it should not be [abi encoded](https://www.rareskills.io/post/abi-encoding).
+The following example will compute the SHA256 of a uint. Note that this precompile hashes the data directly, and it should not be [ABI-encoded](https://www.rareskills.io/post/abi-encoding).
 
 ```solidity
  function getSha256(uint256 x) public view returns (bytes32 hashOut) {
     (bool ok, bytes memory result) = address(0x02).staticcall(abi.encode(x));
     require(ok);
-    
+
     hashOut = abi.decode(result, (bytes32));
-} 
+}
 ```
 
 ## Learn more
