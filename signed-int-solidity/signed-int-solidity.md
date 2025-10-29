@@ -6,7 +6,7 @@ Solidity signed integers enable using negative numbers in a smart contract. This
 
 ### Solidity and the EVM use Two's Complement representation for signed integers
 
-Like every datatype, Solidity still uses 32 byte words to represent signed integers. There isn't any semantic indicator of the type in the EVM, just like there isn't any indicator that a 32 byte slot is actually a boolean, an address, or a 160 bit number. The value is "treated" as negative one at compilation time.
+Like every data type, Solidity still uses 32-byte words to represent signed integers. There isn't any semantic indicator of the type in the EVM, just like there isn't any indicator that a 32-byte slot is actually a boolean, an address, or a 160-bit number. The value is "treated" as negative one at compilation time.
 
 Because you can get the [max value of an integer](https://www.rareskills.io/post/uint-max-value-solidity) with "type(int256).max" or with the .min field to get the minimum. The indicator for whether a number is positive or negative requires an extra bit, so it can only store numbers up to one bit less than the unsigned version.
 
@@ -40,7 +40,7 @@ int8(-4) == 1111 1100
 int8(-5) == 1111 1011
 ```
 
-You can roughly think of two's complement negative numbers as "counting down." 
+You can roughly think of two's complement negative numbers as "counting down."
 
 Here's the interesting feature of two's complement. -2 + -2 should equal -4, and adding in two's complement and allowing overflow enables this. Here is adding -2 to itself in Python using the two's complement representation
 
@@ -73,13 +73,13 @@ However, multiplication, modulo, right shift, and casting to a larger signed int
 
 ## Ethereum op codes for signed arithmetic
 
-### sdiv  
+### sdiv
 
-#### Gas cost: 5   
+#### Gas cost: 5
 SDIV, or signed division, is for dividing signed numbers. This opcode is used behind the scenes in code like the following.
 
 ```solidity
-function divide(int256 a, int256 b) public pure returns (int256 quotient) 
+function divide(int256 a, int256 b) public pure returns (int256 quotient)
 {
     quotient = a / b;
 }
@@ -91,7 +91,7 @@ function divide(int256 a, int256 b) public pure returns (int256 quotient)
 Since two's complement arithmetic needs it's own opcode for div, it's no surprise the same applies to take the modulus (remainder).
 
 ```solidity
-function divide(int256 a, int256 b) public pure returns (int256 remainder) 
+function divide(int256 a, int256 b) public pure returns (int256 remainder)
 {
     remainder = a % b;
 }
@@ -144,7 +144,7 @@ Under the hood, a regular SHL (shift left) opcode was used. There is no need for
 
 ### signextend evm
 
-#### Gas cost: 5   
+#### Gas cost: 5
 A signed integer smaller than 256 bits will have leading zeros. However, Two's Complement negative numbers always start with the leftmost bit at one. Therefore, if a Two's Complement integer is upcasted to a larger type, the value will change from negative to positive since the leftmost bits will be zero. Signextend handles this transition seamlessly.
 
 ### signextend solidity
