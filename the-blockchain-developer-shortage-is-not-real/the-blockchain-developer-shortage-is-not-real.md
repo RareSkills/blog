@@ -18,11 +18,11 @@ More precisely, there is no shortage of people who call themselves developers. T
 
 Applying first aid does not make you a doctor. Using a spreadsheet does not make you an accountant. And building an app does not make you a developer.
 
-This is true of any domain of development. Knowing react js does not make you a _qualified_ frontend dev. Knowing node js or django does not make you a _qualified_ backend dev. And programming an [ERC-721](https://www.rareskills.io/post/erc721) token in solidity does not make you a _qualified_ blockchain developer. For that matter, training a neural net does not make you a deep learning engineer.
+This is true of any domain of development. Knowing React does not make you a _qualified_ frontend dev. Knowing Node.js or Django does not make you a _qualified_ backend dev. And programming an [ERC-721](https://www.rareskills.io/post/erc721) token in Solidity does not make you a _qualified_ blockchain developer. For that matter, training a neural net does not make you a deep learning engineer.
 
 ## An example from frontend engineering
 
-It’s easy to look at frontend development and think “oh, I just wireframe some divs as react components, add some CSS, et viola, I have a web app.” Well you do, but it’s likely to be a slow, messy one with bad SEO.
+It’s easy to look at frontend development and think “oh, I just wireframe some divs as React components, add some CSS, et voilà, I have a web app.” Well you do, but it’s likely to be a slow, messy one with bad SEO.
 
 You must be able to account for different browsers. You must know how to optimize component loads and call APIs at the right time and place. You must know how to architect a codebase that multiple engineers can contribute to without stepping on each other’s toes. You must know why you pick one CSS solution over another that does the same thing. You must use reasonably modern tooling to improve your productivity. If the page is loading slowly, you must know how to speed it up. You must know how SEO and mobile optimization works. You must know a wide variety of libraries so you don’t reinvent the wheel. And although you don’t need to be a UI or UX person, you need to at least know the basics. You must recognize memory leaks and avoid them. You must architect your app to run A/B tests seamlessly. Your architecture needs to have the right abstractions to make swapping features and libraries seamless.
 
@@ -47,8 +47,6 @@ None of this is to gatekeep or have artificial exclusivity. Nor is it to talk do
 The point is, companies have a good reason to reject your application if the best you can do is show a few simple projects based on online courses.
 
 ### Glass Half Full
-
-###   
 
 ![Glass half full](https://static.wixstatic.com/media/935a00_619acafeda054dc287dc81912793027b~mv2.jpeg/v1/fill/w_740,h_494,al_c,lg_1,q_85,enc_auto/935a00_619acafeda054dc287dc81912793027b~mv2.jpeg)
 
