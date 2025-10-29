@@ -18,7 +18,7 @@ function mint() external public {
 
 In the example above, the inequality operator was flipped. If the unit tests still pass, then the unit tests are simply offering false assurance.
 
-It is important that the bugs be syntactically valid, i.e. still result in compilable solidity code. If the code doesn't compile, then it won't be possible to run the unit tests.
+It is important that the bugs be syntactically valid, i.e. still result in compilable Solidity code. If the code doesn't compile, then it won't be possible to run the unit tests.
 
 ## Line Coverage Without Testing
 
@@ -53,12 +53,12 @@ contract CounterTest is Test {
 
 If we run [forge coverage](https://www.rareskills.io/post/foundry-forge-coverage), we get the following table:
 
-![solidity test coverage with 100% line and branch coverage](![image](https://hackmd.io/_uploads/r13Uyp5KC.png)
+![Solidity test coverage with 100% line and branch coverage](![image](https://hackmd.io/_uploads/r13Uyp5KC.png)
 
 
 Supposedly, we have 100% line and branch coverage on Counter.sol despite having no assert statements! This means we can introduce bugs at will and the tests will still pass.
 
-Now of course, this is a blatant example of what not to do. But it's easy to accidentally make this mistake when optimizing for coverage. Coverage only tells you that you ran the code and it didn't revert. You want to ensure that all the expected state changes are actually taking place (see our other post for more on [solidity unit tesing best practices](https://www.rareskills.io/post/foundry-testing-solidity).
+Now of course, this is a blatant example of what not to do. But it's easy to accidentally make this mistake when optimizing for coverage. Coverage only tells you that you ran the code and it didn't revert. You want to ensure that all the expected state changes are actually taking place (see our other post for more on [Solidity unit testing best practices](https://www.rareskills.io/post/foundry-testing-solidity).
 
 ## Kinds of Mutants
 
@@ -95,7 +95,7 @@ x = x + 1;
 
 Under some circumstances, the compiler might produce the same bytecode after a mutation like this. This is an equivalent mutation. Equivalent mutants might signal unnecessary or dead code like in the following example:
 
-```solidity 
+```solidity
 require(false);
 // anything that happens here doesn't matter
 ```
@@ -108,7 +108,7 @@ If a line or branch is not covered, then naturally mutating this line will not c
 
 Consider the following example:
 
-```solidity 
+```solidity
 function mint(address to_, string memory questId_) public onlyMinter {
 	// business logic
 }
@@ -136,15 +136,15 @@ function mint(uint256 amount) external {
 }
 ```
 
-If our unit tests set the `amount` to be 3 and 8, the code will have a 100% branch coverage with respect to this test. However, the mutation tests will fail because the strict inequality was replaced with an inequality and the test still passed. This is because the tests do not accurately express the intended functionality. Specifically, the tests should enforce if the upper limit is 4 or 5. Testing values for `amount` like 3 or 8 do not fully define the smart contract specification for this function. 
+If our unit tests set the `amount` to be 3 and 8, the code will have a 100% branch coverage with respect to this test. However, the mutation tests will fail because the strict inequality was replaced with an inequality and the test still passed. This is because the tests do not accurately express the intended functionality. Specifically, the tests should enforce if the upper limit is 4 or 5. Testing values for `amount` like 3 or 8 do not fully define the smart contract specification for this function.
 
 ## Vertigo-rs
 
-[RareSkills](https://www.rareskills.io/) actively maintains a mutation testing tool for Solidity, [vertigo-rs](https://github.com/RareSkills/vertigo-rs). This was forked from the [vertigo](https://github.com/JoranHonig/vertigo) repo which is no longer maintained. Support for the Foundry framework has been added. The tool works with Foundry, Hardhat, and Truffle. Instructions to run the tool are in the Readme. No modifications to the Solidity codebase or tests are required. Simply close the repository, install the dependencies, then run it in the Solidity project that you are are testing.
+[RareSkills](https://www.rareskills.io/) actively maintains a mutation testing tool for Solidity, [vertigo-rs](https://github.com/RareSkills/vertigo-rs). This was forked from the [vertigo](https://github.com/JoranHonig/vertigo) repo which is no longer maintained. Support for the Foundry framework has been added. The tool works with Foundry, Hardhat, and Truffle. Instructions to run the tool are in the Readme. No modifications to the Solidity codebase or tests are required. Simply clone the repository, install the dependencies, then run it in the Solidity project that you are testing.
 
 ## Other Mutation Testing Tools
 
-Although vertigo-rs is the only tool that automatically runs the test suit, there are other noteable tools for generating mutations (but they don't support automatically re-running the test suite and summarizing the results).
+Although vertigo-rs is the only tool that automatically runs the test suite, there are other notable tools for generating mutations (but they don't support automatically re-running the test suite and summarizing the results).
 
 - [Gambit](https://docs.certora.com/en/latest/docs/gambit/index.html) by Certora
 - [Universal Mutator](https://github.com/sambacha/universalmutator/tree/new-solidity-rules) by [sambucha](https://github.com/sambacha)
@@ -153,9 +153,9 @@ There are other tools, but they apparently are no longer maintained.
 
 ## Mutation Score
 
-Tools for languages besides Solidity sometimes provide a `mutation score`. This the the percentage of mutants that were killed. If 100% of the mutants were killed, then the unit tests can be relied upon to detect unwanted or accidental changes in the codebase.
+Tools for languages besides Solidity sometimes provide a `mutation score`. This the percentage of mutants that were killed. If 100% of the mutants were killed, then the unit tests can be relied upon to detect unwanted or accidental changes in the codebase.
 
-For very large codebases, having a 100% score may be impractical. Solidity smart contracts are quite small compared to traditional codebases, such as most backend and frontend applications. Aiming for a 100% mutation score for codebases that large may be infeasible. But because Solidity smart contracts are relatively small, and bugs are catastrophic, surviving mutants should be scrutanized carefully.
+For very large codebases, having a 100% score may be impractical. Solidity smart contracts are quite small compared to traditional codebases, such as most backend and frontend applications. Aiming for a 100% mutation score for codebases that large may be infeasible. But because Solidity smart contracts are relatively small, and bugs are catastrophic, surviving mutants should be scrutinized carefully.
 
 ## Limitations of Mutation Testing
 
