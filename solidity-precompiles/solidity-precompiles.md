@@ -14,14 +14,14 @@ Precompiles do not execute inside a smart contract, they are part of the Ethereu
 
 ## Call Precompiled Smart Contracts with Solidity
 
-Most precompiles don't have a solidity wrapper (with ecRecover being the sole exception). You'll need to call the address directly with addressOfPrecompile.staticcall(...) or use assembly.
+Most precompiles don't have a Solidity wrapper (with ecRecover being the sole exception). You'll need to call the address directly with addressOfPrecompile.staticcall(...) or use assembly.
 
 
-Although none of the precompiled contracts are state changing, the solidity function that calls them cannot be pure because the solidity compiler has no way of inferring that a [staticcall](https://www.rareskills.io/post/solidity-staticcall) won’t change the state.
+Although none of the precompiled contracts are state changing, the Solidity function that calls them cannot be pure because the Solidity compiler has no way of inferring that a [staticcall](https://www.rareskills.io/post/solidity-staticcall) won’t change the state.
 
 ## Address 0x01: ecRecover
 
-ECRecover is the precompile for recovering an address from a hash and a digital signature for that hash, i.e. determining who signed it if the signature is valid. (Learn more about how to use [solidity digital signatures](https://www.rareskills.io/post/openzeppelin-verify-signature) in our tutorial).
+ECRecover is the precompile for recovering an address from a hash and a digital signature for that hash, i.e. determining who signed it if the signature is valid. (Learn more about how to use [Solidity digital signatures](https://www.rareskills.io/post/openzeppelin-verify-signature) in our tutorial).
 
 Example:
 ```solidity
@@ -56,11 +56,11 @@ function hashRIPEMD160(bytes calldata data) public view returns (bytes20 h) {
 
 Although RIPEMD-160 returns 20 bytes, the EVM can only work in 32 byte increments, which is why the bitshifting and casting is used in the example code above.
 
-Why does Ethereum support SHA-256 and RIPEMD-160? Bitcoin makes heavy use of SHA256 the way Ethereum makes heavy use of keccak256. However, Bitcoin addresses use RIPEMD-160 to hash the public key and make the public address more compact. This is comparable to how Ethereum takes the last 20 bytes (160 bits, like RIPEMD) of the keccack256 of the [ECDSA](https://www.rareskills.io/post/solidity-rsa-signatures-for-aidrops-and-presales-beating-ecdsa-and-merkle-trees-in-gas-efficiency) public key.
+Why does Ethereum support SHA-256 and RIPEMD-160? Bitcoin makes heavy use of SHA256 the way Ethereum makes heavy use of keccak256. However, Bitcoin addresses use RIPEMD-160 to hash the public key and make the public address more compact. This is comparable to how Ethereum takes the last 20 bytes (160 bits, like RIPEMD) of the keccak256 of the [ECDSA](https://www.rareskills.io/post/solidity-rsa-signatures-for-aidrops-and-presales-beating-ecdsa-and-merkle-trees-in-gas-efficiency) public key.
 
 ## Using Yul Assembly
 
-Because the return size is known in advance, there is no need to use the returndatasize opcode. In yul (and in the opcode) staticcall takes six arguments:
+Because the return size is known in advance, there is no need to use the returndatasize opcode. In Yul (and in the opcode) staticcall takes six arguments:
 - args
 - gas to forward
 - where in memory to look for the data to hash
@@ -91,17 +91,17 @@ The identity precompile copies one region of memory to another. Ethereum doesn�
 
 ## Address 0x05: Modexp
 
-ECDSA doesn’t support public encryption. If an application has a usecase for this, then good old-fashion RSA encryption must be used. At a high level, RSA works by taking a message, raising it to the power of the recipient’s public key modulo some very large number. The resulting number is the encypted message. Since this severly limits the message’s length, the typical message exchange works by encrypting a symmetric key such as AES-256 and sending that to the recipient. Then the recipient can use the AES-256 key to decrypt the message.
+ECDSA doesn’t support public encryption. If an application has a use case for this, then good old-fashion RSA encryption must be used. At a high level, RSA works by taking a message, raising it to the power of the recipient’s public key modulo some very large number. The resulting number is the encrypted message. Since this severely limits the message’s length, the typical message exchange works by encrypting a symmetric key such as AES-256 and sending that to the recipient. Then the recipient can use the AES-256 key to decrypt the message.
 
 Signing messages with RSA works in reverse. The sender raises the hash of the message to the power of their private key modulo the large number (which is publicly known). The result is the signature of the message. The receiver can verify the signature by raising the signature to the power of the public key modulo the large number and seeing it results in the message hash.
 
 Ethereum does not have a public key infrastructure for RSA. However, an Ethereum address could prove ownership of an RSA public key by RSA signing their Ethereum address. Note this doesn’t work in reverse. ECDSA signing an RSA public key isn’t secure because anyone can ECDSA sign an arbitrary string, including RSA public keys.
 
-You can see an application for [RSA with solidity](https://www.rareskills.io/post/solidity-rsa-signatures-for-aidrops-and-presales-beating-ecdsa-and-merkle-trees-in-gas-efficiency) on our other article on the subject.
+You can see an application for [RSA with Solidity](https://www.rareskills.io/post/solidity-rsa-signatures-for-aidrops-and-presales-beating-ecdsa-and-merkle-trees-in-gas-efficiency) on our other article on the subject.
 
 Here is an example of using `modExp` with uint256 in Solidity:
 ```solidity
-function modExp(uint256 base, uint256 exp, uint256 mod) public view returns (uint256) {		
+function modExp(uint256 base, uint256 exp, uint256 mod) public view returns (uint256) {
     bytes memory precompileData = abi.encode(32, 32, 32, base, exp, mod);
     (bool ok, bytes memory data) = address(5).staticcall(precompileData);
     require(ok, "expMod failed");
