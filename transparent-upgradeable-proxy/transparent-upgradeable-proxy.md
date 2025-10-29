@@ -6,7 +6,7 @@ A functional Ethereum proxy needs at least the following two features:
 
 - A storage slot holding the address of the implementation contract
 - A mechanism for an admin to change the implementation address
-    
+
 The [ERC-1967](https://www.rareskills.io/post/erc1967) standard dictates where the storage slot holding the address of the implementation should be held so that the chance of a storage collision is minimized. However, the ERC-1967 standard does not dictate how to change the address of the implementation.
 
 The problem with putting an additional function inside the proxy to change the implementation (such as `updateImplementation(address _newImplementation)`) is that the update function has a non-negligible chance of clashing with a function in the implementation.
@@ -48,7 +48,7 @@ contract Implementation {
 
 Therefore, if a public function is declared in the proxy, there are two kinds of function selector clashes that can occur:
 
-1. If the implementation contract implements a function with the same signature, that function will be uncallable because the proxy's public function with the same signature will be called, not the fallback. And if the fallback is not triggered, there won't be a [delegatecall](https://www.rareskills.io/post/delegatecall) to the implementation.  
+1. If the implementation contract implements a function with the same signature, that function will be uncallable because the proxy's public function with the same signature will be called, not the fallback. And if the fallback is not triggered, there won't be a [delegatecall](https://www.rareskills.io/post/delegatecall) to the implementation.
 2. If the implementation contract has a function with the same function selector as the public function in the proxy, it will also be uncallable for the same reason. This scenario is a function selector clash that can happen by random chance when the four-bytes match. The probability of the two different functions having the same selector is 1 in 4.29 billion; a function selector consists of 4 bytes, so there are 4.29 billion possibilities. That is a small probability, but *not* negligible. For example, `clash550254402()` has the same function selector as `proxyAdmin()`.
 
 ## The Transparent Upgradeable Proxy Pattern Prevents Function Selector Clashing Entirely
@@ -142,8 +142,8 @@ The OpenZeppelin Transparent Upgradeable Proxy implements the standard with thre
 
 - Proxy.sol
 - ERC1967Proxy.sol (inherits Proxy.sol)
-- TransparentUgradeableProxy.sol (inherits ERC1967Proxy.sol)
-    
+- TransparentUpgradeableProxy.sol (inherits ERC1967Proxy.sol)
+
 ### Parentmost contract: Proxy.sol
 
 The base contract is [Proxy.sol](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/proxy/Proxy.sol). Given an implementation address, it sends a delegatecall to the implementation. The `_implementation()` function is not implemented in `Proxy` — it is overridden and implemented by its child `ERC1967Proxy` which will make it return the relevant storage slot.
@@ -155,7 +155,7 @@ abstract contract Proxy {
             calldatacopy(0, 0, calldatasize())
             let result := delegatecall(gas(), implementation, 0, calldatasize(), 0, 0)
             returndatacopy(0, 0, returndatasize())
-            
+
             switch result
             case 0 {
                 revert(0, returndatasize())
@@ -240,7 +240,7 @@ contract TransparentUpgradeableProxy is ERC1967Proxy {
 }
 ```
 
-Let's consider the case where `msg.sender` is the `_proxyAdmin`. In that case, the call gets routed to `_dispatchUpgradeToAndCall()`, but `_fallback()` first checks that the function selector provided is the function selector for `upgradeToAndCall`. The "selector" here is not a "real" selector, since the Transparent Upgradeable Proxy does not have public functions. However, to allow the `ProxyAdmin` to make a [Solidity interface call (high level call)](https://www.rareskills.io/post/low-level-call-solidity), it needs to accept the [ABI Encoded calldata](https://www.rareskills.io/post/abi-encoding) for `upgradeToAndCall()` from the `ProxyAdmin`.
+Let's consider the case where `msg.sender` is the `_proxyAdmin`. In that case, the call gets routed to `_dispatchUpgradeToAndCall()`, but `_fallback()` first checks that the function selector provided is the function selector for `upgradeToAndCall`. The "selector" here is not a "real" selector, since the Transparent Upgradeable Proxy does not have public functions. However, to allow the `ProxyAdmin` to make a [Solidity interface call (high level call)](https://www.rareskills.io/post/low-level-call-solidity), it needs to accept the [ABI-encoded calldata](https://www.rareskills.io/post/abi-encoding) for `upgradeToAndCall()` from the `ProxyAdmin`.
 
 Recall, the `ProxyAdmin` is making an interface call to `upgradeToAndCall` in the `Proxy` even though the proxy has no public functions besides the fallback (`ProxyAdmin` code show next):
 
@@ -257,12 +257,12 @@ When upgrading the implementation contract, it's possible to make a call to it a
 The code below is from [ERC1967Utils.sol](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/proxy/ERC1967/ERC1967Utils.sol#L60C1-L76C6) which the `TransparentUpgradeableProxy` composes with to enable updating the implementation slot. The library provides an internal helper function to update the storage slot holding the implementation address.
 
 ```solidity
-/** 
-* @dev Performs implementation upgrade with additional setup call if data is nonempty. 
-* This function is payable only if the setup call is performed, otherwise `msg.value` is rejected 
-* to avoid stuck value in the contract. 
-* 
-* Emits an {IERC1967-Upgraded} event. 
+/**
+* @dev Performs implementation upgrade with additional setup call if data is nonempty.
+* This function is payable only if the setup call is performed, otherwise `msg.value` is rejected
+* to avoid stuck value in the contract.
+*
+* Emits an {IERC1967-Upgraded} event.
 */
 
 function upgradeToAndCall(address newImplementation, bytes memory data) internal {
@@ -309,7 +309,7 @@ function _setImplementation(address newImplementation) private {
 - The upgrade functionality can only be invoked by the admin via the fallback function. All calls from non-admin addresses turn into delegatecalls to the proxy.
 - The Transparent Upgradeable Proxy uses an immutable variable to store the admin to save gas. To be compliant with ERC-1967, it stores the address of the admin in the `admin` slot specified by ERC-1967, even though it never reads from that slot.
 - Because the admin cannot be changed, the admin is set to be a smart contract called the `AdminProxy`. The `AdminProxy` exposes a single function `upgradeAndCall()` which can only be called by the owner of the `AdminProxy`. The owner of the `AdminProxy` can be changed. Such a change alters who can update the implementation slot in the Transparent Upgradeable Proxy.
-    
+
 *We would like to thank [@ernestognw](https://x.com/ernestognw) from OpenZeppelin for reviewing this article and providing helpful suggestions.*
 
 *Originally Published Jun 4*
