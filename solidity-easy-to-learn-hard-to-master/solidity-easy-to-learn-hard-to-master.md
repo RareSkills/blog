@@ -1,17 +1,17 @@
 # Learn Solidity: Easy to Learn, Hard to Master?
-## Is solidity hard to learn?
+## Is Solidity hard to learn?
 
 [Learning solidity](https://www.rareskills.io/learn-solidity) as a language is arguably one of the easier languages to learn. However, learning the Ethereum environment is hard.
 
-It looks very similar to javascript, or pretty much any curly bracket language derived from C.
+It looks very similar to Javascript, or pretty much any curly bracket language derived from C.
 
 If statements, for loops, class inheritance, variable types, are all very familiar.
 
 Solidity does have some oddities unique to moving cryptocurrency around. For example, each function call has an environment variable that indicates how much ether was sent with the function call and it has some specific APIs for interacting with other smart contracts. Solidity also has strange instructions like [delegatecall](https://www.rareskills.io/post/delegatecall) and selfdestruct which are not found other languages, but those are easy to grasp after mulling over the documentation for a bit.
 
-However, Solidity and ethereum development can be full of surprises. Here are just three examples.
+However, Solidity and Ethereum development can be full of surprises. Here are just three examples.
 
-##   
+##
 
 ## Seemingly minor changes can result in very large differences in gas cost
 
@@ -23,9 +23,9 @@ However, openFaucetInefficient and openFaucetMoreEfficient can have wildly diffe
 
 The second function is much more efficient. It creates the storage variable for its own balance, then ensures it doesn‚Äôt get destroyed until the end when it transfers away the final token. This prevents unnecessary creation of storage variables.
 
-The third function, which has a bizarre for-loop construction is even more efficient. Because of quirks in the solidity compiler, re-arranging a for loop in this manner is more efficient, even when you tell the compiler to run automatic efficiency improvements on your code.
+The third function, which has a bizarre for-loop construction is even more efficient. Because of quirks in the Solidity compiler, re-arranging a for loop in this manner is more efficient, even when you tell the compiler to run automatic efficiency improvements on your code.
 
-How would you know this? Well, there is no straightforward way to know. That's why solidity is not easy to master.
+How would you know this? Well, there is no straightforward way to know. That's why Solidity is not easy to master.
 
 ## I/O operations can be undone
 
@@ -41,7 +41,7 @@ This is very counter-intuitive for developers, because most I/O operations don‚Ä
 
 ## Innocuous functions can lead to re-entrancy attacks
 
-![solidity code with re-entrancy vulnerability](https://static.wixstatic.com/media/935a00_92f9abb91e964e36b593785942662bb4~mv2.png/v1/fill/w_666,h_322,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_92f9abb91e964e36b593785942662bb4~mv2.png)
+![Solidity code with re-entrancy vulnerability](https://static.wixstatic.com/media/935a00_92f9abb91e964e36b593785942662bb4~mv2.png/v1/fill/w_666,h_322,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_92f9abb91e964e36b593785942662bb4~mv2.png)
 
 The code above appears to send people an ERC20 token and an ERC1155 token when they call mintTokens. Ostensibly, each address can only mint one time because of the alreadyClaimed check.
 
@@ -55,10 +55,10 @@ As you can see above, a seemingly simple language can be full of surprises. We‚Ä
 
 Blockchain is full of unknown unknowns despite using a programming language that is ‚Äúeasy‚Äù to learn. This is why hacks are so common.
 
-Solidity can be grasped in a weekend. Here is our free tutorial to [learn solidity](https://www.rareskills.io/learn-solidity) quickly if you already know another programming language.
+Solidity can be grasped in a weekend. Here is our free tutorial to [Learn Solidity](https://www.rareskills.io/learn-solidity) quickly if you already know another programming language.
 
 But mastering the ecosystem does not happen in a matter of days.
 
-Do you want to master the ecosystem? Apply now to our fully remote [solidity bootcamp](https://www.rareskills.io/solidity-bootcamp).
+Do you want to master the ecosystem? Apply now to our fully remote [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp).
 
 *Originally published Nov 8, 2022*
