@@ -1,10 +1,10 @@
 # Three ways to detect if an address is a smart contract
 
-This article describes three methods in Solidity for determining if an address is a smart contract:  
+This article describes three methods in Solidity for determining if an address is a smart contract:
 
 -   Check if `msg.sender == tx.origin`. This is not a recommended method, but because many smart contracts use it, we discuss this method for completeness.
 -   The second (and recommended way) is to measure the bytecode size of the address using `code.length`. This approach still has limitations that devs must work around.
--   The third is using `codehash` and is not recommended because it has the same limitations as `code.length` with additional complexity.    
+-   The third is using `codehash` and is not recommended because it has the same limitations as `code.length` with additional complexity.
 
 We discuss each method in this tutorial. Finally, we provide some Solidity puzzles at the end to test your understanding.
 
@@ -37,26 +37,26 @@ The recommended way for a smart contract to test if an address is a smart contra
 Consider the following code:
 
 ```solidity!
-contract TestAddress {        
+contract TestAddress {
     function test(
         address target
     )
     public
     view
-    returns (bool isContract) {                
-        if (target.code.length == 0) {                        
-            isContract = false;                
-        } else {                        
-            isContract = true;                
-        }        
+    returns (bool isContract) {
+        if (target.code.length == 0) {
+            isContract = false;
+        } else {
+            isContract = true;
+        }
     }
 }
 ```
 
-Although all smart contracts have bytecode and all wallet addresses do not, there are some “gotchas” to keep in mind:  
+Although all smart contracts have bytecode and all wallet addresses do not, there are some “gotchas” to keep in mind:
 
--   An address which has no bytecode now could have bytecode there in the future if a smart contract gets deployed to that address.  
--   Using `msg.sender.code.length == 0` is not a reliable way to detect if an _incoming_ call is from a smart contract. If a smart contract makes a call <u>from the constructor</u> then it has not deployed its bytecode yet and `msg.sender.code.length` will be 0. While the constructor is executing, the bytecode of the smart contract has not yet been deployed. Therefore, `code.length` will be zero.  
+-   An address which has no bytecode now could have bytecode drop there in the future if a smart contract gets deployed to that address.
+-   Using `msg.sender.code.length == 0` is not a reliable way to detect if an _incoming_ call is from a smart contract. If a smart contract makes a call <u>from the constructor</u> then it has not deployed its bytecode yet and `msg.sender.code.length` will be 0. While the constructor is executing, the bytecode of the smart contract has not yet been deployed. Therefore, `code.length` will be zero.
 -   On EVM chains that support `selfdestruct`, there might have been a smart contract at `target` in the past, but the smart contract self destructed.
 
 ### Testing msg.sender with code.length
@@ -96,7 +96,7 @@ The `codehash` returns the `keccak256` of the bytecode of an address.
 It has the following behavior:
 
 -   If the address has no Ethereum balance and no bytecode, there is nothing to hash and returns `bytes32(0)`.
--   If the address has an Ethereum balance but no bytecode, it returns the keccak256 of empty data `keccak256("")` which equals `0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470`.  
+-   If the address has an Ethereum balance but no bytecode, it returns the keccak256 of empty data `keccak256("")` which equals `0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470`.
 -   If the address has bytecode (regardless of balance) it returns the `keccak256` of the bytecode of the contract.
 
 The exact behavior of codehash is described in the [Etherum client comments on codehash](https://github.com/ethereum/go-ethereum/blob/7bb3fb1481acbffd91afe19f802c29b1ae6ea60c/core/vm/instructions.go#L391-L416).
@@ -108,54 +108,54 @@ If an address `a` has no bytecode **and has no ether**, then `address(a).codehas
 You can [test the code below in Remix](https://remix.ethereum.org/#code=Y29udHJhY3QgVGVzdEhhc2ggewoKICAgIGZ1bmN0aW9uIGdldEhhc2goKQogICAgICAgIGV4dGVybmFsCiAgICAgICAgdmlldwogICAgICAgIHJldHVybnMgKGJ5dGVzMzIpIHsKICAgICAgICAgICAgLy8gcmFuZG9tIGFkZHJlc3Mgd2l0aCBubyBiYWxhbmNlIG9yIGNvZGUKICAgICAgICAgICAgcmV0dXJuIGFkZHJlc3MoMTAxKS5jb2RlaGFzaDsKICAgICAgICAgICAgLy8gcmV0dXJucyAweDAwMC4uLjAwMAogICAgfQoKICAgIGZ1bmN0aW9uIGhhc2hPZk5vbkVtcHR5V2FsbGV0KCkKICAgICAgICBleHRlcm5hbAogICAgICAgIHZpZXcKICAgICAgICByZXR1cm5zIChieXRlczMyKSB7CiAgICAgICAgICAgIC8vIHR4Lm9yaWdpbiBoYXMgYSBub24temVybyBldGhlciBiYWxhbmNlCiAgICAgICAgICAgIHJldHVybiB0eC5vcmlnaW4uY29kZWhhc2g7CiAgICAgICAgICAgIC8vIHJldHVybnMgYSBub24temVybyBoYXNoCiAgICB9CgogICAgLy8gb2JzZXJ2ZSB0aGF0IGBrZWNjYWtOaWxgIGFuZCBgaGFzaE9mTm9uRW1wdHlXYWxsZXRgCiAgICAvLyByZXR1cm4gdGhlIHNhbWUgdmFsdWUKICAgIGZ1bmN0aW9uIGtlY2Nha05pbCgpIGV4dGVybmFsIHB1cmUgcmV0dXJucyAoYnl0ZXMzMikgewogICAgICAgIHJldHVybiBrZWNjYWsyNTYoIiIpOwogICAgfQoKICAgIC8vIERlcGxveSBTb21lVGVzdENvbnRyYWN0IGFuZCBwdXQgaXRzIGFkZHJlc3MgaW4KICAgIC8vIGNvZGVIYXNoT3RoZXJDb250cmFjdCB0byB0ZXN0IGl0CiAgICBmdW5jdGlvbiBjb2RlSGFzaE90aGVyQ29udHJhY3QoYWRkcmVzcyBfYSkgZXh0ZXJuYWwgdmlldyByZXR1cm5zIChib29sKSB7CiAgICAgICAgLy8gcmV0dXJucyB0cnVlIGJlY2F1c2UgdGhlIGNvZGVoYXNoIG9mIGFub3RoZXIgY29udHJhY3QKICAgICAgICAvLyBpcyBlcXVhbCB0byB0aGUgYGtlY2NhazI1NmAgb2YgaXRzIGJ5dGVjb2RlCiAgICAgICAgcmV0dXJuIF9hLmNvZGVoYXNoID09IGtlY2NhazI1NihfYS5jb2RlKTsKICAgIH0KfQoKY29udHJhY3QgU29tZVRlc3RDb250cmFjdCB7CiAgICBmdW5jdGlvbiBzb21lRnVuY3Rpb24oKSBleHRlcm5hbCBwdXJlIHJldHVybnMgKHVpbnQyNTYpIHsKICAgICAgICByZXR1cm4gNTsKICAgIH0KfQ&lang=en&optimize=false&runs=200&evmVersion=null&version=soljson-v0.8.25+commit.b61c2a91.js) to see the behavior of codehash:
 
 ```solidity!
-contract TestHash {  
+contract TestHash {
     function getHash()
          external
          view
-         returns (bytes32) {            
-            // random address with no balance or code            
-            return address(101).codehash;// returns 0x000...000    
-    }    
+         returns (bytes32) {
+            // random address with no balance or code
+            return address(101).codehash;// returns 0x000...000
+    }
 
     function hashOfNonEmptyWallet()
         external
         view
-        returns (bytes32) {            
-            // tx.origin has a non-zero ether balance            
-            return tx.origin.codehash; 
-             // returns a non-zero hash    
-    }    
+        returns (bytes32) {
+            // tx.origin has a non-zero ether balance
+            return tx.origin.codehash;
+             // returns a non-zero hash
+    }
 
-    // observe that `keccakNil` and `hashOfNonEmptyWallet`    
-    // return the same value    
+    // observe that `keccakNil` and `hashOfNonEmptyWallet`
+    // return the same value
     function keccakNil()
         external
         pure
-        returns (bytes32) {        
-            return keccak256("");    
-    }    
+        returns (bytes32) {
+            return keccak256("");
+    }
 
-    // Deploy SomeTestContract and put its address in    
-    // codeHashOtherContract to test it    
+    // Deploy SomeTestContract and put its address in
+    // codeHashOtherContract to test it
     function codeHashOtherContract(
         address _a
     )
         external
         view
-        returns (bool) {        
+        returns (bool) {
             // returns true because the codehash
-            // of another contract        
-            // is equal to the `keccak256` of its bytecode        
-            return a.codehash == keccak256(a.code);    
+            // of another contract
+            // is equal to the `keccak256` of its bytecode
+            return a.codehash == keccak256(a.code);
     }
 }
 
-contract SomeTestContract {    
+contract SomeTestContract {
     function someFunction()
         external
         pure
-        returns (uint256) {        
-            return 5;    
+        returns (uint256) {
+            return 5;
     }
 }
 ```
@@ -171,14 +171,14 @@ It is far simpler to check `code.length`.
 Can you get the following contract to return true when `puzzle` is called and not revert?
 
 ```solidity!
-contract Puzzle {        
+contract Puzzle {
     function puzzle()
         external
         view
-        returns (bool success) {                
-            require(msg.sender != tx.origin);                
-            require(msg.sender.code.length == 0);                
-            success = true;        
+        returns (bool success) {
+            require(msg.sender != tx.origin);
+            require(msg.sender.code.length == 0);
+            success = true;
     }
 }
 ```
