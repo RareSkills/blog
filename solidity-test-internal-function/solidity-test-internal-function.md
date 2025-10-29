@@ -1,6 +1,6 @@
 # Solidity test internal function
 
-To test an internal solidity function, create a child contract that inherits from the contract being tested, wrap the parent contract’s internal function with an external one, then test the external function in the child.
+To test an internal Solidity function, create a child contract that inherits from the contract being tested, wrap the parent contract’s internal function with an external one, then test the external function in the child.
 
 [Foundry](https://www.rareskills.io/post/foundry-testing-solidity) calls this inheriting contract a "harness" though others call it a "fixture."
 
@@ -62,12 +62,12 @@ contract InternalFunction {
 }
 ```
 
-It could be tempting to simply override it on the the fixture for convenience, but this is not advisable since you end up duplicating code and if your implementation in the harness diverges from the parent contract, you won’t be actually testing your business logic anymore.
+It could be tempting to simply override it on the fixture for convenience, but this is not advisable since you end up duplicating code and if your implementation in the harness diverges from the parent contract, you won’t be actually testing your business logic anymore.
 
 Note that this method forces us to copy and paste the original code:
 
 ```solidity
-contract InternalFunctionHarness in InternalFunction {
+contract InternalFunctionHarness is InternalFunction {
 
 	function calculateReward(uint256 depositTime) **external** view override returns (uint256 reward) {
 		reward = (block.timestamp - depositTime) \* REWARD\_RATE\_PER\_SECOND;
@@ -75,9 +75,9 @@ contract InternalFunctionHarness in InternalFunction {
 }
 ```
 
-## What about testing private solidity functions?
+## What about testing private Solidity functions?
 
-There is no way to test private functions in solidity as they are not visible to the child contract. The distinction between an internal function and a private function doesn’t exist after the contract is compiled. Therefore, you can change private functions to be internal with no negative effect on the gas cost.
+There is no way to test private functions in Solidity as they are not visible to the child contract. The distinction between an internal function and a private function doesn’t exist after the contract is compiled. Therefore, you can change private functions to be internal with no negative effect on the gas cost.
 
 As an exercise for the reader, benchmark the following code to see that changing `foo` to be internal does not affect the gas cost.
 
@@ -103,8 +103,8 @@ contract B is A {
 
 ## Learn more
 
-See our advanced [solidity bootcamp](https://www.rareskills.io/solidity-bootcamp) to learn more advanced testing methodologies.
+See our advanced [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp) to learn more advanced testing methodologies.
 
-We also have a free [solidity tutorial](https://www.rareskills.io/learn-solidity) to get you started.
+We also have a free [Solidity tutorial](https://www.rareskills.io/learn-solidity) to get you started.
 
 *Originally Published April 6, 2023*
