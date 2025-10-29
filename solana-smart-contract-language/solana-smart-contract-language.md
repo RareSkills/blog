@@ -19,7 +19,7 @@ This is actually a clever design choice on Solana’s part.
 
 ## User space vs kernel space
 
-Linux has a notion of kernel space and a user space. If you want to do things like open a file or start another process, your executable needs to ask the operating system to do that for it. Let’s say you write a python script to open a file and print out every even line. The actual loading of the file’s bytecode happens in kernel space, but once the bytecode is given to the script, the interpretation to ASCII and determining if a line number is even or odd happens in userspace.
+Linux has a notion of kernel space and a user space. If you want to do things like open a file or start another process, your executable needs to ask the operating system to do that for it. Let’s say you write a python script to open a file and print out every even line. The actual loading of the file’s bytecode happens in kernel space, but once the bytecode is given to the script, the interpretation to ASCII and determining if a line number is even or odd happens in user space.
 
 This abstraction exists for several reasons, but one obvious one is security. Not every user or executable should be able to open or execute arbitrary files. The operating system determines which “APIs” are permitted. (By the way, the “API” to open a file is technically called a “system call” in operating system speak).
 
@@ -27,13 +27,13 @@ Similarly, programs and executables should not be allowed to arbitrarily access 
 
 One important concept must be emphasized here: transitioning back and forth between user space and kernel space is generally slow.
 
-If you are filtering incoming internet packets, then that is a ***lot*** of jumps back and forth from userspace and kernel space. Imagine copying every incoming packet from kernel space to user space. That would create a lot of overhead.
+If you are filtering incoming internet packets, then that is a ***lot*** of jumps back and forth from user space and kernel space. Imagine copying every incoming packet from kernel space to user space. That would create a lot of overhead.
 
 This is why BPF was invented. You can run executables inside the kernel space to avoid this jumping.
 
 But if you know anything about having kernel privileges, you know this is extremely dangerous! Having control over the kernel (operating system) could cause the computer to crash if there is a bug. Worse, if malicious code gets executed, the damage is limitless.
 
-Of course, the BPF designers thought of this. Before BPF code is executed, it gets validated to ensure that it runs for a fixed amount of time, I.e. must terminate, can only access a designated memory area, and follows other suitable restrictions.
+Of course, the BPF designers thought of this. Before BPF code is executed, it gets validated to ensure that it runs for a fixed amount of time, i.e. must terminate, can only access a designated memory area, and follows other suitable restrictions.
 
 As an aside, since its invention, BPF has expanded its use beyond just filtering packets, but its name has stuck.
 
@@ -51,7 +51,7 @@ You can use C or C++ as a Solana programming language, but you will get far less
 
 ## How much Rust do you need to know to program Solana?
 
-Not that much, but it still requires some study. Rust is not a language that you can “google your way through.” For example, suppose you are programming in ruby from a java or scala background. In that case, you can pretty easily ask google for the equivalent programming patterns (your code might not look idiomatic, but it will be readable and functional). If (when) you copy and paste code from Stackoverflow, you’ll still have a good intuition about what the code is doing.
+Not that much, but it still requires some study. Rust is not a language that you can “google your way through.” For example, suppose you are programming in Ruby from a Java or Scala background. In that case, you can pretty easily ask google for the equivalent programming patterns (your code might not look idiomatic, but it will be readable and functional). If (when) you copy and paste code from Stack Overflow, you’ll still have a good intuition about what the code is doing.
 
 However, if you do this with Rust, you will run into some frustrating roadblocks. Rust has syntax that is hard to look up (try looking up a “#” in the search engine), and it has concepts that aren’t found in other programming languages.
 
@@ -67,11 +67,11 @@ If you want the exact workflow, it’s documented visually on the [seahorse-lang
 
 Solana programs usually aren’t written in raw Rust; most developers use the Anchor Framework. Therefore, although Seahorse does fairly typical transpilation, it’s also taking advantage of planned framework similarities.
 
-The Seahorse Framework closely models the Anchor Framework so that the python code can be translated into Rust code that closely models the way it would be written in an Anchor framework.
+The Seahorse Framework closely models the Anchor Framework so that the Python code can be translated into Rust code that closely models the way it would be written in an Anchor framework.
 
 Note that this project is in beta right now.
 
-## Does Solana use solidity?
+## Does Solana use Solidity?
 
 Yes, it is possible to write Solana applications in Solidity but somewhat experimental. The [solang solidity compiler](https://solang.readthedocs.io/en/latest/) was built to support compiling Solidity to BPF.
 
@@ -89,10 +89,10 @@ Want to master Ethereum development? See our [Solidity Bootcamp](https://www.rar
 
 ### Resources
 
-[https://www.kernel.org/doc/html/latest/bpf/instruction-set.html](https://www.kernel.org/doc/html/latest/bpf/instruction-set.html)  
-[https://docs.rs/solana_rbpf/latest/solana_rbpf/ebpf/index.html](https://docs.rs/solana_rbpf/latest/solana_rbpf/ebpf/index.html)  
-[https://www.youtube.com/watch?v=5jQvuPWpzcE](https://www.youtube.com/watch?v=5jQvuPWpzcE)  
-[https://ebpf.io/what-is-ebpf/](https://ebpf.io/what-is-ebpf/)  
+[https://www.kernel.org/doc/html/latest/bpf/instruction-set.html](https://www.kernel.org/doc/html/latest/bpf/instruction-set.html)
+[https://docs.rs/solana_rbpf/latest/solana_rbpf/ebpf/index.html](https://docs.rs/solana_rbpf/latest/solana_rbpf/ebpf/index.html)
+[https://www.youtube.com/watch?v=5jQvuPWpzcE](https://www.youtube.com/watch?v=5jQvuPWpzcE)
+[https://ebpf.io/what-is-ebpf/](https://ebpf.io/what-is-ebpf/)
 [https://www.youtube.com/watch?v=Q8eY67hDvkc](https://www.youtube.com/watch?v=Q8eY67hDvkc)
 
 *Originally Published Dec 1, 2022*
