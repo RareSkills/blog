@@ -1,4 +1,4 @@
-# The staking algorithm of Sushiswap MasterChef and Synthetix
+# The staking algorithm of SushiSwap MasterChef and Synthetix
 
 The MasterChef and Synthetix staking algorithms distribute a fixed reward pool among stakers according to their time-weighted contributions to a pool. To save on gas, the algorithms use a cumulative counter of token-level reward and defer the reward distribution.
 
@@ -30,7 +30,7 @@ The staked token and staking reward may or may not be the same currency. For sak
 
 ## Sending a transaction every block to distribute a reward is impractical
 
-The naïve solution would be to have an offchain bot send transactions every block to read the stated balances of TOKEN for each of the stakers in the contract and mint them each REWARD according to their percentage of the pool.
+The naïve solution would be to have an off-chain bot send transactions every block to read the stated balances of TOKEN for each of the stakers in the contract and mint them each REWARD according to their percentage of the pool.
 
 However, there is no reliable way to get transactions included in each block. If the bot misses one block, then the users will get less reward than they are expecting.
 
@@ -54,7 +54,7 @@ That problem turns out to be easy to solve.
 
 ## Key invariant: no transactions, no balance changes
 
-Instead of having a bot fire of transactions every 20 blocks or so, we can just wait for a user to interact with the contract via state changing functions like **`deposit()`** or **`withdraw()`**.
+Instead of having a bot fire off transactions every 20 blocks or so, we can just wait for a user to interact with the contract via state changing functions like **`deposit()`** or **`withdraw()`**.
 
 **Between calls to these functions, we can be sure nobody’s balance changed.**
 
@@ -70,11 +70,11 @@ However, this solution doesn’t scale.
 
 ## Looping over all the stakers is gas-intensive
 
-Distributing every staker their REWARD whenever someone calls **`deposit()`** or **`withdraw()`** will be very gas expensive if there are dozens of stakers. Transferring and ERC 20 token isn’t cheap, and doing it dozens of times in a loop is prohibitive.
+Distributing every staker their REWARD whenever someone calls **`deposit()`** or **`withdraw()`** will be very gas expensive if there are dozens of stakers. Transferring and ERC-20 token isn’t cheap, and doing it dozens of times in a loop is prohibitive.
 
 **To do this staking efficiently, people can only get rewards transferred to them if they initiate a state changing transaction. For those who don’t claim their rewards, their rewards are deferred. The rewards sit in the contract waiting to be claimed by them.**
 
-This will prevent us from having to do a bunch of ERC 20 transfers.
+This will prevent us from having to do a bunch of ERC-20 transfers.
 
 To have an efficient solution:
 
@@ -94,7 +94,7 @@ This is a bit like saying “a dollar saved in our bank has earned $0.40 in inte
 This leads us to two questions:
 
 1.  How do we track reward accruals for a single token since the beginning of time.
-    
+
 2.  What if Alice has not been staking since the beginning of time, but only deposited recently
 
 ## How we track reward accruals for a single token since the beginning of time
@@ -114,7 +114,7 @@ Consider the following hypothetical example.
 
 The more tokens staked, the less reward **per token** per block. Larger stakes dilute the reward, and a single token earns less as a consequence.
 
-The table is plotted visually below. The <span style="color:Red">red</span> plot is the supply of tokens staked. The <span style="color:#8d28a4">purple line</span> is the amount of reward that accrues to a single token in that block. Blocks move to the right on the x axis. The inverse relationship between the two variables should be clear.
+The table is plotted visually below. The <span style="color:Red">red</span> plot is the supply of tokens staked. The <span style="color:#8d28a4">purple line</span> is the amount of reward that accrues to a single token in that block. Blocks move to the right on the x-axis. The inverse relationship between the two variables should be clear.
 
 ![inverse relationship between rewards per token and amount of tokens staked](https://static.wixstatic.com/media/935a00_7d3ee1afee8f434f8980603ec2fe1739~mv2.jpg/v1/fill/w_740,h_378,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_7d3ee1afee8f434f8980603ec2fe1739~mv2.jpg)
 
