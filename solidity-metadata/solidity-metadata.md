@@ -1,10 +1,10 @@
 # Understanding smart contract metadata
 
-When solidity generates the bytecode for the smart contract to be deployed, it appends metadata about the compilation at the end of the bytecode. We will examine the data contained in this bytecode.
+When Solidity generates the bytecode for the smart contract to be deployed, it appends metadata about the compilation at the end of the bytecode. We will examine the data contained in this bytecode.
 
 ## A simple smart contract
 
-Let's look at the compiler output of the simplest possible solidity smart contract
+Let's look at the compiler output of the simplest possible Solidity smart contract
 
 ```solidity
 //SPDX-License-Identifier: MIT
@@ -37,7 +37,7 @@ That is much smaller! So what is all that extra information?
 
 ## Solidity Metadata
 
-By default, the solidity compiler appends metadata at the end of the "actual" initcode, which gets stored to the blockchain when the constructor finishes executing. Here is the "extra" code below:
+By default, the Solidity compiler appends metadata at the end of the "actual" init code, which gets stored to the blockchain when the constructor finishes executing. Here is the "extra" code below:
 
 ```
 fea26469706673582212203082dbb4f4db7e5d53b235f44d3e38f839dc82075e2cda9df05b88e6585bca8164736f6c63430008140033
@@ -49,7 +49,7 @@ The last two bytes `0033` mean "look backward 0x33 bytes, that is the metadata."
 # fe and 0033 are not included
 >>>hex(len('a26469706673582212203082dbb4f4db7e5d53b235f44d3e38f839dc82075e2cda9df05b88e6585bca8164736f6c6343000814') // 2)
 # '0x33'
-```  
+```
 So what is this 0x33 (51 decimal) string?
 
 We can get a hint if we make one tiny, seemingly inconsequential change to the source code. The change is literally just an additional comment.
@@ -66,7 +66,7 @@ contract Empty {
 
 The following screenshot is a before and after.
 
-![solidity compiler metadata](https://static.wixstatic.com/media/935a00_d1bce3ed1fc943c88f39ea2cabaebbce~mv2.png/v1/fill/w_740,h_305,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_d1bce3ed1fc943c88f39ea2cabaebbce~mv2.png)  
+![Solidity compiler metadata](https://static.wixstatic.com/media/935a00_d1bce3ed1fc943c88f39ea2cabaebbce~mv2.png/v1/fill/w_740,h_305,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_d1bce3ed1fc943c88f39ea2cabaebbce~mv2.png)
 You can see the underlined sections have changed even though the code functionality has not changed. We will explain the code in the boxes in the next section.
 
 ## Decoding the metadata
@@ -87,7 +87,7 @@ Next let's look at the code in the red box
 'solc'
 ```
 
-That gives us a clue about what this data contains: an IPFS hash and the solidity compiler version.
+That gives us a clue about what this data contains: an IPFS hash and the Solidity compiler version.
 
 ### The IPFS Hash
 
@@ -106,7 +106,7 @@ The `Qm...RTEa` is the IPFS hash of the metadata file produced by the compiler. 
 
 This is the IPFS hash you would get if you put the JSON file from the Solidity compiler onto IPFS. Here is the JSON file in question.
 
-![solidity json metadata](https://static.wixstatic.com/media/935a00_80e6f02f714f482e9b43af7b1ec9d761~mv2.png/v1/fill/w_740,h_256,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_80e6f02f714f482e9b43af7b1ec9d761~mv2.png)  
+![Solidity json metadata](https://static.wixstatic.com/media/935a00_80e6f02f714f482e9b43af7b1ec9d761~mv2.png/v1/fill/w_740,h_256,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_80e6f02f714f482e9b43af7b1ec9d761~mv2.png)
 We can store the JSON file as an actual file and then validate the hash matches the one we produced in python above. You will need the ipfs commandline tool installed ([how to install](https://docs.ipfs.tech/install/command-line/#install-official-binary-distributions)).
 
 ```shell
@@ -116,16 +116,16 @@ solc --optimize-runs 1000 --bin --metadata C.sol --output-dir out
 
 ipfs add -qr --only-hash out/Empty_meta.json
 # QmVW2XyafSxDtiSqirJRauuT5SaQtGnQYsxxyYHrFmRTEa
-```   
+```
 This matches the hash from earlier.
 
 #### Won't this cause hash collisions?
 
 If two contracts with identical source code and compiler configurations store their verified source code on IPFS, the IPFS hashes will collide, but this is desirable because it actually saves storage space. The smart contracts are uniquely identified by the combination of the chain id and their address, not the IPFS content.
 
-### Getting the solidity version
+### Getting the Solidity version
 
-Finally, if we convert the section in the orange box, we see the solidity version.
+Finally, if we convert the section in the orange box, we see the Solidity version.
 
 ```python
 >>> 0x00 # solidity is version 0
@@ -139,10 +139,10 @@ Finally, if we convert the section in the orange box, we see the solidity versio
 
 ## Why does smart contract metadata exist?
 
-This metadata adds an extra 53 bytes to the deployment cost, which translates to an extra 10,600 gas (200 per bytecode) + the calldata cost (16 gas per non-zero bytes, 4 gas per zero-byte). This translates to up to 848 additional gas in calldata cost.  
+This metadata adds an extra 53 bytes to the deployment cost, which translates to an extra 10,600 gas (200 per bytecode) + the calldata cost (16 gas per non-zero bytes, 4 gas per zero-byte). This translates to up to 848 additional gas in calldata cost.
 So why include it?
 
-This enables smart contract code to be rigorously verified. The metadata JSON the compiler output includes a hash of the source code. So if the source code changes a little bit, the the metadata JSON file will change and its IPFS hash will change.
+This enables smart contract code to be rigorously verified. The metadata JSON the compiler output includes a hash of the source code. So if the source code changes a little bit, the metadata JSON file will change and its IPFS hash will change.
 
 ## One weird trick to lower gas via IPFS hash
 
@@ -150,7 +150,7 @@ One obvious way to [optimize gas cost](https://www.rareskills.io/post/gas-optimi
 
 ## Further resources
 
-You can see all the options for manipulating this metadata in the relevant [solidity documentation](https://docs.soliditylang.org/en/latest/metadata.html). [Sourcify](https://playground.sourcify.dev/) provides a tool parse the metadata of existing smart contracts.
+You can see all the options for manipulating this metadata in the relevant [Solidity documentation](https://docs.soliditylang.org/en/latest/metadata.html). [Sourcify](https://playground.sourcify.dev/) provides a tool to parse the metadata of existing smart contracts.
 
 ## Learn More
 
