@@ -10,7 +10,7 @@ A security issue in Solidity boils down to smart contracts not behaving the way 
 - Funds getting locked up or frozen inside a contract
 - People receive less rewards than anticipated (rewards are delayed or reduced)
 - People receive more rewards than anticipated (leading to inflation and devaluation)
-    
+
 It isn't possible to make a comprehensive list of everything that can go wrong. However, just as traditional software engineering has common themes of vulnerabilities such as SQL injection, buffer overruns, and cross site scripting, smart contracts have recurring anti-patterns that can be documented.
 
 ## Smart contract hacks and vulnerabilities
@@ -30,7 +30,7 @@ Whenever a smart contract calls the function of another smart contract, sends Et
 - When Ether is transferred, the receiving contract's fallback or receive function is called. This hands control over to the receiver.
 - Some token protocols alert the receiving smart contract that they have received the token by calling a predetermined function. This hands the control flow over to that function.
 - When an attacking contract receives control, it doesn't have to call the same function that handed over control. It could call a different function in the victim smart contract (cross-function reentrancy) or even a different contract (cross-contract reentrancy)
-- Read-only reentrancy happens when a view function is accessed while the contract is in an intermediate state.   
+- Read-only reentrancy happens when a view function is accessed while the contract is in an intermediate state.
 
 Despite reentrancy likely being the most well known smart contract vulnerability, it only makes up a small percentage of hacks that happen in the wild. Security researcher Pascal Caversaccio (pcaveraccio) keeps an up-to-date github [list of reentrancy attacks](https://github.com/pcaversaccio/reentrancy-attacks). As of April 2023, 46 reentrancy attacks have been documented in that repository.
 
@@ -61,7 +61,7 @@ function claimAirdrop(bytes32 calldata proof[]) {
 
     _transfer(msg.sender, AIRDROP_AMOUNT);
 }
-```   
+```
 In this case, "alreadyClaimed" is never set to true, so the claimant can issue call the function multiple times.
 
 ### Real life example: Trader bot exploited
@@ -89,7 +89,7 @@ contract UnsafeBank {
         require(balances[from] <= amount, "insufficient balance");
 
         balances[from] -= amount;
-        msg.sender.call{value: amout}("");
+        msg.sender.call{value: amount}("");
     }
 }
 ```
@@ -100,7 +100,7 @@ The contract above does check that you aren't withdrawing more than you have in 
 
 [Sushiswap](https://www.sushi.com/) experienced a hack of this type due to one of the parameters of an external function not being sanitized.
 
-![Sushiswap hack](https://static.wixstatic.com/media/935a00_d911babd98864e0f94170d5ec688fe26~mv2.png/v1/fill/w_740,h_492,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/935a00_d911babd98864e0f94170d5ec688fe26~mv2.png)   
+![Sushiswap hack](https://static.wixstatic.com/media/935a00_d911babd98864e0f94170d5ec688fe26~mv2.png/v1/fill/w_740,h_492,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/935a00_d911babd98864e0f94170d5ec688fe26~mv2.png)
 [https://twitter.com/peckshield/status/1644907207530774530](https://twitter.com/peckshield/status/1644907207530774530)
 
 ### What is the difference between improper access control and improper input validation?
@@ -113,11 +113,11 @@ Excessive validation probably means funds won't get stolen, but it could mean fu
 
 ### Real life example: Akutars NFT
 
-One of the most high-profile incidents was the Akutars NFT which ended up with 34 million dollars worth of Eth stuck inside the smart contract and unwithdrawable.   
+One of the most high-profile incidents was the Akutars NFT which ended up with 34 million dollars worth of Eth stuck inside the smart contract and unwithdrawable.
 
 The contract had a well-intentioned mechanism to prevent the owner of the contract from withdrawing until all refunds from paying above the dutch auction price had been given. But due to a bug documented in the Twitter thread linked below, the owner was unable to withdraw the funds.
 
-![Akutars NFT vulnerability](https://static.wixstatic.com/media/935a00_48d4c4da5e874a5cafe657d51b035cde~mv2.png/v1/fill/w_740,h_490,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/935a00_48d4c4da5e874a5cafe657d51b035cde~mv2.png)   
+![Akutars NFT vulnerability](https://static.wixstatic.com/media/935a00_48d4c4da5e874a5cafe657d51b035cde~mv2.png/v1/fill/w_740,h_490,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/935a00_48d4c4da5e874a5cafe657d51b035cde~mv2.png)
 [https://twitter.com/0xInuarashi/status/1517674505975394304](https://twitter.com/0xInuarashi/status/1517674505975394304)
 
 ### Getting the balance right
@@ -136,7 +136,7 @@ As stated in the introduction, there are four primary ways smart contracts get h
 - Money frozen
 - Insufficient rewards
 - Excessive rewards
-    
+
 "Money" here means anything of value, such as tokens, not just cryptocurrency. When coding or [auditing a smart contract](https://www.rareskills.io/post/smart-contract-audit), the developer must be conscientious of the intended ways value is to flow in and out of the contract. The issues listed above are the primary ways smart contracts get hacked, but there are a lot of other root causes that can cascade into major issues, which are documented below.
 
 ## Double voting or msg.sender spoofing
@@ -158,7 +158,7 @@ contract UnsafeBallot {
     constructor(IERC20 _governanceToken) {
         governanceToken = _governanceToken;
     }
-	
+
     function voteFor1() external notAlreadyVoted {
         proposal1VoteCount += governanceToken.balanceOf(msg.sender);
     }
@@ -195,7 +195,7 @@ contract SimpleFlashloan {
         // send tokens to the borrower
         token.transfer(msg.sender, amount);
 
-        // hand control back to the borrower to 
+        // hand control back to the borrower to
         // let them do something
         IBorrower(msg.sender).onFlashLoan();
 
@@ -209,7 +209,7 @@ An attacker can use a flashloan to suddenly gain a lot of votes to swing proposa
 
 ## Flashloan Price Attacks
 
-This is arguably the most common (or at least most high-profile) attack on DeFi, accounting for hundreds of millions of dollars lost. Here is a [list](https://www.immunebytes.com/blog/top-10-flash-loan-attacks/) of high profile ones.   
+This is arguably the most common (or at least most high-profile) attack on DeFi, accounting for hundreds of millions of dollars lost. Here is a [list](https://www.immunebytes.com/blog/top-10-flash-loan-attacks/) of high profile ones.
 
 The price of an asset on the [blockchain](https://www.rareskills.io/web3-blockchain-bootcamps) is often calculated as the current exchange rate between assets. For example, if a contract is currently trading 1 USDC for 100 k9coin, then you could say k9coin has a price of 0.01 USDC. However, prices generally move in response to buying and selling pressure, and flash loans can create massive buying and selling pressure.
 
@@ -217,7 +217,7 @@ When querying another smart contract about the price of an asset, the developer 
 
 ## Bypassing the contract check
 
-You can "check" if an address is a smart contract by looking at it's bytecode size. Externally owned accounts (regular wallets) don't have any bytecode. Here are a few ways of doing it
+You can "check" if an address is a smart contract by looking at its bytecode size. Externally owned accounts (regular wallets) don't have any bytecode. Here are a few ways of doing it
 
 ```solidity
 import "@openzeppelin/contracts/utils/Address.sol"
@@ -240,7 +240,7 @@ However, this has a few limitations
 
 - If a contract makes an external call from a constructor, then it's apparent bytecode size will be zero because the smart contract deployment code hasn't returned the runtime code yet
 - The space might be empty now, but an attacker might know they can deploy a smart contract there in the future using create2
-    
+
 In general checking if an address is a contract is usually (but not always) an antipattern. Multisignature wallets are smart contracts themselves, and doing anything that might break multisignature wallets breaks composability.
 
 The exception to this is checking if the target is a smart contract before calling a transfer hook. More on this later.
@@ -322,14 +322,14 @@ A smart contract can return a large memory array that consumes a lot of gas. Con
 function largeReturn() public {
 
     // result might be extremely long!
-    (book ok, bytes memory result) =     
+    (book ok, bytes memory result) =
         otherContract.call(abi.encodeWithSignature("foo()"));
-    
+
     require(ok, "call failed");
 }
 ```
 
-Memory arrays use up quadratic amount of gas after 724 bytes, so a carefully chosen return data size can grief the caller. 
+Memory arrays use up quadratic amount of gas after 724 bytes, so a carefully chosen return data size can grief the caller.
 
 Even if the variable result is not used, it is still copied to memory. If you want to restrict the return size to a certain amount, you can use assembly
 
@@ -337,13 +337,13 @@ Even if the variable result is not used, it is still copied to memory. If you wa
 function largeReturn() public {
     assembly {
         let ok := call(gas(), destinationAddress, value, dataOffset, dataSize, 0x00, 0x00);
-        // nothing is copied to memory until you 
+        // nothing is copied to memory until you
         // use returndatacopy()
     }
 }
 ```
 
-### Deleting arrays that others can add to is also an denial of service vector
+### Deleting arrays that others can add to is also a denial of service vector
 
 Although erasing storage is a gas-efficient operation, it still has a net cost. If an array becomes too long, it becomes impossible to delete. Here is a minimal example
 
@@ -439,7 +439,7 @@ It doesn't matter how you generate randomness because an attacker can replicate 
 
 Chainlink is a popular solution to get secure random numbers. It does it in two steps. First, the smart contracts sends a randomness request to the oracle, then some blocks later, the oracle responds with a random number.
 
-Since an attacker can't predict the future, they can't predict the random number.   
+Since an attacker can't predict the future, they can't predict the random number.
 Unless the smart contract uses the oracle wrong.
 
 - The smart contract requesting randomness must not do anything until the random number is returned. Otherwise, an attacker can monitor the mempool for the oracle returning the randomness and frontrun the oracle, knowing what the random number will be.
@@ -449,7 +449,7 @@ Unless the smart contract uses the oracle wrong.
 
 ## Getting stale data from a price Oracle
 
-There is no SLA (service level agreement) for Chainlink to keep it's price oracles up to date within a certain time frame. When the chain is severely congested (such as when the Yuga Labs [Otherside](https://opensea.io/collection/otherdeed) mint [overwhealmed Ethereum](https://decrypt.co/99256/bored-ape-creators-slammed-nightmare-ethereum-nft-land-drop) to the point of no transactions going through), the price updates might be delayed.
+There is no SLA (service level agreement) for Chainlink to keep its price oracles up to date within a certain time frame. When the chain is severely congested (such as when the Yuga Labs [Otherside](https://opensea.io/collection/otherdeed) mint [overwhelmed Ethereum](https://decrypt.co/99256/bored-ape-creators-slammed-nightmare-ethereum-nft-land-drop) to the point of no transactions going through), the price updates might be delayed.
 
 A smart contract that uses a price oracle must explicitly check the data is not stale, I.e. has been updated recently within some threshold. Otherwise, it cannot make a reliable decision with respect to prices.
 
@@ -549,7 +549,7 @@ This code is insecure for three reasons:
 1. Anyone who knows the addresses that are selected for the airdrop can recreate the merkle tree and create a valid proof.
 2. The leaf isn't hashed. An attacker can submit a leaf that equals the merkle root and bypass the require statement.
 3. Even if the above two issues are fixed, once someone submits a valid proof, they can be frontrun.
-    
+
 Cryptographic proofs (merkle trees, signatures, etc) need to be tied to `msg.sender`, which an attacker cannot manipulate without acquiring the private key.
 
 ## Solidity does not upcast to the final uint size
@@ -611,7 +611,7 @@ Solidity does not check if it is safe to cast an integer to a smaller one. Unles
 ```solidity
 function test(int256 value) public pure returns (int8) {
     return int8(value + 1); // overflows and does not revert
-} 
+}
 ```
 ## Writes to storage pointers don't save new data.
 
@@ -627,7 +627,7 @@ contract DoesNotWrite {
     function moveToSlot0() external {
         Foo storage foo = myArray[0];
         foo = myArray[1]; // myArray[0] is unchanged
-        // we do this to make the function a state 
+        // we do this to make the function a state
         // changing operation
         // and silence the compiler warning
         myArray[1] = Foo({bar: 100});
@@ -663,7 +663,7 @@ contract NestedDelete {
     }
 
     function deleteFoo(uint256 i) external {
-        // internal map still holds the data in the 
+        // internal map still holds the data in the
         // mapping and array
         delete buzz[i];
     }
@@ -676,7 +676,7 @@ Now let's do the following transaction sequence
 2. `getFromFoo(1)` returns 6
 3. `deleteFoo(1)`
 4. `getFromFoo(1)` still returns 6!
-    
+
 Remember, maps are never "empty" in Solidity. So if someone accesses an item which has been deleted, the transaction will not revert but instead return the zero value for that datatype.
 
 ## ERC20 token issues
@@ -685,7 +685,7 @@ If you only deal with trusted ERC20 tokens, most of these issues do not apply. H
 
 ### ERC20: Fee on transfer
 
-When dealing with untrusted tokens, you shouldn't assume that your balance necessarily increases by the amount. It is possible for an ERC20 token to implement it's transfer function as follows:
+When dealing with untrusted tokens, you shouldn't assume that your balance necessarily increases by the amount. It is possible for an ERC20 token to implement its transfer function as follows:
 
 ```solidity
 contract ERC20 {
@@ -753,7 +753,7 @@ contract WillBreak {
         amount = balanceHeld[msg.sender];
         delete balanceHeld[msg.sender];
 
-        // ERROR, amount might exceed the amount 
+        // ERROR, amount might exceed the amount
         // actually held by the contract
         rebasingToken.transfer(msg.sender, amount);
     }
@@ -766,11 +766,11 @@ The solution of many contracts is to simply disallow rebasing tokens. However, o
 
 ERC20, if implemented according to the standard, ERC20 tokens do not have transfer hooks, and thus `transfer` and `transferFrom` do not have a reentrancy issue.
 
-There are meaningful advantages to tokens with transfer hooks, which is why all NFT standards implement them, and why ERC777 was finalized. However, it's caused enough confusion that Openzeppelin [deprecated](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/4066) the ERC777 library.
+There are meaningful advantages to tokens with transfer hooks, which is why all NFT standards implement them, and why ERC777 was finalized. However, it's caused enough confusion that OpenZeppelin [deprecated](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/4066) the ERC777 library.
 
 If you want your protocol to be compatible with tokens that behave like ERC20 tokens but have transfer hooks, then it's a simple matter of treating the functions `transfer` and `transferFrom` like they will issue a function call to the receiver.
 
-This ERC777 re-entrancy happened to Uniswap (Openzeppelin documented the exploit [here](https://blog.openzeppelin.com/exploiting-uniswap-from-reentrancy-to-actual-profit/) if you are curious).
+This ERC777 re-entrancy happened to Uniswap (OpenZeppelin documented the exploit [here](https://blog.openzeppelin.com/exploiting-uniswap-from-reentrancy-to-actual-profit/) if you are curious).
 
 ### ERC20: Not all ERC20 tokens return true
 
@@ -782,17 +782,17 @@ There is an implicit expectation in many contracts that failed transfers should 
 
 Further complicating this matter is that some ERC20 tokens don't follow the protocol of returning true, notably Tether. Some tokens revert on a failure to transfer, which will cause the revert to bubble up to the caller. Thus, some libraries wrap ERC20 token transfer calls to intercept the revert and return a boolean instead. Here are some implementations
 
-[Openzeppelin SafeTransfer](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/utils/SafeERC20.sol)   
+[OpenZeppelin SafeTransfer](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/utils/SafeERC20.sol)
 [Solady SafeTransfer](https://github.com/Vectorized/solady/blob/main/src/utils/SafeTransferLib.sol) (considerably more gas efficient)
 
 ### ERC20: Address Poisoning
 
-This is not a smart contract vulnerability, but we mention it here for completeness.   
+This is not a smart contract vulnerability, but we mention it here for completeness.
 Transferring zero ERC20 tokens is permitted by the specification. This can lead to confusion for frontend applications, and possible trick users about who they recently sent tokens to. [Metamask](https://metamask.io/) has more on that in this [thread](https://twitter.com/MetaMaskSupport/status/1613255316870729728).
 
 ### ERC20: Just flat out rugged
 
-(In web3 parlance "rugged" means "having the rug pulled out from under you.")   
+(In web3 parlance "rugged" means "having the rug pulled out from under you.")
 There's nothing stopping someone from adding a function to an ERC20 token that lets them create, transfer, and burn tokens at will — or selfdestructing or upgrading. So fundamentally, there is a limit to how "untrusted" an ERC20 token can be.
 
 ## Logic bugs in lending protocols
@@ -805,7 +805,7 @@ When considering how lending and borrowing based DeFi protocols can break, it's 
 - The buyer's collateral cannot be liquidated when the loan is not paid back or the collateral drops below the threshold.
 - If the protocol has a mechanism for transferring debt ownership, this could be a vector for stealing bonds from lenders.
 - The due date of the loan principal or payments is improperly moved to a later date.
-    
+
 ### Ways borrowers lose out
 
 - A bug where paying back the principal does not lead to principal reduction.
@@ -830,13 +830,13 @@ The kind of hacks that make the news are staking protocols getting hacked for mi
 - If the payout is in a different asset or currency, can the value of it be manipulated within the scope of the smart contract in question? This is relevant if the protocol mints its own tokens to reward liquidity providers or stakers.
 - If there is an expected and disclosed element of risk of losing principal staking, can that risk be improperly manipulated?
 - Do key parameters of the protocol have admin, centralization, or governance risk?
-    
+
 The key areas to look are the areas of the code that touch the "money exit" portions of the code.
 
 There is a "money entrance" vulnerability to look for too.
 
 - Can users who have a right to participate in staking assets in the protocol be improperly prevented from doing so?
-    
+
 Rewards users receive have an implicit risk-reward profile and an expected time-value of money aspect. It's helpful to be explicit about what those assumptions are and how the protocol could be caused to deviate from expectations.
 
 ## Unchecked return values
@@ -906,7 +906,7 @@ const PRIVATE_VAR_EXAMPLE_ADDRESS = "0x123..."; // Replace with your contract ad
 
 async function readPrivateVar() {
   const web3 = new Web3("http://localhost:8545"); // Replace with your provider's URL
-  
+
   // Read storage slot 0 (where 'myPrivateVar' is stored)
   const storageSlot = 0;
   const privateVarValue = await web3.eth.getStorageAt(
@@ -917,7 +917,7 @@ async function readPrivateVar() {
   console.log("Value of private variable 'myPrivateVar':",
   web3.utils.hexToNumberString(privateVarValue));
 }
-    
+
 readPrivateVar();
 ```
 
@@ -944,7 +944,7 @@ contract UntrustedDelegateCall {
 
 contract StealEther {
     function steal() public {
-        // you could also selfdestruct here 
+        // you could also selfdestruct here
         // if you really wanted to be mean
         (bool ok,) = tx.origin.call{value: address(this).balance}("");
         require(ok);
@@ -960,7 +960,7 @@ contract StealEther {
 
 ## Upgrade bugs related to proxies
 
-We can't do justice to this topic in a single section. Most upgrade bugs can be generally avoided by using the hardhat plugin from Openzeppelin and reading about what issues it protects against. ([https://docs.openzeppelin.com/upgrades-plugins/1.x/](https://docs.openzeppelin.com/upgrades-plugins/1.x/)).
+We can't do justice to this topic in a single section. Most upgrade bugs can be generally avoided by using the hardhat plugin from OpenZeppelin and reading about what issues it protects against. ([https://docs.openzeppelin.com/upgrades-plugins/1.x/](https://docs.openzeppelin.com/upgrades-plugins/1.x/)).
 
 As a quick summary, here are issues related to smart contract upgrades:
 
@@ -1019,7 +1019,7 @@ contract UnprotectedWithdraw {
         (bool ok, ) = msg.sender.call{value: address(this).value}("");
         require(ok, "transfer failed").
     }
-} 
+}
 ```
 
 If you deploy this contract and try to withdraw, a frontrunner bot will notice your call to "unsafeWithdraw" in the mempool and copy it to get the Ether first.
@@ -1036,8 +1036,8 @@ function getShares(...) external {
 }
 ```
 
-Of course, nobody will contribute assets and get no shares back, but they can't predict that will happen if someone can frontruns the trade to get the shares.  
- 
+Of course, nobody will contribute assets and get no shares back, but they can't predict that will happen if someone can frontruns the trade to get the shares.
+
 For example, they contributes 200 assets when the pool has 20, they expect to get 100 shares. But if someone frontruns the transaction to deposit 200 assets, then the formula will be 200 / 220, which rounds down to zero, causing the victim to lose assets and get zero shares back.
 
 ### Frontrunning: ERC20 approval
@@ -1050,7 +1050,7 @@ It's best to illustrate this with a real example rather than describe it in the 
 4. Eve sends a transaction to claim her 100 tokens to frontrun the approval for 50.
 5. The approval for 50 goes through
 6. Eve collects the 50 tokens.
-    
+
 Now Eve has 150 tokens instead of 100 or 50. The solution to this is to set the approval to zero before increasing or decreasing it, when dealing with untrusted approvals.
 
 ### Frontrunning: Sandwich attacks
@@ -1060,7 +1060,7 @@ The price of an asset moves in response to buying and selling pressure. If a lar
 1. frontrun buy
 2. large buy
 3. sell
-    
+
 The primary defense against this attack is to provide a "slippage" parameter. If the "frontrun buy" itself pushes the price up past a certain threshold, the "large buy" order will revert making the frontrunner fail on the trade. See this resource for additional bugs and [vulnerabilities related to slippage](https://dacian.me/defi-slippage-attacks).
 
 It's called a sandwhich, because the large buy is sandwhiched by the frontrun buy and the backrun sell. This attack also works with large sell orders, just in the opposite direction.
@@ -1069,7 +1069,7 @@ It's called a sandwhich, because the large buy is sandwhiched by the frontrun bu
 
 Frontrunning is a massive topic. [Flashbots](https://www.flashbots.net/) has researched the topic extensively and published several tools and research articles to help minimize it's negative externalities. Whether frontrunning can be "designed away" with proper blockchain architecture is a subject for debate which has not been conclusively settled. The following two articles are enduring classics on the subject:
 
-[Ethereum is a dark forest](https://www.paradigm.xyz/2020/08/ethereum-is-a-dark-forest)    
+[Ethereum is a dark forest](https://www.paradigm.xyz/2020/08/ethereum-is-a-dark-forest)
 [Escaping the dark forest](https://samczsun.com/escaping-the-dark-forest/)
 
 ## Signature Related
@@ -1123,7 +1123,7 @@ The other two essential components of a signature are the message hash (32 bytes
 3. An offchain user hashes a message and signs the hash. This produces the pair `msgHash` and the `signature (r, s, v)`
 4. The smart contract receives a message, hashes it to produce `msgHash`, then combines it with `(r, s, v)` to see what address comes out.
 5. If the address matches `ethAddress`, the signature is valid (under certain assumptions which we will see soon!)
-    
+
 Smart contracts use the [precompiled contract](https://www.rareskills.io/post/solidity-precompiles) ecrecover in step 4 to do what we called the combination and get the address back.
 
 There are a lot of steps in this process where things can go sideways.
@@ -1137,7 +1137,7 @@ This code is vulnerable
 ```solidity
 contract InsecureContract {
 
-    address signer; 
+    address signer;
     // defaults to address(0)
     // who lets us give the beneficiary the airdrop without them
     // spending gas
@@ -1178,7 +1178,7 @@ We could add the following lines
 
 ```solidity
 bytes memory signature = abi.encodePacked(v, r, s);
-require(!used[signature], "signature already used"); 
+require(!used[signature], "signature already used");
 // mapping(bytes => bool);
 used[signature] = true;
 ```
@@ -1201,7 +1201,7 @@ contract Malleable {
         address a = ecrecover(h, v, r, s);
 
 
-        // The following is math magic to invert the 
+        // The following is math magic to invert the
         // signature and create a valid one
         // flip s
         bytes32 s2 = bytes32(uint256(0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141) - uint256(s));
@@ -1213,7 +1213,7 @@ contract Malleable {
 
         address b = ecrecover(h, v2, r, s2);
 
-        assert(a == b); 
+        assert(a == b);
         // different signatures, same address!;
         return (a, b);
     }
@@ -1250,7 +1250,7 @@ You're probably wanting some secure signature code at this point, right? We refe
 - Don't use signatures as a password. The messages needs to contain information that attackers cannot easily re-use (e.g. msg.sender)
 - Hash what you are signing on-chain
 - Use a nonce to prevent replay attacks. Better yet, follow EIP712 so that users can see what they are signing and you can prevent signatures from being re-used between contracts and different chains.
-    
+
 ### Signatures can be forged or crafted without proper safeguards
 
 The attack above can be generalized further if hashing is not done on chain. In the examples above, the hashing was done in the smart contract, so the above examples are not vulnerable to the following exploit.
@@ -1269,12 +1269,12 @@ The user supplies both the hash and the signatures. If the attacker has already 
 
 This is why it is very important to hash the message **in the smart contract**, not off-chain.
 
-To see this exploit in action, see the CTF we posted on Twitter.  
-Original Challenge:  
-Part 1: [https://twitter.com/RareSkills_io/status/1650869999266037760](https://twitter.com/RareSkills_io/status/1650869999266037760)  
+To see this exploit in action, see the CTF we posted on Twitter.
+Original Challenge:
+Part 1: [https://twitter.com/RareSkills_io/status/1650869999266037760](https://twitter.com/RareSkills_io/status/1650869999266037760)
 Part 2: [https://twitter.com/RareSkills_io/status/1650897671543197701](https://twitter.com/RareSkills_io/status/1650897671543197701)
 
-Solutions:  
+Solutions:
 [https://twitter.com/RareSkills_io/status/1651527648676573185](https://twitter.com/RareSkills_io/status/1651527648676573185)    [https://twitter.com/RareSkills_io/status/1651224817465540611](https://twitter.com/RareSkills_io/status/1651224817465540611)
 
 ### Signatures as identifiers
@@ -1324,7 +1324,7 @@ fallback() external {
     }
 }
 
-```   
+```
 Gnosis Safe Fallback Function
 
 If you need to interact with a contract that uses transfer and send, see our article on [Ethereum access list transactions](https://www.rareskills.io/post/eip-2930-optional-access-list-ethereum) that allows you to reduce the gas cost of storage and contract access operations.
@@ -1335,7 +1335,7 @@ Solidity 0.8.0 has built in overflow and underflow protection. So unless an unch
 
 ## What about block.timestamp?
 
-Some literature documents that block.timestamp is a vulnerability vector because miners can manipulate it. This usually applies to using timestamps as a source of randomness, which should not be done anyway as documented earlier. Post-merge Ethereum updates the timestamp in exactly 12 second (or multiples of 12 second) intervals. However, measuring time in second-level granularity is an anti-pattern. On the scale of one minute, there is considerable opportunity for error if a validator misses their block slot and a 24 second gap in block production happens.  
+Some literature documents that block.timestamp is a vulnerability vector because miners can manipulate it. This usually applies to using timestamps as a source of randomness, which should not be done anyway as documented earlier. Post-merge Ethereum updates the timestamp in exactly 12 second (or multiples of 12 second) intervals. However, measuring time in second-level granularity is an anti-pattern. On the scale of one minute, there is considerable opportunity for error if a validator misses their block slot and a 24 second gap in block production happens.
 
 ## Corner Cases, Edge Cases, and Off By One Errors
 
@@ -1398,7 +1398,7 @@ contract ProportionalRewards {
 
 Although the code above doesn't show all the function implementations, even if the functions behave as their names describe, there is still a bug. Can you spot it? Here is a picture to give you some space to not see the answer before you scroll down.
 
-![Humorous image for distraction](https://static.wixstatic.com/media/935a00_ab1a5dba074a4fc19f3da012745f7f6e~mv2.png/v1/fill/w_600,h_600,al_c,lg_1,q_85,enc_auto/935a00_ab1a5dba074a4fc19f3da012745f7f6e~mv2.png)   
+![Humorous image for distraction](https://static.wixstatic.com/media/935a00_ab1a5dba074a4fc19f3da012745f7f6e~mv2.png/v1/fill/w_600,h_600,al_c,lg_1,q_85,enc_auto/935a00_ab1a5dba074a4fc19f3da012745f7f6e~mv2.png)
 Stop Scrolling
 
 The `removeFromArray` and `sendRewards` function are in the wrong order. If there is only one user in the stakers array, there will be a divide by zero error, and the user won't be able to withdraw their NFT. Furthermore, the rewards are probably not divided the way the author intends. If there were original four stakers, and one person withdraws, he will get a third of the rewards since the array length is 3 at the time of withdrawal.
@@ -1406,7 +1406,7 @@ The `removeFromArray` and `sendRewards` function are in the wrong order. If ther
 
 ### Corner Case Example 3: Compound Finance Reward Miscalculation
 
-Let's use a real example that by some estimates caused over \$100 million dollars of damage. Don't worry if you don't fully understand the Compound protocol, we will only focus on the relevant parts. (Also the Compound protocol is one of the most important and consequential protocols in the history of DeFi, we teach it in our [DeFi bootcamp](https://www.rareskills.io/defi-bootcamp), so if this is your first impression of the protocol, don't be misguided).   
+Let's use a real example that by some estimates caused over \$100 million dollars of damage. Don't worry if you don't fully understand the Compound protocol, we will only focus on the relevant parts. (Also the Compound protocol is one of the most important and consequential protocols in the history of DeFi, we teach it in our [DeFi bootcamp](https://www.rareskills.io/defi-bootcamp), so if this is your first impression of the protocol, don't be misguided).
 
 Anyway, the point of Compound is to reward users for lending their idle cryptocurrency to other traders who might have a use for it. The lenders are paid both in interest and in COMP tokens (the borrowers could claim a COMP token reward to, but we won't focus on that right now).
 
@@ -1501,7 +1501,7 @@ No Solidity code was exploited in this hack. Instead, the attackers obtain the C
 
 ### Private keys with insufficient randomness
 
-The motivation for discovering addresses with a lot of leading zeros is that they are more gas efficient to use. An Ethereum transaction is charged 4 gas for a zero byte in the transaction data and 16 gas for a non-zero byte. As such,   
+The motivation for discovering addresses with a lot of leading zeros is that they are more gas efficient to use. An Ethereum transaction is charged 4 gas for a zero byte in the transaction data and 16 gas for a non-zero byte. As such,
 Wintermute was hacked because it used the profanity address ([writeup](https://www.halborn.com/blog/post/explained-the-wintermute-hack-september-2022)). Here is 1inch's [writeup](https://blog.1inch.io/a-vulnerability-disclosed-in-profanity-an-ethereum-vanity-address-tool/) of how the profanity address generator was compromised.
 
 The trust wallet had a similar vulnerability documented in this article ([https://blog.ledger.com/Funds-of-every-wallet-created-with-the-Trust-Wallet-browser-extension-could-have-been-stolen/](https://blog.ledger.com/Funds-of-every-wallet-created-with-the-Trust-Wallet-browser-extension-could-have-been-stolen/))
@@ -1521,9 +1521,9 @@ G, r, s, h, an N are all publicly known. If "k" becomes public, then "privateKey
 
 ## Most vulnerabilities are application specific
 
-Training yourself to quickly recognize the anti-patterns in this list will make you a more effective smart contract programmer, but most smart contract bugs of consequence are due to a mismatch between the intended business logic and what the code actually does.   
+Training yourself to quickly recognize the anti-patterns in this list will make you a more effective smart contract programmer, but most smart contract bugs of consequence are due to a mismatch between the intended business logic and what the code actually does.
 
-Other areas where bugs can occur:   
+Other areas where bugs can occur:
 - bad tokenomic incentives
 - off by one errors
 - typographical errors
@@ -1543,36 +1543,36 @@ Before a smart contract is sent for audit, the following should be done first:
 - Fuzz testing, especially for arithmetic
 - Invariant testing for stateful properties
 - Formal verification where appropriate
-    
+
 For those unfamiliar with some of the methodologies here, Patrick Collins of Cyfrin Audits has a humorous introduction to stateful and stateless fuzzing in his [video](https://www.youtube.com/watch?v=juyY-CTolac). Tools to accomplish these tasks are rapidly becoming more widespread and easier to use.
 
 ## More resources
 
-Some authors have compiled a list of previous DeFi hacks in these Repos:   
+Some authors have compiled a list of previous DeFi hacks in these Repos:
 - [https://github.com/coinspect/learn-evm-attacks](https://github.com/coinspect/learn-evm-attacks)
 - [https://github.com/SunWeb3Sec/DeFiHackLabs](https://github.com/SunWeb3Sec/DeFiHackLabs)
 - [https://rekt.news/](https://rekt.news/)
 
-Secureum has been widely used to study and practice security, but keep in mind the repo hasn't been substantially updated for 2 years   
+Secureum has been widely used to study and practice security, but keep in mind the repo hasn't been substantially updated for 2 years
 - [https://github.com/x676f64/secureum-mind_map](https://github.com/x676f64/secureum-mind_map)
 
-You can practice exploiting solidity vulnerabilities with our [Solidity Riddles](https://github.com/RareSkills/solidity-riddles) repository.   
+You can practice exploiting solidity vulnerabilities with our [Solidity Riddles](https://github.com/RareSkills/solidity-riddles) repository.
 - [https://github.com/RareSkills/solidity-riddles](https://github.com/RareSkills/solidity-riddles)
 
-DamnVulnerableDeFi is a classic wargame every developer should practice   
+DamnVulnerableDeFi is a classic wargame every developer should practice
 - [https://damnvulnerabledefi.xyz](https://damnvulnerabledefi.xyz/)
 
-Capture The Ether and Ethernaut are classics, but keep in mind some of the problems are unrealistically easy or teach outdated Solidity concepts   
+Capture The Ether and Ethernaut are classics, but keep in mind some of the problems are unrealistically easy or teach outdated Solidity concepts
 - [https://capturetheether.com](https://capturetheether.com/)
 - [https://ethernaut.openzeppelin.com](https://ethernaut.openzeppelin.com/)
-    
-Some reputable crowdsourced security firms have a useful list of past audits to study.  
+
+Some reputable crowdsourced security firms have a useful list of past audits to study.
 - [https://code4rena.com/](https://code4rena.com/)
 - [https://www.sherlock.xyz/](https://www.sherlock.xyz/)
 
 ## Becoming a smart contract auditor
 
-If you aren't fluent in Solidity, then there is no way you'll be able to [audit Ethereum smart contracts](https://www.rareskills.io/post/smart-contract-audit). See our [free Solidity tutorial](https://www.rareskills.io/learn-solidity) if you are just starting off.   
+If you aren't fluent in Solidity, then there is no way you'll be able to [audit Ethereum smart contracts](https://www.rareskills.io/post/smart-contract-audit). See our [free Solidity tutorial](https://www.rareskills.io/learn-solidity) if you are just starting off.
 
 There is no industry recognized certification for becoming a smart contract auditor. Anyone can create a website and social media profiles claiming to be a solidity auditor and start selling services, and many have done so. Therefore, use caution and get referrals before hiring one.
 
@@ -1582,27 +1582,27 @@ If you lack the determination to outperform your peers at identifying vulnerabil
 
 ### Cold truth about your chances of success of becoming a smart contract security auditor
 
-Smart contract auditing recently has been perceived as a desirable field to work in due to the perception that it is lucrative. Indeed, some bug bounty payouts have exceeded 1 million dollars, but this is the exceedingly rare exception, not the norm.   
+Smart contract auditing recently has been perceived as a desirable field to work in due to the perception that it is lucrative. Indeed, some bug bounty payouts have exceeded 1 million dollars, but this is the exceedingly rare exception, not the norm.
 
-Code4rena has a public [leaderboard](https://code4rena.com/leaderboard/) of payouts from competitors in their audit contests, which gives us some data about success rates.   
+Code4rena has a public [leaderboard](https://code4rena.com/leaderboard/) of payouts from competitors in their audit contests, which gives us some data about success rates.
 There are 1171 names on the board, yet
 
 - Only 29 competitors have over \$100,000 in lifetime earnings (2.4\%)
 - Only 57 have over \$50,000 in lifetime earnings (4.9\%)
 - Only 170 have over \$10,000 in lifetime earnings (14.5\%)
 
-Also consider this, when Openzeppelin opened up an application for a security research fellowship (not a job, a pre-job screening and training), they received over 300 applications only to select fewer than 10 candidates, of which even fewer would get a full time job.
+Also consider this, when OpenZeppelin opened up an application for a security research fellowship (not a job, a pre-job screening and training), they received over 300 applications only to select fewer than 10 candidates, of which even fewer would get a full time job.
 
-![OpenZeppelin Smart contract auditor job application](https://static.wixstatic.com/media/935a00_9f026febd58442959d5ae0b3f86a2467~mv2.png/v1/fill/w_740,h_350,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_9f026febd58442959d5ae0b3f86a2467~mv2.png)    
+![OpenZeppelin Smart contract auditor job application](https://static.wixstatic.com/media/935a00_9f026febd58442959d5ae0b3f86a2467~mv2.png/v1/fill/w_740,h_350,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_9f026febd58442959d5ae0b3f86a2467~mv2.png)
 [https://twitter.com/David_Bessin/status/1625167906328944640](https://twitter.com/David_Bessin/status/1625167906328944640)
 
 That's a lower admission rate than Harvard.
 
-Smart contract auditing is a competitive zero-sum game. There are only so many projects to audit, only so much budget for security, and only so many bugs to find. If you begin studying security now, there are dozens of highly motivated individuals and teams with a massive headstart on you. Most projects are willing to pay a premium for an auditor with a reputation rather than an untested new auditor. 
+Smart contract auditing is a competitive zero-sum game. There are only so many projects to audit, only so much budget for security, and only so many bugs to find. If you begin studying security now, there are dozens of highly motivated individuals and teams with a massive headstart on you. Most projects are willing to pay a premium for an auditor with a reputation rather than an untested new auditor.
 
 In this article, we've listed at least 20 different categories of vulnerabilities. If you spent one week mastering each one (which is somewhat optimistic), you're only just starting to understand what is common knowledge to experienced auditors. We haven't covered gas optimization or tokenomics in this article, both of which are important topics for an auditor to understand. Do the math and you'll see this not a short journey.
 
-That said, the community is generally friendly and helpful to newcomers and tips and tricks abound. But for those reading this article in hopes of making a career out of smart contract security, it is important to clearly understand that the odds of obtaining a lucrative career are not in your favor. Success is not the default outcome.  
+That said, the community is generally friendly and helpful to newcomers and tips and tricks abound. But for those reading this article in hopes of making a career out of smart contract security, it is important to clearly understand that the odds of obtaining a lucrative career are not in your favor. Success is not the default outcome.
 
 It *can* be done of course, and quite a few people have gone from knowing no Solidity to having a lucrative career in auditing. It's arguably easier to get a job as a smart contract auditor in a two year timespan than it is to get admitted into law school and pass the bar exam. It certainly has more upside compared to a lot of other career choices.
 
