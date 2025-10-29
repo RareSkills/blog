@@ -29,7 +29,7 @@ To multiply two fixed-point numbers together, we follow the rules of multiplying
 1. multiply the numerators together
 2. multiply the denominators together
 3. simplify the result.
-    
+
 For example:
 
 $$
@@ -168,13 +168,13 @@ As another example, UQ64x64 (or UQ64.64) is a `uint128` that holds the "fraction
 
 The advantage of a binary fixed point number is we can use a gas-efficient left bit shift instead of multiplying by the denominator, (when converting an integer to a fixed point number, or doing a right bit shift when dividing.
 
-As a basic example, consider that:  
-(1) 2 has a binary representation of 10  
-(2) 16 has a binary representation of 10000  
+As a basic example, consider that:
+(1) 2 has a binary representation of 10
+(2) 16 has a binary representation of 10000
 (3) $16 = 2 \times 2^3$
 (4) binary(1000) = binary(10) << 3
 
-Note that 3 is the exponent in (3) and the amount we leftshift the bits by in (4).
+Note that 3 is the exponent in (3) and the amount we left shift the bits by in (4).
 
 The relationship between the bitshift by amount e and multiplying by $2^e$ holds in general. The following operations are equivalent:
 
@@ -192,9 +192,9 @@ The [ABDK library](https://github.com/abdk-consulting/abdk-libraries-solidity/tr
 
 ![ABDK library fromUInt function code](https://static.wixstatic.com/media/706568_3afa606cd5934a618753eaa9bde76fd5~mv2.png/v1/fill/w_740,h_338,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/706568_3afa606cd5934a618753eaa9bde76fd5~mv2.png)
 
-The require statement ensures that `x` is less than `type(int64).max`, since the ABDK library uses signed fixed point numbers. The leftshift by 64 is equivalent to multiplying by $2^{64}$.
+The require statement ensures that `x` is less than `type(int64).max`, since the ABDK library uses signed fixed point numbers. The left shift by 64 is equivalent to multiplying by $2^{64}$.
 
-Similarly, when ABDK does a multiplication, instead of dividing the product of `x` and `y` by $2^{64}$, it does a rightshift by 64 bits:
+Similarly, when ABDK does a multiplication, instead of dividing the product of `x` and `y` by $2^{64}$, it does a right shift by 64 bits:
 
 ![ABDK mul function code](https://static.wixstatic.com/media/706568_0696d658a648469086e1b07256603777~mv2.png/v1/fill/w_740,h_410,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/706568_0696d658a648469086e1b07256603777~mv2.png)
 
@@ -237,7 +237,7 @@ Starting with the number 125 which has binary representation `01111101`, if we m
 
 The `uqdiv()` function simply does division of a fixed point number by an integer, which needs no extra steps.
 
-Uniswap uses this library to accumulate the prices for the TWAP oracle below. The TWAP adds the latest price every time an update happens into an accumulator (which is used to calculate the average price with additional steps, something outside outside the scope of this article). Since prices are represented as fractions, fixed point numbers are an ideal way to represent them.
+Uniswap uses this library to accumulate the prices for the TWAP oracle below. The TWAP adds the latest price every time an update happens into an accumulator (which is used to calculate the average price with additional steps, something outside the scope of this article). Since prices are represented as fractions, fixed point numbers are an ideal way to represent them.
 
 The variables `_reserve0` and `_reserve1` hold the most recent token balances of the pool and are uint112. `price0CumulativeLast` and `price1CumulativeLast` are UQ112x112 (fixed point numbers with an implied denominator of $2^{112}$). The code below from Uniswap V2 converts the numerator to a fixed point number (UQ112x112) and divides it by an integer (the denominator is not converted to a UQ112x112). The result is a fixed point number.
 
@@ -256,7 +256,7 @@ For example:
 
 - $10 / 3$ rounding down is 3.3333
 - $10 / 3$ rounding up is 3.3334 (depending on the size of our denominator)
-    
+
 Rounding up simply means adding 1 to the result if the remainder is non-zero. For example, $9 / 3 = 3$ exactly, so we should not return 4. However, $10 / 3$ and $11 / 3$ have a remainder of 1 and 2 respectively, so we should add 1 to the result of the division.
 
 Here is how the [Solmate library](https://github.com/transmissions11/solmate/blob/main/src/utils/FixedPointMathLib.sol) does it:
