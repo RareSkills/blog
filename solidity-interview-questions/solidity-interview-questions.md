@@ -57,10 +57,10 @@ What is the difference between memory and calldata in a function argument?
 19. What is the difference between UUPS and the Transparent Upgradeable Proxy pattern?
 20. If a contract delegatecalls an empty address or an implementation that was previously self-destructed, what happens? What if it is a low-level call instead of a delegatecall?
 21. What danger do ERC777 tokens pose?
-22. According to the solidity style guide, how should functions be ordered?
-23. According to the solidity style guide, how should function modifiers be ordered?
+22. According to the Solidity style guide, how should functions be ordered?
+23. According to the Solidity style guide, how should function modifiers be ordered?
 24. What is a bonding curve?
-25. How does `_safeMint` differ from `_mint` in the OpenZeppelin ERC721 implementation? 
+25. How does `_safeMint` differ from `_mint` in the OpenZeppelin ERC721 implementation?
 What keywords are provided in Solidity to measure time?
 What is a sandwich attack?
 26. If a delegatecall is made to a function that reverts, what does the delegatecall do?
@@ -87,7 +87,7 @@ What is ERC165 used for?
 1. How does fixed point arithmetic represent numbers?
 2. What is an ERC20 approval frontrunning attack?
 3. What opcode accomplishes address(this).balance?
-4. How many arguments can a solidity event have?
+4. How many arguments can a Solidity event have?
 5. What is an anonymous Solidity event?
 6. Under what circumstances can a function receive a mapping as an argument?
 7. What is an inflation attack in ERC4626
@@ -95,8 +95,8 @@ What is ERC165 used for?
 9. Prior to the Shanghai upgrade, under what circumstances is `returndatasize()` more efficient than `PUSH 0`?
 10. Why does the compiler insert the INVALID op code into Solidity contracts?
 11. What is the difference between how a custom error and a require with error string is encoded at the EVM level?
-1hat is the kink parameter in the Compound DeFi formula?
-1ow can the name of a function affect its gas cost, if at all?
+what is the kink parameter in the Compound DeFi formula?
+how can the name of a function affect its gas cost, if at all?
 12. What is a common vulnerability with ecrecover?
 13. What is the difference between an optimistic rollup and a zk-rollup?
 14. How does EIP1967 pick the storage slots, how many are there, and what do they represent?
@@ -105,8 +105,8 @@ What is ERC165 used for?
 17. Under what circumstances would a smart contract that works on Etheruem not work on Polygon or Optimism? (Assume no dependencies on external contracts)
 18. How can a smart contract change its bytecode without changing its address?
 19. What is the danger of putting msg.value inside of a loop?
-escribe the calldata of a function that takes a dynamic length array of `uint128` when `uint128[1,2,3,4]` is passed as an argument
-20. Why is strict inequality comparisons more gas efficient than ≤ or ≥? What extra opcode(s) are added?
+Describe the calldata of a function that takes a dynamic length array of `uint128` when `uint128[1,2,3,4]` is passed as an argument
+20. Why are strict inequality comparisons more gas efficient than ≤ or ≥? What extra opcode(s) are added?
 21. If a proxy calls an implementation, and the implementation self-destructs in the function that gets called, what happens?
 22. What is the relationship between variable scope and stack depth?
 23. What is an access list transaction?
@@ -114,7 +114,7 @@ escribe the calldata of a function that takes a dynamic length array of `uint128
 25. What is a beacon in the context of proxies?
 26. Why is it necessary to take a snapshot of balances before conducting a governance vote?
 27. How can a transaction be executed without a user paying for gas?
-28. In solidity, without assembly, how do you get the function selector of the calldata?
+28. In Solidity, without assembly, how do you get the function selector of the calldata?
 29. How is an Ethereum address derived?
 30. What is the metaproxy standard?
 31. If a try catch makes a call to a contract that does not revert, but a revert happens inside the try block, what happens?
@@ -130,11 +130,11 @@ escribe the calldata of a function that takes a dynamic length array of `uint128
 41. What quirks does the Tether stablecoin contract have?
 42. What is the smallest uint that will store 1 million? 1 billion? 1 trillion? 1 quadrillion?
 43. What danger to uninitialized UUPS logic contracts pose?
-44. What is the difference (if any) between what a contract returns if a divide-by-zero happens in Soliidty or if a dividye-by-zero happens in Yul?
+44. What is the difference (if any) between what a contract returns if a divide-by-zero happens in Solidity or if a divide-by-zero happens in Yul?
 45. Why can't `.push()` be used to append to an array in memory?
 
 ## Advanced
-1. What addresses to the ethereum precompiles live at?
+1. What addresses do the Ethereum precompiles live at?
 2. Describe what "liquidity" is in the context of Uniswap V2 and Uniswap V3.
 3. If a delegatecall is made to a contract that makes a delegatecall to another contract, who is msg.sender in the proxy, the first contract, and the second contract?
 4. What is the difference between how a `uint64` and `uint256` are abi-encoded in calldata?
