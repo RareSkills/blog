@@ -45,7 +45,7 @@ For this reason, **tick index 887,272 is the highest used by the protocol**, bec
 
 ## The lowest tick index
 
-The lowest tick index is set to -887,272, which is the negative of the highest possible tick.
+The lowest tick index is set to -887,272, which is the negative of the highest possible tick. Mathematically, $i = \log_{1.0001} (2^{-128}) = -\log_{1.0001} (2^{128}) = -887272$. Here we used the logarithm identity $\log_b(x^p) = p \log_b x$.
 
 This symmetry is desirable because the price of token X relative to token Y is the inverse of the price of token Y relative to token X. Thus, it is desirable to limit the minimum token price to $2^{-128}$, which corresponds to tick -887272.
 
