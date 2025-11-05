@@ -18,7 +18,7 @@ $$
 p(i)=1.0001^i
 $$
 
-This relationship can be inverted by the definition of logarithm: the logarithm of $x$ to base $b$ is the unique real number $y$ such that $b^y = x$ (reference: [Wikipedia](https://en.wikipedia.org/wiki/Logarithm)). In our case, this translates to the logarithm of $p(i)$ to base $1.0001$ is the unique real number $i$ such that $1.0001^i = p(i)$. In formula this is:
+This relationship can be inverted by the definition of logarithm: the logarithm of $x$ to base $b$ is the unique real number $y$ such that $b^y = x$ (reference: [Wikipedia](https://en.wikipedia.org/wiki/Logarithm)). In our case, this translates to "the logarithm of $p(i)$ to base $1.0001$ is the unique real number $i$ such that $1.0001^i = p(i)$". In formula this is:
 
 $$
 \log_{1.0001}(p(i)) = i
