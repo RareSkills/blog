@@ -30,7 +30,7 @@ Users do not have to use the swap function for trading tokens, it can be used pu
 
 ![uniswap v2 flash borrowing](https://static.wixstatic.com/media/935a00_a54daf3d2a764e2d83cf4f2db18c6c1e~mv2.png/v1/fill/w_740,h_460,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_a54daf3d2a764e2d83cf4f2db18c6c1e~mv2.png)
 
-The borrowing contract simply requests the amount of tokens they wish to borrow <span style="color:#8d28a4">(A)</span> without collateral and they will be transferred to the contract <span style="color:#8d28a4">(B)</span>.  
+The borrowing contract simply requests the amount of tokens they wish to borrow <span style="color:#8d28a4">(A)</span> without collateral and they will be transferred to the contract <span style="color:#8d28a4">(B)</span>.
 
 The data that should be provided with the function call is passed in as a function argument <span style="color:#8d28a4">\(C\)</span>, and this will be passed to a function that implements
 
@@ -53,7 +53,7 @@ Remember, _reserve0 and _reserve1 are not updated inside this function. They ref
 One of two things can happen for each of the two tokens in the pair:
 
 1.  The pool had a net increase in the amount of a particular token.
-    
+
 2.  The pool had a net decrease (or no change) in the amount of a particular token.
 
 The way the code determines which situation happened with the following logic:
@@ -96,7 +96,7 @@ The code again is
 
 ![An image of code](https://static.wixstatic.com/media/935a00_b7e8d0adcb204f4b9d41a0a297aab8b0~mv2.png/v1/fill/w_740,h_47,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_b7e8d0adcb204f4b9d41a0a297aab8b0~mv2.png)
 
-Uniswap V2 charges a hardcoded 0.3% per swap, which is why we see the numbers 1000 and 3 at play, but lets simplify this by changing it to the case where Uniswap V2 charged no fees. This means we can remove the .sub(amountXIn.mul(3)) term and not multiply by 1000 on lines 180 to 181 or 1000**2 on line 182.
+Uniswap V2 charges a hardcoded 0.3% per swap, which is why we see the numbers 1000 and 3 at play, but let's simplify this by changing it to the case where Uniswap V2 charged no fees. This means we can remove the .sub(amountXIn.mul(3)) term and not multiply by 1000 on lines 180 to 181 or 1000**2 on line 182.
 
 The new code would be
 
@@ -130,14 +130,14 @@ But not only do we want K to get larger, we want it to get larger by at least an
 Specifically, the 0.3% fee applies to the size of our trade, not the size of the pool. It only applies to the tokens that go in, not on the tokens that go out. Some examples:
 
 -   Suppose we put in 1000 of token0 and remove 1000 of token1. We would need to pay a fee of 3 on token0 and no fee on token1.
-    
+
 -   Suppose we borrow 1000 of token0 and do not borrow token1. We are going to have to put 1000 of token0 back in, and we will have to pay a 0.3% fee on that — 3 of token0.
 
 Observe that if we flash borrow one of the tokens, it results in the same fee as swapping that token for the same amount. You pay fees on tokens in, not on tokens out. But if you don’t put tokens in, there is no way for you to borrow or swap.
 
 Remember, reserve0 and reserve1 represent the old balances, and balance0 and balance1 represent the updated balances.
 
-With that in mind, let’s write the code below should be self-explanatory. The multiplying by 1000 and 3 is to simply accomplish “fractional” multiplication since it cancels out in the end.
+With that in mind, the code below should be self-explanatory. The multiplying by 1000 and 3 is to simply accomplish “fractional” multiplication since it cancels out in the end.
 
 ![An image of fractional multiplication](https://static.wixstatic.com/media/935a00_2f3123e5591b44359ad9eb70393e71e6~mv2.png/v1/fill/w_740,h_47,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_2f3123e5591b44359ad9eb70393e71e6~mv2.png)
 
@@ -168,10 +168,10 @@ There is a lot of logic here to handle the TWAP oracle, but all we care about fo
 
 There are two things that can go wrong:
 
-1.  The amountIn is not enforce to be optimal, so the user might overpay for the swap
-    
+1.  The amountIn is not enforced to be optimal, so the user might overpay for the swap
+
 2.  AmountOut has no flexibility as it is supplied as a parameter argument. If the amountIn turns out to not be sufficient relative to amountOut, the transaction will revert and gas will be wasted.
-    
+
 
 These circumstances can happen if someone frontruns a transaction (intentionally or not) and changes the ratio of assets in the pool in an undesirable direction.
 
