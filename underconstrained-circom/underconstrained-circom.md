@@ -18,7 +18,7 @@ template Mul3() {
     signal i;
 
     a * b === 1;   // Force a * b === 1
-    i <-- a * b;   // i must be equal 1
+    i <-- a * b;   // i must be equal to 1
     out <== i * c; // out must equal c since i === 1
 }
 
@@ -37,7 +37,7 @@ The exploit involves assigning a value to `i` that is not `a * b === 1`, allowin
 
 To summarize, the circuit writer *expects* `out = c`, but we will violate this assumption. In the current example, no harm is done, but in a real application this could be a problem if it was critical two signals had the same value.
 
-But how to we actually create the exploit?
+But how do we actually create the exploit?
 
 ## Steps to exploit
 
@@ -95,7 +95,7 @@ We show the output and add the labels to the witness.json file below in <span st
 
 ![witness signal labels](https://static.wixstatic.com/media/935a00_7d0345e1fc664c74a1d1d76f35550120~mv2.png/v1/fill/w_678,h_620,al_c,q_90,enc_auto/935a00_7d0345e1fc664c74a1d1d76f35550120~mv2.png)
 
-To exploit this circuit, we want to assign a value to `i` that causes `out ≠ c`. However, Circom does not give us a mechanism to write directly to signals that are not input signals, and `i` is not an input signal (maybe to make our hack a little harder?). (snarkjs does provide a fullprove api which seems to do this, but this [code has been broken since 2021](https://github.com/iden3/snarkjs/issues/107)).
+To exploit this circuit, we want to assign a value to `i` that causes `out ≠ c`. However, Circom does not give us a mechanism to write directly to signals that are not input signals, and `i` is not an input signal (maybe to make our hack a little harder?). (snarkjs does provide a fullProve api which seems to do this, but this [code has been broken since 2021](https://github.com/iden3/snarkjs/issues/107)).
 
 ### Example malicious witness
 
