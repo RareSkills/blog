@@ -234,7 +234,7 @@ via-ir = true
 
 ### Enabling via-ir in Hardhat
 
-In HardHat, add `viaIR:true` to your `hardhat.config` file like so:
+In Hardhat, add `viaIR:true` to your `hardhat.config` file like so:
 
 ```solidity
 module.exports = {
@@ -250,7 +250,7 @@ module.exports = {
 
 If you use [Remix](https://remix.ethereum.org/), you’ll need to enable the configuration file in Advance Compiler Configurations settings, as shown in the screenshot below:
 
-![how to enabe via-ir in remix](https://static.wixstatic.com/media/706568_e83b2eccc0cd40fc80e58a3b8efa2f48~mv2.png/v1/fill/w_666,h_891,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/706568_e83b2eccc0cd40fc80e58a3b8efa2f48~mv2.png)
+![how to enable via-ir in remix](https://static.wixstatic.com/media/706568_e83b2eccc0cd40fc80e58a3b8efa2f48~mv2.png/v1/fill/w_666,h_891,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/706568_e83b2eccc0cd40fc80e58a3b8efa2f48~mv2.png)
 
 Create an empty `compiler_config.json` file in the root directory. And add the path in the configuration as shown in the above image.
 
@@ -422,7 +422,7 @@ function divideByZeroInAssembly(uint256 numerator, uint256 denominator)
         if iszero(denominator) {
             revert(0, 0)
     	}
-        
+
 		result := div(numerator, denominator)
    }
 }
@@ -837,11 +837,11 @@ Aside, `catch Panic(uint256 errorCode)` and `catch Error(string memory reason)` 
 
 From the [proposal discussion](https://forum.soliditylang.org/t/call-for-feedback-the-future-of-try-catch-in-solidity/1497) we mentioned earlier, this is a brief summary of the suggested solutions which are at the time of this writing not implemented:
 
--   Extending the `try/catch` syntax with additional features that explicitly define the type of error you are handling. For example, the `internal` catch will handle local reverts triggered by extra checks added by the compiler (it still won't catch reverts triggered within the same contract), while the `external` catch will continue to function with the existing catch implementation.  
+-   Extending the `try/catch` syntax with additional features that explicitly define the type of error you are handling. For example, the `internal` catch will handle local reverts triggered by extra checks added by the compiler (it still won't catch reverts triggered within the same contract), while the `external` catch will continue to function with the existing catch implementation.
 -   Adding new catch clauses for local reverts like
 -   catch NoContract {}
 -   catch DecodingFailure {}
--   catch Other {}  
+-   catch Other {}
 -   `tryCall()` and `match` — this feature is expected to run a pattern match on the external function and allow you to handle then various errors in different arms of the match construct depending on the result and type of error. Here is an example from the [`proposal`](https://forum.soliditylang.org/t/call-for-feedback-the-future-of-try-catch-in-solidity/1497):
 
 ```solidity!
@@ -852,14 +852,14 @@ match tryCall(token.transfer, (exampleAddress, 100)) {
     CallSuccess(transferSuccessful) => {
         ...
     }
-    
+
     CallFailure(MyError(reason)) => {
         ...
     }
     NotAContract => {
         ...
     }
-    
+
     DecodingFailure(errorCode) => {
         ...
     }
