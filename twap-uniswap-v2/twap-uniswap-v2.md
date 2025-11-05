@@ -10,7 +10,7 @@ $$
 \mathsf{price}(\text{foo})=\frac{\mathsf{reserve}(\text{foo})}{\mathsf{reserve}(\text{bar})}
 $$
 
-In the example above, it is saying “how may **bars** do you need to pay to get one **foo**” (ignoring fees).
+In the example above, it is saying “how many **bars** do you need to pay to get one **foo**” (ignoring fees).
 
 ## Price is a ratio
 
@@ -34,7 +34,7 @@ Measuring an instantaneous snapshot of assets in the pool leaves an opportunity 
 
 The Uniswap V2 oracle defends against this in two ways:
 
-1. It provides a mechanisms for consumers of the price (usually smart contracts) to take the average a previous time period (decided by the user). This means an attacker has to constantly manipulate the price for several blocks, which is a lot more costly than using a flash loan.
+1. It provides a mechanism for consumers of the price (usually smart contracts) to take the average a previous time period (decided by the user). This means an attacker has to constantly manipulate the price for several blocks, which is a lot more costly than using a flash loan.
 2. It doesn’t incorporate the current balance into the oracle calculation
 
 This should not give the impression that oracles which use a moving average are immune to price manipulation attacks. If the asset does not have much liquidity, or the time window of taking the average is not sufficiently large, then a well-resourced attacker can still prop up the price (or suppress the price) long enough to manipulate the average price at the time of measurement.
@@ -87,7 +87,7 @@ We need a way to isolate the parts we care about. Consider the following
 
 $$\text{RecentWindow}=\text{price0CumulativeLast}-\text{UpToTime3}$$
 
-If we snapshot the price at the end of $T_3$, we get the value `UpToTime3`. If we wait until $T_6$ finishes, then we do `price0Cumulativelast - UpToTime3then` we will get the cumulative prices of only the recent window. If we divide that by the duration of the RecentWindow $(T_4 + T_5 + T_6)$, then we get the TWAP price of the recent window.
+If we snapshot the price at the end of $T_3$, we get the value `UpToTime3`. If we wait until $T_6$ finishes, then we do `price0Cumulativelast - UpToTime3` then we will get the cumulative prices of only the recent window. If we divide that by the duration of the RecentWindow $(T_4 + T_5 + T_6)$, then we get the TWAP price of the recent window.
 
 Graphically, this is what is what we are doing with the price accumulator.
 
@@ -173,7 +173,7 @@ $$
 \frac{1}{2+3}\neq\frac{1}{2}+\frac{1}{3}
 $$
 
-However, the prices are still “somewhat symmetric,” hence the choice of fixed point arithmetic representation must have the same capacity for the integers and for the decimals. If Eth is 1,000 times more “valuable” than a USDC, then USDC is 1,000 times “less valuable” than USDC. To store this accurately, the fixed point number should have the same size on both sides of the decimal, hence Uniswap’s choice of `u112x112`.
+However, the prices are still “somewhat symmetric,” hence the choice of fixed point arithmetic representation must have the same capacity for the integers and for the decimals. If ETH is 1,000 times more “valuable” than a USDC, then USDC is 1,000 times “less valuable” than USDC. To store this accurately, the fixed point number should have the same size on both sides of the decimal, hence Uniswap’s choice of `u112x112`.
 
 ## PriceCumulativeLast always increases until it overflows, then keeps going
 
