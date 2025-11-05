@@ -6,15 +6,15 @@ The Router contracts provide a user-facing smart contract for
 - safely [swapping pair tokens](https://www.rareskills.io/post/uniswap-v2-swap-function)
 - They add the ability to swap Ether by integrating with the wrapped Ether (WETH) ERC20 contract.
 - They add the [slippage](https://www.rareskills.io/post/uniswap-v2-price-impact) related safety checks omitted from the core contract.
-- They add support for fee on transfer tokens.
+- They add support for fee-on-transfer tokens.
 
-## Router02 is everything Router01 does with support added for fee on transfer tokens
+## Router02 is everything Router01 does with support added for fee-on-transfer tokens
 
 When we first open up the contracts folder in the periphery repository, we see three contracts
 
 ![uniswap v2 router github screenshot](https://static.wixstatic.com/media/935a00_b8eae8863df64996bd58019ea5d2bb54~mv2.jpg/v1/fill/w_740,h_494,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_b8eae8863df64996bd58019ea5d2bb54~mv2.jpg)
 
-Router02 is Router01 with additional functions for fee on transfer tokens. When we look at the interface of Router02, we can see it inherits from Router01 (<span style="color: red;">red box</span>) (which means it implements all of its functions), and has the following additional functions, which are all for doing operations with support for fee on transfer tokens (<span style="color: #c1c146;">yellow highlight</span>).
+Router02 is Router01 with additional functions for fee-on-transfer tokens. When we look at the interface of Router02, we can see it inherits from Router01 (<span style="color: red;">red box</span>) (which means it implements all of its functions), and has the following additional functions, which are all for doing operations with support for fee-on-transfer tokens (<span style="color: #c1c146;">yellow highlight</span>).
 
 ![uniswap v2 router inheritance](https://static.wixstatic.com/media/935a00_5ccf4b1e789c4a8886db540f33ba94b0~mv2.jpg/v1/fill/w_740,h_1186,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_5ccf4b1e789c4a8886db540f33ba94b0~mv2.jpg)
 
@@ -28,7 +28,7 @@ The difference in these function names is as follows:
 
 - In `swapExactTokensForTokens` the "first token is exact" means that the amount of the input token you are swapping is a fixed quantity.
 - In `swapTokensForExactTokens`, the "second token is exact" indicates that the amount of the output token you want to receive is a fixed quantity.
-    
+
 If a user is only swapping two tokens, then they will supply to these functions an `address[] calldata path` array (<span style="color: #008aff;">highlighted in blue</span>) `[address(tokenIn), address(tokenOut)]`. If they are hopping across pools, they will specify `[address(tokenIn), address(intermediateToken), …, address(tokenOut)]`.
 
 ### swapExactTokensForTokens
@@ -65,7 +65,7 @@ Recall that the function signature for the core [swap function](https://www.rare
 
 Remember the safety checks for adding liquidity? Specifically, we want to make sure we deposit the two tokens at exactly the same ratio as what the pair currently has, otherwise the amount of LP tokens we mint is the worse of the two ratios between what we provide and what the pair balances are. However, the ratio could change between when the liquidity provider attempts to add liquidity and when the transaction is confirmed.
 
-To guard against this, a liquidity provider must provide (as a parameter), the minimum balance they are seeking to deposit for token0 and token1 (UniswapV2 calls those `amountAMin` and `amountBMin`). Then they transfer in an amount higher than those minimums (UnsiwapV2 calls those `amountADesired` and `amountBDesired`). If the pair ratio has shifted in such a way that the minimums are no longer respected, then the transaction reverts.
+To guard against this, a liquidity provider must provide (as a parameter), the minimum balance they are seeking to deposit for token0 and token1 (Uniswap V2 calls those `amountAMin` and `amountBMin`). Then they transfer in an amount higher than those minimums (Uniswap V2 calls those `amountADesired` and `amountBDesired`). If the pair ratio has shifted in such a way that the minimums are no longer respected, then the transaction reverts.
 
 _addLiquidity will take `amountADesired` and calculate the correct amount of tokenB that will respect the ratio. If this is amount is higher than `amountBDesired` (the amount of B the liquidity provider sent), then it will start with `amountBDesired` and calculate the optimal amount of B. The logic is show below. Note that adding liquidity may create a new pair contract if it doesn't already exist.
 
@@ -84,7 +84,7 @@ These functions should be self-explanatory. They first calculate the optimal rat
 
 ## Removing Liquidity
 
-Remove liquidity calls burn but uses parameters `amountAMin` and `amountBMin` (<span style="color:red">red highlights</span>) as safety checks to ensure that the liquidity provider gets back the amount of tokens they are expecting. If the ratio of tokens changes dramatically before the the liquidity tokens are burned, then the user burning the tokens won't get back the amount of token A or B that they are expecting.
+Remove liquidity calls burn but uses parameters `amountAMin` and `amountBMin` (<span style="color:red">red highlights</span>) as safety checks to ensure that the liquidity provider gets back the amount of tokens they are expecting. If the ratio of tokens changes dramatically before the liquidity tokens are burned, then the user burning the tokens won't get back the amount of token A or B that they are expecting.
 
 The function `removeLiquidityEth` calls `removeLiquidity` (<span style="color: green;">green highlight</span>) but sets the router as the recipient of the tokens. The regular ERC20 token is then transferred to the liquidity provider, and the WETH is unwrapped to ETH, then sent back to the liquidity provider.
 
@@ -94,15 +94,15 @@ The function `removeLiquidityEth` calls `removeLiquidity` (<span style="color: g
 
 On line 109 in the file above with the <span style="color: gray;">gray comment</span> `send liquidity to pair`, this step assumes the pair contract has approval to transfer LP tokens from the liquidity provider to burn them. This means burning the LP tokens requires approving the pair first. This step can be skipped with `permit()`, since the LP tokens of Uniswap V2 is an [ERC20 Permit Token](https://eips.ethereum.org/EIPS/eip-2612). The function `removeLiquidityWithPermit()` receives a signature to approve and burn in one transaction. If one of the tokens is WETH, the liquidity provider would use `removeLiquidityETHWithPermit()`.
 
-## Router02: supporting fee on transfer tokens
+## Router02: supporting fee-on-transfer tokens
 
-To handle fee on transfer tokens, the router cannot directly do it's calculations on arguments like `amountIn()` (for swap) or `liquidity()` (for removing liquidity). Adding liquidity is not affected by fee on transfer tokens because the user is only credited for what they actually transfer to the pair.
+To handle fee-on-transfer tokens, the router cannot directly do it's calculations on arguments like `amountIn()` (for swap) or `liquidity()` (for removing liquidity). Adding liquidity is not affected by fee-on-transfer tokens because the user is only credited for what they actually transfer to the pair.
 
-![uniswap v2 router supporting fee on transfer tokens](https://static.wixstatic.com/media/935a00_616774d489ad4441bfb48f65d4a53336~mv2.jpg/v1/fill/w_740,h_368,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_616774d489ad4441bfb48f65d4a53336~mv2.jpg)
+![uniswap v2 router supporting fee-on-transfer tokens](https://static.wixstatic.com/media/935a00_616774d489ad4441bfb48f65d4a53336~mv2.jpg/v1/fill/w_740,h_368,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_616774d489ad4441bfb48f65d4a53336~mv2.jpg)
 
-  
 
-![uniswap v2 supporting fee on transfer for removing liquidity](https://static.wixstatic.com/media/935a00_24162771cb5345529fec449bcc7e8b81~mv2.jpg/v1/fill/w_740,h_516,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_24162771cb5345529fec449bcc7e8b81~mv2.jpg)
+
+![uniswap v2 supporting fee-on-transfer for removing liquidity](https://static.wixstatic.com/media/935a00_24162771cb5345529fec449bcc7e8b81~mv2.jpg/v1/fill/w_740,h_516,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_24162771cb5345529fec449bcc7e8b81~mv2.jpg)
 
 ## Wrappers around the UniswapV2Library
 
@@ -153,7 +153,7 @@ Another very common mistake is to set the amountMin to zero or amountMax to a ve
 
 The Router contracts provide a user-facing mechanism for swapping tokens with slippage protection, possibly across multiple pools, and add support for trading ETH and fee-on-transfer tokens (in Router02). Depositing liquidity does not need to account for fee-on-transfer tokens because Uniswap only credits for what was actually transferred into the pool.
 
-The depositing liquidity functions ensure the user only deposits at the exact ratio of the pool. Removing liquidity can be as simple as transferring LP tokens to the router then burning them, or include unwrapping WETH and withdrawing fee on transfer tokens.
+The depositing liquidity functions ensure the user only deposits at the exact ratio of the pool. Removing liquidity can be as simple as transferring LP tokens to the router then burning them, or include unwrapping WETH and withdrawing fee-on-transfer tokens.
 
 Additionally, support for gas free approvals via ERC20 Permit are included.
 
