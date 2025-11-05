@@ -1,6 +1,6 @@
 # Zero knowledge programming languages
 
-![Zero knowledge proof moon math](https://static.wixstatic.com/media/935a00_dca926dacdd24cdea8a84fa35d9740bd~mv2.webp/v1/fill/w_740,h_725,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_dca926dacdd24cdea8a84fa35d9740bd~mv2.webp)   
+![Zero knowledge proof moon math](https://static.wixstatic.com/media/935a00_dca926dacdd24cdea8a84fa35d9740bd~mv2.webp/v1/fill/w_740,h_725,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_dca926dacdd24cdea8a84fa35d9740bd~mv2.webp)
 Zero knowledge proof moon math
 
 [Zero knowledge proofs](https://www.rareskills.io/zk-bootcamp) demonstrate you executed a computation correctly without revealing the inputs to the computation. A zero knowledge programming language is a convenient way to represent that computation.
@@ -49,7 +49,7 @@ verify(encrypted_inputs, proof, algorithm_description) == public_output
 
 A more interesting example is moving money around in a cryptocurrency like zcash. Each transaction to move money is a state transition, which itself is a computation. The public output is the total supply (which doesn’t change modulo miner rewards). The encrypted input is the balance transfer between addresses.
 
-Since zero knowledge proofs are just computations, they very naturally lend themselves to being described with programming languages. Remember the programatic description of the multiplication algorithm from earlier? That can be conveniently represented in a traditional programing language that will compile it into “moon math” behind the scenes.
+Since zero knowledge proofs are just computations, they very naturally lend themselves to being described with programming languages. Remember the programmatic description of the multiplication algorithm from earlier? That can be conveniently represented in a traditional programing language that will compile it into “moon math” behind the scenes.
 
 Without further ado, here is the list of zero knowledge programming languages.
 
@@ -90,13 +90,13 @@ def main(field x, field y) -> field {
 }
 ```
 
-Why do zero knowledge programming languages refer to numbers as fields? Mathematics in zero knowledge proofs is always done modulo a large prime number (as in most cryptographic algorithms). The term “field” here is shorthand for “[finite field](https://en.wikipedia.org/wiki/Finite_field)” since the number of possible values the number can take on is finite. Specifically, it is the size of the prime number your are doing modulo arithmetic over.
+Why do zero knowledge programming languages refer to numbers as fields? Mathematics in zero knowledge proofs is always done modulo a large prime number (as in most cryptographic algorithms). The term “field” here is shorthand for “[finite field](https://en.wikipedia.org/wiki/Finite_field)” since the number of possible values the number can take on is finite. Specifically, it is the size of the prime number you are doing modulo arithmetic over.
 
 Obviously, proving you know the sum of two numbers without revealing those numbers is not very interesting. Here is a better application using the example from the beginning.
 
 ### Zero knowledge ID card in Zokrates
 
-![zero knowledge proof id card algorithm](https://static.wixstatic.com/media/935a00_3bfce68347c24e8bb6ef7733ef242a81~mv2.webp/v1/fill/w_740,h_740,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_3bfce68347c24e8bb6ef7733ef242a81~mv2.webp)   
+![zero knowledge proof id card algorithm](https://static.wixstatic.com/media/935a00_3bfce68347c24e8bb6ef7733ef242a81~mv2.webp/v1/fill/w_740,h_740,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_3bfce68347c24e8bb6ef7733ef242a81~mv2.webp)
 zero knowledge proof id card algorithm
 
 With some modifications, we can make our zero knowledge ID card work.
@@ -147,7 +147,7 @@ Original whitepaper for Zokrates, published at IEEE 2018 ([http://www.ise.tu-ber
 
 ## [Leo](https://leo-lang.org/)
 
-The [Aleo blockchain](https://www.aleo.org/) is a privacy focused smart contract chain, with Leo as it’s primary programming language. You can see what the language is like in their [online playground](https://play.leo-lang.org/).
+The [Aleo blockchain](https://www.aleo.org/) is a privacy focused smart contract chain, with Leo as its primary programming language. You can see what the language is like in their [online playground](https://play.leo-lang.org/).
 
 At the time of writing, only the testnet has launched.
 
@@ -176,7 +176,7 @@ Because this use case optimizes for fast verification, you shouldn’t assume th
 
 ## [Noir](https://aztec.network/noir/) by [Aztec](https://aztec.network/)
 
-Noir is the language for Aztec, a privacy focused L2 for [Ethereum](https://www.rareskills.io/post/generate-ethereum-address-from-private-key-python). The syntax is heavily inspired by Rust; even the build tool is called “nargo”, an obvious nod to Rust’s cargo.  
+Noir is the language for Aztec, a privacy focused L2 for [Ethereum](https://www.rareskills.io/post/generate-ethereum-address-from-private-key-python). The syntax is heavily inspired by Rust; even the build tool is called “nargo”, an obvious nod to Rust’s cargo.
 
 Here is Noir adding two numbers together
 
@@ -231,7 +231,7 @@ Because of this innovation Solidity is likely to stay relevant for a long time, 
 
 If you plan on developing on Aleo, Starknet, or Aztec, you’ll have to use their respective languages. But if you are trying to develop a smart contract on the Ethereum that is privacy focused, you’ll need to use either Circom or Zokrates. Noir currently has limited support for compiling to solidity also.
 
-While it may be tempting to jump straight into using a language friendlier than Circom, it is worth developing an intuition for how circuit programming functions. After all, the languages here ultimately compile to something similar to it. You are going to notice odd constraints in the langauges subsequent to Circom in this list that won’t make sense unless you have an idea of what is going on under the hood. For example, all branches of “if” statements execute in Zokrates, and memory cannot be overwritten in Cairo.
+While it may be tempting to jump straight into using a language friendlier than Circom, it is worth developing an intuition for how circuit programming functions. After all, the languages here ultimately compile to something similar to it. You are going to notice odd constraints in the languages subsequent to Circom in this list that won’t make sense unless you have an idea of what is going on under the hood. For example, all branches of “if” statements execute in Zokrates, and memory cannot be overwritten in Cairo.
 
 There is no such thing as a gentle introduction to the math behind zero knowledge proofs, but [this paper](https://arxiv.org/pdf/1906.07221.pdf) should be understandable by anyone who has taken precalculus or a basic cryptography course.
 
