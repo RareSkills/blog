@@ -34,11 +34,9 @@ To determine the tick index $i$ in terms of `sqrtPriceX96`, we take the logarith
 
 $$
 \begin{align*}
-\log \left( \left( \frac{\text{sqrtPriceX96}}{2^{96}}\right)^2 \right) &= \log (1.0001^i)  \\  2 \, \log \left( \frac{\text{sqrtPriceX96}}{2^{96}}\right) &= i \, \log(1.0001) && \text{used that}  \;\log(a^b) = b \; \log(a)    \\  i &= \frac{2 \, \log \left( \frac{\text{sqrtPriceX96}}{2^{96}}\right)}{\log(1.0001)} && \text{divided both sides by } \log (1.0001)
+\ln \left( \left( \frac{\text{sqrtPriceX96}}{2^{96}}\right)^2 \right) &= \ln (1.0001^i)  \\  2 \, \ln \left( \frac{\text{sqrtPriceX96}}{2^{96}}\right) &= i \, \ln(1.0001) && \text{used that}  \;\ln(a^b) = b \; \ln(a)    \\  i &= \frac{2 \, \ln \left( \frac{\text{sqrtPriceX96}}{2^{96}}\right)}{\ln(1.0001)} && \text{divided both sides by } \ln (1.0001)
 \end{align*}
 $$
-
-A logarithm is always taken with respect to a base. For example, if $b^a=c$, then $\log_b{c}=a$ (log is taken in base b). However, the logarithm in the equation above can be taken in any base. The reason for this is explained in the last section of this chapter.
 
 ### The tick index is a discrete value
 
@@ -51,7 +49,7 @@ This can be seen in the illustration below, where we use a tool that can be foun
 Thus, the accurate formula for tick is:
 
 $$
-i = \lfloor \frac{2 \, \log \left( \frac{\text{sqrtPriceX96}}{2^{96}}\right)}{\log(1.0001)} \rfloor
+i = \lfloor \frac{2 \, \ln \left( \frac{\text{sqrtPriceX96}}{2^{96}}\right)}{\ln(1.0001)} \rfloor
 $$
 
 where the symbol $\lfloor ...\rfloor$ means to round down, for instance, $\lfloor 3.14 \rfloor = 3$.
@@ -130,53 +128,13 @@ As an example, the tick corresponding to the lower bound of `sqrtPriceX96`, `429
 getTickAtSqrtRatio(4295128739) // -887272
 ```
 
-## Changing the base of the logarithm
-
-When we derived the formula
-
-$$
-i = \lfloor \frac{2 \, \log \left( \frac{\text{sqrtPriceX96}}{2^{96}}\right)}{\log(1.0001)} \rfloor
-$$
-
-we mentioned that the logarithm can be in any base. In the implementation of the formula in Python, we used the natural logarithm, but we could also use the logarithm in base 10 or any other, which would yield the same result.
-
-The reason is a basic property of logarithms that relates logarithms in different bases,
-
-$$
-\log_{\boxed{b}}(k) = \frac{\log_a(k)}{\log_a(\boxed{b})}
-$$
-
-where $a$ and $b$ are two different bases, and $k$ is the argument of the logarithm we want to calculate. For instance, converting a log from natural base $e$ to base 10, we have
-
-$$
-\log_{10}(k) = \frac{\log_e(k)}{\log_e(10)}
-$$
-
-The catch is that the divisor, $\log_e{(10)}$, depends only on the bases and not on the argument. Suppose we have a fraction:
-
-$$
-\frac{\log_{10}(x)}{\log_{10}(y)}
-$$
-
-If we want to convert the logarithms to some arbitrary base b, we divide both the numerator and denominator by $\log_b(10)$. However, dividing both the numerator and denominator of a fraction by the same value has no effect on the final answer because it cancels out.
-
-Let’s make this explicit by applying this relationship to our formula for tick index $i$ and converting from the natural base to base 10:
-
-$$
-\begin{align*}
-i &= \lfloor \frac{2 \, \log_e \left( \frac{\text{sqrtPriceX96}}{2^{96}}\right)}{\log_e(1.0001)} \rfloor \\i  &= \lfloor \frac{2 \, \log_{10} \left( \frac{\text{sqrtPriceX96}}{2^{96}}\right) / \log_{10}(e)}{\log_{10}(1.0001) / \log_{10}(e)} \rfloor && \text{from base e to base 10} \\ i  &= \lfloor \frac{2 \, \log_{10} \left( \frac{\text{sqrtPriceX96}}{2^{96}}\right) / \cancel{\log_{10}(e)}}{\log_{10}(1.0001) / \cancel{\log_{10}(e)}} \rfloor  \\  i &= \lfloor \frac{2 \, \log_{10} \left( \frac{\text{sqrtPriceX96}}{2^{96}}\right)}{\log_{10}(1.0001)} \rfloor
-\end{align*}
-$$
-
-As we can see, the transformation factor cancels out and the calculation is the same regardless of the base.
-
 ## Summary
 
 - The protocol needs to convert between `sqrtPriceX96` and the tick index. This is done using the `getSqrtRatioAtTick` and `getTickAtSqrtRatio` functions, which are located in the `TickMath` library.
 - To convert from `sqrtPriceX96` to the tick index, the following formula should be used:
 
 $$
-i = \lfloor \frac{2 \, \log \left( \frac{\text{sqrtPriceX96}}{2^{96}}\right)}{\log(1.0001)} \rfloor
+i = \lfloor \frac{2 \, \ln \left( \frac{\text{sqrtPriceX96}}{2^{96}}\right)}{\ln(1.0001)} \rfloor
 $$
 
 - To convert from tick index to sqrtPriceX96, the following formula should be used:
