@@ -112,7 +112,7 @@ Below is an interactive tool where the reader can create multiple positions, and
 <iframe
   src="https://rareskills.io/uniswap-v3-positions-tool"
   width="900"
-  height="900"
+  height="1400"
   frameborder="0">
 </iframe>
 
