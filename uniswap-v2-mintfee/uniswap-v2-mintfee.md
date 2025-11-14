@@ -14,7 +14,7 @@ Therefore, the fee is collected when a liquidity provider calls [burn or mint](h
 ## Terminology of fee and mintFee
 To avoid confusion in terminology, we refer to "fee" as the 0.3% collected from traders during the swap, and the "mintFee" the 1/6th of the 0.3% fee. Yes, having fee in both terms is not great nomenclature, but that's what we have to work with.
 
-Liquidity is the square root of the products of the token balances in the pool. The justification for this formula was discussed in the Uniswap V2 swap function article. Some literature refers to this as $\sqrt{k}$ where $k = xy$ and $x$ and $x$ are the token balances in the pool (the reserves of $x$ and $y$). We refer to liquidity with $\ell$ since it is shorter to write than $\sqrt{k}$.
+Liquidity is the square root of the products of the token balances in the pool. The justification for this formula was discussed in the Uniswap V2 swap function article. Some literature refers to this as $\sqrt{k}$ where $k = xy$ and $x$ and $y$ are the token balances in the pool (the reserves of $x$ and $y$). We refer to liquidity with $\ell$ since it is shorter to write than $\sqrt{k}$.
 
 ## Computing the mintFee assumptions
 For this to work, Uniswap V2 relies on the following two invariants:
@@ -79,13 +79,13 @@ With that derivation in mind, the bulk of the Uniswap V2 `_mintFee` function sho
 
 We will dive into this function some more, but first we want to note where `kLast` gets updated.
 
-### Where `klast` gets updated
+### Where `kLast` gets updated
 In the code above, kLast is not set unless `feeOn` is switched to `false`. It is set at the completion of mint and burn but not swap because we are interested in measuring the growth of fees due to swaps between liquidity deposit and withdrawal events. The place `kLast` is set is marked with a <span style="color:#c1c146">yellow box</pan>.
 
-#### Mint function updating `klast`
+#### Mint function updating `kLast`
 ![Mint function from Uniswap with the fee switch highlighted](https://static.wixstatic.com/media/935a00_fd8c409236f4494b9e175a7bac3b6cd4~mv2.png/v1/fill/w_1480,h_794,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/935a00_fd8c409236f4494b9e175a7bac3b6cd4~mv2.png)
 
-#### Burn function updating `klast`
+#### Burn function updating `kLast`
 ![Burn function from Uniswap with the fee switch highlighted](https://static.wixstatic.com/media/935a00_d75b0789f82249f79c4b42225747e368~mv2.png/v1/fill/w_1480,h_822,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/935a00_d75b0789f82249f79c4b42225747e368~mv2.png)
 
 ### `_mintFee` code conditions
