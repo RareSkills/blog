@@ -12,7 +12,7 @@ Admittedly, this is a wall of code, but let’s break it down.
 
 -   The reason we can remove tokens right away is so that we can do flash loans. Of course, the require statement on line 182 (<span style="color:Orange">orange arrow</span>) will require us to pay back the flash loan with interest.
 
--   At the top of the function, there is a comment which says the function should be called from another smart contract which implements important safety checks. That means **this function in particular is missing safety checks** (red underline). We’ll want to determine what those are.
+- At the top of the function, there is a comment that says the function should be called from another smart contract that implements important safety checks. That means **this function in particular is missing safety checks** (red underline). We’ll want to determine what those are.
 
 -   The **variables _reserve0 and _reserve1** (<span style="color:#008aff">blue underline</span>) are read on lines 161, 176-177, and 182, but they **are not written to in this function**.
 
@@ -20,21 +20,21 @@ Admittedly, this is a wall of code, but let’s break it down.
 
 -   balance0 and balance1 are directly read from the actual balance of the pair contract using ERC20 balanceOf
 
--   Line 172 (below the <span style="color:#c1c146">yellow box</span>) is only executed if data is non-empty, otherwise it is not executed
+-   Line 172 (below the <span style="color:#c1c146">yellow box</span>) is only executed if data is non-empty; otherwise, it is not executed
 
 Using these observations, we will make sense of this function one feature at a time.
 
 ## Flash Borrowing
 
-Users do not have to use the swap function for trading tokens, it can be used purely as a flash loan.
+Users do not have to use the swap function for trading tokens; it can be used purely as a flash loan.
 
 ![uniswap v2 flash borrowing](https://static.wixstatic.com/media/935a00_a54daf3d2a764e2d83cf4f2db18c6c1e~mv2.png/v1/fill/w_740,h_460,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_a54daf3d2a764e2d83cf4f2db18c6c1e~mv2.png)
 
-The borrowing contract simply requests the amount of tokens they wish to borrow <span style="color:#8d28a4">(A)</span> without collateral and they will be transferred to the contract <span style="color:#8d28a4">(B)</span>.  
+The borrowing contract simply requests the amount of tokens they wish to borrow <span style="color:#8d28a4">(A)</span> without collateral, and they will be transferred to the contract <span style="color:#8d28a4">(B)</span>.  
 
 The data that should be provided with the function call is passed in as a function argument <span style="color:#8d28a4">\(C\)</span>, and this will be passed to a function that implements
 
-IUniswapV2Callee. The function uniswapV2Call must pay back the flash loan plus the fee or the transaction will revert.
+IUniswapV2Callee. The function uniswapV2Call must pay back the flash loan plus the fee, or the transaction will revert.
 
 ### Swap requires using a smart contract
 
@@ -44,7 +44,7 @@ It should be clear that **only a smart contract is able to interact with a swap 
 
 ## Measuring the amount of incoming tokens
 
-The way Uniswap V2 “measures” the amount of tokens sent in is done on line 176 and 177, marked with the <span style="color:#c1c146">yellow box</span> below.
+The way Uniswap V2 “measures” the amount of tokens sent in is done on lines 176 and 177, marked with the <span style="color:#c1c146">yellow box</span> below.
 
 ![swap measure reserves and balances](https://static.wixstatic.com/media/935a00_0b98b9ec5b0f46318c83353606b54f32~mv2.png/v1/fill/w_740,h_324,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_0b98b9ec5b0f46318c83353606b54f32~mv2.png)
 
@@ -66,7 +66,7 @@ currentContractbalanceX > _reserveX - _amountXOut
 currentContractBalanceX > previousContractBalanceX - _amountXOut
 ```
 
-If it measures a net decrease, the ternary operator returns zero, otherwise it will measure the net gain of tokens in.
+If it measures a net decrease, the ternary operator returns zero; otherwise, it will measure the net gain of tokens.
 
 ```solidity
 amountXIn = balanceX - (_reserveX - amountXOut)
@@ -96,7 +96,7 @@ The code again is
 
 ![An image of code](https://static.wixstatic.com/media/935a00_b7e8d0adcb204f4b9d41a0a297aab8b0~mv2.png/v1/fill/w_740,h_47,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_b7e8d0adcb204f4b9d41a0a297aab8b0~mv2.png)
 
-Uniswap V2 charges a hardcoded 0.3% per swap, which is why we see the numbers 1000 and 3 at play, but lets simplify this by changing it to the case where Uniswap V2 charged no fees. This means we can remove the .sub(amountXIn.mul(3)) term and not multiply by 1000 on lines 180 to 181 or 1000**2 on line 182.
+Uniswap V2 charges a hardcoded 0.3% per swap, which is why we see the numbers 1000 and 3 at play, but let's simplify this by changing it to the case where Uniswap V2 charged no fees. This means we can remove the .sub(amountXIn.mul(3)) term and not multiply by 1000 on lines 180 to 181 or 1000**2 on line 182.
 
 The new code would be
 
@@ -109,17 +109,17 @@ This is saying
 $$
 \begin{align*}
 X_\text{new}Y_\text{new} &\geq X_\text{prev}Y_\text{prev}\\
-K_\text{new}&\geq_\text{prev}
+K_\text{new} &\geq K_\text{prev}
 \end{align*}
 $$
 
 ### K is not really constant
 
-It’s a bit misleading to say “K remains constant” even though the AMM formula is sometimes referred to as a “constant product formula.”
+It’s a bit misleading to say “K remains constant,” even though the AMM formula is sometimes referred to as a “constant product formula.”
 
 Think about it this way, if someone donated tokens to the pool and changed the value of K, we wouldn’t want to stop them because they made us liquidity providers richer, right?
 
-Uniswap V2 doesn’t prevent you from “paying too much” i.e. transferring in too many tokens in during the swap (this is related to one of the safety checks, which we will get to later).
+Uniswap V2 doesn’t prevent you from “paying too much,” i.e., transferring in too many tokens during the swap (this is related to one of the safety checks, which we will get to later).
 
 We would be upset if there was a net loss in the pool, which is what the require statement is checking. If K gets larger, it means the pool got larger, and as liquidity providers, that’s what we want.
 
@@ -137,7 +137,7 @@ Observe that if we flash borrow one of the tokens, it results in the same fee as
 
 Remember, reserve0 and reserve1 represent the old balances, and balance0 and balance1 represent the updated balances.
 
-With that in mind, let’s write the code below should be self-explanatory. The multiplying by 1000 and 3 is to simply accomplish “fractional” multiplication since it cancels out in the end.
+With that in mind, let’s write the code below, which should be self-explanatory. The multiplying by 1000 and 3 is to simply accomplish “fractional” multiplication since it cancels out in the end.
 
 ![An image of fractional multiplication](https://static.wixstatic.com/media/935a00_2f3123e5591b44359ad9eb70393e71e6~mv2.png/v1/fill/w_740,h_47,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_2f3123e5591b44359ad9eb70393e71e6~mv2.png)
 
@@ -150,11 +150,11 @@ $$
 \end{align*}
 $$
 
-That is, the new balance must increase by 0.3% of the amount in. In the code, the formula is scaled by multiplying each term by 1,000 because Solidity doesn’t have floating point numbers, but the math formula shows what the code is trying to accomplish.
+That is, the new balance must increase by 0.3% of the amount in. In the code, the formula is scaled by multiplying each term by 1,000 because Solidity doesn’t have floating-point numbers, but the math formula shows what the code is trying to accomplish.
 
 ## Updating Reserves
 
-Now that the trade is completed, then the “previous balance” must be replaced with the current balance. This happens in the call to the _update() function at the end of swap().
+Now that the trade is completed, the “previous balance” must be replaced with the current balance. This happens in the call to the _update() function at the end of swap().
 
 ![update reserves function call](https://static.wixstatic.com/media/935a00_5193907a21a44de0bb29396c6f9e51ca~mv2.png/v1/fill/w_740,h_454,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_5193907a21a44de0bb29396c6f9e51ca~mv2.png)
 
@@ -162,15 +162,15 @@ Now that the trade is completed, then the “previous balance” must be replace
 
 ![update reserves in _update function](https://static.wixstatic.com/media/935a00_02048778d249465daee1f467f739199a~mv2.png/v1/fill/w_740,h_277,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_02048778d249465daee1f467f739199a~mv2.png)
 
-There is a lot of logic here to handle the TWAP oracle, but all we care about for now is lines 82 an 83 where the storage variables reserve0 and reserve1 are updated to reflect the changed balances. The arguments _reserve0 and _reserve1 are used to update the oracle, but they are not stored.
+There is a lot of logic here to handle the TWAP oracle, but all we care about for now is lines 82 and 83, where the storage variables reserve0 and reserve1 are updated to reflect the changed balances. The arguments _reserve0 and _reserve1 are used to update the oracle, but they are not stored.
 
 ## Safety Checks
 
 There are two things that can go wrong:
 
-1.  The amountIn is not enforce to be optimal, so the user might overpay for the swap
+1.  The amountIn is not enforced to be optimal, so the user might overpay for the swap
     
-2.  AmountOut has no flexibility as it is supplied as a parameter argument. If the amountIn turns out to not be sufficient relative to amountOut, the transaction will revert and gas will be wasted.
+2.  AmountOut has no flexibility as it is supplied as a parameter argument. If the amountIn turns out to not be sufficient relative to amountOut, the transaction will revert, and gas will be wasted.
     
 
 These circumstances can happen if someone frontruns a transaction (intentionally or not) and changes the ratio of assets in the pool in an undesirable direction.
