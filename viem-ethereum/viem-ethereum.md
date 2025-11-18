@@ -1,8 +1,8 @@
-# Viem React Js Example: Transfer, Mint, and View Blockchain State
+# Viem React Example: Transfer, Mint, and View Blockchain State
 
-In this tutorial, we’ll build a fully functional Dapp with the Viem typescript library + React (Next.js). We’ll cover the necessary steps to connect your wallet, transfer crypto, interact with smart contracts (eg.g mint NFTs) and query the blockchain.
+In this tutorial, we’ll build a fully functional Dapp with the Viem TypeScript library + React (Next.js). We’ll cover the necessary steps to connect your wallet, transfer crypto, interact with smart contracts (e.g. mint NFTs) and query the blockchain.
 
-Viem is a Typescript alternative to existing low-level Ethereum interfaces like web3.js and ethers.js. It supports browser native [BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) and automatically [infer types](https://viem.sh/docs/typescript.html) from ABIs and EIP-712. It has a 35kb bundle size, tree-shakable design to minimize the final bundle, 99.8% test coverage. Checkout their [benchmarks and full documentation](https://viem.sh/docs/introduction.html).
+Viem is a TypeScript alternative to existing low-level Ethereum interfaces like web3.js and Ethers.js. It supports browser native [BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) and automatically [infer types](https://viem.sh/docs/typescript.html) from ABIs and EIP-712. It has a 35kb bundle size, tree-shakable design to minimize the final bundle, 99.8% test coverage. Check out their [benchmarks and full documentation](https://viem.sh/docs/introduction.html).
 
 We’ve structured this tutorial with concise explanations delivered via in-line code comments. Simply copy-paste the codes and read the explanations.
 
@@ -16,7 +16,7 @@ Here’s an outline of the tutorial:
 
 A showcase of what you’ll build:
 
-![viem typescript demo dapp](https://static.wixstatic.com/media/935a00_f58f30a2b40a4d31aab773b095694c38~mv2.png/v1/fill/w_666,h_439,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_f58f30a2b40a4d31aab773b095694c38~mv2.png)
+![viem TypeScript demo dapp](https://static.wixstatic.com/media/935a00_f58f30a2b40a4d31aab773b095694c38~mv2.png/v1/fill/w_666,h_439,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_f58f30a2b40a4d31aab773b095694c38~mv2.png)
 
 [Full code in Git Repository](https://github.com/AymericRT/viemtutorial.git)
 
@@ -24,11 +24,11 @@ A showcase of what you’ll build:
 
 Viem has three fundamental concepts: **Client**, **Transport** and **Chain**
 
--   **Client** in viem, is similar to Ether.js Provider. It provides the typescript functions for doing common actions on Ethereum. Depending on the action, it will fall under one of three types of clients.  
-    -   **Public Client** is an interface to “public” JSON RPC API methods, e.g., retrieving block numbers, querying account balances, accessing “view” functions on smart contracts, and other read-only, non-state-changing operations. These functions are refered to as Public Actions.  
-    -   **Wallet Client** is an interface to interact with Ethereum Accounts, e.g., sending transactions, signing messages, requesting addresses, switching chains, and operations requiring the user’s permission. For example, minting an NFT is state-changing, so this would be done under the wallet client. These functions are refered to as Wallet Actions.  
+-   **Client** in viem, is similar to Ethers.js Provider. It provides the TypeScript functions for doing common actions on Ethereum. Depending on the action, it will fall under one of three types of clients.
+    -   **Public Client** is an interface to “public” JSON RPC API methods, e.g., retrieving block numbers, querying account balances, accessing “view” functions on smart contracts, and other read-only, non-state-changing operations. These functions are referred to as Public Actions.
+    -   **Wallet Client** is an interface to interact with Ethereum Accounts, e.g., sending transactions, signing messages, requesting addresses, switching chains, and operations requiring the user’s permission. For example, minting an NFT is state-changing, so this would be done under the wallet client. These functions are referred to as Wallet Actions.
     -   **Test Client** is used to create simulated transactions for testing. This would typically be used in unit tests.
--   **Transport** is instantiated with the **Client**, it represents the intermediary layer for executing requests. There are three types of Transport:  
+-   **Transport** is instantiated with the **Client**, it represents the intermediary layer for executing requests. There are three types of Transport:
     -   **HTTP** Transport, utilizing HTTP JSON-RPC;
     -   **WebSocket** Transport for real-time connections via WebSocket JSON-RPC;
     -   **Custom Transport**, which handle requests via EIP-1193 request method;
@@ -43,7 +43,7 @@ This is how to declare a **Public Client**.
 import { createPublicClient, http } from 'viem'
 import { mainnet } from 'viem/chains'
 
-const publicClient = createPublicClient({ 
+const publicClient = createPublicClient({
   chain: mainnet,
   transport: http()
 })
@@ -52,7 +52,7 @@ const publicClient = createPublicClient({
 This is how you utilize Public actions.
 
 ```js
-const balance = await publicClient.getBalance({ 
+const balance = await publicClient.getBalance({
   address: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
 })
 
@@ -86,7 +86,7 @@ const walletClient = createWalletClient({
 This is how to utilize Wallet Actions:
 
 ```js
-// Get's the user address
+// Gets the user address
 const [address] = await walletClient.getAddresses()
 
 // Sends a transaction
@@ -99,7 +99,7 @@ const hash = await walletClient.sendTransaction({
 
 Available wallet functions:
 
--   requestAddresses ( Wallets like Metamask may need a user’s to requestAddresses first )
+-   requestAddresses ( Wallets like MetaMask may need a user’s to requestAddresses first )
 -   switchChain
 -   signMessage
 -   getPermissions
@@ -122,14 +122,14 @@ const extendedClient = createWalletClient({
 }).extend(publicActions)
 
 // Public Action
-const block = await extendedClient.getBlockNumber() 
+const block = await extendedClient.getBlockNumber()
 // Wallet Action
-const [address] = await extendedClient.getAddresses(); 
+const [address] = await extendedClient.getAddresses();
 ```
 
 ### Test Client
 
-Test Client provides an interface to shadow accounts, mining blocks and impersonate transactions through a local test node such as Anvil or Hardhat. We won’t be discussing this in detail but you can read more on [Test Client Documentation](https://viem.sh/docs/clients/test.html).
+Test Client provides an interface to shadow accounts, mining blocks and impersonate transactions through a local test Node.js such as Anvil or Hardhat. We won’t be discussing this in detail but you can read more on [Test Client Documentation](https://viem.sh/docs/clients/test.html).
 
 ### Transport
 
@@ -158,7 +158,7 @@ import { mainnet } from 'viem/chains'
 
 const transport = webSocket('wss://eth-mainnet.g.alchemy.com/v2/...')
 const client = createPublicClient({
-  chain: mainnet, 
+  chain: mainnet,
   transport,
 })
 ```
@@ -169,7 +169,7 @@ Transport will fallback to public RPC URL for the same reasons above.
 
 **Custom (EIP-1193) (We will be using this)**
 
-This transport is used to integrate with injected wallets that provide an EIP-1193 provider such as WalletConnect, Coinbase SDK and Metamask.
+This transport is used to integrate with injected wallets that provide an EIP-1193 provider such as WalletConnect, Coinbase SDK and MetaMask.
 
 ```js
 import { createWalletClient, custom } from 'viem'
@@ -179,11 +179,11 @@ const client = createWalletClient({
   chain: mainnet,
   transport: custom(window.ethereum)
 })
-```  
+```
 
 **Fallback**
 
-This transport takes in multiple Tranpsorts. If a transport fails, it will resort to the next transport method given. In the following example, if Alchemy fails, it will fallback to Infura.
+This transport takes in multiple Transports. If a transport fails, it will resort to the next transport method given. In the following example, if Alchemy fails, it will fallback to Infura.
 
 ```js
 import { createPublicClient, fallback, http } from 'viem'
@@ -230,21 +230,21 @@ export const avalanche = {
         symbol: 'AVAX',
     },
     rpcUrls: {
-        public: { 
-            https: ['https://api.avax.network/ext/bc/C/rpc']        
+        public: {
+            https: ['https://api.avax.network/ext/bc/C/rpc']
         },
-        default: { 
-            https: ['https://api.avax.network/ext/bc/C/rpc'] 
+        default: {
+            https: ['https://api.avax.network/ext/bc/C/rpc']
         },
     },
     blockExplorers: {
-        etherscan: { 
-            name: 'SnowTrace', 
-            url: 'https://snowtrace.io' 
+        etherscan: {
+            name: 'SnowTrace',
+            url: 'https://snowtrace.io'
         },
-            default: { 
-                name: 'SnowTrace', 
-                url: 'https://snowtrace.io' 
+            default: {
+                name: 'SnowTrace',
+                url: 'https://snowtrace.io'
             },
         },
         contracts: {multicall3: {
@@ -271,7 +271,7 @@ npx create-next-app@latest myapp
 
 Check \[yes\] for the following:
 
--   **Typescript**
+-   **TypeScript**
 -   **ESLint**
 -   **Tailwind**
 -   **App Router** (preferably)
@@ -281,7 +281,7 @@ Open your project in **vscode**.
 Install viem with one the following command:
 
 ```bash
-npm i viem 
+npm i viem
 pnpm i viem
 yarn add viem
 ```
@@ -299,12 +299,12 @@ app
 ├── **client.ts**
 ├── globals.css
 ├── layout.tsx
-├── page.tsx 
+├── page.tsx
 └── **walletButton.tsx**
 
 ### Client.ts
 
-We’ll initialize the Client & Transport in a separate typescript file. Go ahead and copy paste the following codes into **client.ts**.
+We’ll initialize the Client & Transport in a separate TypeScript file. Go ahead and copy paste the following codes into **client.ts**.
 
 ```ts
 // client.ts
@@ -317,14 +317,14 @@ const publicClient = createPublicClient({
   chain: mainnet,
   transport: http(),
 });
-  
+
 // Instantiate Wallet Clientconst walletClient = createWalletClient({
     chain: polygonMumbai,
     transport: custom(window.ethereum),
 });
 ```
 
-This will inevitably throw a type error, **window.ethereum** might be **undefined** since some browsers like safari does not support the window.ethereum object.
+This will inevitably throw a type error, **window.ethereum** might be **undefined** since some browsers like Safari does not support the window.ethereum object.
 
 We can handle the error by checking if window.ethereum is present or undefined.
 
@@ -344,13 +344,13 @@ export function ConnectWalletClient() {
         const errorMessage ="MetaMask or another web3 wallet is not installed. Please install one to proceed.";
         throw new Error(errorMessage);
     }
-    
-    // Delcalre a Wallet Client
+
+    // Declare a Wallet Client
     const walletClient = createWalletClient({
         chain: polygonMumbai,
         transport: transport,
     });
-    
+
     return walletClient;
 }
 
@@ -363,13 +363,13 @@ export function ConnectPublicClient() {
         const errorMessage ="MetaMask or another web3 wallet is not installed. Please install one to proceed.";
         throw new Error(errorMessage);
     }
-    
-    // Delcare a Public Client
+
+    // Declare a Public Client
     const publicClient = createPublicClient({
         chain: polygonMumbai,
         transport: transport,
     });
-    
+
     return publicClient;
 }
 ```
@@ -388,7 +388,7 @@ This section demonstrates how the viem Client connects to your web3 wallet.
 
 We’ll now create a client component, that handles the connection logic to your web3 wallet.
 
-The button instantiates a walletClient and requests user’s wallet address, if the wallet isn’t already connected it will prompt it to, and finally output it’s address.
+The button instantiates a walletClient and requests the user’s wallet address, if the wallet isn’t already connected it will prompt it to, and finally output its address.
 
 There is a lot of code here, but focus on the handleClick() function.
 
@@ -403,17 +403,17 @@ export default function WalletButton() {
     const [address, setAddress] = useState<string | null>(null);
     const [balance, setBalance] = useState<BigInt>(BigInt(0));
     // Function requests connection and retrieves the address of wallet
-    // Then it retrievies the balance of the address 
+    // Then it retrieves the balance of the address
     // Finally it updates the value for address & balance variable
     async function handleClick() {
         try {
             // Instantiate a Wallet & Public Client
             const walletClient = ConnectWalletClient();
             const publicClient = ConnectPublicClient();
-        
+
             // Performs Wallet Action to retrieve wallet address
             const [address] = await walletClient.getAddresses();
-            
+
             // Performs Public Action to retrieve address balance
             const balance = await publicClient.getBalance({ address });
             // Update values for address & balance state variable
@@ -434,7 +434,7 @@ export default function WalletButton() {
             <img     src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg" alt="MetaMask Fox" style={{ width: "25px", height: "25px" }} />
             <h1 className="mx-auto">Connect Wallet</h1>
             </button></>);}
-            
+
 // Displays the wallet address once it’s successfuly connected
 // You do not have to read it, it's just frontend stuff
 
@@ -463,7 +463,7 @@ function Status({
 
 ### Step 3: Insert walletButton component
 
-###   
+###
 
 ### page.tsx
 
@@ -479,7 +479,7 @@ export default function Home() {
             <main className="min-h-screen">
                   <div className="flex flex-col items-center justify-center h-screen ">
                         <a href="https://rareskills.io" target="_blank" className="text-white font-bold text-3xl hover:text-[#0044CC]" > Viem.sh </a>
-                        <div className="h-[300px] min-w-[150px] flex flex-col justify-between  backdrop-blur-2xl bg-[#290330]/30 rounded-lg mx-auto p-7 text-white border border-purple-950">                                                                     
+                        <div className="h-[300px] min-w-[150px] flex flex-col justify-between  backdrop-blur-2xl bg-[#290330]/30 rounded-lg mx-auto p-7 text-white border border-purple-950">
                               <WalletButton />
                               {/* <SendButton />
                               <MintButton /> */}
@@ -524,7 +524,7 @@ After the button is clicked, the following will show:
 
 Now that our wallet is connected, we can start transfering cryptocurrencies. We will utilize the **sendTransaction** wallet action.
 
--   Get some Matic from [Matic Faucet](https://faucet.polygon.technology/)  
+-   Get some Matic from [Matic Faucet](https://faucet.polygon.technology/)
 
 ### Step 5: Add feature to transfer cryptocurrency
 
@@ -534,8 +534,8 @@ app
 ├── client.ts
 ├── globals.css
 ├── layout.tsx
-├── page.tsx 
-├── **sendButton.tsx** 
+├── page.tsx
+├── **sendButton.tsx**
 └── walletButton.tsx
 
 ### sendButton.tsx
@@ -555,9 +555,9 @@ export default function SendButton() {
            const walletClient = ConnectWalletClient();
            // Get the main wallet address
            const [address] = await walletClient.getAddresses();
-           // sendTransaction is a Wallet action. 
-           // It returns the transaction hash 
-           // requires 3 parameters  to transfer cryptocurrency, 
+           // sendTransaction is a Wallet action.
+           // It returns the transaction hash
+           // requires 3 parameters  to transfer cryptocurrency,
            // account, to and value
            const hash = await walletClient.sendTransaction({
               account: address,
@@ -571,7 +571,7 @@ export default function SendButton() {
               alert(`Transaction failed: ${error}`);
          }
      }
-     
+
      return (
         <button
             className="py-2.5 px-2 rounded-md bg-[#1e2124] flex flex-row items-center justify-center border border-[#1e2124] hover:border hover:border-indigo-600 shadow-md shadow-indigo-500/10"
@@ -641,8 +641,8 @@ app
 ├── globals.css
 ├── layout.tsx
 ├── **mintButton.tsx**
-├── page.tsx 
-├── sendButton.tsx 
+├── page.tsx
+├── sendButton.tsx
 └── walletButton.tsx
 
 ### abi.ts
@@ -772,11 +772,11 @@ export default function MintButton() {
 
   // Function to Interact With Smart Contract
   async function handleClick() {
-  
+
     // Declare Client
     const walletClient = ConnectWalletClient();
     const publicClient = ConnectPublicClient();
-    
+
     // Create a Contract Instance
     // Pass publicClient to perform Public Client Contract Methods
     // Pass walletClient to perform Wallet Client Contract Methods
@@ -786,41 +786,41 @@ export default function MintButton() {
       publicClient,
       walletClient,
     });
-    
+
     // Reads the view state function symbol via Contract Instance method
     const symbol = await contract.read.symbol();
-    
+
     // Reads the view state function name via Contract Instance method
     const name = await contract.read.name();
-    
+
     // Reads the view state function symbol via Contract Action method
     const totalSupply = await publicClient.readContract({
       address: '0x7E6Ddd9dC419ee2F10eeAa8cBB72C215B9Eb5E23',
       abi: wagmiAbi,
       functionName: 'totalSupply',
     })
-    
+
     // Format ether converts BigInt(Wei) to String(Ether)
     const totalSupplyInEther = formatEther(totalSupply);
-    
+
     alert(`Symbol: ${symbol}\nName: ${name}\ntotalSupply: ${totalSupplyInEther}`);
-    
+
     try {
       // Declare Wallet Client and Retrieve wallet address
       const client = walletClient;
       const [address] = await client.getAddresses();
-      
+
       // Writes the state-changin function mint via Contract Instance method.
       const result = await contract.write.mint({
         account: address
       });
-      
+
       alert(`${result} ${name}`);
     } catch (error) {
       // Handle any errors that occur during the transaction
       alert(`Transaction failed: ${error}`);
     }}
-    
+
     return (
       <>
         <button
