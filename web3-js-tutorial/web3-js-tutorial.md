@@ -1,6 +1,6 @@
 # Web3.js Example. Latest version 4.x. Transfer, Mint and Query the Blockchain
 
-The newest version of web3.js, 4.x, has just been unveiled. In this guide, we’ll delve into integrating web3.js into HTML to Transfer, Mint NFTs as well as querying the Blockchain. Several features within the web3.js v 1.10.0 documentation are set to be deprecated, therefore we have compiled the most up-to-date methods for this web3.js tutorial. We will refrain from using a framework like React js. Without using any frameworks, we are compelled to acquire a deeper understanding of the fundamental concepts involved in Dapp development. This hands-on approach helps you build a robust foundation for your blockchain development skills. Simply follow the step-by-step instructions, copy-paste codes, and read through the provided code snippets. Here’s what we cover in this tutorial:
+The newest version of web3.js, 4.x, has just been unveiled. In this guide, we’ll delve into integrating web3.js into HTML to Transfer, Mint NFTs as well as querying the Blockchain. Several features within the web3.js v 1.10.0 documentation are set to be deprecated, therefore we have compiled the most up-to-date methods for this web3.js tutorial. We will refrain from using a framework like React. Without using any frameworks, we are compelled to acquire a deeper understanding of the fundamental concepts involved in Dapp development. This hands-on approach helps you build a robust foundation for your blockchain development skills. Simply follow the step-by-step instructions, copy-paste codes, and read through the provided code snippets. Here’s what we cover in this tutorial:
 
 -   Web3.js 4.x Migration Highlights
 -   Getting Started: Web3.js
@@ -13,7 +13,7 @@ We provide examples and visuals throughout this tutorial to illustrate the conce
 
 ## Web3.js 4.x Migration Highlights
 
-This guide walks you through some of the significant code changes for the migration to Web3.js 4.x.  
+This guide walks you through some of the significant code changes for the migration to Web3.js 4.x.
 
 ### **Breaking Changes**
 
@@ -76,11 +76,11 @@ const contract = new web3.eth.Contract(jsonInterface, address);
 
 #### **2. getBalance**
 
-In Web3.js 4.x, **getBalance** returns a BigInt instead of a String. For the full migration guide visit the **web3.js docs**: [https://web3js.org/#/](https://web3js.org/#/)  
+In Web3.js 4.x, **getBalance** returns a BigInt instead of a String. For the full migration guide visit the **web3.js docs**: [https://web3js.org/#/](https://web3js.org/#/)
 
 ## Getting Started: Web3.js
 
-Create a folder with the following directory: 
+Create a folder with the following directory:
 
 ```
 ├── directory/
@@ -92,22 +92,22 @@ Create a folder with the following directory:
 Where to download web3.js:
 
 -   **CDN** link: web3.js
-    
+
 
 Find this project on:
 
--   **Github** project Link: https://github.com/AymericRT/web3.js.git
+-   **GitHub** project Link: https://github.com/AymericRT/web3.js.git
 
 ## Part 1: Connect to MetaMask
 
-We will now create a button that establishes a connection with MetaMask. The frontend codes will be put in **index.html**and the web3.js javascript codes in **main.js**  
+We will now create a button that establishes a connection with MetaMask. The frontend codes will be put in **index.html**and the web3.js JavaScript codes in **main.js**
 
 ### **Index.html**
 
 The codes below contain the following:
 
 -   HTML boilerplate
--   Meta Mask button
+-   MetaMask button
 -   web3.js CDN package Script Tag
 -   main.js Script Tag
 
@@ -132,7 +132,7 @@ The codes below contain the following:
                   <p id="status1" class="status" style="color: red">disconnected</p>
                   <p id="status2" style="color: white"></p>
                   <div class="maincontainer">
-                  
+
                         <!-- Connect Wallet -->
                         <div class="container">
                               <div class="buttonswrapper">
@@ -141,13 +141,13 @@ The codes below contain the following:
                                     </div>
                               </div>
                         </div>
-                              
+
                         <!-- Account Info Button -->
-                              
+
                         <!-- Send Transaction -->
-                              
+
                         <!-- Mint -->
-                              
+
                   </div>
             </main>
             <script src="./main.js"></script>
@@ -163,7 +163,7 @@ The codes below contain the following:
     crossorigin="anonymous" referrerpolicy="no-referrer">
 ```
 
-This script tag in the <head> section is used to load the web3.js CDN library.  
+This script tag in the <head> section is used to load the web3.js CDN library.
 
 This is the equivalent of **const { Web3 } = require(‘web3’);**
 
@@ -171,15 +171,15 @@ This is the equivalent of **const { Web3 } = require(‘web3’);**
 <script src="./main.js"></script>
 ```
 
-This loads our “main.js” functions into the HTML. Best practice is to place it at bottom of body to avoid accessing DOM elements before rendering.  
+This loads our “main.js” functions into the HTML. Best practice is to place it at bottom of body to avoid accessing DOM elements before rendering.
 
 ### **Styles.css**
 
-Copy paste the css codes from Github: Github link to file: [https://github.com/AymericRT/web3.js/blob/master/styles.css](https://github.com/AymericRT/web3.js/blob/master/styles.css)  
+Copy paste the css codes from GitHub: GitHub link to file: [https://github.com/AymericRT/web3.js/blob/master/styles.css](https://github.com/AymericRT/web3.js/blob/master/styles.css)
 
 ### Main.js File
 
-In the main.js file, we will incorporate the necessary javascript functions to activate the MetaMask button. There are three primary functions below:
+In the main.js file, we will incorporate the necessary JavaScript functions to activate the MetaMask button. There are three primary functions below:
 
 -   **Event Listener for “metamask” Button**
     -   Upon a click event, it checks if MetaMask is available and connected.
@@ -214,7 +214,7 @@ async function checkMetaMaskAvailability() {
         return false;
     }
 }
-    
+
 // Event listener for MetaMask button
 document.getElementById("metamask").addEventListener("click", async () => {
     const metaMaskAvailable = await checkMetaMaskAvailability();
@@ -228,7 +228,7 @@ document.getElementById("metamask").addEventListener("click", async () => {
         document.getElementById("status1").style.color = "red";
     }
 });
-    
+
 //Function to connect to MetaMask
 async function ConnectWallet() {
     try {
@@ -255,7 +255,7 @@ async function ConnectWallet() {
 const web3 = new Web3(window.ethereum);
 ```
 
-**web3** is a new instance of the Web3.js library.  
+**web3** is a new instance of the Web3.js library.
 
 By assigning **window.ethereum** to the Web3 constructor, **web3** variable uses the provided Ethereum provider for interacting with the Ethereum network.
 
@@ -265,7 +265,7 @@ By assigning **window.ethereum** to the Web3 constructor, **web3** variable uses
 await window.ethereum.request({ method: "eth_requestAccounts" });
 ```
 
-This code requests access to the user’s Ethereum accounts in the web app using the **eth_requestAccounts** method.  
+This code requests access to the user’s Ethereum accounts in the web app using the **eth_requestAccounts** method.
 
 ### Run your server
 
@@ -315,10 +315,10 @@ The two primary functions required are:
     -   It retrieves the account address using the **web3.eth.getAccounts()** method.
     -   The account balance is obtained through the **web3.eth.getBalance(from)** method.
     -   Additionally, it retrieves the current gas price by calling the **web3.eth.getGasPrice()** method.
-        
+
 ```js!
-// Event Listener for Account Information 
-document.getElementById("accountbutton").addEventListener("click", async () => {   
+// Event Listener for Account Information
+document.getElementById("accountbutton").addEventListener("click", async () => {
     const metaMaskAvailable = await checkMetaMaskAvailability();
     if (metaMaskAvailable) {
         await AccountInformation();
@@ -351,12 +351,12 @@ const from = account[0]; // gets the first account in the list
 
 The **getAccounts()** method returns a list of accounts the node controls. Basically, it returns the connected MetaMask accounts.
 
-The first element in the list will represent the primary connected account.  
+The first element in the list will represent the primary connected account.
 
 #### **web3.js get Balance**
 
 ```js
-web3.eth.getBalance(from)   
+web3.eth.getBalance(from)
 ```
 
 The **getBalance()** method fetches the balance of the account address passed to the parameter in Wei. Note that 1 Ether is equivalent to 10^18 Wei.
@@ -364,7 +364,7 @@ The **getBalance()** method fetches the balance of the account address passed to
 #### **web3.js get Gas Price**
 
 ```js
-web3.eth.getGasPrice() 
+web3.eth.getGasPrice()
 ```
 
 The **getGasPrice()** method retrieves the current gas price in Wei for transactions on the Ethereum network.
@@ -384,7 +384,7 @@ Send Transaction requires the following arguments:
 -   Sender Address
 -   Recipient Address
 -   Specified Amount
-    
+
 
 Our sender Address will be the default connected account. For the recipient address and the specified amount, we will generate a form with two input fields and a “send” button that will initiate the transfer.
 
@@ -424,7 +424,7 @@ To activate the Send Transaction Functionality, we need to create two primary fu
 -   **SendFunction()**
     -   This function is responsible for sending the transaction.
     -   It retrieves the recipient address and the specified amount through DOM Manipulation.
-    -   Additionally creates a javascript object of the transaction details; from, to, amount; within **transaction**.
+    -   Additionally creates a JavaScript object of the transaction details; from, to, amount; within **transaction**.
     -   Sends a transaction on the Ethereum network with the provided transaction details, **transaction,** through **web3.eth.sendTransaction(transaction)**
 
 ```js!
@@ -435,38 +435,38 @@ document.getElementById("sendButton").addEventListener("click", async () => {
         await SendFunction();
     }
 });
-    
+
 //Function to call the Send Function
 async function SendFunction() {
     // Get input values
     const to = document.getElementById("addressinput").value;
     const amount = document.getElementById("amountinput").value;
-    
+
     // Check if both to and amount are provided
     if (!to || !amount) {
         console.error("To and amount are required");
         return;
     }
-        
+
     // Convert amount to wei (1 ether = 10^18 wei)
     const amountWei = web3.utils.toWei(amount, "ether");
-    
+
     // Get the selected account from MetaMask
     const accounts = await web3.eth.getAccounts();
     const from = accounts[0];
-    
+
     // Create the transaction object
     const transaction = {
         from: from,
-        to: to,    
+        to: to,
         value: amountWei,
     };
-        
+
     // Send the transaction
     try {
         const result = await web3.eth.sendTransaction(transaction);
         console.log("Transaction result:", result);
-        
+
         // Update status
         document.getElementById("status2").innerText ="Transaction sent successfully";
         document.getElementById("status2").style.color = "green";
@@ -487,14 +487,14 @@ async function SendFunction() {
 await web3.eth.sendTransaction(transaction)
 ```
 
-**sendTransaction** takes a single parameter, transaction. Throws an error if the transaction is unsuccessful.  
+**sendTransaction** takes a single parameter, transaction. Throws an error if the transaction is unsuccessful.
 
 **transaction** is an object containing the details of the transaction to be sent. This is the format:
 
 ```js
 {
     from: "Sender Address",
-    to: "Recepient Address",
+    to: "Recipient Address",
     value: "Amount to be sent in WEI",
 };
 ```
@@ -551,7 +551,7 @@ In web3.js we have to first instantiate the contract in order to interact with i
 -   **contract address:** 0x88d099496C1A493A36E678062f259FE9919B9150
 -   **contract ABI:** Find it here
 
-Our javascript will have two main functions:
+Our JavaScript will have two main functions:
 
 -   **Event Listener for our Mint Button**
     -   Upon a click event, it checks if MetaMask is available and connected.
@@ -562,7 +562,7 @@ Our javascript will have two main functions:
     -   Creates an instance of the contract using the **web3.eth.Contract** object, passing **contractABI** and **contractAddress** as its arguments.
     -   Retrieves the total supply of the contract by reading the **totalSupply** function.
     -   Mints the contract data by executing the **mint(uint256 amount)** function.
-    -   Listens for the “**Mint** event” occurence and handles it.
+    -   Listens for the “**Mint** event” occurrence and handles it.
 
 We’ll dive into each of the details in the code snippets.
 
@@ -624,34 +624,34 @@ const contractABI = [
           name: "amount",
           type: "uint256",
         },],name: "mint",outputs: [],stateMutability: "nonpayable",type: "function",},{inputs: [],name: "totalSupply",outputs: [{internalType: "uint256",name: "",type: "uint256",},],stateMutability: "view",type: "function",},];
-        
-// Funciton to mint
+
+// Function to mint
 async function mintNFT() {
 
   // Get connected account
   const accounts = await web3.eth.getAccounts();
   const from = accounts[0];
-  
+
   // Instantiate a new Contract
   const contract = new web3.eth.Contract(contractABI, contractAddress);
-  
+
   try {
     // Invoke contract methods
     const result = await contract.methods.mint(1).send({ from: from , value: 0});
     const _totalSupply = await contract.methods.totalSupply().call();
-        
+
     document.getElementById("status2").innerText = "TotalSupply: " + _totalSupply;
     document.getElementById("status2").style.color = "green";
     document.getElementById("status3").innerText = "Minting successful";
     document.getElementById("status3").style.color = "green";
-    
-    // Event Listener 
+
+    // Event Listener
     contract
       .getPastEvents("Mint", {
         fromBlock: "latest", // Start from the latest block
         })
         .then((results) => console.log(results));
-        
+
   } catch (err) {
         console.error("Failed to mint:", err);
         document.getElementById("status3").innerText = "Failed to mint";
@@ -665,15 +665,15 @@ async function mintNFT() {
 ### **web3.js Contract**
 
 ```js
-const contract = new web3.eth.Contract(contractABI, contractAddress); 
+const contract = new web3.eth.Contract(contractABI, contractAddress);
 ```
 
-We have instantiated a new instance of RareSkills contract using the **web3.eth.Contract** constructor, passing in **contractABI** and **contractAddress** as its arguments. This instance allows us to interact directly with the smart contract located at **contractAddress** using the interface defined in **contractABI**. Interacting with the smart contract requires us to invoke the **.send()** or **.call()** function depending on whether it’s a state-viewing or a state-changing function.  
+We have instantiated a new instance of RareSkills contract using the **web3.eth.Contract** constructor, passing in **contractABI** and **contractAddress** as its arguments. This instance allows us to interact directly with the smart contract located at **contractAddress** using the interface defined in **contractABI**. Interacting with the smart contract requires us to invoke the **.send()** or **.call()** function depending on whether it’s a state-viewing or a state-changing function.
 
 **web3.js .send()**
 
 ```js
-contract.methods.mint(1).send({ from: from , value: 0}); 
+contract.methods.mint(1).send({ from: from , value: 0});
 ```
 
 The **send()** method is used when executing functions that alter the state of the contract. Since our mint function adds to the totalSupply of our contract, it’s a state-changing function. The object passed to the **send()** method **{ from: from, value: 0 }** specifies the details of the transaction.
@@ -683,9 +683,9 @@ The **send()** method is used when executing functions that alter the state of t
 
 #### **web3.js .call()**
 
-contract.methods.totalSupply().call(); The **call()** contract method is used when executing functions that do NOT alter the contract’s state. Since the **totalSupplyl()** function is a “view” function, it uses the call() method.
+contract.methods.totalSupply().call(); The **call()** contract method is used when executing functions that do NOT alter the contract’s state. Since the **totalSupply()** function is a “view” function, it uses the call() method.
 
-#### **web.3.js event Listeners()**
+#### **web3.js event Listeners()**
 
 ```js!
 contract
@@ -695,7 +695,7 @@ contract
 The **getPastEvents** is an event handler method that is called on the **contract** object to fetch the latest event emitted.
 
 1.  The first argument is the event name, in our case it’s the “**Mint**” event.
-    
+
 2.  The second argument is an options object. In this case, **fromBlock** is set to “latest” to fetch events from the latest block available. More on here.
 
 The **results** array is logged to the console, it should look like this:
