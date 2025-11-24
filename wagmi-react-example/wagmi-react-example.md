@@ -10,7 +10,7 @@ Here’s an outline of the tutorial:
 
 ### Authorship
 
-This article was co-authored by Aymeric Taylor ([LinkedIn](https://www.linkedin.com/in/aymeric-russel-taylor/), [Twitter](https://twitter.com/TaylorAymeric)), a research intern at RareSkills.  
+This article was co-authored by Aymeric Taylor ([LinkedIn](https://www.linkedin.com/in/aymeric-russel-taylor/), [Twitter](https://twitter.com/TaylorAymeric)), a research intern at RareSkills.
 
 ## Getting Started
 
@@ -32,7 +32,7 @@ Select **Add a network manually** and input the following:
 
 **Network Name:** Matic Mumbai
 
-**New RPC URL :** https://rpc-mumbai.maticvigil.com/
+**New RPC URL:** https://rpc-mumbai.maticvigil.com/
 
 **Chain ID :** 80001
 
@@ -54,11 +54,11 @@ First create your **Next.js** project with
 npx create-next-app@latest myapp
 ```
 
-Check the **Typescript** and **ESLint** option using the arrows and enter key. It should look something like this
+Check the **TypeScript** and **ESLint** option using the arrows and enter key. It should look something like this
 
-![create react app typescript](https://static.wixstatic.com/media/935a00_c0ed435320e547268cf69e749b976f5a~mv2.png/v1/fill/w_592,h_422,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_c0ed435320e547268cf69e749b976f5a~mv2.png)
+![Create React App TypeScript](https://static.wixstatic.com/media/935a00_c0ed435320e547268cf69e749b976f5a~mv2.png/v1/fill/w_592,h_422,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_c0ed435320e547268cf69e749b976f5a~mv2.png)
 
-Open your project in **vscode** and install [**wagmi.sh**](https://wagmi.sh/) and **use-debounce package** (we’ll get into that later).
+Open your project in **VS Code** and install [**wagmi.sh**](https://wagmi.sh/) and **use-debounce package** (we’ll get into that later).
 
 ```bash
 npm i wagmi ethers@^5
@@ -67,11 +67,11 @@ npm i use-debounce --save
 
 Wagmi is basically a set of React Hooks that simplifies [Ethereum development](https://www.rareskills.io/post/ethereum-contract-creation-code) by providing useful features such as connecting wallets and interacting with contracts which we’ll learn in this tutorial. More on [wagmi.sh](https://wagmi.sh/).
 
-  
+
 
 ### Step 2: Use configureChains to pick the network to connect to
 
-Head over to **pages/_app.tsx** and add in the following code. Each of functionalities are explained in the comment sections.
+Head over to **pages/_app.tsx** and add in the following code. Each of the functionalities is explained in the comment sections.
 
 ```tsx
 import "@/styles/globals.css"; // CSS doesnt really matter now
@@ -84,7 +84,7 @@ import { InjectedConnector } from 'wagmi/connectors/injected'
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 
-// configure the chains and provider that you want to use for your app, 
+// configure the chains and provider that you want to use for your app,
 // keep in mind that you're allowed to pass any EVM-compatible chain.
 // It is also encouraged that you pass both alchemyProvider and infuraProvider.
 const { chains, provider, webSocketProvider } = configureChains(
@@ -92,7 +92,7 @@ const { chains, provider, webSocketProvider } = configureChains(
   [publicProvider()]
 );
 
-// This creates a wagmi client instance of createClient 
+// This creates a wagmi client instance of createClient
 // and passes in the provider and webSocketProvider.
 
 const client = createClient({
@@ -125,7 +125,7 @@ const client = createClient({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    // Wrap your application with the WagmiConfig component 
+    // Wrap your application with the WagmiConfig component
     // and pass the client instance as a prop to it.
     <WagmiConfig client={client}>
       <Component {...pageProps} />
@@ -138,7 +138,7 @@ We now have our networks configured, our next step is to allow users to choose w
 
 ### Step 3: Use useConnect to enable picking the browser wallet
 
-On **pages/index.tsx** copy and paste the following code. Make sure you add the css, so it looks good!
+On **pages/index.tsx** copy and paste the following code. Make sure you add the CSS, so it looks good!
 
 ```tsx
 import { useAccount, useConnect } from "wagmi";
@@ -197,22 +197,22 @@ export default function Home() {
 }
 ```
 
-### Step 4: Add css to make it look nice
+### Step 4: Add CSS to make it look nice
 
 Delete everything on **styles/globals.css** and **styles/Home.module.css**.
 
-Copy paste the css code below on **styles/globals.css.**
+Copy paste the CSS code below on **styles/globals.css.**
 
 ```css
 body {
-    height: 100vh;     
-    background: rgb(11,3,48); /* For browsers that do not support gradients */     
-    background: linear-gradient(to bottom right,#0b0330, #5904a4);   
+    height: 100vh;
+    background: rgb(11,3,48); /* For browsers that do not support gradients */
+    background: linear-gradient(to bottom right,#0b0330, #5904a4);
     font-family: 'Inter Medium', sans-serif;
 }
 ```
 
-Copy paste the css code below into **styles/Home.module.css.**
+Copy paste the CSS code below into **styles/Home.module.css.**
 
 ```css=
 .status {
@@ -409,7 +409,7 @@ Copy paste the css code below into **styles/Home.module.css.**
   --slice-3: inset(10% -6px 85% 0);
   --slice-4: inset(40% -6px 43% 0);
   --slice-5: inset(80% -6px 5% 0);
-  
+
   content: 'GET YOUR NFT';
   display: block;
   position: absolute;
@@ -482,7 +482,7 @@ Copy paste the css code below into **styles/Home.module.css.**
     line-height: 88px;
   }
 }
-```  
+```
 
 ### Step 5: Run the website and test it
 
@@ -614,7 +614,7 @@ Congratulations on reaching this point! You have successfully created your own w
 
 ## Wagmi Examples Part 2: Minting an NFT with React + Wagmi
 
-We assume you have already have deployed an NFT [smart contract](https://www.rareskills.io/post/solana-smart-contract-language) to the blockchain. You can follow this video tutorial to do so: [https://youtu.be/LIoFbudNVZs](https://youtu.be/LIoFbudNVZs).
+We assume you already have deployed an NFT [smart contract](https://www.rareskills.io/post/solana-smart-contract-language) to the blockchain. You can follow this video tutorial to do so: [https://youtu.be/LIoFbudNVZs](https://youtu.be/LIoFbudNVZs).
 
 ![NFTs of AI generated cats](https://static.wixstatic.com/media/935a00_42ab1084a2d541b680e973113ba8c88b~mv2.png/v1/fill/w_592,h_247,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_42ab1084a2d541b680e973113ba8c88b~mv2.png)
 
@@ -649,7 +649,7 @@ export function MintNFT() {
     ],
     functionName: "mint",
     overrides: {
-      from: "Your Walllet Address",
+      from: "Your Wallet Address",
       value: ethers.utils.parseEther("0.000000001"), //the integer value should match your nft minting requirements
     },
   });
@@ -683,7 +683,7 @@ export function MintNFT() {
     </div>
   );
 }
-```  
+```
 
 Now you can simply insert it into the **index.tsx** file like this:
 
