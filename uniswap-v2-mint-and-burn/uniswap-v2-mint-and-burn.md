@@ -47,7 +47,7 @@ The ratio that this line of code is measuring is `amount0 / _reserve0` - scaled 
 
 Let's say there are 10 `token0` and 10 `token1`. If the user supplied 10 `token0` and 0 `token1`, they will get the minimum of (10/10, 0/10) and get zero liquidity tokens back! Another example: if they increase the supply of LP tokens (remember, this ratio is scaled by `_totalSupply` which is the current supply of LP tokens).
 
-**The fact that the user will get the worse of the two ratios (`amount0 / _reserve0` or `amount1 / _reserve1`) that they provide, incentivizes them to increase the supply of `token0` and `token1` without changing the ration of `token0` and `token1`.**
+**The fact that the user will get the worse of the two ratios (`amount0 / _reserve0` or `amount1 / _reserve1`) that they provide, incentivizes them to increase the supply of `token0` and `token1` without changing the ratio of `token0` and `token1`.**
 
 Why enforce this? Let's say the pool currently has 100 of `token0` and 1 of `token1`, and the supply of LP tokens is 1. Let's say the total value, in dollars, of both tokens is $100 each, so the total value of the pool is $200.
 
