@@ -171,8 +171,8 @@ The advantage of a binary fixed point number is we can use a gas-efficient left 
 As a basic example, consider that:
 (1) 2 has a binary representation of 10
 (2) 16 has a binary representation of 10000
-(3) $16 = 2 \times 2^3$
-(4) binary(1000) = binary(10) << 3
+(3) $16 = 2 \times 2^3$ 
+(4) binary(100) = binary(10) << 3
 
 Note that 3 is the exponent in (3) and the amount we left shift the bits by in (4).
 
