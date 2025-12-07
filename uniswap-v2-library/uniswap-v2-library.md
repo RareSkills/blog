@@ -2,7 +2,7 @@
 
 ## UniswapV2Library
 
-The [Uniswap V2 Library](https://github.com/Uniswap/v2-periphery/blob/master/contracts/libraries/UniswapV2Library.sol) simplifies some interactions with pair contracts and is used heavily by the Router contracts. It contains eight functions that are not state-changing,. They are also handy for integrating Uniswap V2 from a smart contract.
+The [Uniswap V2 Library](https://github.com/Uniswap/v2-periphery/blob/master/contracts/libraries/UniswapV2Library.sol) simplifies some interactions with pair contracts and is used heavily by the Router contracts. It contains eight functions that are not state-changing. They are also handy for integrating Uniswap V2 from a smart contract.
 
 ## getAmountOut() and getAmountIn()
 
@@ -36,7 +36,7 @@ The address of the UniswapV2 pair contract for each (A, B), (B, C), etc. is dete
 
 ![functions pairFor and sortTokens](https://static.wixstatic.com/media/935a00_a3ac066c3bca4fad88be17b06fa5d2f0~mv2.jpeg/v1/fill/w_1480,h_544,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_a3ac066c3bca4fad88be17b06fa5d2f0~mv2.jpeg)
 
-Now that we know the addresses for all the pairs, we can get the reserves of each one and predict how much tokens we will receive at the end of the chain of swaps. Below is the code for `getAmountsOut()` (emphasis on “Amounts” instead of “Amount”). The function `getAmountsIn()` simply does the same thing in reverse so we won’t show it here.
+Now that we know the addresses for all the pairs, we can get the reserves of each one and predict how many tokens we will receive at the end of the chain of swaps. Below is the code for `getAmountsOut()` (emphasis on “Amounts” instead of “Amount”). The function `getAmountsIn()` simply does the same thing in reverse so we won’t show it here.
 
 Note a couple things:
 - The smart contract doesn’t figure out the optimal sequence of pairs on its own, it needs to be told the list of pairs to calculate the chain of swaps over. This is best done off-chain.
