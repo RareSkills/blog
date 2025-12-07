@@ -22,7 +22,7 @@ The [variable borrowPerSecondInterestRateBase](https://github.com/compound-finan
 
 ![borrow interest per second highlighted](https://static.wixstatic.com/media/935a00_56328dc7b3ab4fc9b2e2cc9bcc91a0e1~mv2.png/v1/fill/w_666,h_212,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_56328dc7b3ab4fc9b2e2cc9bcc91a0e1~mv2.png)
 
-There are 31,536,000 seconds per year (SECONDS_PER_YEAR), not factoring in leap years and other Gregorian calendar quirks. If we multiply 31536000 (SECONDS_PER_YEAR) by 317097919 (borrowInterestRatePerSecond) we get (approximately) 0.01e18 (1e16). On a scale where 1 is 1e18, this translates to a 1% borrow interest rate.
+There are 31,536,000 seconds per year (SECONDS_PER_YEAR), not factoring in leap years and other Gregorian calendar quirks. If we multiply 31536000 (SECONDS_PER_YEAR) by 317097919 (borrowPerSecondInterestRateBase) we get (approximately) 0.01e18 (1e16). On a scale where 1 is 1e18, this translates to a 1% borrow interest rate.
 
 Indeed, we can verify this by looking at the [Compound market for USDC on Ethereum](https://app.compound.finance/markets/usdc-mainnet).
 
@@ -52,7 +52,7 @@ We also see the `SECONDS_PER_YEAR` constant (<span style="color:Red">red box</sp
 
 ### Step 2: Utilization is measured in FACTOR_SCALE (1e18)
 
-Let’s look at the [getUtilization() function in Comet.sol](https://github.com/compound-finance/comet/blob/main/contracts/Comet.sol#L458-L466).
+Let’s look at the [getUtilization() function in Comet.sol](https://github.com/compound-finance/comet/blob/main/contracts/Comet.sol#L478-L486).
 
 ![getUtilization() function](https://static.wixstatic.com/media/935a00_af47e7cb2da34a058fba3e094c2bf177~mv2.png/v1/fill/w_666,h_265,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_af47e7cb2da34a058fba3e094c2bf177~mv2.png)
 
@@ -92,7 +92,7 @@ Just think of the function as “it multiplies two 18 decimals numbers together 
 
 We are now ready to see that Compound V3 uses a 1e18 scale to measure interest rates.
 
-Compound uses a piece-wise linear function as we discussed in our article on interest rates. Below is the `getSupplyRate()` function, which returns the current interest rate earned by lenders as determined by the current utilization rate. We know that `mulFactor(...)` returns `FACTOR_SCALE` (18 decimal) numbers. Therefore, we know that `supplyPerSecondInterestRate` (<span style="color:#c1c146">yellow circle</span>) must also be a `FACTOR_SCALE` number or we would be adding numbers with a misaligned decimal. Therefore, the function `getSupplyRate()` returns `FACTOR_SCALE` decimals.
+Compound uses a piece-wise linear function as we discussed in our article on interest rates. Below is the `getSupplyRate()` function, which returns the current interest rate earned by lenders as determined by the current utilization rate. We know that `mulFactor(...)` returns `FACTOR_SCALE` (18 decimal) numbers. Therefore, we know that `supplyPerSecondInterestRateBase` (<span style="color:#c1c146">yellow circle</span>) must also be a `FACTOR_SCALE` number or we would be adding numbers with a misaligned decimal. Therefore, the function `getSupplyRate()` returns `FACTOR_SCALE` decimals.
 
 ![getSupplyRate function](https://static.wixstatic.com/media/935a00_97b3093cc7d445abb06e4dd393317fa0~mv2.png/v1/fill/w_666,h_311,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_97b3093cc7d445abb06e4dd393317fa0~mv2.png)
 
@@ -107,18 +107,18 @@ To calculate interest rates as a function of utilization, the user can get the c
 ```solidity!
 contract GetCurrentRatesComet {
 
+    uint64 private constant SECONDS_PER_YEAR = 365 * 24 * 60 * 60;
+
     function getRates(IComet comet)
         external
         returns (uint64, uint64) {
-
-        uint64 private constant SECONDS_PER_YEAR = 365 * 24 * 60 * 60;
 
         uint256 utilization = comet.getUtilization();
 
         // these are 18 decimal fixed point numbers
         // measuring interest per second
-        uint64 supplyRate = comet.getSupplyRate();
-        uint64 borrowRate = comet.getBorrowRate();
+        uint64 supplyRate = comet.getSupplyRate(utilization);
+        uint64 borrowRate = comet.getBorrowRate(utilization);
 
         // return them as APR
         return (supplyRate * SECONDS_PER_YEAR,
