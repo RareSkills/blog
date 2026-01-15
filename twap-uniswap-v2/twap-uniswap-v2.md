@@ -173,7 +173,7 @@ $$
 \frac{1}{2+3}\neq\frac{1}{2}+\frac{1}{3}
 $$
 
-However, the prices are still “somewhat symmetric,” hence the choice of fixed point arithmetic representation must have the same capacity for the integers and for the decimals. If Eth is 1,000 times more “valuable” than a USDC, then USDC is 1,000 times “less valuable” than USDC. To store this accurately, the fixed point number should have the same size on both sides of the decimal, hence Uniswap’s choice of `u112x112`.
+However, the prices are still “somewhat symmetric,” hence the choice of fixed point arithmetic representation must have the same capacity for the integers and for the decimals. If Eth is 1,000 times more “valuable” than a USDC, then USDC is 1,000 times “less valuable” than ETH. To store this accurately, the fixed point number should have the same size on both sides of the decimal, hence Uniswap’s choice of `u112x112`.
 
 ## PriceCumulativeLast always increases until it overflows, then keeps going
 
