@@ -198,7 +198,7 @@ This type of array has a predetermined size that cannot be changed after the arr
 
 **Slot Allocation For Fixed-size Array**
 
-If the type of each array element occupies a storage slot capacity (256 bits, 32 bytes, or 1 word), the Solidity compiler treats these elements as individual storage variables, assigning them slots sequentially starting from the slot of the array's storage variable.
+If the array's element type occupies a storage slot capacity (256 bits, 32 bytes, or 1 word), the Solidity compiler treats these elements as individual storage variables, assigning them slots sequentially starting from the slot of the array's storage variable.
 
 Consider the contract below:
 
