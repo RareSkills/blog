@@ -484,7 +484,8 @@ But since NTT operates over a finite field, there are no negative values of $x$ 
 
 We show that if there are two polynomials $p(x)$ and $q(x)$ of equal degree which interpolate a set of points, then a polynomial $r(x)$ must exist such that $r(x) = p(x)-q(x)$.
 
-We will then show that the only possible solution for $r(x)$ is $r(x) = 0$, otherwise we end up with a polynomial that has more roots than its degree, which we show is impossible. Let us look at these steps in detail now.
+The only possibility is $r(x) = 0$, which means $p(x) = q(x)$ everywhere.
+Therefore, there cannot be two different polynomials of degree $\le k$ that interpolate the same $k + 1$ points. The lowest-degree interpolating polynomial is unique. Let us look at these steps in detail now.
 
 **Let us assume that the lowest degree Lagrange polynomial is not unique.** Then there are at least two distinct polynomials of lowest degree that pass through all given $n+1$ points. Let these two polynomials be $p(x)$ and $q(x)$. Now, define the polynomial $r(x)$ as the difference between $p(x)$ and $q(x)$.
 
