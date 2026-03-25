@@ -108,7 +108,7 @@ template AliasCheck() {
 
 AliasCheck uses `-1` to refer to `p - 1`. `compConstant` takes a binary input (which could encode a value larger than the field element can hold) and returns 0 if it is less than or equal to a certain threshold and 1 if the binary value is greater than the threshold.
 
-By constraining the output of [`compConstant`](https://github.com/iden3/circomlib/blob/master/circuits/compconstant.circom) to be 0, and setting the constant for comparison to be -1, `AliasCheck` disallows binary numbers that are larger than `p`.
+By constraining the output of [`compConstant`](https://github.com/iden3/circomlib/blob/master/circuits/compconstant.circom) to be 0, and setting the constant for comparison to be -1, `AliasCheck` disallows binary numbers that are larger than `p - 1`.
 
 ## If the binary array holds fewer bits than the field can encode, there is no danger of alias bugs
 
