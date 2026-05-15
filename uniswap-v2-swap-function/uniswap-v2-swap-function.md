@@ -144,10 +144,14 @@ With that in mind, let’s write the code below should be self-explanatory. The 
 The code is accomplishing the following formula:
 
 $$
-\begin{align*}
-(\text{new_balance}_0-0.003\times\text{amountIn}_0) &\times (\text{new_balance}_1 - 0.003\times\text{amountIn}_1) \\
-\geq (\text{prev_balance}_0 &\times \text{prev_balance}_1)
-\end{align*}
+\begin{aligned}
+(\text{new\_balance}_0 - 0.003 \times \text{amountIn}_0)
+&\times
+(\text{new\_balance}_1 - 0.003 \times \text{amountIn}_1)
+\\
+&\geq
+(\text{prev\_balance}_0 \times \text{prev\_balance}_1)
+\end{aligned}
 $$
 
 That is, the new balance must increase by 0.3% of the amount in. In the code, the formula is scaled by multiplying each term by 1,000 because Solidity doesn’t have floating point numbers, but the math formula shows what the code is trying to accomplish.

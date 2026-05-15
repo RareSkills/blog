@@ -19,7 +19,12 @@ $$
 $$
 
 $$
-\text{amount_out} = \frac{\text{reserve_out} \cdot \text{amount_in}}{\text{reserve_in} + \text{amount_in}}
+\text{amount\_out} =
+\frac{
+  \text{reserve\_out} \cdot \text{amount\_in}
+}{
+  \text{reserve\_in} + \text{amount\_in}
+}
 $$
 
 With that in mind, the function for `getAmountOut()` in the `UniswapV2Library.sol` should be self-explanatory. Note that the numbers are scaled by 1,000 to account for the 0.3% fee. The derivation for `getAmountIn()` with fees is an exercise for the reader.
