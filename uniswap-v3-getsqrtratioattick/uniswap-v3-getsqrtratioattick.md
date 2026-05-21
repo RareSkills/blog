@@ -68,6 +68,21 @@ $$
 
 If the tick was originally negative, the code does not compute the reciprocal.
 
+It is natural to ask, why Uniswap doesn't compute the positive branch first then take reciprocal?
+
+When the code multiplies constants inside its loop, it keeps the result in Q128.128. For a negative tick path, the factor $\sqrt{1.0001^{-2^n}}$ is always slightly less than 1. Each multiply looks like this:
+
+```solidity
+ratio = (ratio * constant) >> 128;
+```
+
+Meaning:
+
+1. Multiply two ~`2^128`‑sized integers -> product sits around `2^256`.
+2. Right‑shift by 128 to bring it back to Q128.128.
+
+If those constants were greater than 1, intermediate results could exceed $2^{256}, causing an overflow since type `uint256` can't hold the data.
+
 ## Part 2/5: Checking if the tick is in range
 
 The second line of code in the function is self explanatory:
