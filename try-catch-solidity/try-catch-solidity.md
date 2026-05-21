@@ -192,7 +192,7 @@ Here’s the structure:
 -   The first four bytes represent the function Selector: `0x8e4a23d6`
 -   The next 32 bytes represents the address of the caller: `0000000000000000000000009c84abe0d64a1a27fc82821f88adae290eab5e07`
 
-As a side note, you can’t define custom `error error Error(string)` or `error Panic(uint256)` since those conflict with the errors that require and assert returns respectively (we will get to `assert` in a later section).
+As a side note, you can’t define custom error `error Error(string)` or `error Panic(uint256)` since those conflict with the errors that require and assert returns respectively (we will get to `assert` in a later section).
 
 ## 4. What gets returned from revert due to require statement?
 
