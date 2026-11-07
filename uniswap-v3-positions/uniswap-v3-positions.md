@@ -1,4 +1,7 @@
-# Positions in Uniswap v3
+---
+description: "In Uniswap v3, liquidity providers open positions over a tick range instead of getting LP tokens. Learn how positions, fees, and the mint function work."
+---
+# Uniswap v3 Positions: How Liquidity Ranges Work
 
 Adding liquidity to an AMM means depositing tokens into the AMM pool. Liquidity providers do this in the hope of earning fees from users who swap with that pool.
 

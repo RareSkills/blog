@@ -1,4 +1,7 @@
-# The RareSkills Book of Solidity Gas Optimization: 80+ Tips
+---
+description: "80+ ways to cut gas costs in Solidity, from avoiding zero-to-one storage writes and packing variables to calldata and assembly tricks, plus tricks to avoid."
+---
+# Solidity Gas Optimization: 80+ Tips and Tricks
 
 ![solidity gas optimization](https://static.wixstatic.com/media/935a00_9ee145bfe1c9479e9759233b022afca3~mv2.jpg/v1/fill/w_740,h_740,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_9ee145bfe1c9479e9759233b022afca3~mv2.jpg)
 

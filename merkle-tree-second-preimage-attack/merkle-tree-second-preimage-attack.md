@@ -1,4 +1,7 @@
-# The second preimage attack for Merkle Trees in Solidity
+---
+description: "A second preimage attack passes off an intermediate Merkle tree node as a leaf to forge a proof. See how it works with 64-byte leaves and how to prevent it."
+---
+# Second Preimage Attack on Merkle Trees and How to Prevent It
 
 The _second preimage attack_ in Merkle trees can happen when an intermediate node in a Merkle tree is presented as a leaf.
 

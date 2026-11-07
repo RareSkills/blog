@@ -1,4 +1,7 @@
-# The Architecture of the Compound V3 Smart Contract
+---
+description: "How Compound V3 (Comet) works: lending, borrowing against collateral, liquidations, and how its contracts and governance parameter updates fit together."
+---
+# Compound V3 Smart Contract Architecture Explained
 
 ## Introduction and prerequisites
 
