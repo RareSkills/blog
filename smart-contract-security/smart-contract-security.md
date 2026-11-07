@@ -1,4 +1,7 @@
-# Smart Contract Security
+---
+description: "A reference to the vulnerabilities that keep recurring in Solidity contracts, from reentrancy and access control to oracle manipulation and flash loans."
+---
+# Smart Contract Security: Common Solidity Vulnerabilities
 
 ![smart contract security](https://static.wixstatic.com/media/935a00_92be309e8215492bbde95fd355d5d19a~mv2.jpg/v1/fill/w_740,h_317,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_92be309e8215492bbde95fd355d5d19a~mv2.jpg)
 

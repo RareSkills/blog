@@ -1,4 +1,7 @@
-# Q Number Format
+---
+description: "Q numbers store fractions as binary fixed-point integers in Qm.n format. Learn to convert to and from Q numbers, their max value, and how to do math on them."
+---
+# Q Number Format (Qm.n) Explained for Solidity
 
 Q number format is a notation for describing binary [fixed-point numbers](https://rareskills.io/post/solidity-fixed-point).
 

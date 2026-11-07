@@ -1,4 +1,7 @@
-# Creating Raw Ethereum Interactions in Go: Blob Transactions, Tracing Transactions, and Others.
+---
+description: "Use Geth's ethclient package to work with Ethereum in Go, and make raw JSON-RPC calls where it falls short: tracing, signing, and sending blob transactions."
+---
+# Go Ethereum ethclient Tutorial: Blobs, Tracing, and Signing
 
 The ethclient package from Go-Ethereum (Geth) provides an API wrapper for JSON-RPC requests to the Ethereum network, similar to web3.js and ethers.js.
 

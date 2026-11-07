@@ -1,4 +1,7 @@
-# Understanding the Function Selector in Solidity
+---
+description: "The function selector is the first 4 bytes of the keccak256 hash of a function signature. See how Solidity computes it, how to get it, and collision odds."
+---
+# Function Selector in Solidity: How It Is Computed
 
 The function selector is a 4-byte id that Solidity uses to identify functions under the hood.
 
