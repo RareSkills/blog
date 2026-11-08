@@ -21,7 +21,7 @@ $$
 
 *The fact that the exponents “add” in this manner is called the product-of-powers rule in algebra.*
 
-*This article is part of a [series on the Uniswap V3 codebase](rareskills.io/uniswap-v3-book). Uniswap V3 uses the square and multiply algorithm for converting a tick index to a square root price. However, this article is also for anyone wanting to learn how the square and multiply algorithm works.*
+*This article is part of a [series on the Uniswap V3 codebase](https://rareskills.io/uniswap-v3-book). Uniswap V3 uses the square and multiply algorithm for converting a tick index to a square root price. However, this article is also for anyone wanting to learn how the square and multiply algorithm works.*
 
 ## Squared exponents sequence
 

@@ -951,7 +951,7 @@ contract DiamondLoupeFacet is IDiamondLoupe, IERC165 {
 }
 ```
 
-The view functions for [diamond-1](https://github.com/mudgen/diamond-1-hardhat/blob/main/contracts/facets/DiamondLoupeFacet.sol) and [diamond-2](github.com/mudgen/diamond-2-hardhat/blob/main/contracts/facets/DiamondLoupeFacet.sol) are more complex because they have to loop through all the function selectors to list out the facet addresses, then only return the unique addresses.
+The view functions for [diamond-1](https://github.com/mudgen/diamond-1-hardhat/blob/main/contracts/facets/DiamondLoupeFacet.sol) and [diamond-2](https://github.com/mudgen/diamond-2-hardhat/blob/main/contracts/facets/DiamondLoupeFacet.sol) are more complex because they have to loop through all the function selectors to list out the facet addresses, then only return the unique addresses.
 
 ## Deploying a diamond
 
@@ -1285,4 +1285,4 @@ If you run into issues, be sure you are using Node version 20.
 - All facets and selectors in the diamond must be determinable via the events emitted and the public functions in IDiamondLoupe.
 - Gas costs for viewing functions in `IDiamondLoupe` can be reduced by adding more data structures. However, this increases the upgrade cost. In nearly all cases, we should opt for fewer data structures because `IDiamondLoupe` functions are intended for offchain users.
 
-*We would like to thank [Nick Mudge](perfectabstractions.com) for providing comments on an earlier version of this article.*
+*We would like to thank [Nick Mudge](https://perfectabstractions.com) for providing comments on an earlier version of this article.*
