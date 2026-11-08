@@ -270,7 +270,7 @@ The following interactive tool shows how changing $k$ for different segments cha
 
 ### Piecewise formula is for illustration only
 
-In practice, it is not [gas-efficient](rareskills.io/post/gas-optimization) to check the price against so many potential cases like we do in the formula above. Similarly, keeping track of so many $k$ values is expensive.
+In practice, it is not [gas-efficient](https://rareskills.io/post/gas-optimization) to check the price against so many potential cases like we do in the formula above. Similarly, keeping track of so many $k$ values is expensive.
 
 Therefore, Uniswap V3 accomplishes the piecewise formula above using an alternate mechanism which is so complex that it is the subject of about a half of this book. The mechanism will be revisited in later chapters.
 

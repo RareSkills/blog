@@ -355,7 +355,7 @@ python  : 14614467034852101032 44672773810124308346321380903
 
 Whether this error is serious or not depends on how downstream logic uses this function.
 
-`getSqrtRatioAtTick()` is used when liquidity providers add or remove liquidity and when traders do a swap that crosses a tick. Since we have not yet discussed either of those mechanisms at this stage in our [tutorial of Uniswap V3](rareskills.io/uniswap-v3-book), we defer an error analysis of this function.
+`getSqrtRatioAtTick()` is used when liquidity providers add or remove liquidity and when traders do a swap that crosses a tick. Since we have not yet discussed either of those mechanisms at this stage in our [tutorial of Uniswap V3](https://rareskills.io/uniswap-v3-book), we defer an error analysis of this function.
 
 ## Summary
 
