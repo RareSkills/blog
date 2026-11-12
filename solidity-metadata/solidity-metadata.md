@@ -146,7 +146,7 @@ This enables smart contract code to be rigorously verified. The metadata JSON th
 
 ## One weird trick to lower gas via IPFS hash
 
-One obvious way to [optimize gas cost](https://www.rareskills.io/post/gas-optimization) at deployment time is the use the `--no-cbor-metadata` option. But if you need this for contract verification, then you can still reduce the gas cost by mining for IPFS hashes that have a lot of zero bytes in them. When the contract is deployed, the zero bytes will reduce the cost of the calldata. Because the source code is hashed, comments included, this means one can mine for comments that lead to gas-efficient IPFS hashes that will be appended to the contract. Note this means we want the hex representation of the hash to have zeros, not the base58 encoding.
+One obvious way to [optimize gas cost](https://rareskills.io/post/gas-optimization) at deployment time is the use the `--no-cbor-metadata` option. But if you need this for contract verification, then you can still reduce the gas cost by mining for IPFS hashes that have a lot of zero bytes in them. When the contract is deployed, the zero bytes will reduce the cost of the calldata. Because the source code is hashed, comments included, this means one can mine for comments that lead to gas-efficient IPFS hashes that will be appended to the contract. Note this means we want the hex representation of the hash to have zeros, not the base58 encoding.
 
 ## Further resources
 
@@ -154,6 +154,6 @@ You can see all the options for manipulating this metadata in the relevant [Soli
 
 ## Learn More
 
-See our [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp) to learn more advanced smart contract topics.
+See our [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp) to learn more advanced smart contract topics.
 
 *Originally Published May 25, 2023*

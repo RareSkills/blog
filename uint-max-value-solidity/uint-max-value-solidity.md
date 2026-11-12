@@ -95,6 +95,6 @@ As a corollary, two randomly chosen uint256 values (equivalent to the output of 
 
 If you are new to Solidity, see our [learn solidity free for beginner course](https://rareskills.io/learn-solidity).
 
-For intermediate and advanced developers please see our expert [solidity bootcamp](https://www.rareskills.io/solidity-bootcamp).
+For intermediate and advanced developers please see our expert [solidity bootcamp](https://rareskills.io/courses/solidity-bootcamp).
 
 *Originally Published April 2, 2023*

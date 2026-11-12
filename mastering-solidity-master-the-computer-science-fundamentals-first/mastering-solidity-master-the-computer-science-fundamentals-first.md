@@ -6,7 +6,7 @@
 
 I'll spare you the traditional arguments for why you should study and practice what is considered "the fundamentals."
 
-I know, the relationship between reversing a linked list and writing a secure and gas-efficient [smart contract](https://www.rareskills.io/post/solana-smart-contract-language) seems non-existent.
+I know, the relationship between reversing a linked list and writing a secure and gas-efficient [smart contract](https://rareskills.io/post/solana-smart-contract-language) seems non-existent.
 
 You've probably never needed to implement an algorithm that runs in log(n) time in production.
 
@@ -40,7 +40,7 @@ Software engineering isn't much different.
 
 There is a huge temptation to jump straight into the technologies that are one step removed from the final application you are trying to build.
 
-Machine learning? Learn TensorFlow! [Blockchain](https://www.rareskills.io/)? Learn solidity!
+Machine learning? Learn TensorFlow! [Blockchain](https://rareskills.io/)? Learn solidity!
 
 (Educators who misleadingly promise engineers better salaries if they learn these technologies are a big part of the problem).
 
@@ -97,7 +97,7 @@ The more abstractions and paradigms you have at your command for bit string tran
 
 This may sound like I'm defending tech companies for doing their 45-minute whiteboard interviews. There is value in doing this, and I am defending the principle but not the typical implementation.
 
-We require students to pass an easy to medium data structures and algorithms test before they can join the RareSkills [blockchain bootcamp](https://www.rareskills.io/web3-blockchain-bootcamps). The difference is that they have more than the traditional 45 minutes to do it.
+We require students to pass an easy to medium data structures and algorithms test before they can join the RareSkills [blockchain bootcamp](https://rareskills.io/web3-blockchain-bootcamps). The difference is that they have more than the traditional 45 minutes to do it.
 
 I readily admit it is rather cruel for someone to have to solve data structure questions in 45 minutes with a dry-erase marker. Someone who cannot solve them **at all**, however, is not a competent programmer and should not be trusted with creating smart contracts holding millions of dollars. You'd be surprised. 30% of the applicants who take the test can't even solve one single problem (and a variant of fizz buzz is one of the questions).
 
@@ -121,7 +121,7 @@ Despite the low odds of people matching the job requirements, people still get m
 
 It's because they can see the developer has generalized skill in computer science and can adapt it to what the company needs. (Going back to dating, people partner because they see the other person has the underlying characteristics that make a good companion, not because they have features correlated with being a good companion).
 
-I'm not saying a company will hire someone who has never built a frontend app for a senior frontend role. But I am saying within the broad categories of what we designate, "frontend, backend, [smart contract](https://www.rareskills.io/post/smart-contract-creation-cost), infrastructure, etc.," smart employers care more about general ability than framework experience.
+I'm not saying a company will hire someone who has never built a frontend app for a senior frontend role. But I am saying within the broad categories of what we designate, "frontend, backend, [smart contract](https://rareskills.io/post/smart-contract-creation-cost), infrastructure, etc.," smart employers care more about general ability than framework experience.
 
 ## A gap in the English language
 
@@ -151,7 +151,7 @@ So study the fundamentals, not the frameworks. That's how you become someone who
 
 Because "fundamentals" sounds like "beginner" (I.e., you should go into the corner and punch that bag a hundred times before you can practice with people who have a darker belt than you), I'm going to refer to certain computer science concepts as "*Evergreen*" and "*High Leverage*": "*Evergreen*" because it doesn't go out of date and "*High Leverage*" because it accelerates the acquisition of related knowledge.
 
-Learning another language, let's say [Rust](https://www.rareskills.io/rust-bootcamp), will certainly do you some good.
+Learning another language, let's say [Rust](https://rareskills.io/courses/rust-bootcamp), will certainly do you some good.
 
 But learning how compilers work will help you learn ***any*** language faster.
 
@@ -191,7 +191,7 @@ Here's a secret. Do something crazy like build a compiler from scratch or implem
 
 One project shows you know how to follow a tutorial. The other demonstrates that you can tackle difficult subjects head-on and can handle the myriad of issues that may come up but don't appear in the job description.
 
-Believe it or not, the Solidity compiler has bugs in it. Who would an employer rather hire, an engineer who just throws up their hands when the issue comes up, or an engineer who notices the issue, digs into the compiler source code, raises an issue on GitHub, and redesigns the solidity code to circumvent the issue? The first engineer may have a dozen [DeFi](https://www.rareskills.io/defi-bootcamp) staking apps on their GitHub, but that pales in comparison to the engineer who can explore the rabbit hole to its conclusion.
+Believe it or not, the Solidity compiler has bugs in it. Who would an employer rather hire, an engineer who just throws up their hands when the issue comes up, or an engineer who notices the issue, digs into the compiler source code, raises an issue on GitHub, and redesigns the solidity code to circumvent the issue? The first engineer may have a dozen DeFi staking apps on their GitHub, but that pales in comparison to the engineer who can explore the rabbit hole to its conclusion.
 
 Now I understand: it's very hard at the early stage to see the relationship between flipping binary trees recursively and writing efficient smart contracts.
 
@@ -207,7 +207,7 @@ The more first principles you grasp, the faster you'll be able to learn in a new
 
 Fundamentals are a lot broader than just leetcode. I'm not saying that because you can move two pointers around an array, you can master any domain of software development quickly. Studying data structures and algorithms have diminishing returns after a certain point (though I would argue most engineers don't reach that inflection point).
 
-[Leetcode](https://www.rareskills.io/post/best-50-leetcode-questions-to-start) doesn't test you on networking, language theory, information leaks, virtual machines, operating systems, compilers, and so on.
+[Leetcode](https://rareskills.io/post/best-50-leetcode-questions-to-start) doesn't test you on networking, language theory, information leaks, virtual machines, operating systems, compilers, and so on.
 It's outside the scope of discussion, but at the high levels, soft skills matter a lot. I don't want to ignore that. But we can agree that soft skills being roughly equal, the engineer with superior technical maturity will come out ahead.
 
 You can still gain an intuition of the fundamentals if you have a lot of good exposure to problems that force you to deal with them and can recognize patterns quickly. However, it will always be more efficient to study the foundations directly rather than learn through random chance. You might not get as lucky as your staff engineer.
@@ -264,7 +264,7 @@ It is the *only* way.
 
 ## RareSkills
 
-Thanks for reading this article. As you can see, I am passionate about developer education. That's why I created RareSkills. It's to teach code blockchain development the right way. So please check out our [blockchain bootcamp](https://www.rareskills.io/web3-blockchain-bootcamps). We offer everything from courses for those totally new to web3 coding to courses aimed at professional solidity developers.
+Thanks for reading this article. As you can see, I am passionate about developer education. That's why I created RareSkills. It's to teach code blockchain development the right way. So please check out our [blockchain bootcamp](https://rareskills.io/web3-blockchain-bootcamps). We offer everything from courses for those totally new to web3 coding to courses aimed at professional solidity developers.
 
 Half our students already have a job as a smart contract developers, so we are far more advanced than any typical bootcamp. And because we heavily emphasize the fundamentals, what you learn will be relevant in fields even outside of blockchain.
 

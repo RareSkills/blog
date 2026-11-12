@@ -10,7 +10,7 @@ Even if you know you want to develop on a blockchain that uses Rust (NEAR, Solan
 
 I would hazard to say _if you already know Rust and you want to develop smart contracts on non-EVM blockchains, you should still learn Solidity anyway._
 
-Solidity is very easy to learn. It looks similar to JavaScript. There are only ten or so frequently used keywords and types that might seem unfamiliar. A reasonably experienced developer can become comfortable in Solidity over a weekend with a good [Solidity tutorial](https://www.rareskills.io/learn-solidity) and long distraction-free study sessions. Every student in RareSkills becomes proficient in it after a week. Learning the language is the easy part.
+Solidity is very easy to learn. It looks similar to JavaScript. There are only ten or so frequently used keywords and types that might seem unfamiliar. A reasonably experienced developer can become comfortable in Solidity over a weekend with a good [Solidity tutorial](https://rareskills.io/learn-solidity) and long distraction-free study sessions. Every student in RareSkills becomes proficient in it after a week. Learning the language is the easy part.
 
 Solidity has its own weirdness that throws developers off, but many of the surprising features come from leaking unexpected abstractions from the blockchain environment.
 
@@ -60,7 +60,7 @@ Rust is a famously tricky language because of odd (but useful) concepts like own
 
 Luckily, the subset of Rust used by blockchains is very small. My rough guess is that only about 25-30% of Rust is actually used by blockchain, and about 10-15% is used heavily. So if you nail the 10-15% that matters, Rust won't be your blocker regarding web3 development.
 
-Caveat: this applies to [**_smart contracts_**](https://www.rareskills.io/post/smart-contract-creation-cost) (or **programs**, as Solana calls them). If you are building a blockchain client or smart contract tooling in Rust, you will need to be even more fluent in the language.
+Caveat: this applies to [**_smart contracts_**](https://rareskills.io/post/smart-contract-creation-cost) (or **programs**, as Solana calls them). If you are building a blockchain client or smart contract tooling in Rust, you will need to be even more fluent in the language.
 
 How much Rust do you need to know? If you can comfortably solve the LeetCode easy problems in Rust, you'll be able to read Solana programs without excessive difficulty. When you encounter a knowledge gap, you'll know what keywords to put into Google. How you go about this is up to you, but I recommend reading selective chapters from the book [Programming Rust](https://www.oreilly.com/library/view/programming-rust-2nd/9781492052586/) to give you an outline. But the usual caveat applies: don't get stuck in tutorial hell. You learn by doing, not by studying, reading, or watching videos.
 
@@ -81,6 +81,6 @@ No law of the universe (or even a social convention) says you must learn Solidit
 
 However, you will be better off with well-argued opinionated advice rather than wishy-washy advice that tries to avoid offending anyone.
 
-If you have to ask, learn Solidity first. Learn more about our [Rust and Solana Bootcamp](https://www.rareskills.io/rust-bootcamp) and [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp)
+If you have to ask, learn Solidity first. Learn more about our [Rust and Solana Bootcamp](https://rareskills.io/courses/rust-bootcamp) and [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp)
 
 *Originally published November 24, 2022*

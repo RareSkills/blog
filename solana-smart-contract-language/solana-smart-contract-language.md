@@ -5,13 +5,13 @@
 
 ## Solana programming language
 
-The primary [Solana programming language](https://www.rareskills.io/solana-tutorial) is [Rust](https://www.rareskills.io/rust-bootcamp), but [C, C++](https://docs.solana.com/developing/on-chain-programs/developing-c), and even [Python](https://seahorse-lang.org/) are supported.
+The primary [Solana programming language](https://rareskills.io/solana-tutorial) is [Rust](https://rareskills.io/courses/rust-bootcamp), but [C, C++](https://docs.solana.com/developing/on-chain-programs/developing-c), and even [Python](https://seahorse-lang.org/) are supported.
 
 Solana coding language uses Rust, C, and C++ in a similar way. We’ll discuss Python in a later section.
 
 Rust is a compiled language. If you compile Rust on your computer, it will ultimately turn into LLVM-IR (low level virtual machine intermediate representation), and LLVM turns it into the bytecode that can run on your machine (x86, arm64, etc.).
 
-In Solana, the sequence looks like this: 1) Compile Rust to LLVM-IR, then to BPF (Berkeley Packet Filter) and store the bytecode on the [blockchain](https://www.rareskills.io/web3-blockchain-bootcamps). 2) The validators JIT compile ([just in time compile](https://en.wikipedia.org/wiki/Just-in-time_compilation)) the BPF to the instruction set compatible with their hardware, usually x86, but arm64 might be another common target.
+In Solana, the sequence looks like this: 1) Compile Rust to LLVM-IR, then to BPF (Berkeley Packet Filter) and store the bytecode on the [blockchain](https://rareskills.io/web3-blockchain-bootcamps). 2) The validators JIT compile ([just in time compile](https://en.wikipedia.org/wiki/Just-in-time_compilation)) the BPF to the instruction set compatible with their hardware, usually x86, but arm64 might be another common target.
 
 *Packet Filter*, you ask? Why would the Solana programming language have to do with internet packets?
 
@@ -85,7 +85,7 @@ As of October 2022, Solana began migrating from BPF to SBF (Solana binary format
 
 ## Learn More from RareSkills
 
-Want to master Ethereum development? See our [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp)
+Want to master Ethereum development? See our [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp)
 
 ### Resources
 

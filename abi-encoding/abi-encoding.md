@@ -8,7 +8,7 @@ Let's get into it…
 
 ## Solidity abi.encodeWithSignature and low-level calls
 
-If we were to make a [low-level call](https://www.rareskills.io/post/low-level-call-solidity) to another smart contract with a public function `foo(uint256 x)` (passing `x = 5` as the argument), we would do the following:
+If we were to make a [low-level call](https://rareskills.io/post/low-level-call-solidity) to another smart contract with a public function `foo(uint256 x)` (passing `x = 5` as the argument), we would do the following:
 
 ```solidity
 otherContractAddr.call(abi.encodeWithSignature("foo(uint256)", (5));
@@ -60,7 +60,7 @@ Per the [Solidity documentation](https://docs.soliditylang.org/en/v0.8.26/abi-sp
     
 ### The function selector
 
-The [function selector](https://www.rareskills.io/post/function-selector) is simply the first 4 bytes of the [Keccak-256](https://eth-hash.readthedocs.io/en/stable/) hash of a function signature that Solidity uses to identify a function. For example, the Keccak-256 hash of our previously mentioned function signature `transfer(address,uint256)` is this hexadecimal value:
+The [function selector](https://rareskills.io/post/function-selector) is simply the first 4 bytes of the [Keccak-256](https://eth-hash.readthedocs.io/en/stable/) hash of a function signature that Solidity uses to identify a function. For example, the Keccak-256 hash of our previously mentioned function signature `transfer(address,uint256)` is this hexadecimal value:
 
 ```solidity
 0xa9059cbb2ab09eb219583f4a59a5d0623ade346d962bcd4e46b11da047c9049b
@@ -605,7 +605,7 @@ Below we show a video demonstrating how a 3D uint array is ABI encoding: `f(uint
 
 ## Calldata length and gas cost
 
-As a Solidity developer, one of your key concerns is [saving gas](https://www.rareskills.io/post/gas-optimization). More so, working with calldata comes with extra cost — every byte in calldata costs gas.   
+As a Solidity developer, one of your key concerns is [saving gas](https://rareskills.io/post/gas-optimization). More so, working with calldata comes with extra cost — every byte in calldata costs gas.   
 
 To determine the cost of a call data we first need to figure out the length of the calldata by counting the bytes. Let's use our previous calldata string as a case study:
 

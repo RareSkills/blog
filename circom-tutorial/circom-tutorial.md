@@ -3,10 +3,10 @@
 This tutorial introduces the Circom language and how to use it, along with common pitfalls. We will also explain a significant portion of the circomlib library in order to introduce common design patterns.
 
 ## A note about production use
-Circom is a fantastic tool for learning ZK-SNARKS. However, because it is quite low-level, there are more opportunities to accidentally add subtle bugs. In real applications, programmers should consider using higher [level zero knowledge programming languages](https://www.rareskills.io/post/zero-knowledge-programming-language). You should always get an audit before deploying a smart contract that holds user funds, but this is especially true for [ZK circuits](https://www.rareskills.io/post/arithmetic-circuit), as the attack vectors are less well known.
+Circom is a fantastic tool for learning ZK-SNARKS. However, because it is quite low-level, there are more opportunities to accidentally add subtle bugs. In real applications, programmers should consider using higher [level zero knowledge programming languages](https://rareskills.io/post/zero-knowledge-programming-language). You should always get an audit before deploying a smart contract that holds user funds, but this is especially true for [ZK circuits](https://rareskills.io/post/arithmetic-circuit), as the attack vectors are less well known.
 
 ## Prerequisites
-Although it is possible to program in Circom without understanding what a [Rank 1 Constraint System](https://www.rareskills.io/post/rank-1-constraint-system) is, you will have a far easier time developing a mental model of the language if you do. Circom is essentially an ergonomic wrapper for creating Rank 1 Constraint Systems.
+Although it is possible to program in Circom without understanding what a [Rank 1 Constraint System](https://rareskills.io/post/rank-1-constraint-system) is, you will have a far easier time developing a mental model of the language if you do. Circom is essentially an ergonomic wrapper for creating Rank 1 Constraint Systems.
 
 ## Installation
 Follow the steps here to [install circom](https://iden3.github.io/circom/getting-started/installation/)
@@ -74,7 +74,7 @@ and we will get the following output
 [INFO]  snarkJS: [ 21888242871839275222246405745257275088548364400416034343698204186575808495616main.a ] * [ main.b ] - [ 21888242871839275222246405745257275088548364400416034343698204186575808495616main.out ] = 0
 ```
 
-Remember, everything is done in a [finite field](https://www.rareskills.io/post/finite-fields) when dealing with arithmetic circuits, so the massive number you see is essentially `-1`. The R1CS equation is equivalent to
+Remember, everything is done in a [finite field](https://rareskills.io/post/finite-fields) when dealing with arithmetic circuits, so the massive number you see is essentially `-1`. The R1CS equation is equivalent to
 
 ```javascript
 -1 * a * b - (-1*out) = 0;
@@ -447,7 +447,7 @@ Underconstraints are a major source of security bugs in zero knowledge applicati
 
 This is why we emphasized understanding Rank 1 Constraint Systems before learning the Circom language, otherwise there is an entire category of bugs that will be hard for you to detect!
 
-You can learn in our other tutorial about how to [exploit underconstrained ZK circuits](https://www.rareskills.io/post/underconstrained-circom).
+You can learn in our other tutorial about how to [exploit underconstrained ZK circuits](https://rareskills.io/post/underconstrained-circom).
 
 ### When to use `<--`
 If the `<--` leads to underconstraints, why would the language include such a foot gun?
@@ -711,7 +711,7 @@ template LessThan(n) {
 }
 ```
 
-The code is parameterized by $n$ which is the maximum size of the numbers in bits, though there is an enforced upper limit of 252 bits to stay below the limit of the field size to avoid the [alias bug](https://www.rareskills.io/post/circom-aliascheck).
+The code is parameterized by $n$ which is the maximum size of the numbers in bits, though there is an enforced upper limit of 252 bits to stay below the limit of the field size to avoid the [alias bug](https://rareskills.io/post/circom-aliascheck).
 
 The numbers cannot be larger than $2^n$, so adding `1<<n` ensures the term `in[0] + (1<<n)` will always be larger than `in[1]`. The difference is turned into binary, and if the highest bit is still 1, then `in[0]` is greater than `in[1]`. The final term is 1 minus that bit, so this inverts whether or not the bit is present.
 
@@ -880,7 +880,7 @@ The motivation for computing elliptic curves inside a ZK Circuit is that some ZK
 This is another large topic which we defer to another article.
 
 Learning Circom from Real World Examples
-Two of the classic yet approachable circuits to study are [Tornado Cash](https://www.rareskills.io/post/how-does-tornado-cash-work) and [Semaphore](https://github.com/semaphore-protocol/semaphore/tree/main/packages/circuits).
+Two of the classic yet approachable circuits to study are [Tornado Cash](https://rareskills.io/post/how-does-tornado-cash-work) and [Semaphore](https://github.com/semaphore-protocol/semaphore/tree/main/packages/circuits).
 
 ## Learn more with RareSkills
 The best way to learn circom is to use it. Our [Zero Knowledge Puzzles](https://github.com/RareSkills/zero-knowledge-puzzles) provide bite-sized challenges of increasing complexity for you to learn the language. A development environment is provided with unit tests to inform you if you have completed the puzzle successfully. Be aware it is possible to pass the tests with underconstrained circuits, as testing for underconstraint is extremely difficult to do in general. At the very least, you should check the number of constraints generated and make sure the number makes sense.

@@ -4,7 +4,7 @@
 
 Blockchain job rankings
 
-All industries have a tier list or implied ranking. It’s usually unspoken, but it’s a real thing that should inform your strategy for getting a job as a [blockchain engineer](https://www.rareskills.io/post/don-t-study-blockchain-if-you-want-a-high-salary) or smart contract engineer.
+All industries have a tier list or implied ranking. It’s usually unspoken, but it’s a real thing that should inform your strategy for getting a job as a [blockchain engineer](https://rareskills.io/post/don-t-study-blockchain-if-you-want-a-high-salary) or smart contract engineer.
 
 **Blockchain developer jobs:**
 
@@ -14,7 +14,7 @@ Some engineers are surprised when we respond “you can already get a job in blo
 
 ## **Clarification 1: Working at a web3 company doesn’t mean you do blockchain engineering.**
 
-In this tier list, we are talking specifically about engineering jobs that apply to blockchain specifically. Particularly, we will talk about smart contract development, [smart contract auditing](https://www.rareskills.io/post/smart-contract-audit), and blockchain protocol development.
+In this tier list, we are talking specifically about engineering jobs that apply to blockchain specifically. Particularly, we will talk about smart contract development, [smart contract auditing](https://rareskills.io/post/smart-contract-audit), and blockchain protocol development.
 
 You can get a (good!) job in blockchain while knowing relatively little about smart contracts and consensus algorithms by working on tooling, front-end web applications, data science, and backend infrastructure. Ironically, there are more web2 programming jobs in web3 than Solidity or blockchain roles. Smart contracts are fairly small compared to the amount of code that goes into the frontend and backend part of the application.
 
@@ -48,7 +48,7 @@ Without further ado, let’s share the tier list! In honor of our gamer constitu
 
 ### **S tier**
 
--   Senior protocol engineer at Ethereum, [Solana](https://www.rareskills.io/solana-tutorial), or an established and fundamentally innovative blockchain.
+-   Senior protocol engineer at Ethereum, [Solana](https://rareskills.io/solana-tutorial), or an established and fundamentally innovative blockchain.
 
 -   Architect for tokenomics and protocol design of fundamentally innovative DeFi applications.
 
@@ -81,7 +81,7 @@ Without further ado, let’s share the tier list! In honor of our gamer constitu
 
 -   DeFi Engineer (not lead) at a derivative protocol.
 
--   Lead DeFi engineer at questionable [DeFi](https://www.rareskills.io/defi-bootcamp) Protocol. Copies and pastes DeFi protocols to less popular [EVM](https://www.rareskills.io/solidity-bootcamp) compatible blockchains with minor modifications.
+-   Lead DeFi engineer at questionable DeFi Protocol. Copies and pastes DeFi protocols to less popular [EVM](https://rareskills.io/courses/solidity-bootcamp) compatible blockchains with minor modifications.
 
 -   Smart contract auditor at a questionable security firm.
 
@@ -93,13 +93,13 @@ Without further ado, let’s share the tier list! In honor of our gamer constitu
 
 ### **F tier**
 
--   Any job that accepts developers who only have an online certificate from a developer education website. Produces poorly written [smart contracts](https://www.rareskills.io/post/smart-contract-creation-cost). Doesn’t know anything about security.
+-   Any job that accepts developers who only have an online certificate from a developer education website. Produces poorly written [smart contracts](https://rareskills.io/post/smart-contract-creation-cost). Doesn’t know anything about security.
 
 ## **How your web2 experience affects your tier**
 
 Web3 engineering is not a shortcut to avoid learning things in web2 that seem boring or theoretical.
 
-Reputable blockchain companies want to see you know how to write production grade code, regardless of if it is [solidity](https://www.rareskills.io/solidity-bootcamp), [rust](https://www.rareskills.io/rust-bootcamp), [vyper](https://github.com/vyperlang/vyper), or whatever programming language. They want to see you can reason about what is going on behind the scenes and can think through a lot of corner cases. They want to see you know how to solve a problem several ways and can think through the relative tradeoffs of the solutions.
+Reputable blockchain companies want to see you know how to write production grade code, regardless of if it is [solidity](https://rareskills.io/courses/solidity-bootcamp), [rust](https://rareskills.io/courses/rust-bootcamp), [vyper](https://github.com/vyperlang/vyper), or whatever programming language. They want to see you can reason about what is going on behind the scenes and can think through a lot of corner cases. They want to see you know how to solve a problem several ways and can think through the relative tradeoffs of the solutions.
 
 These skills are not specific to web3, but are developed also in web2.
 
@@ -107,7 +107,7 @@ The longer you’ve been working as a traditional software engineer (assuming yo
 
 Area of experience matters too.
 
-If you’ve been working in cryptography, distributed systems, systems programming, or some subfields of cybersecurity, this will count for a lot more than working on traditional full stack applications. If you are really stellar in one of the first four aforementioned fields, you might be able to go straight to the B tier with minimal [blockchain training](https://www.rareskills.io/web3-blockchain-bootcamps) and get promoted to the A tier within a year.
+If you’ve been working in cryptography, distributed systems, systems programming, or some subfields of cybersecurity, this will count for a lot more than working on traditional full stack applications. If you are really stellar in one of the first four aforementioned fields, you might be able to go straight to the B tier with minimal [blockchain training](https://rareskills.io/web3-blockchain-bootcamps) and get promoted to the A tier within a year.
 
 
 
@@ -141,6 +141,6 @@ It’s worth reiterating. If your goal is to “get a job in blockchain,” you 
 
 Also, this should serve as a useful tool for you to filter out people who claim they can "get you a job in web3." What tier of job?
 
-Read more of our blogs [here](https://www.rareskills.io/blog).
+Read more of our blogs [here](https://rareskills.io/blog).
 
 *Originally Published November 21, 2022*

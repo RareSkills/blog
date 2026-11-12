@@ -24,11 +24,11 @@ It’s very educational to rebuild Uniswap v2 from scratch using modern Solidity
 - Don’t use the balance variables or pool balance as an oracle, as these are vulnerable to flash loan attacks.
 - Remember to always round in favor of the pool when doing trades or minting or burning shares.
 - Don’t forget to write unit tests.
-- Give our book on [Solidity gas optimization](https://www.rareskills.io/post/gas-optimization) a read for inspiration about how to improve performance (after you finish your second or third draft of the Uniswap clone and have written tests). If you want to do this in hard mode, there are several opportunities to improve the gas using assembly without substantial sacrifices in readability.
+- Give our book on [Solidity gas optimization](https://rareskills.io/post/gas-optimization) a read for inspiration about how to improve performance (after you finish your second or third draft of the Uniswap clone and have written tests). If you want to do this in hard mode, there are several opportunities to improve the gas using assembly without substantial sacrifices in readability.
 - Try out [Damn Vulnerable Defi Puppet V2](https://www.damnvulnerabledefi.xyz/challenges/puppet-v2/). It should be easy for you to solve at this point.
 
 ## Learn more with RareSkills
 
-This material is part of our advanced [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp). Please see the program to learn more.
+This material is part of our advanced [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp). Please see the program to learn more.
 
 *Originally Published November 1, 2023*

@@ -10,7 +10,7 @@ In this article, we'll compare the two: why a low-level call never reverts, wher
 
 Before explaining why, let me quote the Solidity documentation that addresses this issue.
 
-> When exceptions happen in a sub-call, they “bubble up” (i.e., exceptions are rethrown) automatically unless they are caught in a [try/catch statement](https://www.rareskills.io/post/try-catch-solidity). Exceptions to this rule are send and the low-level functions call, [delegatecalll](https://www.rareskills.io/post/delegatecall) and [staticcall](https://www.rareskills.io/post/solidity-staticcall): they return false as their first return value in case of an exception instead of “bubbling up”.
+> When exceptions happen in a sub-call, they “bubble up” (i.e., exceptions are rethrown) automatically unless they are caught in a [try/catch statement](https://rareskills.io/post/try-catch-solidity). Exceptions to this rule are send and the low-level functions call, [delegatecalll](https://rareskills.io/post/delegatecall) and [staticcall](https://rareskills.io/post/solidity-staticcall): they return false as their first return value in case of an exception instead of “bubbling up”.
 
 Below we show both a high-level call and a low-level **`call`** to compare the behavior. I will employ the **`call`** method in the example below, but the same principles can be extended to **`delegatecall`**.
 
@@ -69,7 +69,7 @@ This difference between a high-level call and a low-level call is illustrated in
 
 ## The difference between call and call by interface when calling an empty address
 
-Solidity's low-level **`call`** method doesn't perform a prior check to verify whether the called address corresponds to a contract. The contract can [check if the address is a smart contract](https://www.rareskills.io/post/solidity-code-length) using **`EXTCODESIZE`**, which is the opcode behind the scenes for **`address.code.length`**. If the size is zero, it indicates that there's no contract deployed at that address. However, the `call` method doesn't incorporate this check; it directly executes the **`CALL`** opcode regardless.
+Solidity's low-level **`call`** method doesn't perform a prior check to verify whether the called address corresponds to a contract. The contract can [check if the address is a smart contract](https://rareskills.io/post/solidity-code-length) using **`EXTCODESIZE`**, which is the opcode behind the scenes for **`address.code.length`**. If the size is zero, it indicates that there's no contract deployed at that address. However, the `call` method doesn't incorporate this check; it directly executes the **`CALL`** opcode regardless.
 
 When using the interface, checks the target’s code size. In other words, in the bytecode generated for the `callByInterface` function, the **`EXTCODESIZE`** opcode is executed at the specified address before executing the **`CALL`** opcode. If the size returned by **`EXTCODESIZE`** is zero, indicating that there's no contract at that address, the function reverts before executing the **`CALL`** opcode. This explains why the `callByInterface` function reverts if executed with a non-existent contract address, while `callByCall` does not.
 
@@ -82,7 +82,7 @@ Fundamentally, an execution can revert if it encounters a **`REVERT`** opcode, 
 
 ## Learn More with RareSkills
 
-See our free [Solidity course](https://www.rareskills.io/learn-solidity) if you are new to Solidity. If you are a more experienced Solidity programmer, please see our advanced [Solidity bootcamp](https://www.rareskills.io/solidity-bootcamp).
+See our free [Solidity course](https://rareskills.io/learn-solidity) if you are new to Solidity. If you are a more experienced Solidity programmer, please see our advanced [Solidity bootcamp](https://rareskills.io/courses/solidity-bootcamp).
 
 ## Authorship
 

@@ -10,7 +10,7 @@ To unbrick these contracts, EIP 2930 was introduced, enabling the storage slots 
 
 ## Authorship
 
-This article was co-written by Jesse Raymond ([LinkedIn](https://www.linkedin.com/in/jesse-raymond4/), [Twitter](https://twitter.com/jesserc_)) a blockchain researcher at RareSkills. To support free high-quality articles like this, and to learn more advanced Ethereum development concepts, please see our [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp).
+This article was co-written by Jesse Raymond ([LinkedIn](https://www.linkedin.com/in/jesse-raymond4/), [Twitter](https://twitter.com/jesserc_)) a blockchain researcher at RareSkills. To support free high-quality articles like this, and to learn more advanced Ethereum development concepts, please see our [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp).
 
 ## How it works
 
@@ -175,7 +175,7 @@ With the RPC method, the client determines the storage slots accessed and return
 
 We can also use this RPC method in foundry with the [cast access-list](https://book.getfoundry.sh/reference/cast/cast-access-list) command, which uses the `eth_createAccessList` in the background and returns the access list.
 
-Let us try an example below; we will interact with the [UniswapV2](https://www.rareskills.io/uniswap-v2-book) factory contract (in the Göerli network) by calling the “allPairs” function, which returns a pair contract from an array based on the index passed.
+Let us try an example below; we will interact with the [UniswapV2](https://rareskills.io/uniswap-v2-book) factory contract (in the Göerli network) by calling the “allPairs” function, which returns a pair contract from an array based on the index passed.
 
 We run the following command in a forked Göerli testnet.
 
@@ -196,7 +196,7 @@ access-list:
 
 ## Example of wasting gas with access lists
 
-If the storage slot is calculated incorrectly, then the transaction will pay the deposit for the access list and not get any benefit for it. In the following example, we will benchmark an incorrectly [calculated ethereum](https://www.rareskills.io/ethereum-gas-price-calculator) access list transaction.
+If the storage slot is calculated incorrectly, then the transaction will pay the deposit for the access list and not get any benefit for it. In the following example, we will benchmark an incorrectly calculated ethereum access list transaction.
 
 The following benchmark will prepay for slot 1 when it is actually slot 0 that is used.
 
@@ -292,7 +292,7 @@ The implication of the previous section is that access lists should not be used 
 
 For example, if we use a storage slot number determined based on a certain block number, the storage slot will not generally be predictable.
 
-Another example is storage slots that depend on when the transaction occurred. Some implementations of [ERC-721](https://www.rareskills.io/post/erc721) push owner addresses onto an array and use the array index to identify NFT ownership. As a result, the storage slot for a token depends on the order in which users minted and that can not be predicted.
+Another example is storage slots that depend on when the transaction occurred. Some implementations of [ERC-721](https://rareskills.io/post/erc721) push owner addresses onto an array and use the array index to identify NFT ownership. As a result, the storage slot for a token depends on the order in which users minted and that can not be predicted.
 
 ## When does the access list save gas?
 
@@ -304,8 +304,8 @@ This is also applies for accessing storage variables in another contract. It nor
 
 We provide further examples of access list transactions for common cross-contract calls such as
 
-- accessing the price in a [Chainlink oracle](https://www.rareskills.io/post/chainlink-price-feed-contract),
-- a [proxy](https://www.rareskills.io/proxy-patterns) doing a [delegatecall](https://www.rareskills.io/post/delegatecall) to an implementation contract
+- accessing the price in a [Chainlink oracle](https://rareskills.io/post/chainlink-price-feed-contract),
+- a [proxy](https://rareskills.io/proxy-patterns) doing a [delegatecall](https://rareskills.io/post/delegatecall) to an implementation contract
 - making an ERC-20 transfer via a contract-to-contract call
 
 in this [repo](https://github.com/rareskills/access-list-benchmarks/).
@@ -319,6 +319,6 @@ EIP-2930 Ethereum access list transactions are a quick way to save up to 200 gas
 
 ### Learn more
 
-For more advanced Solidity concepts, see our [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp).
+For more advanced Solidity concepts, see our [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp).
 
 *Originally Published March 27, 2023*

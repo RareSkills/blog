@@ -5,7 +5,7 @@ Is gold in your future if you study blockchain?
 
 ## There is no shortcut to a high solidity developer salary
 
-This might sound funny coming from a [blockchain bootcamp](https://www.rareskills.io/web3-blockchain-bootcamps), but it’s true.
+This might sound funny coming from a [blockchain bootcamp](https://rareskills.io/web3-blockchain-bootcamps), but it’s true.
 It’s not that you can’t improve your blockchain engineer salary. You absolutely can. But the problem is, it’s ***way*** harder than taking an online course and sticking a few projects on your GitHub.
 
 Think about it this way. Imagine you are hiring an accountant to handle your business’ books. A candidate proudly strolls up to your desk with a certificate and tells you he has twelve weeks of experience.
@@ -18,7 +18,7 @@ Hey but wait a second! People have “broken into web3” . Who am I to say it�
 
 You can get a blockchain job easily in ten weeks. Learn how to barely scrap an NFT together then sell your services on Fiverr for its eponymous price tag. Now you have a web3 job. But is it the one you wanted?
 
-Not all [blockchain engineering jobs](https://www.rareskills.io/post/blockchain-job-tier-list) are created equal. There is a vast difference between a low-end developer on Fiverr and an elite dev making a huge salary.
+Not all [blockchain engineering jobs](https://rareskills.io/post/blockchain-job-tier-list) are created equal. There is a vast difference between a low-end developer on Fiverr and an elite dev making a huge salary.
 
 There is so much misunderstanding about web3 salaries out there. The first misunderstanding we need to correct is whether blockchain salaries are actually high.
 
@@ -28,15 +28,15 @@ Google around and you’ll see tables comparing solidity engineer salaries to ot
 
 That’s **not** the average salary of a “solidity engineer.” That’s the average salary of an **employed** solidity engineer.
 
-[Studying solidity](https://www.rareskills.io/solidity-bootcamp) and adding it as a skill on LinkedIn does not make you an employed solidity engineer. I roughly estimate that for every 10 engineers who know solidity reasonably well (I.e. can score 25% or higher on our very difficult test), only 1-3 of them make money from being a web3 engineer.
+[Studying solidity](https://rareskills.io/courses/solidity-bootcamp) and adding it as a skill on LinkedIn does not make you an employed solidity engineer. I roughly estimate that for every 10 engineers who know solidity reasonably well (I.e. can score 25% or higher on our very difficult test), only 1-3 of them make money from being a web3 engineer.
 
 The data completely leaves out the huge pool of solidity engineers **who do not have jobs in the field.** What would happen to the numbers if we averaged their salaries in? The average salary would plummet of course.
 
 What other variables might account for solidity developer salaries being higher? To know that “solidity” is the cause of their higher salaries, we have to isolate the well known correlation that the more years of experience an engineer has, the more they get paid. Usually, it’s the experienced engineers who have the luxury and skills to teach themselves an unusual subject. This forces web3 companies to compete against a senior web2 engineer’s salary, which oddly enough, is often between \$120,000 and \$150,000. So much for “blockchain” being the factor behind the higher salary right?
 
-Here’s another confounding variable: blockchain engineers often bring multiple skills to the table. If you can program a good frontend webapp ***and*** program a good smart contract, it stands to reason you can demand a higher salary right? What if you have traditional cybersecurity training ***and*** [web3 development](https://www.rareskills.io/) skills? You can see where I’m going with this.
+Here’s another confounding variable: blockchain engineers often bring multiple skills to the table. If you can program a good frontend webapp ***and*** program a good smart contract, it stands to reason you can demand a higher salary right? What if you have traditional cybersecurity training ***and*** [web3 development](https://rareskills.io/) skills? You can see where I’m going with this.
 
-Was [solidity](https://www.rareskills.io/learn-solidity) (or [rust](https://www.rareskills.io/rust-bootcamp) for that matter), the ***cause*** of the salary increase or was it the combination of skills? Well, I don’t know, but the burden of proof is on the person claiming (or strongly implying) that solidity engineer salaries are higher *because* of that specific skill set. To make this claim, you need to segment out the engineers who **only** know solidity and compare them to engineers who **only** know another stack, then compare them holding their years of experience and location equal.
+Was [solidity](https://rareskills.io/learn-solidity) (or [rust](https://rareskills.io/courses/rust-bootcamp) for that matter), the ***cause*** of the salary increase or was it the combination of skills? Well, I don’t know, but the burden of proof is on the person claiming (or strongly implying) that solidity engineer salaries are higher *because* of that specific skill set. To make this claim, you need to segment out the engineers who **only** know solidity and compare them to engineers who **only** know another stack, then compare them holding their years of experience and location equal.
 
 Now, of course it would be silly for me to say there is **no** correlation between having blockchain skills and salary. But there are so many confounding factors, that taking in totality, I suspect the true “salary premium” for knowing blockchain is somewhere between 10-20%. That’s a nice salary bump, but you could also accomplish it by interviewing better and negotiating better — arguably more useful career skills than picking up another tech stack.
 
@@ -86,7 +86,7 @@ Alright that’s cool, but everybody hates algorithmic interview questions. Is b
 
 No it isn’t. To make your application stand out from the hordes of applicants who have all written ERC20 tokens and put an NFT on OpenSea, you’re going to have to put in work that outshines them by a large margin. And that work is going to quickly become as long and laborious as practicing algorithmic interview questions. But the outcome is a lot less guaranteed because web3 is a very volatile space.
 
-Grinding [leetcode](https://www.rareskills.io/post/best-50-leetcode-questions-to-start) is an established path to a high income. It’s life’s ultimate cheat code. The fact that everyone hates doing it is precisely why it will remain life’s ultimate cheat code. If you are willing to do what other people aren’t, you will get the salaries they don’t. Plain and simple.
+Grinding [leetcode](https://rareskills.io/post/best-50-leetcode-questions-to-start) is an established path to a high income. It’s life’s ultimate cheat code. The fact that everyone hates doing it is precisely why it will remain life’s ultimate cheat code. If you are willing to do what other people aren’t, you will get the salaries they don’t. Plain and simple.
 
 Yes, leetcode can be hard (no pun intended). But it’s far easier than passing the bar for lawyers or paying the expensive tuition for medical school and then going through a grueling and humiliating internship.
 
@@ -232,7 +232,7 @@ This unexplored map leads to a bigger opportunity.
 
 ### You have a realistic shot at becoming a thought leader
 
-You’re probably not going to be a thought leader in an established technology field. The leaders are too entrenched and there is too much ground to cover. In blockchain, or any nascent field for that matter, you can come up with industry leading solutions as a relatively normal person (assuming you are smart, motivated, and have the time). Consider this, a pair of students in the RareSkills [solidity bootcamp](https://www.rareskills.io/solidity-bootcamp) developed a presale / airdrop [solution](https://www.rareskills.io/post/solidity-rsa-signatures-for-aidrops-and-presales-beating-ecdsa-and-merkle-trees-in-gas-efficiency) in solidity that outperformed the “established” solutions of ECDSA and Merkle Trees. (The mirror article even trended on [hackernoon](https://hackernoon.com/u/rareskills) for a time despite being highly technical).
+You’re probably not going to be a thought leader in an established technology field. The leaders are too entrenched and there is too much ground to cover. In blockchain, or any nascent field for that matter, you can come up with industry leading solutions as a relatively normal person (assuming you are smart, motivated, and have the time). Consider this, a pair of students in the RareSkills [solidity bootcamp](https://rareskills.io/courses/solidity-bootcamp) developed a presale / airdrop [solution](https://rareskills.io/post/solidity-rsa-signatures-for-aidrops-and-presales-beating-ecdsa-and-merkle-trees-in-gas-efficiency) in solidity that outperformed the “established” solutions of ECDSA and Merkle Trees. (The mirror article even trended on [hackernoon](https://hackernoon.com/u/rareskills) for a time despite being highly technical).
 
 In case you sped through the sentence, let me emphasize this: students, not MIT professors!
 
@@ -240,7 +240,7 @@ This does mean you have to pick your niche in blockchain carefully. The resource
 
 Look for where the literature is sparse but plausibly useful.
 
-This is how [I (Jeffrey)](https://www.rareskills.io/instructors) established myself in blockchain. I noticed there were no resources online for studying gas optimization in Ethereum, so I created a [Udemy course](https://www.udemy.com/course/advanced-solidity-understanding-and-optimizing-gas-costs/). After a short time, it became a bestseller that appears at the top of the search results for “solidity.” As I looked around, I noticed it wasn’t just gas optimization that was under-explained, pretty much every topic that isn’t about how to make NFTs, use DeFi in a basic way, or program solidity was under-explained too. So now [RareSkills is going after those topics](https://www.rareskills.io/web3-blockchain-bootcamps) full bore.
+This is how I (Jeffrey) established myself in blockchain. I noticed there were no resources online for studying gas optimization in Ethereum, so I created a [Udemy course](https://www.udemy.com/course/advanced-solidity-understanding-and-optimizing-gas-costs/). After a short time, it became a bestseller that appears at the top of the search results for “solidity.” As I looked around, I noticed it wasn’t just gas optimization that was under-explained, pretty much every topic that isn’t about how to make NFTs, use DeFi in a basic way, or program solidity was under-explained too. So now [RareSkills is going after those topics](https://rareskills.io/web3-blockchain-bootcamps) full bore.
 
 We aren’t just focusing on expert topics to be cool. If the blockchain space is going to move forward, it needs innovative engineers who understand the technology thoroughly at a fundamental, foundational, and theoretical level. Only from that vantage point, they can notice what isn’t working and come up with sound solutions for it.
 
@@ -256,7 +256,7 @@ Coming to blockchain for the purpose of salary is a flawed career strategy. If y
 
 However, smart people are passionate about it for good reasons besides money. It’s a legitimately exciting way to do computer science. Although salaries aren’t as high as many sources think they are, they still provide asymmetric upside in other ways.
 
-So check out our [blockchain bootcamps](https://www.rareskills.io/web3-blockchain-bootcamps) and [apply to RareSkills](https://www.rareskills.io/apply-now).
+So check out our [blockchain bootcamps](https://rareskills.io/web3-blockchain-bootcamps) and [apply to RareSkills](https://rareskills.io/apply-now).
 
 We don’t promise you a higher salary. We promise you something better.
 

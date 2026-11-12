@@ -3,7 +3,7 @@
 ![Zero knowledge proof moon math](https://static.wixstatic.com/media/935a00_dca926dacdd24cdea8a84fa35d9740bd~mv2.webp/v1/fill/w_740,h_725,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_dca926dacdd24cdea8a84fa35d9740bd~mv2.webp)   
 Zero knowledge proof moon math
 
-[Zero knowledge proofs](https://www.rareskills.io/zk-bootcamp) demonstrate you executed a computation correctly without revealing the inputs to the computation. A zero knowledge programming language is a convenient way to represent that computation.
+[Zero knowledge proofs](https://rareskills.io/courses/zk-bootcamp) demonstrate you executed a computation correctly without revealing the inputs to the computation. A zero knowledge programming language is a convenient way to represent that computation.
 
 A common, but misleading analogy for zero knowledge proofs is “I can prove I’m over 21 without showing you my ID card.” Formulated this way, you cannot create a zero knowledge proof.
 
@@ -176,7 +176,7 @@ Because this use case optimizes for fast verification, you shouldn’t assume th
 
 ## [Noir](https://aztec.network/noir/) by [Aztec](https://aztec.network/)
 
-Noir is the language for Aztec, a privacy focused L2 for [Ethereum](https://www.rareskills.io/post/generate-ethereum-address-from-private-key-python). The syntax is heavily inspired by Rust; even the build tool is called “nargo”, an obvious nod to Rust’s cargo.  
+Noir is the language for Aztec, a privacy focused L2 for [Ethereum](https://rareskills.io/post/generate-ethereum-address-from-private-key-python). The syntax is heavily inspired by Rust; even the build tool is called “nargo”, an obvious nod to Rust’s cargo.  
 
 Here is Noir adding two numbers together
 
@@ -225,7 +225,7 @@ You may have heard some hype around “zk evms” that [Polygon](https://polygon
 
 You can think of the EVM’s state as represented by two arrays: the stack and memory. Each operation alters the stack and/or the memory. Each step is a proof that the way you altered the state is consistent with the opcode you just executed and the previous state.
 
-Because of this innovation Solidity is likely to stay relevant for a long time, so check out our [Solidity bootcamp](https://www.rareskills.io/solidity-bootcamp)[!](https://www.rareskills.io/solidity-bootcamp) It’s a prerequisite to our [zero knowledge bootcamp](https://www.rareskills.io/zk-bootcamp).
+Because of this innovation Solidity is likely to stay relevant for a long time, so check out our [Solidity bootcamp](https://rareskills.io/courses/solidity-bootcamp)[!](https://rareskills.io/courses/solidity-bootcamp) It’s a prerequisite to our [zero knowledge bootcamp](https://rareskills.io/courses/zk-bootcamp).
 
 ## Which one should I use, and further resources
 

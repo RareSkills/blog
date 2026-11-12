@@ -81,6 +81,6 @@ Try out [DamnVulnerableDefi Puppet V2](https://www.damnvulnerabledefi.xyz/challe
 
 ## Learn more with RareSkills
 
-This material is part of our advanced [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp). Please see the program to learn more.
+This material is part of our advanced [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp). Please see the program to learn more.
 
 *Originally Published November 6, 2023*

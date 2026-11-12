@@ -129,7 +129,7 @@ You can [test the code in Remix here](https://remix.ethereum.org/?#code=Ly8gU1BE
 
 The reason this hack is possible is because the BadBank’s `withdraw()` function calls the `receive()` function in `BankDrainer` before updating the balances. Sending ether is equivalent to calling the `receive()` or `fallback()` function on another contract.
 
-Therefore, **always call the function of another smart contract or send the Ether last**. The category of attack here is called *re-entrancy*. You can learn more about this attack in our [re-entrancy article](https://www.rareskills.io/post/where-to-find-solidity-reentrancy-attacks).
+Therefore, **always call the function of another smart contract or send the Ether last**. The category of attack here is called *re-entrancy*. You can learn more about this attack in our [re-entrancy article](https://rareskills.io/post/where-to-find-solidity-reentrancy-attacks).
 
 When we run Slither on the code above, Slither gives us two warnings:
 
@@ -277,7 +277,7 @@ Using `tx.origin` to identify the caller opens up a security vulnerability. Supp
 
 In this situation, the malicious intermediate contract gains all the privileges of the wallet, allowing it to do any action the wallet is authorized to do — such as move funds.
 
-To learn more about the differences between `msg.sender` and `tx.origin` see our article on [Detecting if an address is a smart contract](https://www.rareskills.io/post/solidity-code-length).
+To learn more about the differences between `msg.sender` and `tx.origin` see our article on [Detecting if an address is a smart contract](https://rareskills.io/post/solidity-code-length).
 
 Slither does not provide a warning regarding `tx.origin`.
 
@@ -299,7 +299,7 @@ The library `SafeERC20` handles both kinds of ERC-20 tokens. Specifically, it ma
 
 - If a revert happens, `SafeERC20` bubbles up the revert. This handles tokens that revert on failure, but don’t necessarily return a Boolean.
 - If there is no revert, it checks whether data was returned at all
-    - if no data was returned and the token address turns out to be an [empty address](https://www.rareskills.io/post/solidity-code-length) rather than a smart contract, the library reverts.
+    - if no data was returned and the token address turns out to be an [empty address](https://rareskills.io/post/solidity-code-length) rather than a smart contract, the library reverts.
     - if data was returned, and the return is a false value, then SafeERC20 reverts.
 - Otherwise, the library does not revert, signaling a successful transfer.
 
@@ -555,7 +555,7 @@ As a developer deploying the application, you know which version of the compiler
 
 ## 12. Not following the style guide
 
-We’ve documented the [Solidity style guide](https://www.rareskills.io/post/solidity-style-guide) in a separate blog post.
+We’ve documented the [Solidity style guide](https://rareskills.io/post/solidity-style-guide) in a separate blog post.
 
 Here are the highlights:
 
@@ -578,7 +578,7 @@ Here are some general rules about events:
 - Any `address` parameters in the event should be `indexed` so that it is easy to drill down on the activity of a particular wallet.
 - View and pure functions should not contain events because they do not change the state.
 
-You can read more about this in our article on [events in Solidity and Ethereum](https://www.rareskills.io/post/ethereum-events).
+You can read more about this in our article on [events in Solidity and Ethereum](https://rareskills.io/post/ethereum-events).
 
 **In general, if you change a storage variable or move Ether in and out of the contract, you should emit an event.**
 
@@ -588,7 +588,7 @@ How do you know the contract works in every possible scenario it will encounter,
 
 In our view it is somewhat surprising that smart contracts get deployed without unit tests. This should not be the case.
 
-See our tutorial on [Solidity unit tests here](https://www.rareskills.io/post/foundry-testing-solidity).
+See our tutorial on [Solidity unit tests here](https://rareskills.io/post/foundry-testing-solidity).
 
 ## 15. Rounding in the wrong direction
 
@@ -608,7 +608,7 @@ On the other hand, if we are computing `100/3` to determine how much the *user s
 
 The correct thing to do in this circumstance is to add one to the division so that what we lost in the decimals is regained. That is, we should compute how much the user pays as `100/3 + 1`, so the user has to pay `34` for an asset worth `33.333`. The small amount of value they lose out on will prevent them from robbing the smart contract.
 
-Learn more about how to properly handle fractions in our [fixed-point math](https://www.rareskills.io/post/solidity-fixed-point) article.
+Learn more about how to properly handle fractions in our [fixed-point math](https://rareskills.io/post/solidity-fixed-point) article.
 
 ## 16. Not running a formatter
 

@@ -219,6 +219,6 @@ The interested reader can [consult the Synthetix staking code themselves](https:
 
 ## Learn more with RareSkills
 
-Please see our [blockchain bootcamp](https://www.rareskills.io/web3-blockchain-bootcamps) to learn more advanced technical web3 subjects.
+Please see our [blockchain bootcamp](https://rareskills.io/web3-blockchain-bootcamps) to learn more advanced technical web3 subjects.
 
 *Originally Published November 21, 2023*

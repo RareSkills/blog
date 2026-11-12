@@ -9,7 +9,7 @@ You need to be familiar with all the prior chapters in the [Uniswap V2 Book](htt
 ## Collecting protocol fees during swaps is inefficient
 It would be inefficient to collect 0.05% of the fee on every trade because that would require additional token transfers. Transferring ERC20 tokens requires a storage update, so transferring to two addresses instead of one would be considerably more expensive.
 
-Therefore, the fee is collected when a liquidity provider calls [burn or mint](https://www.rareskills.io/post/uniswap-v2-mint-and-burn). Since these operations are infrequent compared to [swapping tokens](swapping tokens), this will lead to gas savings. To collect the `mintFee`, the contract calculates the amount of fees collected since that last happened, and mints enough LP tokens to the beneficiary address such that the beneficiary is entitled to 1/6th of the fee.
+Therefore, the fee is collected when a liquidity provider calls [burn or mint](https://rareskills.io/post/uniswap-v2-mint-and-burn). Since these operations are infrequent compared to [swapping tokens](swapping tokens), this will lead to gas savings. To collect the `mintFee`, the contract calculates the amount of fees collected since that last happened, and mints enough LP tokens to the beneficiary address such that the beneficiary is entitled to 1/6th of the fee.
 
 ## Terminology of fee and mintFee
 To avoid confusion in terminology, we refer to "fee" as the 0.3% collected from traders during the swap, and the "mintFee" the 1/6th of the 0.3% fee. Yes, having fee in both terms is not great nomenclature, but that's what we have to work with.
@@ -23,7 +23,7 @@ For this to work, Uniswap V2 relies on the following two invariants:
 - The increase in liquidity is purely due to fees (or donations).
 By measuring the increase in liquidity since the last `mint()` or `burn()` transaction, the pool knows how much fees were collected.
 
-These would be good [invariant tests](https://www.rareskills.io/post/invariant-testing-solidity) to write, but for now we will take for granted that they are true.
+These would be good [invariant tests](https://rareskills.io/post/invariant-testing-solidity) to write, but for now we will take for granted that they are true.
 
 ## Example calculation of mintFee
 Suppose at $t_1$ the pool starts at 10 `token0` and 10 `token1`.
@@ -104,6 +104,6 @@ It's easier to see the logic in a decision tree, so here is the decision tree wi
 ![decision tree of _mintFee showing the 5 branches](https://static.wixstatic.com/media/935a00_cd23aafc2f7645428bc30d245244a0e2~mv2.jpg/v1/fill/w_1151,h_454,al_c,q_85,enc_auto/935a00_cd23aafc2f7645428bc30d245244a0e2~mv2.jpg)
 
 ## Learn more with RareSkills
-Please see our [blockchain bootcamp](https://www.rareskills.io/web3-blockchain-bootcamps) to see our course offerings.
+Please see our [blockchain bootcamp](https://rareskills.io/web3-blockchain-bootcamps) to see our course offerings.
 
 *Originally Published November 14, 2023*

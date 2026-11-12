@@ -35,7 +35,7 @@ If `balanceOf` changes the state, the code will revert.
 
 ## Meta Arguments
 
-The amount of gas forwarded can be specified in the following manner. The amount of gas forwarded is subject to the 63/64 rule described in [EIP 150](https://www.rareskills.io/post/eip-150-and-the-63-64-rule-for-gas).
+The amount of gas forwarded can be specified in the following manner. The amount of gas forwarded is subject to the 63/64 rule described in [EIP 150](https://rareskills.io/post/eip-150-and-the-63-64-rule-for-gas).
 
 ```solidity
 staticcall{gas: gasAmount}(abiEncodedArguments);
@@ -47,11 +47,11 @@ Although staticcall is in some sense "safer" than a regular call, that doesn't m
 
 ### Denial of Service
 
-Staticcall is still subject to denial of service attacks with gas griefing. Consider the situation where the ERC20 token above put an infinite loop inside the balanceOf function. The calling contract will still have gas left over, but only 1/64th of the original amount, per [EIP 150](https://www.rareskills.io/post/eip-150-and-the-63-64-rule-for-gas).
+Staticcall is still subject to denial of service attacks with gas griefing. Consider the situation where the ERC20 token above put an infinite loop inside the balanceOf function. The calling contract will still have gas left over, but only 1/64th of the original amount, per [EIP 150](https://rareskills.io/post/eip-150-and-the-63-64-rule-for-gas).
 
 ### Read-only reentrancy
 
-Another attack vector for the static call is getting the wrong values back. In the [read-only reentrancy attack](https://www.rareskills.io/post/where-to-find-solidity-reentrancy-attacks), token values are temporarily manipulated with a flashloan, so that any smart contract that is viewing the values (via staticcall) could be hacked with oracle manipulation.
+Another attack vector for the static call is getting the wrong values back. In the [read-only reentrancy attack](https://rareskills.io/post/where-to-find-solidity-reentrancy-attacks), token values are temporarily manipulated with a flashloan, so that any smart contract that is viewing the values (via staticcall) could be hacked with oracle manipulation.
 
 ## Staticcall in Yul Assembly
 
@@ -76,9 +76,9 @@ The variable ok returns true if the staticcall succeeds and false if it reverts.
 
 ## Usage with precompiled smart contracts
 
-Staticcall is the appropriate way to interact with [Ethereum precompiled contracts](https://www.rareskills.io/post/solidity-precompiles) (addresses 0x01 to 0x09) as none of them are state changing.
+Staticcall is the appropriate way to interact with [Ethereum precompiled contracts](https://rareskills.io/post/solidity-precompiles) (addresses 0x01 to 0x09) as none of them are state changing.
 
-The following example will compute the SHA256 of a uint. Note that this precompile hashes the data directly, and it should not be [ABI-encoded](https://www.rareskills.io/post/abi-encoding).
+The following example will compute the SHA256 of a uint. Note that this precompile hashes the data directly, and it should not be [ABI-encoded](https://rareskills.io/post/abi-encoding).
 
 ```solidity
  function getSha256(uint256 x) public view returns (bytes32 hashOut) {
@@ -91,6 +91,6 @@ The following example will compute the SHA256 of a uint. Note that this precompi
 
 ## Learn more
 
-See our expert [Solidity developer bootcamp](https://www.rareskills.io/solidity-bootcamp) to learn more advanced Ethereum development concepts. We also have [free Solidity course](https://www.rareskills.io/learn-solidity).
+See our expert [Solidity developer bootcamp](https://rareskills.io/courses/solidity-bootcamp) to learn more advanced Ethereum development concepts. We also have [free Solidity course](https://rareskills.io/learn-solidity).
 
 *Originally Published Apr 10, 2023*

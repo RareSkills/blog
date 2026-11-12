@@ -1,6 +1,6 @@
 # Verify Signature Solidity in Foundry
 
-Here is a minimal (copy and paste) example of how to safely create and verify ECDSA signatures with OpenZeppelin in the [Foundry](https://www.rareskills.io/post/foundry-testing-solidity) environment.
+Here is a minimal (copy and paste) example of how to safely create and verify ECDSA signatures with OpenZeppelin in the [Foundry](https://rareskills.io/post/foundry-testing-solidity) environment.
 
 ## Contract: Verifier.sol
 
@@ -95,8 +95,8 @@ Note that OpenZeppelin supports two ways to represent the signature. It's genera
 
 ## Learn More
 
-This article is used as reference material in our [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp).
+This article is used as reference material in our [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp).
 
-We also have a free [learn solidity](https://www.rareskills.io/learn-solidity) tutorial.
+We also have a free [learn solidity](https://rareskills.io/learn-solidity) tutorial.
 
 *Originally Published March 8, 2023*

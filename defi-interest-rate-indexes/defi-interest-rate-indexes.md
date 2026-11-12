@@ -2,7 +2,7 @@
 
 The intuitive way to track lender deposits is to record the amount of USDC they deposited and the time they deposited. **Compound V3 does not do this**.
 
-Instead, similar to [SushiSwap Masterchef Staking Algorithm](https://www.rareskills.io/post/staking-algorithm), Compound V3 tracks the hypothetical gain of one dollar lent “since the beginning of time.” (Readers not already familiar with this algorithm should read the linked resource).
+Instead, similar to [SushiSwap Masterchef Staking Algorithm](https://rareskills.io/post/staking-algorithm), Compound V3 tracks the hypothetical gain of one dollar lent “since the beginning of time.” (Readers not already familiar with this algorithm should read the linked resource).
 
 The hypothetical gain of one dollar lent since the beginning of time is tracked in the [`baseSupplyIndex`](https://github.com/compound-finance/comet/blob/main/contracts/CometStorage.sol#L50) [(in CometStorage.sol)](https://github.com/compound-finance/comet/blob/main/contracts/CometStorage.sol#L50). It behaves very similar to the “rewardPerTokenAccumulator” from Sushiswap. It starts at 1.0 and each time a state-changing operation occurs (deposit, withdraw, borrow, etc), it is increased proportional to the time passed and the interest rate over that period. For example, if 100 seconds passed, and the interest rate was 0.001 per second (unrealistically high, but easy to reason about), then `baseSupplyIndex` will be updated to 1.1. Specifically, the following formula is used:
 
@@ -69,7 +69,7 @@ Let’s revisit the struct we screenshotted above:
 
 The variable `baseTrackingAccrued` is used by CometRewards to determine how much COMP to award the account for participation in the protocol. The variable `baseTrackingIndex` is related to that but currently unused. The variable `assetsIn` is only used for borrowers as an indicator for whether certain collateral assets are used. The variable `_reserved` is unused.
 
-Therefore, `principal` is the only essential variable for lender accounting. Note that this is a signed variable — for borrowers it is negative. For borrowers, we also need to track how much [collateral](https://www.rareskills.io/post/defi-liquidations-collateral) they have deposited, but that is for another article.
+Therefore, `principal` is the only essential variable for lender accounting. Note that this is a signed variable — for borrowers it is negative. For borrowers, we also need to track how much [collateral](https://rareskills.io/post/defi-liquidations-collateral) they have deposited, but that is for another article.
 
 ## balanceOf() — checking the lender’s positive balance
 
@@ -121,7 +121,7 @@ Similar to how `baseSupplyIndex` tracks the gain in one dollar lent since the b
 
 ## When will the indexes overflow?
 
-Both baseSupplyIndex and baseBorrowIndex are treated as [fixed point numbers](https://www.rareskills.io/post/solidity-fixed-point) with 15 decimals, so 1e15 is treated as 1.0. The largest number a signed 104 bit number can hold is 1.014e31. Therefore, the largest number the accumulator can hold is 1.014e16 (with 15 decimals).
+Both baseSupplyIndex and baseBorrowIndex are treated as [fixed point numbers](https://rareskills.io/post/solidity-fixed-point) with 15 decimals, so 1e15 is treated as 1.0. The largest number a signed 104 bit number can hold is 1.014e31. Therefore, the largest number the accumulator can hold is 1.014e16 (with 15 decimals).
 
 Let’s assume that the lending protocol will never be over 100% APR. It would take 53 years for the index to overflow. Using a more realistic 10% interest rate, it would take 386 years for one dollar to compound to 10 trillion dollars.
 
@@ -129,6 +129,6 @@ It’s pretty reasonable to assume that Compound will upgrade to version 4 befor
 
 ## Learn More with RareSkills
 
-Please see our [Solidity Bootcamp](https://rareskills.io/solidity-bootcamp) to learn more advanced Solidity concepts.
+Please see our [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp) to learn more advanced Solidity concepts.
 
 *Originally Published January 5, 2024*

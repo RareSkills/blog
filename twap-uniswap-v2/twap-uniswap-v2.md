@@ -18,7 +18,7 @@ Because price is a ratio, they need to be stored with a data type which has deci
 
 That is, we say Ethereum is 2000 and USDC (in price of Ethereum) is 0.0005 (this is ignoring decimals of both assets).
 
-Uniswap uses a [fixed point number](https://www.rareskills.io/post/solidity-fixed-point) with 112 bits of precision on each side of the decimal, this takes up a total of 224 bits, and when packed with a 32 bit number, it uses up a single slot.
+Uniswap uses a [fixed point number](https://rareskills.io/post/solidity-fixed-point) with 112 bits of precision on each side of the decimal, this takes up a total of 224 bits, and when packed with a 32 bit number, it uses up a single slot.
 
 ## Oracle definition
 
@@ -193,6 +193,6 @@ The same thing happens when we overflow the `timestamp`. Because we are using a 
 
 ## Learn more with RareSkills
 
-This material is part of our advanced [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp). Please see the program to learn more.
+This material is part of our advanced [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp). Please see the program to learn more.
 
 *Originally Published November 3, 2023*

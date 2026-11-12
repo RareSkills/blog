@@ -50,7 +50,7 @@ and it will install genhtml.
 
 ### Credits
 
-This tutorial was created by Matteo Vendittoli, a student at the RareSkills [blockchain bootcamp](https://www.rareskills.io/web3-blockchain-bootcamps).
+This tutorial was created by Matteo Vendittoli, a student at the RareSkills [blockchain bootcamp](https://rareskills.io/web3-blockchain-bootcamps).
 
 ## Addendum: Visual line coverage in Visual Studio Code
 

@@ -22,11 +22,11 @@ Think of this guide as more of a reference. It isn't possible to discuss every c
 
 ## Prerequisites
 
-This article assumes basic proficiency in [Solidity](https://www.rareskills.io/solidity-bootcamp). If you are new to Solidity, please see our [free Solidity tutorial](https://www.rareskills.io/learn-solidity).
+This article assumes basic proficiency in [Solidity](https://rareskills.io/courses/solidity-bootcamp). If you are new to Solidity, please see our [free Solidity tutorial](https://rareskills.io/learn-solidity).
 
 ## Reentrancy
 
-We've written extensively on [smart contract reentrancy](https://www.rareskills.io/post/where-to-find-solidity-reentrancy-attacks) so we won't repeat it here. But here is a quick summary:
+We've written extensively on [smart contract reentrancy](https://rareskills.io/post/where-to-find-solidity-reentrancy-attacks) so we won't repeat it here. But here is a quick summary:
 
 Whenever a smart contract calls the function of another smart contract, sends Ether to it, or transfers a token to it, then there is a possibility of re-entrancy.
 
@@ -140,7 +140,7 @@ As stated in the introduction, there are four primary ways smart contracts get h
 - Insufficient rewards
 - Excessive rewards
 
-"Money" here means anything of value, such as tokens, not just cryptocurrency. When coding or [auditing a smart contract](https://www.rareskills.io/post/smart-contract-audit), the developer must be conscientious of the intended ways value is to flow in and out of the contract. The issues listed above are the primary ways smart contracts get hacked, but there are a lot of other root causes that can cascade into major issues, which are documented below.
+"Money" here means anything of value, such as tokens, not just cryptocurrency. When coding or [auditing a smart contract](https://rareskills.io/post/smart-contract-audit), the developer must be conscientious of the intended ways value is to flow in and out of the contract. The issues listed above are the primary ways smart contracts get hacked, but there are a lot of other root causes that can cascade into major issues, which are documented below.
 
 ## Double voting or msg.sender spoofing
 
@@ -181,7 +181,7 @@ contract UnsafeBallot {
 }
 ```
 
-To prevent this attack, [ERC20 Snapshot](https://www.rareskills.io/post/erc20-snapshot) or [ERC20 Votes](https://www.rareskills.io/post/erc20-votes-erc5805-and-erc6372) should be used. By snapshotting a point of time in the past, the current token balances cannot be manipulated to gain illicit voting power.
+To prevent this attack, [ERC20 Snapshot](https://rareskills.io/post/erc20-snapshot) or [ERC20 Votes](https://rareskills.io/post/erc20-votes-erc5805-and-erc6372) should be used. By snapshotting a point of time in the past, the current token balances cannot be manipulated to gain illicit voting power.
 
 ## Flashloan Governance Attacks
 
@@ -214,7 +214,7 @@ An attacker can use a flashloan to suddenly gain a lot of votes to swing proposa
 
 This is arguably the most common (or at least most high-profile) attack on DeFi, accounting for hundreds of millions of dollars lost. Here is a [list](https://www.immunebytes.com/blog/top-10-flash-loan-attacks/) of high profile ones.
 
-The price of an asset on the [blockchain](https://www.rareskills.io/web3-blockchain-bootcamps) is often calculated as the current exchange rate between assets. For example, if a contract is currently trading 1 USDC for 100 k9coin, then you could say k9coin has a price of 0.01 USDC. However, prices generally move in response to buying and selling pressure, and flash loans can create massive buying and selling pressure.
+The price of an asset on the [blockchain](https://rareskills.io/web3-blockchain-bootcamps) is often calculated as the current exchange rate between assets. For example, if a contract is currently trading 1 USDC for 100 k9coin, then you could say k9coin has a price of 0.01 USDC. However, prices generally move in response to buying and selling pressure, and flash loans can create massive buying and selling pressure.
 
 When querying another smart contract about the price of an asset, the developer needs to be very careful because they are assuming the smart contract they are calling is immune to flash loan manipulation.
 
@@ -317,7 +317,7 @@ contract Distribute {
 }
 ```
 
-Then the function will revert when it sends ether to Mal. The call in the code above forwards 63 / 64 of the gas available (read more about this rule in our article on [EIP 150](https://www.rareskills.io/post/eip-150-and-the-63-64-rule-for-gas)), so there likely won't be enough gas to complete the operation with only 1/64 of the gas left.
+Then the function will revert when it sends ether to Mal. The call in the code above forwards 63 / 64 of the gas available (read more about this rule in our article on [EIP 150](https://rareskills.io/post/eip-150-and-the-63-64-rule-for-gas)), so there likely won't be enough gas to complete the operation with only 1/64 of the gas left.
 
 A smart contract can return a large memory array that consumes a lot of gas. Consider the following example
 
@@ -447,7 +447,7 @@ Unless the smart contract uses the oracle wrong.
 
 - The smart contract requesting randomness must not do anything until the random number is returned. Otherwise, an attacker can monitor the mempool for the oracle returning the randomness and frontrun the oracle, knowing what the random number will be.
 - The randomness oracles themselves might try to manipulate your application. They cannot pick random numbers without consensus from other nodes, but they can withhold and re-order random numbers if your application requests several at the same time.
-- Finality is not instant on [Ethereum](https://www.rareskills.io/post/solidity-precompiles) or most other EVM chains. Just because some block is the most recent one, it doesn't mean it won't necessarily stay that way. This is called a "chain re-org". In fact, the chain can alter more than just the final block. This is called the "re-org depth." Etherscan reports re-orgs for various chains, for example Ethereum reorgs and Polygon reorgs. Reorgs can be as deep as 30 or more blocks on Polygon, so waiting fewer blocks can make the application vulnerable (this may change when the zk-evm becomes the standard consensus on Polygon, because the finality will match Ethereum's but this is a future prediction, not a fact about the present).
+- Finality is not instant on [Ethereum](https://rareskills.io/post/solidity-precompiles) or most other EVM chains. Just because some block is the most recent one, it doesn't mean it won't necessarily stay that way. This is called a "chain re-org". In fact, the chain can alter more than just the final block. This is called the "re-org depth." Etherscan reports re-orgs for various chains, for example Ethereum reorgs and Polygon reorgs. Reorgs can be as deep as 30 or more blocks on Polygon, so waiting fewer blocks can make the application vulnerable (this may change when the zk-evm becomes the standard consensus on Polygon, because the finality will match Ethereum's but this is a future prediction, not a fact about the present).
 - Here are the other chainlink randomness security considerations.
 
 ## Getting stale data from a price Oracle
@@ -563,7 +563,7 @@ function limitedMultiply(uint8 a, uint8 b) public pure returns (uint256 product)
 }
 ```
 
-Although product is a [uint256](https://www.rareskills.io/post/uint-max-value-solidity) variable, the multiplication result cannot be larger than 255 or the code will revert.
+Although product is a [uint256](https://rareskills.io/post/uint-max-value-solidity) variable, the multiplication result cannot be larger than 255 or the code will revert.
 
 This issue can be mitigated by individually upcasting each variable.
 
@@ -777,7 +777,7 @@ This ERC777 re-entrancy happened to Uniswap (OpenZeppelin documented the exploit
 
 ### ERC20: Not all ERC20 tokens return true
 
-The ERC20 specification dictates that an [ERC20 token](https://www.rareskills.io/post/erc20-snapshot) must return true when a transfer succeeds. Because most ERC20 implementations cannot fail unless the allowance is insufficient or the amount transferred is too much, most devs have become accustomed to ignoring the return value of ERC20 tokens and assuming a failed transfer will revert.
+The ERC20 specification dictates that an [ERC20 token](https://rareskills.io/post/erc20-snapshot) must return true when a transfer succeeds. Because most ERC20 implementations cannot fail unless the allowance is insufficient or the amount transferred is too much, most devs have become accustomed to ignoring the return value of ERC20 tokens and assuming a failed transfer will revert.
 
 Frankly, this is not consequential if you are only working with a trusted ERC20 token you know the behavior of. But when dealing with arbitrary ERC20 tokens, this variance in behavior must be accounted for.
 
@@ -926,11 +926,11 @@ readPrivateVar();
 
 ## Try Catch is hard to get right
 
-Whereas a [low-level call](https://www.rareskills.io/post/low-level-call-solidity) will simply return true or false based on success, a [try catch](https://www.rareskills.io/post/try-catch-solidity) makes a distinction between a panic and a revert, and may silently fail if the return data cannot be parsed properly. It's best to avoid it and simply use low level calls.
+Whereas a [low-level call](https://rareskills.io/post/low-level-call-solidity) will simply return true or false based on success, a [try catch](https://rareskills.io/post/try-catch-solidity) makes a distinction between a panic and a revert, and may silently fail if the return data cannot be parsed properly. It's best to avoid it and simply use low level calls.
 
 ## Insecure Delegate Call
 
-[Delegatecall](https://www.rareskills.io/post/delegatecall) should never be used with untrusted contracts as it hands over all control to the delegatecallee. In this example, the untrusted contract steals all the ether in the contract.
+[Delegatecall](https://rareskills.io/post/delegatecall) should never be used with untrusted contracts as it hands over all control to the delegatecallee. In this example, the untrusted contract steals all the ether in the contract.
 
 ```solidity
 contract UntrustedDelegateCall {
@@ -983,7 +983,7 @@ Speaking of contract ownership…
 
 ## Use Ownable2Step instead of Ownable
 
-This is technically not a vulnerability, but [OpenZeppelin ownable](https://www.rareskills.io/post/openzeppelin-ownable2step) can lead to loss of contract ownership if ownership is transferred to a non-existent address. Ownable2step requires the receiver to confirm ownership. This insures against accidentally sending ownership to a mistyped address.
+This is technically not a vulnerability, but [OpenZeppelin ownable](https://rareskills.io/post/openzeppelin-ownable2step) can lead to loss of contract ownership if ownership is transferred to a non-existent address. Ownable2step requires the receiver to confirm ownership. This insures against accidentally sending ownership to a mistyped address.
 
 ## Rounding Errors
 
@@ -1029,7 +1029,7 @@ If you deploy this contract and try to withdraw, a frontrunner bot will notice y
 
 ### Frontrunning: ERC4626 Inflation attack, a combination of frontrunning and rounding errors
 
-We've written in depth about the [ERC-4626](https://www.rareskills.io/post/erc4626) inflation attack in our [ERC4626 tutorial](https://www.rareskills.io/post/erc4626). But the gist of it is that an ERC4626 contract distributes "share" tokens based on the percentage of "assets" that a trader contributes. Roughly, it works as follows:
+We've written in depth about the [ERC-4626](https://rareskills.io/post/erc4626) inflation attack in our [ERC4626 tutorial](https://rareskills.io/post/erc4626). But the gist of it is that an ERC4626 contract distributes "share" tokens based on the percentage of "assets" that a trader contributes. Roughly, it works as follows:
 
 ```solidity
 function getShares(...) external {
@@ -1127,7 +1127,7 @@ The other two essential components of a signature are the message hash (32 bytes
 4. The smart contract receives a message, hashes it to produce `msgHash`, then combines it with `(r, s, v)` to see what address comes out.
 5. If the address matches `ethAddress`, the signature is valid (under certain assumptions which we will see soon!)
 
-Smart contracts use the [precompiled contract](https://www.rareskills.io/post/solidity-precompiles) ecrecover in step 4 to do what we called the combination and get the address back.
+Smart contracts use the [precompiled contract](https://rareskills.io/post/solidity-precompiles) ecrecover in step 4 to do what we called the combination and get the address back.
 
 There are a lot of steps in this process where things can go sideways.
 
@@ -1247,7 +1247,7 @@ contract InsecureContract {
 
 ### Secure signatures
 
-You're probably wanting some secure signature code at this point, right? We refer you to our tutorial on [creating signatures in solidity](https://www.rareskills.io/post/openzeppelin-verify-signature) and testing them in foundry. But here is the checklist.
+You're probably wanting some secure signature code at this point, right? We refer you to our tutorial on [creating signatures in solidity](https://rareskills.io/post/openzeppelin-verify-signature) and testing them in foundry. But here is the checklist.
 
 - Use openzeppelin's library to prevent malleability attacks and recover to zero issues
 - Don't use signatures as a password. The messages needs to contain information that attackers cannot easily re-use (e.g. msg.sender)
@@ -1330,7 +1330,7 @@ fallback() external {
 ```
 Gnosis Safe Fallback Function
 
-If you need to interact with a contract that uses transfer and send, see our article on [Ethereum access list transactions](https://www.rareskills.io/post/eip-2930-optional-access-list-ethereum) that allows you to reduce the gas cost of storage and contract access operations.
+If you need to interact with a contract that uses transfer and send, see our article on [Ethereum access list transactions](https://rareskills.io/post/eip-2930-optional-access-list-ethereum) that allows you to reduce the gas cost of storage and contract access operations.
 
 ## Is Arithmetic overflow still relevant?
 
@@ -1409,7 +1409,7 @@ The `removeFromArray` and `sendRewards` function are in the wrong order. If ther
 
 ### Corner Case Example 3: Compound Finance Reward Miscalculation
 
-Let's use a real example that by some estimates caused over \$100 million dollars of damage. Don't worry if you don't fully understand the Compound protocol, we will only focus on the relevant parts. (Also the Compound protocol is one of the most important and consequential protocols in the history of DeFi, we teach it in our [DeFi bootcamp](https://www.rareskills.io/defi-bootcamp), so if this is your first impression of the protocol, don't be misguided).
+Let's use a real example that by some estimates caused over \$100 million dollars of damage. Don't worry if you don't fully understand the Compound protocol, we will only focus on the relevant parts. (Also the Compound protocol is one of the most important and consequential protocols in the history of DeFi, we teach it in our DeFi bootcamp, so if this is your first impression of the protocol, don't be misguided).
 
 Anyway, the point of Compound is to reward users for lending their idle cryptocurrency to other traders who might have a use for it. The lenders are paid both in interest and in COMP tokens (the borrowers could claim a COMP token reward to, but we won't focus on that right now).
 
@@ -1473,7 +1473,7 @@ DeFi hacks that happen in the real world often times don't fall into the nice ca
 
 ### Pairity Wallet Freeze (November 2017)
 
-The parity wallet was not intended to be used directly. It was a reference implementation that [smart contract clones](https://www.rareskills.io/post/eip-1167-minimal-proxy-standard-with-initialization-clone-pattern) would point to. To implementation allowed for the clones to selfdestruct if desired, but this required all the wallet owners to sign off on it.
+The parity wallet was not intended to be used directly. It was a reference implementation that [smart contract clones](https://rareskills.io/post/eip-1167-minimal-proxy-standard-with-initialization-clone-pattern) would point to. To implementation allowed for the clones to selfdestruct if desired, but this required all the wallet owners to sign off on it.
 
 ```solidity
 // throw unless the contract is not yet initialized.
@@ -1494,7 +1494,7 @@ function kill(address _to) onlymanyowners(sha3(msg.data)) external {
 }
 ```
 
-Some literature describes this as an "unprotected selfdestruct" i.e. an access control failure, but this isn't quite accurate. The problem was that the initWallet function was not called on the implementation contract and that allowed someone to call the initWallet function themselves and make themselves the owner. That gave them the authority to call the kill function. The root cause was that the [implementation was not initialized](https://www.rareskills.io/post/initializable-solidity). Therefore, the bug was introduced not due to faulty solidity code, but due to a faulty deployment process.
+Some literature describes this as an "unprotected selfdestruct" i.e. an access control failure, but this isn't quite accurate. The problem was that the initWallet function was not called on the implementation contract and that allowed someone to call the initWallet function themselves and make themselves the owner. That gave them the authority to call the kill function. The root cause was that the [implementation was not initialized](https://rareskills.io/post/initializable-solidity). Therefore, the bug was introduced not due to faulty solidity code, but due to a faulty deployment process.
 
 ### Badger DAO Hack (December 2021)
 
@@ -1534,7 +1534,7 @@ Other areas where bugs can occur:
 
 ## Many vulnerabilities could have been caught with unit tests
 
-[Smart contract unit testing](https://www.rareskills.io/post/foundry-testing-solidity) is arguably the most basic safeguards for smart contract, but a shocking number of smart contracts either lack them or have insufficient [test coverage](https://www.rareskills.io/post/foundry-forge-coverage).
+[Smart contract unit testing](https://rareskills.io/post/foundry-testing-solidity) is arguably the most basic safeguards for smart contract, but a shocking number of smart contracts either lack them or have insufficient [test coverage](https://rareskills.io/post/foundry-forge-coverage).
 
 But unit tests tend only to test the "happy path" (expected/designed behavior) of contracts. To test the surprising cases, additional test methodologies must be applied.
 
@@ -1575,7 +1575,7 @@ Some reputable crowdsourced security firms have a useful list of past audits to 
 
 ## Becoming a smart contract auditor
 
-If you aren't fluent in Solidity, then there is no way you'll be able to [audit Ethereum smart contracts](https://www.rareskills.io/post/smart-contract-audit). See our [free Solidity tutorial](https://www.rareskills.io/learn-solidity) if you are just starting off.
+If you aren't fluent in Solidity, then there is no way you'll be able to [audit Ethereum smart contracts](https://rareskills.io/post/smart-contract-audit). See our [free Solidity tutorial](https://rareskills.io/learn-solidity) if you are just starting off.
 
 There is no industry recognized certification for becoming a smart contract auditor. Anyone can create a website and social media profiles claiming to be a solidity auditor and start selling services, and many have done so. Therefore, use caution and get referrals before hiring one.
 
@@ -1617,6 +1617,6 @@ This is not to say that learning smart contract security is not a worthwhile pur
 
 It is important to be aware of the known anti-patterns. However, most real-world bugs are application specific. Identifying either category of vulnerabilities requires continual and deliberate practice.
 
-Learn smart contract security, and many more Ethereum development topics with our industry-leading [solidity training](https://www.rareskills.io/solidity-bootcamp).
+Learn smart contract security, and many more Ethereum development topics with our industry-leading [solidity training](https://rareskills.io/courses/solidity-bootcamp).
 
 *Originally Published May 5, 2023*

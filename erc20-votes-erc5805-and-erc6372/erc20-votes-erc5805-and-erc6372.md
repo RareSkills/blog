@@ -4,13 +4,13 @@
 
 ERC20 Votes
 
-Knowledge of ERC20 Snapshot is assumed, please refer to our article on [ERC20 Snapshot](https://www.rareskills.io/post/erc20-snapshot) for an introduction to the subject.
+Knowledge of ERC20 Snapshot is assumed, please refer to our article on [ERC20 Snapshot](https://rareskills.io/post/erc20-snapshot) for an introduction to the subject.
 
 ERC20 Votes does not actually handle conducting the poll, it’s still a regular ERC20 token with snapshot and delegated voting abilities. Voting is usually handled by governance contracts.
 
 Delegation means an address can loan their voting power to another address without transferring their tokens to that address.
 
-Unlike [ERC20 Snapshot](https://www.rareskills.io/post/erc20-snapshot), it does not keep snapshots of the token balances, but keeps snapshots of the voting power of the addresses.
+Unlike [ERC20 Snapshot](https://rareskills.io/post/erc20-snapshot), it does not keep snapshots of the token balances, but keeps snapshots of the voting power of the addresses.
 
 There are a couple motivations for this:
 
@@ -52,7 +52,7 @@ Signatures require a nonce to prevent replay attacks, so the internal tracker of
 
 ### `getPastVotes(account, timepoint)`
 
-As discussed in our [ERC20 Snapshot article](https://www.rareskills.io/post/erc20-snapshot), unless account balances are snapshotted, a double voting attack can occur. This is where a ballot contract would look at a past snapshot.
+As discussed in our [ERC20 Snapshot article](https://rareskills.io/post/erc20-snapshot), unless account balances are snapshotted, a double voting attack can occur. This is where a ballot contract would look at a past snapshot.
 
 Unlike ERC20 snapshot, a snapshot is not triggered by an address calling the snapshot function. A snapshot is triggered per account when one of these events happens:
 
@@ -122,6 +122,6 @@ The choice to use ERC20 Snapshot or Voting depends mostly on whether there is a 
 
 ## Learn more
 
-See our advanced [solidity programming bootcamp](https://www.rareskills.io/solidity-bootcamp) and our other [blockchain bootcamp](https://www.rareskills.io/web3-blockchain-bootcamps) offerings.
+See our advanced [solidity programming bootcamp](https://rareskills.io/courses/solidity-bootcamp) and our other [blockchain bootcamp](https://rareskills.io/web3-blockchain-bootcamps) offerings.
 
 *Originally Published February 23, 2023*

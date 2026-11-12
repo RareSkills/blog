@@ -9,8 +9,8 @@ This article explores how calldata optimization works, provide some examples, an
 ## Prerequisites
 
 -   The reader should be familiar with Solidity and Ethereum Virtual Machine (EVM).
--   The reader should at least know some simple [gas optimization](https://www.rareskills.io/post/gas-optimization) techniques.
--   The reader should know what ABI encoding/decoding, this [video on ABI encoding](https://www.rareskills.io/post/abi-encoding) is a good starting point to learn.
+-   The reader should at least know some simple [gas optimization](https://rareskills.io/post/gas-optimization) techniques.
+-   The reader should know what ABI encoding/decoding, this [video on ABI encoding](https://rareskills.io/post/abi-encoding) is a good starting point to learn.
 
 ## Authorship
 
@@ -81,7 +81,7 @@ The result has the total bytes count of 520 hexadecimal = 520/2 = 260 bytes:
 0xe8e33700000000000000000000000000deaddeaddeaddeaddeaddeaddeaddeaddeaddead000000000000000000000000deaddeaddeaddeaddeaddeaddeaddeaddeaddead0000000000000000000000000000000000000000000000410d586a20a4c000000000000000000000000000000000000000000000000000878678326eac90000000000000000000000000000000000000000000000000003635c9adc5dea0000000000000000000000000000000000000000000000000006c6b935b8bbd400000000000000000000000000000deaddeaddeaddeaddeaddeaddeaddeaddeaddead0000000000000000000000000000000000000000000000000000000000000064
 ```
 
-As you can see, the first 4 bytes of the calldata are the first four bytes of the Keccak256 hash of the function signature (addLiquidity(address,..)). After the [function selector](https://www.rareskills.io/post/function-selector), the following chunks of 32 bytes are the function arguments. If the argument is shorter than 32 bytes, it is, by default, “left padded” with extra zeroes to fit inside the 32 byte.
+As you can see, the first 4 bytes of the calldata are the first four bytes of the Keccak256 hash of the function signature (addLiquidity(address,..)). After the [function selector](https://rareskills.io/post/function-selector), the following chunks of 32 bytes are the function arguments. If the argument is shorter than 32 bytes, it is, by default, “left padded” with extra zeroes to fit inside the 32 byte.
 
 To illustrate, the chunks of calldata can be split as follows:
 

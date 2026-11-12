@@ -8,9 +8,9 @@ The only mechanism in the EVM to change bytecode is to deploy a new contract. Ho
 
 The solution that proxies introduce is to keep the storage in one contract, and get the business logic and functionality (provided by the bytecode) from another contract. If new functionality is needed, then a new "logic contract" is deployed, but the storage contract remains the same.
 
-When a call is made to the storage contract, the storage contract simply [delegatecalls](https://www.rareskills.io/post/delegatecall) the function in the logic contract to make the state update.
+When a call is made to the storage contract, the storage contract simply [delegatecalls](https://rareskills.io/post/delegatecall) the function in the logic contract to make the state update.
 
-*To understand proxies, understanding [delegatecall](https://www.rareskills.io/post/delegatecall) is crucial, so please read the linked article first.*
+*To understand proxies, understanding [delegatecall](https://rareskills.io/post/delegatecall) is crucial, so please read the linked article first.*
 
 What we are calling the "storage contract" here is the proxy contract.
 
@@ -19,7 +19,7 @@ In this article, we will teach:
 1. How proxies work and how to create them 
 2. How to upgrade a proxy smart contract
 
-***Disclaimer*:** The proxy implementation demonstrated here is for learning purposes only and should not be used in production. For production-level proxies, please see the later chapters in our book on [Proxy Patterns](https://www.rareskills.io/proxy-patterns). But you should read this chapter first to have a better foundation before reading the later chapters.
+***Disclaimer*:** The proxy implementation demonstrated here is for learning purposes only and should not be used in production. For production-level proxies, please see the later chapters in our book on [Proxy Patterns](https://rareskills.io/proxy-patterns). But you should read this chapter first to have a better foundation before reading the later chapters.
 
 ## What is a proxy contract?
 
@@ -42,15 +42,15 @@ A proxy contract and its logic contract are set up as follows:
 
 ## How are calls forwarded?
 
-Since the proxy has no logic of its own, any calls made to the proxy contract will be caught by the [`fallback`](https://www.rareskills.io/post/fallback-extension-pattern)  function. The fallback function handles cases where a function call does not match any defined functions in a contract.
+Since the proxy has no logic of its own, any calls made to the proxy contract will be caught by the [`fallback`](https://rareskills.io/post/fallback-extension-pattern)  function. The fallback function handles cases where a function call does not match any defined functions in a contract.
 
 The proxy will then `delegatecall` the implementation using the same `calldata` the proxy received as illustrated in the diagram below:
 
 ![a diagram showing how calldata is forwarded via delegatecall](https://r2media.rareskills.io/Intro-Proxies/calldataToFallback.png)
 
-The proxy contract always `delegatecalls`to the implementation using the same [`calldata`](https://www.rareskills.io/post/function-selector) it received.
+The proxy contract always `delegatecalls`to the implementation using the same [`calldata`](https://rareskills.io/post/function-selector) it received.
 
-Here is an animation from [our article on delegatecall](https://www.rareskills.io/post/delegatecall) as a review:
+Here is an animation from [our article on delegatecall](https://rareskills.io/post/delegatecall) as a review:
 
 <video src="https://r2media.rareskills.io/Intro-Proxies/delegatecallAnimation.mp4" type="video/mp4" autoplay loop muted controls></video> 
 
@@ -66,7 +66,7 @@ On the other hand, a non-upgradeable contract requires you to convince all users
 
 ### 2. Saving deployment gas cost
 
-Proxies can [save gas](https://www.rareskills.io/post/smart-contract-creation-cost) if multiple copies of a contract need to be deployed, as all the proxies can use the same logic contract while keeping their own separate state. Instead of deploying full contract logic for every copy, you deploy a single implementation contract, and all the proxies use `delegatecall` to interact with it. Since the logic is very simple, the deployed bytecode is a lot smaller and thus cheaper to deploy. This pattern is called the [Minimal Proxy Pattern](https://www.rareskills.io/post/eip-1167-minimal-proxy-standard-with-initialization-clone-pattern) (more about this later in the article).
+Proxies can [save gas](https://rareskills.io/post/smart-contract-creation-cost) if multiple copies of a contract need to be deployed, as all the proxies can use the same logic contract while keeping their own separate state. Instead of deploying full contract logic for every copy, you deploy a single implementation contract, and all the proxies use `delegatecall` to interact with it. Since the logic is very simple, the deployed bytecode is a lot smaller and thus cheaper to deploy. This pattern is called the [Minimal Proxy Pattern](https://rareskills.io/post/eip-1167-minimal-proxy-standard-with-initialization-clone-pattern) (more about this later in the article).
 
 ## How to deploy an upgradeable smart contract (not for production)
 
@@ -74,7 +74,7 @@ Let's start by creating a simple proxy contract that `delegatecalls` a single ha
 
 ### **1.** Deploy your implementation contract
 
-Let’s consider the contract below as our implementation contract. It takes two numbers as arguments and emits their sum as an [event](https://www.rareskills.io/post/ethereum-events).
+Let’s consider the contract below as our implementation contract. It takes two numbers as arguments and emits their sum as an [event](https://rareskills.io/post/ethereum-events).
 
 ```solidity
 contract Implementation {
@@ -133,7 +133,7 @@ When the contract deployment is completed, the next step would be interacting wi
 
 The first way to interact with the proxy contract in Remix is by using the `Low Level Interaction` interface. This involves constructing a `calldata` for our target function and passing it into `calldata` input box.
 
-So, to trigger the `addNumbers` function to add two numbers `5` and `4` we’ll construct the `calldata` by performing the [ABI encoding](https://www.rareskills.io/post/abi-encoding) of the function and its parameters as shown below:
+So, to trigger the `addNumbers` function to add two numbers `5` and `4` we’ll construct the `calldata` by performing the [ABI encoding](https://rareskills.io/post/abi-encoding) of the function and its parameters as shown below:
 
 ```solidity
 function seeEncoding() external pure returns (bytes memory) {
@@ -261,7 +261,7 @@ contract Implementation {
 
 This will result in a storage collision. When we try to update the `number` state variable in the proxy contract, we’ll be overwriting the `implementation` address state which is not what we want!
 
-In Solidity, storage variables are assigned to fixed [storage slots](https://www.rareskills.io/post/evm-solidity-storage-layout) based on their order of declaration in the contract. This means that if the layout of the storage variables in the proxy and the implementation doesn’t match, conflicts will happen.
+In Solidity, storage variables are assigned to fixed [storage slots](https://rareskills.io/post/evm-solidity-storage-layout) based on their order of declaration in the contract. This means that if the layout of the storage variables in the proxy and the implementation doesn’t match, conflicts will happen.
 
 In the our case:
 
@@ -274,7 +274,7 @@ This causes a conflict because when the implementation contract tries to update 
 
 This leads to an unexpected behavior—you want to update the `number` in the proxy, but you’re actually overwriting the `implementation` address in the storage.
 
-*Our articles [Storage Slots in Solidity: Storage Allocation and Low-level assembly storage operations](https://www.rareskills.io/post/evm-solidity-storage-layout) and [Storage Slot III (Complex Types)](https://www.rareskills.io/post/solidity-dynamic) explains in detail how storage slots work in Solidity with useful diagrams and animations.*
+*Our articles [Storage Slots in Solidity: Storage Allocation and Low-level assembly storage operations](https://rareskills.io/post/evm-solidity-storage-layout) and [Storage Slot III (Complex Types)](https://rareskills.io/post/solidity-dynamic) explains in detail how storage slots work in Solidity with useful diagrams and animations.*
 
 Let’s use the following contract as an example:
 
@@ -325,7 +325,7 @@ You’ll notice that the increment will not work correctly because it’s updati
 
 ### How do we solve this storage collision problem in proxies?
 
-One way is to pick a random slot such that a collision is extremely unlikely. More details about how we pick such a slot are in [ERC-1967](https://www.rareskills.io/post/erc1967).
+One way is to pick a random slot such that a collision is extremely unlikely. More details about how we pick such a slot are in [ERC-1967](https://rareskills.io/post/erc1967).
 
 So, following the ERC-1967 convention, we’ll use the slot below to store the `implementation` address:
 
@@ -426,7 +426,7 @@ Now, if we deploy this contract and run it, we’ll get the desired result as sh
 
 ![A diagram showing a return value of 2 from the contract interaction](https://r2media.rareskills.io/Intro-Proxies/returned2.png)
 
-We discuss EIP-1967 extensively in our [Storage Slots for Proxies](https://www.rareskills.io/post/erc1967) article, and it is the next chapter in this book.
+We discuss EIP-1967 extensively in our [Storage Slots for Proxies](https://rareskills.io/post/erc1967) article, and it is the next chapter in this book.
 
 ## Conclusion
 
@@ -434,10 +434,10 @@ In this article, we've explored the concept of proxy contracts, their importance
 
 Here are some key takeaways from this piece:
 
-- The [`DELEGATECALL`](https://www.rareskills.io/post/delegatecall) opcode makes upgradeability possible with proxies.
+- The [`DELEGATECALL`](https://rareskills.io/post/delegatecall) opcode makes upgradeability possible with proxies.
 - Proxy contracts (both upgradeable and non-upgradeable) holds the storage, including the implementation address. The implementation contracts holds the logic.
 - Upgradeable Proxy holds the storage, the implementation address, and provides a setter function to update the implementation address. The implementation holds only the logic
 
 Further reading recommendation:
 
-- https://www.rareskills.io/proxy-patterns
+- https://rareskills.io/proxy-patterns

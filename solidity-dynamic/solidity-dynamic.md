@@ -1,6 +1,6 @@
 # Storage Slots of Dynamic Types (Mappings, Arrays, Strings, Bytes)
 
-Dynamic-sized types in Solidity (sometimes referred to as complex types) are data types with variable size. They include mappings, nested mappings, arrays, nested arrays, strings, bytes, and structs that contain any of those types. This article shows how they are encoded and kept in [storage](https://www.rareskills.io/post/evm-solidity-storage-layout).
+Dynamic-sized types in Solidity (sometimes referred to as complex types) are data types with variable size. They include mappings, nested mappings, arrays, nested arrays, strings, bytes, and structs that contain any of those types. This article shows how they are encoded and kept in [storage](https://rareskills.io/post/evm-solidity-storage-layout).
 
 ## Mappings
 
@@ -214,7 +214,7 @@ contract MyFixedUint256Array {
 }
 ```
 
-Since `num` is of type [uint256](https://www.rareskills.io/post/uint-max-value-solidity) and is the first state variable in the contract, it occupies the whole of storage slot 0. The second state variable, `myArr`, is a fixed-size array of `uint256` with three elements, meaning each element will occupy its own storage slot, starting from slot 1.  
+Since `num` is of type [uint256](https://rareskills.io/post/uint-max-value-solidity) and is the first state variable in the contract, it occupies the whole of storage slot 0. The second state variable, `myArr`, is a fixed-size array of `uint256` with three elements, meaning each element will occupy its own storage slot, starting from slot 1.  
 
 The animation below shows how storage slots are allocated to each variable, detailing how the values in each storage variable are stored in slots.
 

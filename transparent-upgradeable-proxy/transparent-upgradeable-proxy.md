@@ -7,13 +7,13 @@ A functional Ethereum proxy needs at least the following two features:
 - A storage slot holding the address of the implementation contract
 - A mechanism for an admin to change the implementation address
 
-The [ERC-1967](https://www.rareskills.io/post/erc1967) standard dictates where the storage slot holding the address of the implementation should be held so that the chance of a storage collision is minimized. However, the ERC-1967 standard does not dictate how to change the address of the implementation.
+The [ERC-1967](https://rareskills.io/post/erc1967) standard dictates where the storage slot holding the address of the implementation should be held so that the chance of a storage collision is minimized. However, the ERC-1967 standard does not dictate how to change the address of the implementation.
 
 The problem with putting an additional function inside the proxy to change the implementation (such as `updateImplementation(address _newImplementation)`) is that the update function has a non-negligible chance of clashing with a function in the implementation.
 
 ## Function Selector Clashing
 
-Declaring public functions inside the proxy to update the implementation address introduces the possibility of a [function selector](https://www.rareskills.io/post/function-selector) clash.
+Declaring public functions inside the proxy to update the implementation address introduces the possibility of a [function selector](https://rareskills.io/post/function-selector) clash.
 
 Here is a trivial example:
 
@@ -48,7 +48,7 @@ contract Implementation {
 
 Therefore, if a public function is declared in the proxy, there are two kinds of function selector clashes that can occur:
 
-1. If the implementation contract implements a function with the same signature, that function will be uncallable because the proxy's public function with the same signature will be called, not the fallback. And if the fallback is not triggered, there won't be a [delegatecall](https://www.rareskills.io/post/delegatecall) to the implementation.
+1. If the implementation contract implements a function with the same signature, that function will be uncallable because the proxy's public function with the same signature will be called, not the fallback. And if the fallback is not triggered, there won't be a [delegatecall](https://rareskills.io/post/delegatecall) to the implementation.
 2. If the implementation contract has a function with the same function selector as the public function in the proxy, it will also be uncallable for the same reason. This scenario is a function selector clash that can happen by random chance when the four-bytes match. The probability of the two different functions having the same selector is 1 in 4.29 billion; a function selector consists of 4 bytes, so there are 4.29 billion possibilities. That is a small probability, but *not* negligible. For example, `clash550254402()` has the same function selector as `proxyAdmin()`.
 
 ## The Transparent Upgradeable Proxy Pattern Prevents Function Selector Clashing Entirely
@@ -240,7 +240,7 @@ contract TransparentUpgradeableProxy is ERC1967Proxy {
 }
 ```
 
-Let's consider the case where `msg.sender` is the `_proxyAdmin`. In that case, the call gets routed to `_dispatchUpgradeToAndCall()`, but `_fallback()` first checks that the function selector provided is the function selector for `upgradeToAndCall`. The "selector" here is not a "real" selector, since the Transparent Upgradeable Proxy does not have public functions. However, to allow the `ProxyAdmin` to make a [Solidity interface call (high level call)](https://www.rareskills.io/post/low-level-call-solidity), it needs to accept the [ABI-encoded calldata](https://www.rareskills.io/post/abi-encoding) for `upgradeToAndCall()` from the `ProxyAdmin`.
+Let's consider the case where `msg.sender` is the `_proxyAdmin`. In that case, the call gets routed to `_dispatchUpgradeToAndCall()`, but `_fallback()` first checks that the function selector provided is the function selector for `upgradeToAndCall`. The "selector" here is not a "real" selector, since the Transparent Upgradeable Proxy does not have public functions. However, to allow the `ProxyAdmin` to make a [Solidity interface call (high level call)](https://rareskills.io/post/low-level-call-solidity), it needs to accept the [ABI-encoded calldata](https://rareskills.io/post/abi-encoding) for `upgradeToAndCall()` from the `ProxyAdmin`.
 
 Recall, the `ProxyAdmin` is making an interface call to `upgradeToAndCall` in the `Proxy` even though the proxy has no public functions besides the fallback (`ProxyAdmin` code show next):
 
@@ -288,7 +288,7 @@ The implication of this is that the `ProxyAdmin` contract can make arbitrary del
 
 This is not a "problem" that the `ProxyAdmin` can use the contract — the `ProxyAdmin` has the ability to completely change the implementation — the owner of the `ProxyAdmin` already has admin control over the Proxy.
 
-The only restriction the `ProxyAdmin` has on upgrading is that they cannot upgrade to an empty contract (an address with no bytecode). The `_setImplementation` function checks if the [code length](https://www.rareskills.io/post/solidity-code-length) of the new implementation is greater than zero
+The only restriction the `ProxyAdmin` has on upgrading is that they cannot upgrade to an empty contract (an address with no bytecode). The `_setImplementation` function checks if the [code length](https://rareskills.io/post/solidity-code-length) of the new implementation is greater than zero
 
 ```solidity
 /**

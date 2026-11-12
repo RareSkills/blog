@@ -261,7 +261,7 @@ When manually creating raw transactions for Ethereum, there are several transact
 
 The base fee is determined by the network and remains fixed for all transactions within a block. However, it adjusts between blocks based on network congestion. You can influence your transaction's priority by increasing the priority fee (tip) offered to miners.
 
-Additionally, there is the [EIP-2930 transaction (type 1)](https://www.rareskills.io/post/eip-2930-optional-access-list-ethereum) and EIP-4844 blob transactions (type 3, which we will discuss later in this article).
+Additionally, there is the [EIP-2930 transaction (type 1)](https://rareskills.io/post/eip-2930-optional-access-list-ethereum) and EIP-4844 blob transactions (type 3, which we will discuss later in this article).
 
 #### **Choosing a transaction type in Go with Geth**
 
@@ -708,7 +708,7 @@ As mentioned in the last section, we can sign and verify signed messages offline
 
 The `verifySig` function below takes these parameters, decodes the signature into bytes, and removes the Ethereum recovery ID. The reason for this is because the `crypto` package used for signing and verifying signatures checks that the recovery ID (65th byte) of the signature is less than 4 (my guess is that so it's not limited to just Ethereum signatures).
 
-After this, we reconstruct the necessary parameters (details in the code below) and call the `crypto.Ecrecover` function, which works similarly to the [EVM Ecrecover precompile contract at address (0x01)](https://www.rareskills.io/post/solidity-precompiles#:~:text=Address%200x01%3A%20ecRecover), which returns the address that signed the message (created the signature).
+After this, we reconstruct the necessary parameters (details in the code below) and call the `crypto.Ecrecover` function, which works similarly to the [EVM Ecrecover precompile contract at address (0x01)](https://rareskills.io/post/solidity-precompiles#:~:text=Address%200x01%3A%20ecRecover), which returns the address that signed the message (created the signature).
 
 Create a `verifySignedMessage.go` file in the project and add this code:
 

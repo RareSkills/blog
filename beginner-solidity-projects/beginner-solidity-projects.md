@@ -45,7 +45,7 @@ Warning: it's very easy to accidentally compute the rewards in such a way that a
 
 ## 8. Simple lottery
 
-Any user can call createLottery and a lottery will be created with a ticket purchase window for the next 24 hours. Once the 24 hours is up, there is a 1 hour delay, then the lottery is over. Generating [random numbers safely on Ethereum](https://www.rareskills.io/post/generate-a-random-number-with-solidity-on-the-blockchain) is tricky, but for the purpose of this, relying on a future blockhash (which the players cannot predict), is good enough for this project. After createLottery is called people can purchaseTicket for a particular lotteryId. The lottery must consist of a deadline for when purchasing tickets stops, and time afterwards when the future blockhash determines the winner. The winner must then claim the winnings within 256 blocks (the maximum lookback of the blockhash function), otherwise, everyone can get their tickets back.
+Any user can call createLottery and a lottery will be created with a ticket purchase window for the next 24 hours. Once the 24 hours is up, there is a 1 hour delay, then the lottery is over. Generating [random numbers safely on Ethereum](https://rareskills.io/post/generate-a-random-number-with-solidity-on-the-blockchain) is tricky, but for the purpose of this, relying on a future blockhash (which the players cannot predict), is good enough for this project. After createLottery is called people can purchaseTicket for a particular lotteryId. The lottery must consist of a deadline for when purchasing tickets stops, and time afterwards when the future blockhash determines the winner. The winner must then claim the winnings within 256 blocks (the maximum lookback of the blockhash function), otherwise, everyone can get their tickets back.
 
 ## 9. ERC1155 Bingo
 
@@ -67,15 +67,15 @@ Really, stop reading tutorials, start creating projects! If you get stuck, reach
 
 ## Quality assurance: write unit tests and measure the gas costs
 
-We've already taught you to use the [foundry framework for writing solidity unit tests](https://www.rareskills.io/post/foundry-testing-solidity). It's simply not acceptable to deploy untested code that handles other people's money. Although these are just educational contracts, you should get into the habit of writing tests early in your journey.
+We've already taught you to use the [foundry framework for writing solidity unit tests](https://rareskills.io/post/foundry-testing-solidity). It's simply not acceptable to deploy untested code that handles other people's money. Although these are just educational contracts, you should get into the habit of writing tests early in your journey.
 
 Try thinking like an attacker too. What sort of funny inputs would an attacker try if they were trying to mess with the system?
 
-Finally, pay attention to the gas cost that foundry reports. You can convert the gas units to dollar cost by using our [Ethereum gas price calculator](https://www.rareskills.io/ethereum-gas-price-calculator) and learn how that calculator works by reading our article on how to [convert eth gas to dollars](https://www.rareskills.io/post/convert-gas-to-usd-ethereum).
+Finally, pay attention to the gas cost that foundry reports. You can convert the gas units to dollar cost by using our Ethereum gas price calculator and learn how that calculator works by reading our article on how to [convert eth gas to dollars](https://rareskills.io/post/convert-gas-to-usd-ethereum).
 
 Then consider learning [Solidity gas optimization tips](https://rareskills.io/post/gas-optimization) and applying them to your project.
 
-If you really want to go the extra mile, build a simple frontend app for connecting to these contracts. We suggest using the [wagmi js](https://www.rareskills.io/post/wagmi-react-example) library for this.
+If you really want to go the extra mile, build a simple frontend app for connecting to these contracts. We suggest using the [wagmi js](https://rareskills.io/post/wagmi-react-example) library for this.
 
 ## Then what?
 
@@ -83,6 +83,6 @@ Done? We suggest learning how to gas optimize your contracts by reading our [gas
 
 ## Learn More with RareSkills
 
-If you've completed all of the above and are looking to go even further with a community, maybe consider taking our advanced [Solidity bootcamp](https://rareskills.io/solidity-bootcamp).
+If you've completed all of the above and are looking to go even further with a community, maybe consider taking our advanced [Solidity bootcamp](https://rareskills.io/courses/solidity-bootcamp).
 
 *Originally Published Sep 10, 2023*

@@ -440,6 +440,6 @@ Learn More with RareSkills
 ---
 
 
-This checklist is used in our advanced [Solidity bootcamp](https://www.rareskills.io/solidity-bootcamp) for code reviews.
+This checklist is used in our advanced [Solidity bootcamp](https://rareskills.io/courses/solidity-bootcamp) for code reviews.
 
 *Originally Published August 12, 2024*

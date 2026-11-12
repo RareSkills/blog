@@ -7,7 +7,7 @@ description: "How Compound V3 (Comet) works: lending, borrowing against collater
 
 Compound is one of the most significant lending protocols in DeFi, having inspired the design of nearly every lending protocol on several blockchains. This article explains the smart contract architecture of V3.
 
-Since Compound is a lending protocol, we assume the reader is familiar with [how interest rates work in DeFi](https://www.rareskills.io/post/aave-interest-rate-model) and are familiar with [liquidations and collateral](https://www.rareskills.io/post/defi-liquidations-collateral) in the context of DeFi loans.
+Since Compound is a lending protocol, we assume the reader is familiar with [how interest rates work in DeFi](https://rareskills.io/post/aave-interest-rate-model) and are familiar with [liquidations and collateral](https://rareskills.io/post/defi-liquidations-collateral) in the context of DeFi loans.
 
 Unlike Compound V2, each instance of Compound only lends one asset. That is, you can only borrow USDC from the USDC market and can only borrow ETH from the ETH market -- you cannot borrow anything else. To borrow these assets, you need to supply collateral according to the collateralization ratio specified by the market (and that ratio is set by governance).
 
@@ -108,7 +108,7 @@ Comet’s ancestors are shown in the diagram below. We will give a high-level ov
 
 ### CometMath.sol (top left <span style="color:Gray">gray ellipse</span>)
 
-Comet math simply contains a bunch of functions for casting unsigned integers to unsigned integers of lower bit value and reverting if it would cause an overflow. For example, if we cast from [uint256](https://www.rareskills.io/post/uint-max-value-solidity) to uint104, but the value of the uint256 is larger than what can be stored in uint104, it will revert. You’ll see functions like `safe64` scattered throughout the codebase. Hopefully these are easy enough to understand without further explanation. The file is small, so we show it in its entirety here:
+Comet math simply contains a bunch of functions for casting unsigned integers to unsigned integers of lower bit value and reverting if it would cause an overflow. For example, if we cast from [uint256](https://rareskills.io/post/uint-max-value-solidity) to uint104, but the value of the uint256 is larger than what can be stored in uint104, it will revert. You’ll see functions like `safe64` scattered throughout the codebase. Hopefully these are easy enough to understand without further explanation. The file is small, so we show it in its entirety here:
 
 ![An image of CometMath.sol](https://static.wixstatic.com/media/935a00_77dd92cf4e554066a6eff8dc2fab727d~mv2.png/v1/fill/w_315,h_675,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_77dd92cf4e554066a6eff8dc2fab727d~mv2.png)
 
@@ -128,11 +128,11 @@ As the name implies, [CometMainInterface.sol](https://github.com/compound-financ
 
 [Comet.sol](https://github.com/compound-finance/comet/blob/main/contracts/Comet.sol) is the star of the show. It provides all the public facing functions for users to lend, borrow, repay, and liquidate loans.
 
-### CometExt is an extension to Comet via [delegatecall](https://www.rareskills.io/post/delegatecall)
+### CometExt is an extension to Comet via [delegatecall](https://rareskills.io/post/delegatecall)
 
-To avoid hitting the 24 KB deployment limit, Comet offloads several extra functions to CometExt using the [fallback-extension pattern](https://www.rareskills.io/post/fallback-extension-pattern). For example, the function `name()` is not in Comet.sol and thus [cannot be seen on Etherscan](https://etherscan.io/address/0xc3d688B66703497DAA19211EEdff47f25384cdc3#readProxyContract).
+To avoid hitting the 24 KB deployment limit, Comet offloads several extra functions to CometExt using the [fallback-extension pattern](https://rareskills.io/post/fallback-extension-pattern). For example, the function `name()` is not in Comet.sol and thus [cannot be seen on Etherscan](https://etherscan.io/address/0xc3d688B66703497DAA19211EEdff47f25384cdc3#readProxyContract).
 
-However, if we call that function via [Foundry](https://www.rareskills.io/post/foundry-testing-solidity) cast, we can see the contract behaves as if it exists.
+However, if we call that function via [Foundry](https://rareskills.io/post/foundry-testing-solidity) cast, we can see the contract behaves as if it exists.
 
 ![An image showing CometExt as an extension to Comet via delegatecall](https://static.wixstatic.com/media/935a00_fc0907ea4298469791e4860a442f6168~mv2.png/v1/fill/w_666,h_57,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_fc0907ea4298469791e4860a442f6168~mv2.png)
 
@@ -198,7 +198,7 @@ Configurator.sol also holds the `deploy()` function to deploy new Comet instanc
 
 ![An image of Configurator.sol showing deploy()](https://static.wixstatic.com/media/935a00_72fea30104b94d57a6733bea379ce4c8~mv2.png/v1/fill/w_666,h_198,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_72fea30104b94d57a6733bea379ce4c8~mv2.png)
 
-`CometFactory` in the code above is defined in [CometFactory.sol](https://github.com/compound-finance/comet/blob/main/contracts/CometFactory.sol) and is quite small, so we show the file in its entirety. The function "clone" is a bit misleading because it does not create [proxy clones](https://www.rareskills.io/post/eip-1167-minimal-proxy-standard-with-initialization-clone-pattern) -- it creates a new instance.
+`CometFactory` in the code above is defined in [CometFactory.sol](https://github.com/compound-finance/comet/blob/main/contracts/CometFactory.sol) and is quite small, so we show the file in its entirety. The function "clone" is a bit misleading because it does not create [proxy clones](https://rareskills.io/post/eip-1167-minimal-proxy-standard-with-initialization-clone-pattern) -- it creates a new instance.
 
 ![An image showing clone function](https://static.wixstatic.com/media/935a00_dd23c1f2937341c9a09d224172c84562~mv2.png/v1/fill/w_666,h_290,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_dd23c1f2937341c9a09d224172c84562~mv2.png)
 
@@ -220,6 +220,6 @@ Below we show the relationship between all the files and how they interact with 
 
 ## Learn more with RareSkills
 
-Please see our [blockchain bootcamp](https://www.rareskills.io/web3-blockchain-bootcamps) to learn more.
+Please see our [blockchain bootcamp](https://rareskills.io/web3-blockchain-bootcamps) to learn more.
 
 *Originally Published January 3, 2024*

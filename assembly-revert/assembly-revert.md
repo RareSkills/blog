@@ -6,7 +6,7 @@ The example below shows that the `revert` statement in the assembly version redu
 
 ![A screenshot showing how Assembly `revert` is more gas-efficient compared to the regular Solidity `revert`](https://r2media.rareskills.io/assembly-revert-images/image.png)
 
-As a pre-requisite, we assume that you have read the [Try Catch and All the Ways Solidity Reverts](https://www.rareskills.io/post/try-catch-solidity) article as well as our [article on ABI encoding](https://www.rareskills.io/post/abi-encoding).
+As a pre-requisite, we assume that you have read the [Try Catch and All the Ways Solidity Reverts](https://rareskills.io/post/try-catch-solidity) article as well as our [article on ABI encoding](https://rareskills.io/post/abi-encoding).
 
 In the EVM, memory is a long array of bytes that are byte-indexed. That is, we can read and write bytes based on their index. Even though memory is bytes indexed, we typically read and write 32 bytes at a time.
 
@@ -189,7 +189,7 @@ Instead of memorizing that `mstore` left-pads hex values with zero, we can consi
 
 In other words, `mstore(0, 255)` is saying “store the number 255 in the 32 bytes starting at byte 0, with byte 0 holding the most significant bytes.”
 
-Since 255 is a "small number" compared to what a 32 byte number can hold (the [maximum value of uint256](https://www.rareskills.io/post/uint-max-value-solidity)), only the least significant bits will be used. The least significant bits are on the right, but the significant bits on the left are set to zero.
+Since 255 is a "small number" compared to what a 32 byte number can hold (the [maximum value of uint256](https://rareskills.io/post/uint-max-value-solidity)), only the least significant bits will be used. The least significant bits are on the right, but the significant bits on the left are set to zero.
 
 Similarly, the number `0xff00000000000000000000000000000000000000000000000000000000000000` is quite large.
 
@@ -230,7 +230,7 @@ contract ContractA {
 }
 ```
 
-The screenshot below shows a [low-level call](https://rareskills.io/post/low-level-call) from `ContractA` to `ContractB` and how the low-level call returned `false` because `ContractB` reverted, and no data is returned since we are using `revert(0,0)`
+The screenshot below shows a [low-level call](https://rareskills.io/post/low-level-call-solidity) from `ContractA` to `ContractB` and how the low-level call returned `false` because `ContractB` reverted, and no data is returned since we are using `revert(0,0)`
 
 ![return value of a failed low-level call](https://r2media.rareskills.io/assembly-revert-images/image_9.png)
 
@@ -238,7 +238,7 @@ The screenshot below shows a [low-level call](https://rareskills.io/post/low-lev
 
 To illustrate how to simulate a custom error with no parameters using assembly, let’s use `revert Unauthorized()` as an example. 
 
-We will store the custom revert’s [error function selector](https://www.rareskills.io/post/function-selector/) in a specific location in memory (`0x00` by convention) and revert will point to that location in memory.
+We will store the custom revert’s [error function selector](https://rareskills.io/post/function-selector) in a specific location in memory (`0x00` by convention) and revert will point to that location in memory.
 
 Here is the Solidity code we will use as an example:
 
@@ -266,7 +266,7 @@ assembly {
 
 ### **1. Store the function selector**
 
-When Solidity triggers a custom error, the return value is the ABI encoding of the custom error itself, which includes the [function selector](https://www.rareskills.io/post/function-selector) (the first four bytes of the keccak256 hash of the custom error signature).
+When Solidity triggers a custom error, the return value is the ABI encoding of the custom error itself, which includes the [function selector](https://rareskills.io/post/function-selector) (the first four bytes of the keccak256 hash of the custom error signature).
 
 Since we are using the custom error `Unauthorized()` as an example, we’ll first store the function selector (first four bytes of the keccak256 of `Unauthorized()` ) which will be `0x82b42900` padded with extra zeros to lengthen the value to 32 bytes to ensure that the actual four bytes of the function selector is written from byte 0 to byte 3 inclusive. Without this padding, the selector will not start at memory index 0.
 
@@ -536,7 +536,7 @@ Let’s examine the assembly block line-by-line.
 
 ### 1. Store the function selector for `Error(string)`
 
-We first store the [function selector](https://www.rareskills.io/post/function-selector/) at the starting memory location (`0x00`):
+We first store the [function selector](https://rareskills.io/post/function-selector) at the starting memory location (`0x00`):
 
 ```solidity
 assembly {

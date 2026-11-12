@@ -4,17 +4,17 @@ Upgrading a smart contract is a multistep and error-prone process, so to minimiz
  
 Therefore, the [OpenZeppelin Upgrade Plugin](https://docs.openzeppelin.com/upgrades-plugins/) streamlines deploying, upgrading and managing smart contracts built with Foundry or Hardhat.
 
-In this article, we'll learn how to use Upgrade Plugin with [Foundry](https://www.rareskills.io/post/foundry-testing-solidity) to manage contract upgrades, both locally and on the Sepolia Testnet. We'll also cover how these plugins safeguard against common upgrade issues.
+In this article, we'll learn how to use Upgrade Plugin with [Foundry](https://rareskills.io/post/foundry-testing-solidity) to manage contract upgrades, both locally and on the Sepolia Testnet. We'll also cover how these plugins safeguard against common upgrade issues.
 
 ## Prerequisites
 
 To get the most out of this guide, the reader should be familiar with:
 
-- The [delegatecall](https://www.rareskills.io/post/delegatecall) operation in Solidity.
-- Standards like [ERC1967](https://www.rareskills.io/post/erc1967) and the role of [initializers](https://www.rareskills.io/post/initializable-solidity) in setting up state in upgradeable contracts.
-- Common upgrade failures, including [function selector](https://www.rareskills.io/post/function-selector) and [storage slot](https://www.rareskills.io/post/evm-solidity-storage-layout) collisions.
-- Knowledge of common proxy patterns such as the [Transparent Upgradeable Proxy](https://www.rareskills.io/post/transparent-upgradeable-proxy), [UUPS Proxy](https://www.rareskills.io/post/uups-proxy), or [Beacon Proxy](https://www.rareskills.io/post/beacon-proxy)
-- The Namespace storage layout, or [EIP-7201](https://www.rareskills.io/post/erc-7201).
+- The [delegatecall](https://rareskills.io/post/delegatecall) operation in Solidity.
+- Standards like [ERC1967](https://rareskills.io/post/erc1967) and the role of [initializers](https://rareskills.io/post/initializable-solidity) in setting up state in upgradeable contracts.
+- Common upgrade failures, including [function selector](https://rareskills.io/post/function-selector) and [storage slot](https://rareskills.io/post/evm-solidity-storage-layout) collisions.
+- Knowledge of common proxy patterns such as the [Transparent Upgradeable Proxy](https://rareskills.io/post/transparent-upgradeable-proxy), [UUPS Proxy](https://rareskills.io/post/uups-proxy), or [Beacon Proxy](https://rareskills.io/post/beacon-proxy)
+- The Namespace storage layout, or [EIP-7201](https://rareskills.io/post/erc-7201).
 
 ### Upgrades plugin for Foundry
 
@@ -705,7 +705,7 @@ We would get the following error from the OpenZeppelin plugin (we are using the 
 
 ### 3. Validating `__gap` are used properly
 
-As discussed in our article in [Storage Namespaces](https://www.rareskills.io/post/erc-7201), using the **`__gap` variable is a strategy to prevent parent contracts from shifting the storage variables of child contracts when a new storage variable is inserted. To use the `__gap`** variable properly, the size of the gap must be reduced when a new variable is inserted. In the following example, the dev inserted a new storage variable and forgot to reduce the size of the **`__gap`**:
+As discussed in our article in [Storage Namespaces](https://rareskills.io/post/erc-7201), using the **`__gap` variable is a strategy to prevent parent contracts from shifting the storage variables of child contracts when a new storage variable is inserted. To use the `__gap`** variable properly, the size of the gap must be reduced when a new variable is inserted. In the following example, the dev inserted a new storage variable and forgot to reduce the size of the **`__gap`**:
 
 ![Gap variable not reduced in  the storage NameSpaces](https://static.wixstatic.com/media/706568_19b8fa14d316465991c50b2b1fc13e20~mv2.png/v1/fill/w_740,h_191,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/706568_19b8fa14d316465991c50b2b1fc13e20~mv2.png)
 
@@ -715,7 +715,7 @@ and the tool catches this:
 
 The OpenZeppelin tool does not enforce the use of **`__gap`**. Instead, _if_ a **gap variable is present, the tool checks that the upgrade respects how the `__gap`** variable is intended to be used, i.e. maintaining storage variable alignment.
 
-A more robust alternative to the **`__gap`** strategy is the use of Named Storage Layouts, as discussed in our tutorial on [Storage Namespaces](https://www.rareskills.io/post/erc-7201), and we provide an example of that in the next section.
+A more robust alternative to the **`__gap`** strategy is the use of Named Storage Layouts, as discussed in our tutorial on [Storage Namespaces](https://rareskills.io/post/erc-7201), and we provide an example of that in the next section.
 
 ### 4. Validating ERC-7201 is followed properly
 

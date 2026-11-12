@@ -66,7 +66,7 @@ During a price update, the signatures and prices of the nodes are batched togeth
 
 ### Improving the gas efficiency of reading price oracles
 
-Because viewing the price involves a cross-contract call, it is recommended to save 200 gas by “pre-warming” the aggregator call using an [access list transaction](https://www.rareskills.io/post/eip-2930-optional-access-list-ethereum). See an example of using an access list with a Chainlink price oracle in this [repo](https://github.com/RareSkills/access-list-benchmarks/tree/main/chainlink_oracle).
+Because viewing the price involves a cross-contract call, it is recommended to save 200 gas by “pre-warming” the aggregator call using an [access list transaction](https://rareskills.io/post/eip-2930-optional-access-list-ethereum). See an example of using an access list with a Chainlink price oracle in this [repo](https://github.com/RareSkills/access-list-benchmarks/tree/main/chainlink_oracle).
 
 ## Price update frequency
 
@@ -81,10 +81,10 @@ These parameters are highlighted in a screenshot of the chainlink ETH / USD dash
 
 ## Security considerations
 
-Much has been written about [smart contract security](https://www.rareskills.io/post/smart-contract-security) issues that arise out of using Chainlink oracles incorrectly, so we won’t repeat it here. We refer the reader to an [article](https://medium.com/cyfrin/chainlink-oracle-defi-attacks-93b6cb6541bf) by Dacian which lists those potential issues.
+Much has been written about [smart contract security](https://rareskills.io/post/smart-contract-security) issues that arise out of using Chainlink oracles incorrectly, so we won’t repeat it here. We refer the reader to an [article](https://medium.com/cyfrin/chainlink-oracle-defi-attacks-93b6cb6541bf) by Dacian which lists those potential issues.
 
 ## Learn more with RareSkills
 
-Please see our [solidity bootcamp](https://www.rareskills.io/solidity-bootcamp) to learn smart contract development at a deep level.
+Please see our [solidity bootcamp](https://rareskills.io/courses/solidity-bootcamp) to learn smart contract development at a deep level.
 
 *Originally Published January 11, 2024*

@@ -4,7 +4,7 @@
 
 The purpose of this article is to describe the behavior of the Solidity `gasleft()` function and its uses.
 
-It is a built-in function that is used to check the remaining gas during a contract call. It is one of the special variables and functions that always exist in the global namespace and thus does not need to be imported. `gasleft()` was previously known as `msg.gas` before [Solidity](https://www.rareskills.io/solidity-bootcamp) version 0.4.21 ([msg.gas](https://docs.soliditylang.org/en/v0.4.21/units-and-global-variables.html#block-and-transaction-properties:~:text=%3A%20complete%20calldata-,msg.gas,-(uint)%3A%20remaining)).
+It is a built-in function that is used to check the remaining gas during a contract call. It is one of the special variables and functions that always exist in the global namespace and thus does not need to be imported. `gasleft()` was previously known as `msg.gas` before [Solidity](https://rareskills.io/courses/solidity-bootcamp) version 0.4.21 ([msg.gas](https://docs.soliditylang.org/en/v0.4.21/units-and-global-variables.html#block-and-transaction-properties:~:text=%3A%20complete%20calldata-,msg.gas,-(uint)%3A%20remaining)).
 
 ### Authorship
 
@@ -92,7 +92,7 @@ The opcode for the `gasleft()` function is GAS (bytecode 0x5A), which costs **"2
 
 The `gasleft()` function can also be accessed in Solidity smart contracts via yul (inline assembly), as `gas()`.
 
-The OpenZeppelin proxy contract is an excellent example of how this is done. It is used in the "[delegatecall](https://www.rareskills.io/post/delegatecall)" function which the proxy uses to call the implementation contract. `gas()` is a convenient way to specify using the maximum available gas for this operation.
+The OpenZeppelin proxy contract is an excellent example of how this is done. It is used in the "[delegatecall](https://rareskills.io/post/delegatecall)" function which the proxy uses to call the implementation contract. `gas()` is a convenient way to specify using the maximum available gas for this operation.
 
 ![forward all gas in delegate call with gasleft Solidity](https://static.wixstatic.com/media/935a00_86d5e55ebba74b2b9fd38ad973133d53~mv2.png/v1/fill/w_740,h_459,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_86d5e55ebba74b2b9fd38ad973133d53~mv2.png)
 forward all gas in delegate call with gasleft Solidity
@@ -113,7 +113,7 @@ A subcall can fail due to a revert or an out-of-gas error, but the failure reaso
 
 We can use "gasleft" to determine which case it is.
 
-When the execution to "call" happens, only 63/64 of the gas is forwarded. This [63/64 limit was introduced in EIP 150](https://www.rareskills.io/post/eip-150-and-the-63-64-rule-for-gas).
+When the execution to "call" happens, only 63/64 of the gas is forwarded. This [63/64 limit was introduced in EIP 150](https://rareskills.io/post/eip-150-and-the-63-64-rule-for-gas).
 
 After the subcall completes, then the amount of gas left should be at least 1/64 of the original limit specified by the user.
 
@@ -135,7 +135,7 @@ This is a real-life application of the first example in this article, where we d
 
 ### Chainlink VRFCoordinatorV2 Contract – used to get the amount of gas used for Chainlink VRFCoordinatorV2 fulfillments
 
-The Chainlink "VRFCoordinatorV2" smart contract is a "Verifiable Random Function" coordinator, used for generating cryptographically [secure random numbers on the blockchain](https://www.rareskills.io/post/generate-a-random-number-with-solidity-on-the-blockchain).
+The Chainlink "VRFCoordinatorV2" smart contract is a "Verifiable Random Function" coordinator, used for generating cryptographically [secure random numbers on the blockchain](https://rareskills.io/post/generate-a-random-number-with-solidity-on-the-blockchain).
 
 The smart contract is the oracle for the smart contract to request and receive randomness. (see here: [VRFCoordinatorV2](https://docs.chain.link/vrf/v2/introduction/)).
 
@@ -153,6 +153,6 @@ In this article, we have discussed various use cases for `gasleft()`. These incl
 
 ## RareSkills Blockchain Bootcamp
 
-Please see our advanced [blockchain bootcamp](https://www.rareskills.io/web3-blockchain-bootcamps) offerings to learn more about the expert-level developer training we offer.
+Please see our advanced [blockchain bootcamp](https://rareskills.io/web3-blockchain-bootcamps) offerings to learn more about the expert-level developer training we offer.
 
 *Originally Published Feb 4, 2023*

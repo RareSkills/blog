@@ -1,13 +1,13 @@
 # Learn Solidity: Easy to Learn, Hard to Master?
 ## Is Solidity hard to learn?
 
-[Learning solidity](https://www.rareskills.io/learn-solidity) as a language is arguably one of the easier languages to learn. However, learning the Ethereum environment is hard.
+[Learning solidity](https://rareskills.io/learn-solidity) as a language is arguably one of the easier languages to learn. However, learning the Ethereum environment is hard.
 
 It looks very similar to Javascript, or pretty much any curly bracket language derived from C.
 
 If statements, for loops, class inheritance, variable types, are all very familiar.
 
-Solidity does have some oddities unique to moving cryptocurrency around. For example, each function call has an environment variable that indicates how much ether was sent with the function call and it has some specific APIs for interacting with other smart contracts. Solidity also has strange instructions like [delegatecall](https://www.rareskills.io/post/delegatecall) and selfdestruct which are not found other languages, but those are easy to grasp after mulling over the documentation for a bit.
+Solidity does have some oddities unique to moving cryptocurrency around. For example, each function call has an environment variable that indicates how much ether was sent with the function call and it has some specific APIs for interacting with other smart contracts. Solidity also has strange instructions like [delegatecall](https://rareskills.io/post/delegatecall) and selfdestruct which are not found other languages, but those are easy to grasp after mulling over the documentation for a bit.
 
 However, Solidity and Ethereum development can be full of surprises. Here are just three examples.
 
@@ -55,10 +55,10 @@ As you can see above, a seemingly simple language can be full of surprises. We�
 
 Blockchain is full of unknown unknowns despite using a programming language that is “easy” to learn. This is why hacks are so common.
 
-Solidity can be grasped in a weekend. Here is our free tutorial to [Learn Solidity](https://www.rareskills.io/learn-solidity) quickly if you already know another programming language.
+Solidity can be grasped in a weekend. Here is our free tutorial to [Learn Solidity](https://rareskills.io/learn-solidity) quickly if you already know another programming language.
 
 But mastering the ecosystem does not happen in a matter of days.
 
-Do you want to master the ecosystem? Apply now to our fully remote [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp).
+Do you want to master the ecosystem? Apply now to our fully remote [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp).
 
 *Originally published Nov 8, 2022*

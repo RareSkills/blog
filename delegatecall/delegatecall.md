@@ -38,7 +38,7 @@ contract Caller {
 }
 ```
 
-Every variable of type address, such as the <span style="color: Red;">calledAddress</span> variable, has a method named <span style="color: Red;">call</span>. This method expects as the parameter the input data to be executed in the transaction, that is, [ABI encoded](https://www.rareskills.io/post/abi-encoding) calldata. In the case mentioned above, the input data must correspond to the signature of the `increment()` function, with [function selector](https://www.rareskills.io/post/function-selector) `0xd09de08a`. We employ the abi.encodeWithSignature method to generate this signature from the function definition.
+Every variable of type address, such as the <span style="color: Red;">calledAddress</span> variable, has a method named <span style="color: Red;">call</span>. This method expects as the parameter the input data to be executed in the transaction, that is, [ABI encoded](https://rareskills.io/post/abi-encoding) calldata. In the case mentioned above, the input data must correspond to the signature of the `increment()` function, with [function selector](https://rareskills.io/post/function-selector) `0xd09de08a`. We employ the abi.encodeWithSignature method to generate this signature from the function definition.
 
 If you execute the `callIncrement` function in the `Caller` contract, you will observe that the state variable `number` in `Called` will increment by 1. The `call` method **does not verify whether the destination address actually corresponds to an existing contract, neither if it contains the specified function**.
 
@@ -660,7 +660,7 @@ If we don't know the size of the return in advance, don't worry, we can use the 
 
 ## EIP 150 and gas forwarded
 
-A note on an issue regarding forwarded gas: We utilize the `gas()` function as the first parameter of **`delegatecall`**, which returns the available gas. This should indicate that we intend to forward all available gas. However, since the **Tangerine Whistle fork**, there has been a [cap of 63/64 of the total possible gas](https://www.rareskills.io/post/eip-150-and-the-63-64-rule-for-gas) for forwarding via **`delegatecall`** (and other opcodes). In other words, although the `gas()` function returns all available gas, only 63/64 of it is forwarded to the new subcontext, while 1/64 is retained.
+A note on an issue regarding forwarded gas: We utilize the `gas()` function as the first parameter of **`delegatecall`**, which returns the available gas. This should indicate that we intend to forward all available gas. However, since the **Tangerine Whistle fork**, there has been a [cap of 63/64 of the total possible gas](https://rareskills.io/post/eip-150-and-the-63-64-rule-for-gas) for forwarding via **`delegatecall`** (and other opcodes). In other words, although the `gas()` function returns all available gas, only 63/64 of it is forwarded to the new subcontext, while 1/64 is retained.
 
 ## Conclusion
 
@@ -670,7 +670,7 @@ To conclude this article, let's summarize what we've learned. `Delegatecall` all
 
 ## Learn More with RareSkills
 
-For those new to Solidity, see our free [Solidity course](https://www.rareskills.io/learn-solidity). Intermediate Solidity developers please see our [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp).
+For those new to Solidity, see our free [Solidity course](https://rareskills.io/learn-solidity). Intermediate Solidity developers please see our [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp).
 
 ## Authorship
 

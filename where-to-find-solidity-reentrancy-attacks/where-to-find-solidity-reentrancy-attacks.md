@@ -86,7 +86,7 @@ function purchaseERC1155NFT() external {
 }
 ```
 
-is not re-entrant if it is derived from ERC20. That’s because under the hood, the transferFrom function in [Solidity](https://www.rareskills.io/solidity-bootcamp) doesn’t make a function call to an external function, as you can see in its [implementation](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol).
+is not re-entrant if it is derived from ERC20. That’s because under the hood, the transferFrom function in [Solidity](https://rareskills.io/courses/solidity-bootcamp) doesn’t make a function call to an external function, as you can see in its [implementation](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol).
 
 ```solidity
 function _transfer(
@@ -120,7 +120,7 @@ ERC20 transfer implementation
 - `safeTransferFrom`
 - `_safeMint`
 
-Confusingly enough, the word “safe” means it is checking if the receiving address is a [smart contract](https://www.rareskills.io/post/solana-smart-contract-language), then attempting to call the “`onERC721Received`” function. The `transferFrom` and `_mint` functions don’t do this, so you don’t have to worry about reentrancy.
+Confusingly enough, the word “safe” means it is checking if the receiving address is a [smart contract](https://rareskills.io/post/solana-smart-contract-language), then attempting to call the “`onERC721Received`” function. The `transferFrom` and `_mint` functions don’t do this, so you don’t have to worry about reentrancy.
 
 This doesn’t mean you shouldn’t use `safeTransferFrom` or `_safeMint` methods, it means you should use the check-effects pattern or reentrancy guards to prevent reentrancy if you use it.
 
@@ -335,6 +335,6 @@ Ethernaut:
 [https://ethernaut.openzeppelin.com/level/10](https://ethernaut.openzeppelin.com/level/10)   
 (note that this reentrancy attack doesn’t work on Solidity 0.8.0 or higher because underflowing the balance will result in the transaction reverting)
 
-Interested in learning more? Check out our [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp)!
+Interested in learning more? Check out our [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp)!
 
 *Originally Published Dec 16, 2022*

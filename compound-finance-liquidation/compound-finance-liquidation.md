@@ -12,7 +12,7 @@ These are a lot of topics to go over in one article, but they are all heavily in
 
 ## Prerequisites
 
-The reader should already be familiar with how [Compound V3 defines principal and present value](https://www.rareskills.io/post/defi-interest-rate-indexes) and with [DeFi liquidations and collateral](https://www.rareskills.io/post/defi-liquidations-collateral).
+The reader should already be familiar with how [Compound V3 defines principal and present value](https://rareskills.io/post/defi-interest-rate-indexes) and with [DeFi liquidations and collateral](https://rareskills.io/post/defi-liquidations-collateral).
 
 ## UserBasic Storage Struct
 
@@ -52,7 +52,7 @@ Let’s compare the content of the `AssetInfo` struct shown above with the Comp
 
 The documents and code do not tell us what the variable `scale` is used for, but it holds the number 1e18, so presumably it is to let the consumer know how to scale the percentages.
 
-The meaning of these variables was explained in the article on [liquidations and collateral](https://www.rareskills.io/post/defi-liquidations-collateral).
+The meaning of these variables was explained in the article on [liquidations and collateral](https://rareskills.io/post/defi-liquidations-collateral).
 
 ![AssetInfo side by side with the Compound V3 markets UI](https://static.wixstatic.com/media/935a00_8695faaefe664a8387eae61085051a33~mv2.jpg/v1/fill/w_666,h_195,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_8695faaefe664a8387eae61085051a33~mv2.jpg)
 
@@ -76,7 +76,7 @@ We can now show the implementation of `getAssetInfo()` from [Comet.sol:280-356]
 
 ![getAssetInfo function](https://static.wixstatic.com/media/935a00_12c8bb252ece4700a73e53f189160e76~mv2.png/v1/fill/w_666,h_1406,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/935a00_12c8bb252ece4700a73e53f189160e76~mv2.png)
 
-Because these variables are immutable, [governance](https://www.rareskills.io/post/governance-contract-solidity) must deploy a new implementation and update the proxy if it wishes to add another collateral asset or change the parameters of one of the assets. Care must be taken to only append assets and not interfere with previous definitions.
+Because these variables are immutable, [governance](https://rareskills.io/post/governance-contract-solidity) must deploy a new implementation and update the proxy if it wishes to add another collateral asset or change the parameters of one of the assets. Care must be taken to only append assets and not interfere with previous definitions.
 
 ## Checking if a borrower can be liquidated
 
@@ -201,7 +201,7 @@ The rest of the code should be self-explanatory.
 
 ## Liquidation bot
 
-To liquidate a borrower, the liquidator calls `absorb()` with the borrower’s account as arguments, then calls `buyCollateral()` in the same transaction. The liquidator should check that reserves are not more than the target reserves, and that the account is liquidate able via `isLiquidateable()`. Compound V3 provides a [reference liquidator bot](https://github.com/compound-finance/comet/tree/main/contracts/liquidator). Keep in mind this is a reference implementation — trying to get liquidations before others is highly competitive, so your code will need to be extremely [gas optimized](https://www.rareskills.io/post/gas-optimization) to be able to profitably liquidate a position before others do.
+To liquidate a borrower, the liquidator calls `absorb()` with the borrower’s account as arguments, then calls `buyCollateral()` in the same transaction. The liquidator should check that reserves are not more than the target reserves, and that the account is liquidate able via `isLiquidateable()`. Compound V3 provides a [reference liquidator bot](https://github.com/compound-finance/comet/tree/main/contracts/liquidator). Keep in mind this is a reference implementation — trying to get liquidations before others is highly competitive, so your code will need to be extremely [gas optimized](https://rareskills.io/post/gas-optimization) to be able to profitably liquidate a position before others do.
 
 ## Summary
 
@@ -217,6 +217,6 @@ Reserves are simply the money owed to the protocol plus the USDC balance of the 
 
 ## Learn More with RareSkills
 
-See our [blockchain bootcamp](https://www.rareskills.io/web3-blockchain-bootcamps) for advanced technical web3 courses.
+See our [blockchain bootcamp](https://rareskills.io/web3-blockchain-bootcamps) for advanced technical web3 courses.
 
 *Originally Published January 8, 2024*

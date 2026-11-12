@@ -161,7 +161,7 @@ The `ERC20MetaProxyFactory` is our factory contract for creating new clones. We 
 
 The `_metaProxyFromBytes` function takes in two arguments, which are; 1. the address of the implementation contract (this is why we use the new keyword to deploy an “ERC20Implementation” contract first). 2. the metadata.
 
-Since the bytecode of smart contracts is represented in hexadecimal in this code, the metadata must be [abi encoded](https://www.rareskills.io/post/abi-encoding) before it can be appended to the clone's bytecode.
+Since the bytecode of smart contracts is represented in hexadecimal in this code, the metadata must be [abi encoded](https://rareskills.io/post/abi-encoding) before it can be appended to the clone's bytecode.
 
 This is why we encode the `createClone` function arguments before passing them as metadata to the `_metaProxyFromBytes` function which creates the new clone and returns the address.
 
@@ -411,6 +411,6 @@ Furthermore, third-party tools such as Etherscan can use the known bytecode of t
 
 ### Learn More
 
-This material is part of our Advanced [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp). See our [blockchain bootcamp](https://www.rareskills.io/web3-blockchain-bootcamps) for all our offerings.
+This material is part of our Advanced [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp). See our [blockchain bootcamp](https://rareskills.io/web3-blockchain-bootcamps) for all our offerings.
 
 *Originally Published March 3, 2023*

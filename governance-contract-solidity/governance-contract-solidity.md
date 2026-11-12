@@ -18,7 +18,7 @@ Every vote begins with a proposal, which was described earlier. It is always an 
 
 To prevent proposal spam, contracts usually have some kind of a filter for who can create the proposal, usually an address that must hold a certain percentage of the total supply of the governance token.
 
-Under the hood, a proposal is usually a [Solidity](https://www.rareskills.io/learn-solidity) struct with some flags about its current state, the votes applied to it, and what transactions will be executed if the proposal passes.
+Under the hood, a proposal is usually a [Solidity](https://rareskills.io/learn-solidity) struct with some flags about its current state, the votes applied to it, and what transactions will be executed if the proposal passes.
 
 ### Vote
 
@@ -56,13 +56,13 @@ Pending ⭢ Active ⭢ Defeated ⭢ Canceled
 				    ⮑----------⮑-------⮑  Expired
 ```
 
-Here is [Compound Finance](https://www.rareskills.io/compound-v3-book)’s governance state transition flow
+Here is [Compound Finance](https://rareskills.io/compound-v3-book)’s governance state transition flow
 
 ![compound governance defi](https://static.wixstatic.com/media/935a00_5738b347a98147c1880767e6428721f9~mv2.png/v1/fill/w_740,h_477,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_5738b347a98147c1880767e6428721f9~mv2.png)
 
 https://docs.compound.finance/v2/governance
 
-And this is [Uniswap](https://www.rareskills.io/uniswap-v2-book)'s
+And this is [Uniswap](https://rareskills.io/uniswap-v2-book)'s
 
 ![Uniswap governance defi](https://static.wixstatic.com/media/935a00_0a485a7e9ea8466d83442a9e498c0b1b~mv2.png/v1/fill/w_740,h_431,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_0a485a7e9ea8466d83442a9e498c0b1b~mv2.png)
 
@@ -74,7 +74,7 @@ When unsure about when a state transition can occur, it’s best to simply read 
 
 ## Governor Alpha and Bravo
 
-Compound has heavily influenced how governance is carried out in DeFi. In 2021, Compound introduced new features to their original Governance [smart contract design](https://www.rareskills.io/post/ethereum-contract-creation-code). This new designed was called Governor Bravo, and other [DeFi protocols](https://www.rareskills.io/defi-bootcamp) followed suit in the design changes.
+Compound has heavily influenced how governance is carried out in DeFi. In 2021, Compound introduced new features to their original Governance [smart contract design](https://rareskills.io/post/ethereum-contract-creation-code). This new designed was called Governor Bravo, and other DeFi protocols followed suit in the design changes.
 
 Here is what is new in Governor Bravo
 
@@ -142,6 +142,6 @@ Governance contracts are the currently accepted pattern for governance token hol
 
 ### Learn More
 
-See our [blockchain bootcamp](https://www.rareskills.io/web3-blockchain-bootcamps) to learn Ethereum and DeFi development.
+See our [blockchain bootcamp](https://rareskills.io/web3-blockchain-bootcamps) to learn Ethereum and DeFi development.
 
 *Originally Published February 27, 2023*

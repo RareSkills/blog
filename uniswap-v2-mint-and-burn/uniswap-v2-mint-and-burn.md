@@ -17,7 +17,7 @@ We've annotated the burn function below, we will explain the parts that aren't t
 ![uniswap v2 burn function](https://static.wixstatic.com/media/935a00_2dd6291bf39345298be8890801358bfb~mv2.png/v1/fill/w_1480,h_730,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/935a00_2dd6291bf39345298be8890801358bfb~mv2.png)
 
 
-On line 140 (<span style="color: purple">purple box</span>), liquidity is measured by the amount of LP tokens owned by the pool contract. It is assumed that the burner sent in LP tokens before calling burn, but advisably as part of one transaction. (If they are sent as two transactions, someone else can burn your LP tokens and remove your liquidity!) The amount the user sent to the contract will be burned. In general, we can assume that the contract will have a zero balance of LP tokens, because if LP tokens are just sitting in the pair contract, someone will burn them and claim some of the `token0` and `token1` for free. The mechanism of sending tokens as part of the transaction was introduced in the article on [Uniswap V2 Swap](https://www.rareskills.io/post/uniswap-v2-swap-function).
+On line 140 (<span style="color: purple">purple box</span>), liquidity is measured by the amount of LP tokens owned by the pool contract. It is assumed that the burner sent in LP tokens before calling burn, but advisably as part of one transaction. (If they are sent as two transactions, someone else can burn your LP tokens and remove your liquidity!) The amount the user sent to the contract will be burned. In general, we can assume that the contract will have a zero balance of LP tokens, because if LP tokens are just sitting in the pair contract, someone will burn them and claim some of the `token0` and `token1` for free. The mechanism of sending tokens as part of the transaction was introduced in the article on [Uniswap V2 Swap](https://rareskills.io/post/uniswap-v2-swap-function).
 
 The <span style="color: red">red boxes</span> on lines 142 and 154 denote fees, we will skip those for now as Uniswap does not apply fees to liquidity providers.
 
@@ -31,7 +31,7 @@ The <span style="color:#CCCC33">yellow box</span> on lines 150-151 updates the b
 
 ### Safety Checks
 
-Suppose the pool has equivalent amounts of `token0` and `token1`. This means the burner expects to receive both tokens in equal quantity when burning the LP token. However, the pool ratio of `token0` to `token1` can change between when the burn transaction is signed and when it is confirmed. If the burner has downstream logic that depends on receiving a particular amount of `token0` or token1 (such as paying back a [flash loan](https://www.rareskills.io/post/erc-3156)), then that logic could break if it receives slightly less `token0` or `token1`. The burning contract must be prepared to receive less `token0` or `token1` than expected and revert if needed.
+Suppose the pool has equivalent amounts of `token0` and `token1`. This means the burner expects to receive both tokens in equal quantity when burning the LP token. However, the pool ratio of `token0` to `token1` can change between when the burn transaction is signed and when it is confirmed. If the burner has downstream logic that depends on receiving a particular amount of `token0` or token1 (such as paying back a [flash loan](https://rareskills.io/post/erc-3156)), then that logic could break if it receives slightly less `token0` or `token1`. The burning contract must be prepared to receive less `token0` or `token1` than expected and revert if needed.
 
 ## Minting liquidity when the pool is not empty
 
@@ -66,7 +66,7 @@ Just like the burn case, the `totalSupply` of LP tokens could change at the time
 
 ## The First Minter Problem
 
-Like any LP pool, Uniswap V2 needs defense against the "inflation attack." We've described this problem, and defense against it, in our article on [ERC4626](https://www.rareskills.io/post/erc4626), so we won't repeat it here. Uniswap V2's defense is to burn first `MINIMUM_LIQUIDITY` tokens to ensure no-one owns the entire supply of LP tokens and can easily manipulate the price. Again, please refer to the other article if you are unfamiliar with this attack vector.
+Like any LP pool, Uniswap V2 needs defense against the "inflation attack." We've described this problem, and defense against it, in our article on [ERC4626](https://rareskills.io/post/erc4626), so we won't repeat it here. Uniswap V2's defense is to burn first `MINIMUM_LIQUIDITY` tokens to ensure no-one owns the entire supply of LP tokens and can easily manipulate the price. Again, please refer to the other article if you are unfamiliar with this attack vector.
 
 ![minimum liquidity](https://static.wixstatic.com/media/935a00_0df0a44406254e09803828cdf9a520b6~mv2.png/v1/fill/w_1424,h_62,al_c,lg_1,q_85,enc_auto/935a00_0df0a44406254e09803828cdf9a520b6~mv2.png)
 

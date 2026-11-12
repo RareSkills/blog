@@ -1,6 +1,6 @@
 # Wagmi + ReactJS Example: Transfer Crypto and Mint an NFT
 
-In this tutorial, we'll learn how to build a [Web3](https://www.rareskills.io/web3-blockchain-bootcamps) Dapp (Decentralized Application) that connects to your crypto wallet, allowing you to transfer funds and mint NFTs. We'll be using Next.js, a popular React framework, and [Wagmi.sh](https://wagmi.sh/), a collection of React Hooks that easily integrates your wallet into your website.
+In this tutorial, we'll learn how to build a [Web3](https://rareskills.io/web3-blockchain-bootcamps) Dapp (Decentralized Application) that connects to your crypto wallet, allowing you to transfer funds and mint NFTs. We'll be using Next.js, a popular React framework, and [Wagmi.sh](https://wagmi.sh/), a collection of React Hooks that easily integrates your wallet into your website.
 
 Here’s an outline of the tutorial:
 
@@ -65,7 +65,7 @@ npm i wagmi ethers@^5
 npm i use-debounce --save
 ```
 
-Wagmi is basically a set of React Hooks that simplifies [Ethereum development](https://www.rareskills.io/post/ethereum-contract-creation-code) by providing useful features such as connecting wallets and interacting with contracts which we’ll learn in this tutorial. More on [wagmi.sh](https://wagmi.sh/).
+Wagmi is basically a set of React Hooks that simplifies [Ethereum development](https://rareskills.io/post/ethereum-contract-creation-code) by providing useful features such as connecting wallets and interacting with contracts which we’ll learn in this tutorial. More on [wagmi.sh](https://wagmi.sh/).
 
   
 
@@ -614,7 +614,7 @@ Congratulations on reaching this point! You have successfully created your own w
 
 ## Wagmi Examples Part 2: Minting an NFT with React + Wagmi
 
-We assume you have already have deployed an NFT [smart contract](https://www.rareskills.io/post/solana-smart-contract-language) to the blockchain. You can follow this video tutorial to do so: [https://youtu.be/LIoFbudNVZs](https://youtu.be/LIoFbudNVZs).
+We assume you have already have deployed an NFT [smart contract](https://rareskills.io/post/solana-smart-contract-language) to the blockchain. You can follow this video tutorial to do so: [https://youtu.be/LIoFbudNVZs](https://youtu.be/LIoFbudNVZs).
 
 ![NFTs of AI generated cats](https://static.wixstatic.com/media/935a00_42ab1084a2d541b680e973113ba8c88b~mv2.png/v1/fill/w_592,h_247,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_42ab1084a2d541b680e973113ba8c88b~mv2.png)
 

@@ -14,11 +14,11 @@ The square root of the price is stored in the field variable `sqrtPriceX96` of t
 
 ![slot0 code screenshot](https://r2media.rareskills.io/SqrtPriceX96-images/slot0.png)
 
-The struct `slot0` also stores other variables, such as `tick`, which represents the current tick, as we saw in the [chapter on ticks](https://www.rareskills.io/post/uniswap-v3-ticks). The other variables in `slot0` relate to the oracle, fees, or contract security and will be examined later.
+The struct `slot0` also stores other variables, such as `tick`, which represents the current tick, as we saw in the [chapter on ticks](https://rareskills.io/post/uniswap-v3-ticks). The other variables in `slot0` relate to the oracle, fees, or contract security and will be examined later.
 
 The variable name `sqrtPriceX96` already indicates that the stored value is the square root of the price (`sqrtPrice`) in a Q96 number format (`X96`), specifically the Q64.96 format.
 
-A detailed explanation of the [Q number format](https://www.rareskills.io/post/q-number-format) was provided in the previous chapter. We will briefly review its usage in Uniswap V3 in the following section.
+A detailed explanation of the [Q number format](https://rareskills.io/post/q-number-format) was provided in the previous chapter. We will briefly review its usage in Uniswap V3 in the following section.
 
 ## The square root of the price, $\sqrt{p}$, as a fixed-point value
 
