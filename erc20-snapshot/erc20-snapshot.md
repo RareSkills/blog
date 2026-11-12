@@ -4,7 +4,7 @@ ERC20 Snapshot solves the problem of double voting.
 
 If votes are weighed by the number of tokens someone holds, then a malicious actor can use their tokens to vote, then transfer the tokens to another address, vote with that, and so forth. If each address is a smart contract, then the hacker can accomplish all these votes in one transaction. A related attack is to use a flashloan to obtain a bunch of governance tokens, vote, then return the flash loan.
 
-A similar problem exists for claiming airdrops. One could use their [ERC20](https://www.rareskills.io/post/erc20-votes-erc5805-and-erc6372) tokens to claim an airdrop, then transfer their tokens to another address, then claim the airdrop again.
+A similar problem exists for claiming airdrops. One could use their [ERC20](https://rareskills.io/post/erc20-votes-erc5805-and-erc6372) tokens to claim an airdrop, then transfer their tokens to another address, then claim the airdrop again.
 
 Fundamentally, ERC20 snapshot provides a mechanism to defend against users transferring tokens and re-using token utility in the same transaction.
 
@@ -17,7 +17,7 @@ There is a saying in computer science that "Every problem in computer science ca
 ## Efficient but Naive Solution
 
 Let's take the example of the balances mapping.
-Here is a buggy [solidity](https://www.rareskills.io/solidity-bootcamp) solution, but a step in the right direction.
+Here is a buggy [solidity](https://rareskills.io/courses/solidity-bootcamp) solution, but a step in the right direction.
 
 ```solidity
 balances[snapshotNumber][user]

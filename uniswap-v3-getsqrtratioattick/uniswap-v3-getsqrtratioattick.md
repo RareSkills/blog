@@ -10,7 +10,7 @@ where $i$ is the tick index. Below is a screenshot of the function:
 
 ![screenshot of getsqrtratioattick()](https://r2media.rareskills.io/GetSqrtRatioAtTick/functionScreenShot.png)
 
-This tutorial assumes the reader has understood our treatment of the [square-and-multiply algorithm](https://www.rareskills.io/post/square-and-multiply), which `getSqrtRatioAtTick()` relies on. We refer to concepts in that tutorial regularly here, so we suggest the reader review that article first.
+This tutorial assumes the reader has understood our treatment of the [square-and-multiply algorithm](https://rareskills.io/post/square-and-multiply), which `getSqrtRatioAtTick()` relies on. We refer to concepts in that tutorial regularly here, so we suggest the reader review that article first.
 
 ## getSqrtPriceRatioAtTick overview
 
@@ -76,11 +76,11 @@ The second line of code in the function is self explanatory:
 require(absTick <= uint256(MAX_TICK), 'T');
 ```
 
-Max tick is a constant `887272` ******in the file which we derived in our article on [Tick Limits](https://www.rareskills.io/post/uniswap-v3-min-max-tick). We don’t need to check if the tick is less than `MIN_TICK` since we computed the absolute value of the tick, so `absTick` cannot be negative.
+Max tick is a constant `887272` ******in the file which we derived in our article on [Tick Limits](https://rareskills.io/post/uniswap-v3-min-max-tick). We don’t need to check if the tick is less than `MIN_TICK` since we computed the absolute value of the tick, so `absTick` cannot be negative.
 
 ## Part 3/5: Computing the price using square and multiply
 
-In this section, we show how the function is using the [square and multiply algorithm](https://www.rareskills.io/post/square-and-multiply) and derive the large constants in the function.
+In this section, we show how the function is using the [square and multiply algorithm](https://rareskills.io/post/square-and-multiply) and derive the large constants in the function.
 
 The variable used for computing the price is `ratio` but the variable returned is `sqrtPriceX96`.
 

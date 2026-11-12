@@ -219,10 +219,10 @@ The example above was taken from this [forum post](https://forum.openzeppelin.co
 
 For readers familiar with the EVM, there is a common source of confusion. The four byte function selector happens at the Solidity application level, not the EVM level. Nothing in Ethereum’s specification states that functions must be identified with 4 bytes. This is a strong convention, but it is not required.
 
-In fact, a common [optimization for layer 2 applications](https://www.rareskills.io/post/l2-calldata) is to identify the function with a 1 byte function selector. That is, all function calls go to the fallback function, then the fallback function looks at the first byte in the transaction to determine which function to invoke.
+In fact, a common [optimization for layer 2 applications](https://rareskills.io/post/l2-calldata) is to identify the function with a 1 byte function selector. That is, all function calls go to the fallback function, then the fallback function looks at the first byte in the transaction to determine which function to invoke.
 
 ## Learn more with RareSkills
 
-See our [Solidity bootcamp](https://www.rareskills.io/solidity-bootcamp) for more advanced topics in smart contract development.
+See our [Solidity bootcamp](https://rareskills.io/courses/solidity-bootcamp) for more advanced topics in smart contract development.
 
 *Originally Published March 30, 2024*

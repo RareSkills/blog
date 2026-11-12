@@ -6,7 +6,7 @@ The UUPS pattern is a proxy pattern where the upgrade function resides in the im
 
 Similar to the Transparent Upgradeable Proxy, the UUPS pattern solves the problem of function selector clashes by eliminating public functions in the proxy entirely.
 
-This article assumes the reader has read our article on the [Transparent Upgradeable Proxy](https://www.rareskills.io/post/transparent-upgradeable-proxy) pattern.
+This article assumes the reader has read our article on the [Transparent Upgradeable Proxy](https://rareskills.io/post/transparent-upgradeable-proxy) pattern.
 
 ## The ERC-1967 Proxy Storage Slots Standard
 
@@ -14,7 +14,7 @@ As stated in our article on Transparent Upgradeable Proxy, a functional Ethereum
 - A storage slot holding the address of the implementation contract.
 - A mechanism for an admin to change the implementation address.
 
-The [ERC-1967 standard](https://www.rareskills.io/post/erc1967) dictates where the storage slot holding the address of the implementation should be held, but does not dictate how to change the address of the implementation, that is, **it leaves the choice of upgrade mechanism up to the developer.**
+The [ERC-1967 standard](https://rareskills.io/post/erc1967) dictates where the storage slot holding the address of the implementation should be held, but does not dictate how to change the address of the implementation, that is, **it leaves the choice of upgrade mechanism up to the developer.**
 
 The UUPS is a proxy pattern in which the mechanism for changing the address of the implementation contract resides in the implementation contract itself rather than in the proxy contract.
 
@@ -202,7 +202,7 @@ contract ImplementationOne is UUPSUpgradeable {
 }
 ```
 
-To define an owner for the contract, an initialization function must be created since implementation contracts should not use constructors. You can learn more about this topic in on ur [article on the `Initializable.sol`](https://www.rareskills.io/post/initializable-solidity) contract. Again, here is the code:
+To define an owner for the contract, an initialization function must be created since implementation contracts should not use constructors. You can learn more about this topic in on ur [article on the `Initializable.sol`](https://rareskills.io/post/initializable-solidity) contract. Again, here is the code:
 
 ```solidity
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";

@@ -8,7 +8,7 @@ This article is a Solidity walkthrough that explains line-by-line how utilizatio
 
 ## Prerequisites
 
-We assume you have already read our article on [how crypto interest rates are determined](https://www.rareskills.io/post/aave-interest-rate-model).
+We assume you have already read our article on [how crypto interest rates are determined](https://rareskills.io/post/aave-interest-rate-model).
 
 ## Major Changes from Compound V2
 
@@ -68,13 +68,13 @@ The functions `presentValueSupply` and `presentValueBorrow` are not terms we e
 
 ### Step 3: Optimal utilization, or kink — are in the range [0-1e18]
 
-In our article on [Interest Rates in DeFi](https://www.rareskills.io/post/aave-interest-rate-model), we noted that popular interest rate models are piecewise functions with a notion of an “optimal” utilization. Compound V3 refers to this as the “kink” — when the interest rates start rising more sharply. These two different terms refer to the exact same concept.
+In our article on [Interest Rates in DeFi](https://rareskills.io/post/aave-interest-rate-model), we noted that popular interest rate models are piecewise functions with a notion of an “optimal” utilization. Compound V3 refers to this as the “kink” — when the interest rates start rising more sharply. These two different terms refer to the exact same concept.
 
 At the time of writing, the optimal utilization for USDC on Ethereum is 93% as shown below.
 
 ![borrowKink and supplyKink](https://static.wixstatic.com/media/935a00_91cc8f63a275453cbc853bb361d90925~mv2.png/v1/fill/w_666,h_257,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_91cc8f63a275453cbc853bb361d90925~mv2.png)
 
-Because utilization is measured with an 18 decimal [fixed point number](https://www.rareskills.io/post/solidity-fixed-point), the borrowKink and supplyKink are measured with 18 decimal fixed point numbers also. The interest rate function directly compares the two as we will see in an upcoming next section.
+Because utilization is measured with an 18 decimal [fixed point number](https://rareskills.io/post/solidity-fixed-point), the borrowKink and supplyKink are measured with 18 decimal fixed point numbers also. The interest rate function directly compares the two as we will see in an upcoming next section.
 
 ### Step 4: mulFactor()
 

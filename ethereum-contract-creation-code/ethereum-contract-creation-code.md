@@ -32,7 +32,7 @@ There is nothing in the EVM specification that says the layout must be init code
 **Prerequisites**
 
 This article assumes knowledge of the following topics:
-- Solidity (See our [free Solidity tutorial](https://www.rareskills.io/learn-solidity) if you are just starting.).
+- Solidity (See our [free Solidity tutorial](https://rareskills.io/learn-solidity) if you are just starting.).
 - Basics of EVM opcodes
 
 Let's dive in!
@@ -222,7 +222,7 @@ The runtime code is the fragment of the creation code that is returned by the in
 
 A question arises, "if the contract is empty (has no functions), why is the runtime code non-empty?"
 
-The [Solidity](https://www.rareskills.io/solidity-bootcamp) compiler appends some metadata about your contract to the runtime code. More info about contract metadata [here](https://playground.sourcify.dev/). The opcode fe INVALID, is prepended to the metadata to prevent it from being executed.
+The [Solidity](https://rareskills.io/courses/solidity-bootcamp) compiler appends some metadata about your contract to the runtime code. More info about contract metadata [here](https://playground.sourcify.dev/). The opcode fe INVALID, is prepended to the metadata to prevent it from being executed.
 
 (The new Solidity version [0.8.18](https://github.com/ethereum/solidity/releases/tag/v0.8.18) adds a compiler setting --no-cbor-metadata where you can tell the compiler not to append this metadata to your contract's bytecode)
 
@@ -353,7 +353,7 @@ This is JUMPDEST 0x1c for the case where calldata was sent. The transaction reve
 
 ## Constructor with parameters
 
-Contracts with constructor arguments are encoded a little differently. The constructor parameters are expected to be appended at the end of the creation code (after the runtime code) and [ABI encoded](https://www.rareskills.io/post/abi-encoding).
+Contracts with constructor arguments are encoded a little differently. The constructor parameters are expected to be appended at the end of the creation code (after the runtime code) and [ABI encoded](https://rareskills.io/post/abi-encoding).
 
 Solidity in particular adds an extra check to ensure the constructor parameter length is at least the length of the expected constructor arguments, else it reverts.
 
@@ -568,6 +568,6 @@ Smart contract deployment includes a couple of low level operations abstracted a
 
 ## RareSkills Blockchain Bootcamp
 
-Please see our advanced [blockchain bootcamp](https://www.rareskills.io/web3-blockchain-bootcamps) offerings to learn more about the expert-level developer training we offer.
+Please see our advanced [blockchain bootcamp](https://rareskills.io/web3-blockchain-bootcamps) offerings to learn more about the expert-level developer training we offer.
 
 *Originally Published Feb 6, 2023*

@@ -353,7 +353,7 @@ Here is an image showing that the deployed address, from above, matches the addr
 
 Create2 was introduced in [EIP-1014](https://eips.ethereum.org/EIPS/eip-1014).
 
-When deploying a contract with the `CREATE2` opcode, its address depends on three components: the deploying contract’s address, a user-supplied salt, and the hash of the contract’s [creation (init) bytecode](https://www.rareskills.io/post/ethereum-contract-creation-code). 
+When deploying a contract with the `CREATE2` opcode, its address depends on three components: the deploying contract’s address, a user-supplied salt, and the hash of the contract’s [creation (init) bytecode](https://rareskills.io/post/ethereum-contract-creation-code). 
 
 ```solidity
 Create_contract_address = keccak256(0xff ++ deployer ++ salt ++ keccak256(init_code))
@@ -419,7 +419,7 @@ contract A {
 }
 ```
 
-In the `DeployNewAddr` contract below, the `getAddress` function takes in the **creation bytecode** of contract A and a **salt** value to compute the address at which the contract would be deployed using the `CREATE2` opcode. In this case, the address of `DeployNewAddr` (via `address(this)`) is used in the computation. Hence, the resulting address is dependent on the address of `DeployNewAddr`, the provided salt, and the hash of the creation (init) [bytecode.](https://www.rareskills.io/post/ethereum-contract-creation-code)
+In the `DeployNewAddr` contract below, the `getAddress` function takes in the **creation bytecode** of contract A and a **salt** value to compute the address at which the contract would be deployed using the `CREATE2` opcode. In this case, the address of `DeployNewAddr` (via `address(this)`) is used in the computation. Hence, the resulting address is dependent on the address of `DeployNewAddr`, the provided salt, and the hash of the creation (init) [bytecode.](https://rareskills.io/post/ethereum-contract-creation-code)
 
 ```solidity
 contract DeployNewAddr {

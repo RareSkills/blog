@@ -6,8 +6,8 @@ We will incrementally "rediscover" the algorithm from first principles in this t
 
 ## Prerequisites
 We assume prior knowledge of
-- [Elliptic Curve Arithmetic](https://www.rareskills.io/post/elliptic-curve-addition)
-- [Elliptic Curve Arithmetic in Finite Fields](https://www.rareskills.io/post/elliptic-curves-finite-fields)
+- [Elliptic Curve Arithmetic](https://rareskills.io/post/elliptic-curve-addition)
+- [Elliptic Curve Arithmetic in Finite Fields](https://rareskills.io/post/elliptic-curves-finite-fields)
 
 ## Digital Signature Recap
 A digital signature algorithm is a protocol which enables a user to give a cryptographic seal of approval for a string.
@@ -45,7 +45,7 @@ We say someone *knows the discrete log* of a point $Q$ if they know a scalar $q$
 
 We refer to the discrete log of a point with the lowercase version of the same letter unless otherwise noted.
 
-All arithmetic is done in a [finite field](https://www.rareskills.io/post/finite-fields), but we omit the $\pmod p$ notation for brevity.
+All arithmetic is done in a [finite field](https://rareskills.io/post/finite-fields), but we omit the $\pmod p$ notation for brevity.
 
 ## Failed attempts at digital signatures
 ### Naive approach: reveal the private key

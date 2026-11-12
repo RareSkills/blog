@@ -11,9 +11,9 @@ The price of Ether. Obviously, the more expensive ether is, the higher the gas c
 Finally, "gas" which is a unit that tells you how expensive the transaction is. Transferring Ether from one account to another costs 21,000 gas. Interactions with smart contracts cost more.
 
 
-## [Calculator](https://www.rareskills.io/ethereum-gas-price-calculator)
+## Calculator
 
-You can use this handy [calculator](https://www.rareskills.io/ethereum-gas-price-calculator) if you just want to get a conversion done.
+You can use this handy calculator if you just want to get a conversion done.
 
 ## Gas Price
 
@@ -69,6 +69,6 @@ Ethereum burns most of the transaction fee (the miner receives a small portion),
 
 ## Learn more
 
-Our [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp) teaches gas optimization and pricing very thoroughly.
+Our [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp) teaches gas optimization and pricing very thoroughly.
 
 *Originally Published March 7, 2023*

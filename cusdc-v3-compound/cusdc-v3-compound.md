@@ -2,13 +2,13 @@
 
 The Compound V3 contract behaves like a rebasing ERC-20 token. A rebasing token is a token which has an algorithmically adjusted supply rather than a fixed one. The “token” here represents the present value of positive USDC balances. That is, lenders can transfer the present value of their principal to other addresses as if it were an ERC-20 token. Since the principal value is generally increasing due to interest accrual, this ERC-20 token is rebasing upwards over time.
 
-**Compound V3 does not use a token vault standard (e.g. [ERC-4626](https://www.rareskills.io/post/erc4626)) to track “shares” of the lending pool.**
+**Compound V3 does not use a token vault standard (e.g. [ERC-4626](https://rareskills.io/post/erc4626)) to track “shares” of the lending pool.**
 
 As we noted in our discussion of principal and present value, a user may have deposited 100 USDC but have a credit of 110 USDC due to interest accrued — the 110 is the present value. It is this unit of account that the ERC-20 functionality of Compound V3 manages.
 
 ## Prerequisites
 
-Users must be familiar with interest indexes and Compound V3’s notion of [present value and principal value](https://www.rareskills.io/post/defi-interest-rate-indexes). The terms Compound V3 and Comet are used interchangeably in this article since Comet is the name of the primary smart contract which has the functions we discuss here.
+Users must be familiar with interest indexes and Compound V3’s notion of [present value and principal value](https://rareskills.io/post/defi-interest-rate-indexes). The terms Compound V3 and Comet are used interchangeably in this article since Comet is the name of the primary smart contract which has the functions we discuss here.
 
 ## Structure of this article
 
@@ -54,11 +54,11 @@ Note that there is no mechanism for borrowers to transfer collateral to other ad
 
 ## The remainder of the ERC-20 functions are in CometExt.sol
 
-Because of the 24 KB deployment limit, Comet splits off some of its functionality to CometExt.sol using the [fallback extension pattern](https://www.rareskills.io/post/fallback-extension-pattern). The majority of the functions in CometExt are related to the ERC-20 functionality.
+Because of the 24 KB deployment limit, Comet splits off some of its functionality to CometExt.sol using the [fallback extension pattern](https://rareskills.io/post/fallback-extension-pattern). The majority of the functions in CometExt are related to the ERC-20 functionality.
 
 ## approve (CometExt.sol)
 
-The approve() functionality for cUSDCv3 is non-standard in that it only accepts [type(uint256).max](https://www.rareskills.io/post/uint-max-value-solidity) or zero. Since the balance of an account is constantly changing due to the rebasing, it isn’t possible to give someone an allowance for exactly the entire balance, since the balance keeps increasing as interest accumulates.
+The approve() functionality for cUSDCv3 is non-standard in that it only accepts [type(uint256).max](https://rareskills.io/post/uint-max-value-solidity) or zero. Since the balance of an account is constantly changing due to the rebasing, it isn’t possible to give someone an allowance for exactly the entire balance, since the balance keeps increasing as interest accumulates.
 
 ![approve()](https://static.wixstatic.com/media/935a00_b5a2f63e5d84476eb21b2c428bebbff6~mv2.png/v1/fill/w_666,h_356,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_b5a2f63e5d84476eb21b2c428bebbff6~mv2.png)
 

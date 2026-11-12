@@ -161,6 +161,6 @@ The primary difference in calculation when factoring in fees is that we multiply
 
 ## Learn more with RareSkills
 
-This article is part of our advanced [Solidity Bootcamp](https://rareskills.io/solidity-bootcamp). Please see the curriculum to learn more.
+This article is part of our advanced [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp). Please see the curriculum to learn more.
 
 *Originally Published April 17, 2024*

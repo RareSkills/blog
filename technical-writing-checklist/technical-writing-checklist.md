@@ -73,7 +73,7 @@
 ## Target audience
 
 -   Does the level of complexity/reader level stay consistent?
--   Don’t assume the reader needs to be taught reentrancy one moment, then expect them to understand why Ethereum added the Blake hash [precompile](https://www.rareskills.io/post/solidity-precompiles) the next. If you aren’t sure, try to write to your past self at a snapshot in time, i.e. 3 months ago, 6 months ago, a year ago, etc.
+-   Don’t assume the reader needs to be taught reentrancy one moment, then expect them to understand why Ethereum added the Blake hash [precompile](https://rareskills.io/post/solidity-precompiles) the next. If you aren’t sure, try to write to your past self at a snapshot in time, i.e. 3 months ago, 6 months ago, a year ago, etc.
 
 ## Article content
 
@@ -90,7 +90,7 @@
 -   Are code screenshots easy to read? Less white space and large font?
 -   If there is an expected output from a program execution, is there a screenshot of it?
 -   Do code explanations give an intuition or symbolically execute? DO NOT EXPLAIN CODE LINE BY LINE. Try to give a reader an understanding of what is going on so that when they look at the code, "everything makes sense.”
--   If you need to refer to a line number, screenshot the code and draw on the image to call attention to it. Use this as an example: [https://www.rareskills.io/post/uniswap-v2-mint-and-burn](https://www.rareskills.io/post/uniswap-v2-mint-and-burn).
+-   If you need to refer to a line number, screenshot the code and draw on the image to call attention to it. Use this as an example: [https://rareskills.io/post/uniswap-v2-mint-and-burn](https://rareskills.io/post/uniswap-v2-mint-and-burn).
 
 -   Do large code blocks or formulas have visual cues to point to the important parts?
 -   Use ALL CAPS COMMENTS to draw attention to where you want the reader to draw attention. Better yet, use a screenshot and annotate the code.

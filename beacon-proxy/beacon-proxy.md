@@ -6,7 +6,7 @@ A Beacon Proxy is a smart contract upgrade pattern where multiple proxies use th
 
 ## Prerequisites
 
-We are going to assume that you already know how a [minimal proxy](https://www.rareskills.io/post/eip-1167-minimal-proxy-standard-with-initialization-clone-pattern) works and maybe even UUPS or [Transparent](https://www.rareskills.io/post/transparent-upgradeable-proxy).
+We are going to assume that you already know how a [minimal proxy](https://rareskills.io/post/eip-1167-minimal-proxy-standard-with-initialization-clone-pattern) works and maybe even UUPS or [Transparent](https://rareskills.io/post/transparent-upgradeable-proxy).
 
 ## Motivation for Beacon Proxies
 
@@ -41,7 +41,7 @@ Like the name suggests, this standard requires a beacon, which OpenZeppelin refe
 
 **The beacon is a smart contract that provides the current implementation address to the proxies via a public function.** The beacon is the source of truth for the proxies regarding the current implementation address, which is why it is called a "beacon".
 
-When a proxy receives an incoming transaction, the proxy first calls the `view` function `implementation()` on the beacon to fetch the current implementation address, and then the proxy [delegatecalls](https://www.rareskills.io/post/delegatecall) to that address. This is what allows the beacon to function as the source of truth to where the implementation is.
+When a proxy receives an incoming transaction, the proxy first calls the `view` function `implementation()` on the beacon to fetch the current implementation address, and then the proxy [delegatecalls](https://rareskills.io/post/delegatecall) to that address. This is what allows the beacon to function as the source of truth to where the implementation is.
 
 ![Beacon Proxy  step-by-step  delegatecall architecture](https://static.wixstatic.com/media/706568_8eb5ae7b2db340b78b743dfcf67ce4e4~mv2.png/v1/fill/w_740,h_494,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/706568_8eb5ae7b2db340b78b743dfcf67ce4e4~mv2.png)
 
@@ -164,13 +164,13 @@ function upgradeBeaconToAndCall(address newBeacon, bytes memory data) internal {
 
 ### ERC1967 & BeaconProxy.sol
 
-For block explorers to know that the BeaconProxy is a proxy, it needs to adhere to the [ERC-1967](https://www.rareskills.io/post/erc1967) specification. Since it is specifically a beacon proxy, it needs to store the Beacon's address in the storage slot: `0xa3f0ad74e5423aebfd80d3ef4346578335a9a72aeaee59ff6cb3582b35133d50`, computed from `bytes32(uint256(keccak256('eip1967.proxy.beacon')) - 1)`.
+For block explorers to know that the BeaconProxy is a proxy, it needs to adhere to the [ERC-1967](https://rareskills.io/post/erc1967) specification. Since it is specifically a beacon proxy, it needs to store the Beacon's address in the storage slot: `0xa3f0ad74e5423aebfd80d3ef4346578335a9a72aeaee59ff6cb3582b35133d50`, computed from `bytes32(uint256(keccak256('eip1967.proxy.beacon')) - 1)`.
 
-Similar to the Transparent Upgradeable Proxy, this storage address is not actually used by the BeaconProxy. It is simply a signal to block explorers that the contract is a Beacon Proxy. The actual implementation address is stored in an immutable variable for [gas optimization](https://www.rareskills.io/post/gas-optimization) purposes; the beacon's address never changes.
+Similar to the Transparent Upgradeable Proxy, this storage address is not actually used by the BeaconProxy. It is simply a signal to block explorers that the contract is a Beacon Proxy. The actual implementation address is stored in an immutable variable for [gas optimization](https://rareskills.io/post/gas-optimization) purposes; the beacon's address never changes.
 
 ### EIP2930
 
-Always use [access list](https://www.rareskills.io/post/eip-2930-optional-access-list-ethereum) transactions with this pattern, as you can save gas when doing a cross-contract call and accessing the storage of another contract. Specifically, the proxy is calling the beacon and getting the implementation address from storage. Access list benchmarking for a Beacon Proxy can be seen [here](https://github.com/RareSkills/access-list-benchmarks/tree/main/beacon_proxy).
+Always use [access list](https://rareskills.io/post/eip-2930-optional-access-list-ethereum) transactions with this pattern, as you can save gas when doing a cross-contract call and accessing the storage of another contract. Specifically, the proxy is calling the beacon and getting the implementation address from storage. Access list benchmarking for a Beacon Proxy can be seen [here](https://github.com/RareSkills/access-list-benchmarks/tree/main/beacon_proxy).
 
 ## Deploying multiple BeaconProxies
 
@@ -217,7 +217,7 @@ And that's all the contracts needed to design a beacon pattern:
 
 Ok but how do we deploy this whole system? It's not as scary as it may seem.
 
-OpenZeppelin offers an [Upgrades](https://docs.openzeppelin.com/upgrades-plugins/1.x/) plugin for both Hardhat and [Foundry](https://www.rareskills.io/post/foundry-testing-solidity). It's as simple as installing the library and just calling `deployBeacon()` with the parameters for the beacon contract. From there, BeaconProxies can be deployed by calling `deployBeaconProxy()`. Upgrading is similar: the `upgradeBeacon()` function is called with the parameters for the new implementation.
+OpenZeppelin offers an [Upgrades](https://docs.openzeppelin.com/upgrades-plugins/1.x/) plugin for both Hardhat and [Foundry](https://rareskills.io/post/foundry-testing-solidity). It's as simple as installing the library and just calling `deployBeacon()` with the parameters for the beacon contract. From there, BeaconProxies can be deployed by calling `deployBeaconProxy()`. Upgrading is similar: the `upgradeBeacon()` function is called with the parameters for the new implementation.
 
 The system can also be deployed manually:
 

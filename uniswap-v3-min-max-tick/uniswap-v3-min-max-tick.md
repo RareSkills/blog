@@ -64,7 +64,7 @@ The minimum and maximum values the `sqrtPriceX96` variable can assume are also h
 
 ## Ticks and the square root of the price
 
-In the chapter [Introducing ticks in Uniswap v3](https://www.rareskills.io/post/uniswap-v3-ticks), we saw that ticks are defined by the following formula,
+In the chapter [Introducing ticks in Uniswap v3](https://rareskills.io/post/uniswap-v3-ticks), we saw that ticks are defined by the following formula,
 
 $$
 p(i) = 1.0001^i

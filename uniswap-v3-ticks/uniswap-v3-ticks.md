@@ -226,7 +226,7 @@ The interactive tool below illustrates how the protocol selects a tick as the cu
 
 ## The `slot0` variable holds the current tick
 
-The protocol stores the current tick in a [struct](https://rareskills.io/learn-solidity/struct) named `slot0` ([code link](https://github.com/Uniswap/v3-core/blob/d8b1c635c275d2a9450bd6a78f3fa2484fef73eb/contracts/UniswapV3Pool.sol#L56)). This variable is public, so anyone can read the current tick of a pool directly on Etherscan by querying `slot0`.
+The protocol stores the current tick in a [struct](https://rareskills.io/learn-solidity/structs) named `slot0` ([code link](https://github.com/Uniswap/v3-core/blob/d8b1c635c275d2a9450bd6a78f3fa2484fef73eb/contracts/UniswapV3Pool.sol#L56)). This variable is public, so anyone can read the current tick of a pool directly on Etherscan by querying `slot0`.
 
 ![A screenshot of the Uniswap V3 code with the tick variable highlighted](https://r2media.rareskills.io/UniswapV3Ticks/tickVarHighlight.png)
 

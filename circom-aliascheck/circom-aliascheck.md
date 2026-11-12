@@ -18,7 +18,7 @@ To get a sense of scale, if we divide $p / 2^{254}$ we get 0.7561, which means a
 
 ## Binary representation constraints silently fail when they overflow
 
-To constrain a binary number $b₀, b₁, ..., bₙ$ to equal a field element `v`, we write the following [arithmetic circuit](https://www.rareskills.io/post/arithmetic-circuit):
+To constrain a binary number $b₀, b₁, ..., bₙ$ to equal a field element `v`, we write the following [arithmetic circuit](https://rareskills.io/post/arithmetic-circuit):
 
 $$
 b₀ + 2*b₁ + … + n*bₙ === v
@@ -170,7 +170,7 @@ Remember, **the input to an arithmetic circuit is not only the signals labelled*
 
 In the code above, the 254 bit binary array is held in the output signals of `Num2Bits` and the input signals of `Bits2Num`.
 
-To inject the wrong values into the signals used to encode the binary array, we need to use the technique describe in our tutorial on [hacking underconstrained Circom circuits](https://www.rareskills.io/post/underconstrained-circom). To generate a proof of concept for the code above, we take the following steps.
+To inject the wrong values into the signals used to encode the binary array, we need to use the technique describe in our tutorial on [hacking underconstrained Circom circuits](https://rareskills.io/post/underconstrained-circom). To generate a proof of concept for the code above, we take the following steps.
 
 1. Generate a hash using a number `u` which is small enough to have an alias in the range, i.e. $[p, 2^{254} − 1]$.
 2. Generate malicious witness using the same number applied to `input in` but reassign the binary array to hold the value `u + p`.

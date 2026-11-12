@@ -4,7 +4,7 @@
 
 [EIP-150](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-150.md), or Ethereum Improvement Proposal 150, is a protocol upgrade for the Ethereum blockchain. It was proposed on March 18, 2016, and implemented on July 20, 2016, as part of the Ethereum Byzantium hard fork. There were several changes in the protocol, but we will focus on the 63/64 rule it introduced.
 
-Before we delve into the specifics of EIP-150, it is important to understand the concept of gas and contract calls in [Ethereum](https://www.rareskills.io/post/convert-gas-to-usd-ethereum).
+Before we delve into the specifics of EIP-150, it is important to understand the concept of gas and contract calls in [Ethereum](https://rareskills.io/post/convert-gas-to-usd-ethereum).
 
 ### Authorship
 
@@ -20,7 +20,7 @@ For a basic Ethereum transfer, the cost of such operation exactly amounts to 21,
 
 ### Contract Calls
 
-In Ethereum, a contract (known as the "caller") has the ability to invoke other contracts (referred to as "callees") through special opcodes such as `CALL`, [`STATICCALL`](https://www.rareskills.io/post/solidity-staticcall) and [`DELEGATECALL`](https://www.rareskills.io/post/delegatecall). When this occurs, the "callees" receive a specific amount of gas, similar to what they would receive if they were called directly via a transaction.
+In Ethereum, a contract (known as the "caller") has the ability to invoke other contracts (referred to as "callees") through special opcodes such as `CALL`, [`STATICCALL`](https://rareskills.io/post/solidity-staticcall) and [`DELEGATECALL`](https://rareskills.io/post/delegatecall). When this occurs, the "callees" receive a specific amount of gas, similar to what they would receive if they were called directly via a transaction.
 
 The quantity of gas allocated is determined in part by the caller, as specified in the opcode parameters. For further information, see the CALL specification provided [here](https://eips.ethereum.org/EIPS/eip-5) as an example. If a callee receives an insufficient amount of gas, its operations are reverted, triggering an "out of gas" exception.
 
@@ -106,10 +106,10 @@ Aside from the modification previously mentioned, EIP-150 also introduced a chan
 
 ## Conclusions
 
-To summarize, the EIP-150 was introduced to prevent the Call Depth Attack. It does this by enforcing the 63/64 rule specification, the implications for this are that even when explicitly forwarding all the [gas left](https://www.rareskills.io/post/solidity-gasleft) in a call, a fraction will still be reserved for the calling contract.
+To summarize, the EIP-150 was introduced to prevent the Call Depth Attack. It does this by enforcing the 63/64 rule specification, the implications for this are that even when explicitly forwarding all the [gas left](https://rareskills.io/post/solidity-gasleft) in a call, a fraction will still be reserved for the calling contract.
 
 ### Learn more
 
-Join our [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp) to develop a comprehensive understanding of the EVM and the Ethereum protocol.
+Join our [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp) to develop a comprehensive understanding of the EVM and the Ethereum protocol.
 
 *Originally Published March 23, 2023*

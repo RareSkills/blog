@@ -69,7 +69,7 @@ In fact, some of our challenges have pushed some of the strongest programmers in
 
 [Original Tweet](https://x.com/w1nt3r_eth/status/1588942261730963456)
 
-Watch the author of Damn Vulnerable DeFi take our [solidity test](https://www.rareskills.io/test-yourself) (he obtained the highest score, but clearly had to work at it!)
+Watch the author of Damn Vulnerable DeFi take our solidity test (he obtained the highest score, but clearly had to work at it!)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/tpekiuASieo?si=GeWDablMok4wgEvI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
@@ -81,7 +81,7 @@ You just spent two months working harder than most, and there's still a lot you 
 
 ### Duration matters
 
-You may have noticed that we frequently point out that our courses are longer than everyone else's. Our Advanced Solidity Bootcamp is 22 weeks long, but all of our Ethereum-related courses are taken in sequence: Dapp Bootcamp (8 weeks), [Advanced Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp) (22 weeks), [DeFi](https://www.rareskills.io/defi-bootcamp) (8 weeks), and [Zero Knowledge Proofs](https://www.rareskills.io/zk-bootcamp) (9 weeks) is just shy of a year in duration.
+You may have noticed that we frequently point out that our courses are longer than everyone else's. Our Advanced Solidity Bootcamp is 22 weeks long, but all of our Ethereum-related courses are taken in sequence: Dapp Bootcamp (8 weeks), [Advanced Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp) (22 weeks), DeFi (8 weeks), and [Zero Knowledge Proofs](https://rareskills.io/courses/zk-bootcamp) (9 weeks) is just shy of a year in duration.
 
 I can count on one hand the number of engineers who have been in web3 for less than a year and know as comprehensive as what is covered by the sum of those courses.
 
@@ -105,7 +105,7 @@ Making promises like job guarantees is a deal with the devil. It may attract hop
 
 "Guaranteed results" happen on the scale of years, not months.
 
-As we have [said many times](https://www.rareskills.io/post/don-t-study-blockchain-if-you-want-a-high-salary), studying blockchain for the purpose of salary increases is not a wise plan. The industry is too volatile, and there are more reliable ways to increase your salary as an engineer.
+As we have [said many times](https://rareskills.io/post/don-t-study-blockchain-if-you-want-a-high-salary), studying blockchain for the purpose of salary increases is not a wise plan. The industry is too volatile, and there are more reliable ways to increase your salary as an engineer.
 
 You should study blockchain because you find it intellectually stimulating, you believe in taking a chance at developing a technology that benefits everyone, and you enjoy working with people in web3.
 

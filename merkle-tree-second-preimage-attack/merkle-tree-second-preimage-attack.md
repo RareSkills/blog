@@ -70,7 +70,7 @@ That is, when the leaf is first hashed, we used a different hash than what we us
 
 ### OpenZeppelin uses a double hash as a "different hash"
 
-Instead of using a different hash function (such as via a [precompile](https://www.rareskills.io/post/solidity-precompiles)) which would cost more gas, Openzeppelin simply hashes the leaf twice. That is, `h’(x) = h(h(x))`.
+Instead of using a different hash function (such as via a [precompile](https://rareskills.io/post/solidity-precompiles)) which would cost more gas, Openzeppelin simply hashes the leaf twice. That is, `h’(x) = h(h(x))`.
 
 We've used <span style="color:Green">green underlines</span> to show where the hash is taken twice to construct the leaf node from the underlying data
 
@@ -92,6 +92,6 @@ The following Capture the Flag exercise uses Merkle Proofs improperly and thus c
 
 ## Learn more with RareSkills
 
-Please see our [blockchain bootcamp](https://www.rareskills.io/web3-blockchain-bootcamps) to see our educational offerings.
+Please see our [blockchain bootcamp](https://rareskills.io/web3-blockchain-bootcamps) to see our educational offerings.
 
 *Originally Published November 24, 2023*

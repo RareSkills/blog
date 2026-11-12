@@ -17,11 +17,11 @@ Precompiles do not execute inside a smart contract, they are part of the Ethereu
 Most precompiles don't have a Solidity wrapper (with ecRecover being the sole exception). You'll need to call the address directly with addressOfPrecompile.staticcall(...) or use assembly.
 
 
-Although none of the precompiled contracts are state changing, the Solidity function that calls them cannot be pure because the Solidity compiler has no way of inferring that a [staticcall](https://www.rareskills.io/post/solidity-staticcall) won’t change the state.
+Although none of the precompiled contracts are state changing, the Solidity function that calls them cannot be pure because the Solidity compiler has no way of inferring that a [staticcall](https://rareskills.io/post/solidity-staticcall) won’t change the state.
 
 ## Address 0x01: ecRecover
 
-ECRecover is the precompile for recovering an address from a hash and a digital signature for that hash, i.e. determining who signed it if the signature is valid. (Learn more about how to use [Solidity digital signatures](https://www.rareskills.io/post/openzeppelin-verify-signature) in our tutorial).
+ECRecover is the precompile for recovering an address from a hash and a digital signature for that hash, i.e. determining who signed it if the signature is valid. (Learn more about how to use [Solidity digital signatures](https://rareskills.io/post/openzeppelin-verify-signature) in our tutorial).
 
 Example:
 ```solidity
@@ -56,7 +56,7 @@ function hashRIPEMD160(bytes calldata data) public view returns (bytes20 h) {
 
 Although RIPEMD-160 returns 20 bytes, the EVM can only work in 32 byte increments, which is why the bitshifting and casting is used in the example code above.
 
-Why does Ethereum support SHA-256 and RIPEMD-160? Bitcoin makes heavy use of SHA256 the way Ethereum makes heavy use of keccak256. However, Bitcoin addresses use RIPEMD-160 to hash the public key and make the public address more compact. This is comparable to how Ethereum takes the last 20 bytes (160 bits, like RIPEMD) of the keccak256 of the [ECDSA](https://www.rareskills.io/post/solidity-rsa-signatures-for-aidrops-and-presales-beating-ecdsa-and-merkle-trees-in-gas-efficiency) public key.
+Why does Ethereum support SHA-256 and RIPEMD-160? Bitcoin makes heavy use of SHA256 the way Ethereum makes heavy use of keccak256. However, Bitcoin addresses use RIPEMD-160 to hash the public key and make the public address more compact. This is comparable to how Ethereum takes the last 20 bytes (160 bits, like RIPEMD) of the keccak256 of the [ECDSA](https://rareskills.io/post/solidity-rsa-signatures-for-aidrops-and-presales-beating-ecdsa-and-merkle-trees-in-gas-efficiency) public key.
 
 ## Using Yul Assembly
 
@@ -68,7 +68,7 @@ Because the return size is known in advance, there is no need to use the returnd
 - where to write output
 - size of the output
 
-In the code below, we write the [uint256](https://www.rareskills.io/post/uint-max-value-solidity) to memory then pass it to address 2 for hashing.
+In the code below, we write the [uint256](https://rareskills.io/post/uint-max-value-solidity) to memory then pass it to address 2 for hashing.
 
 ```solidity
 function hashSha256Yul(uint256 numberToHash) public view returns (bytes32) {
@@ -97,7 +97,7 @@ Signing messages with RSA works in reverse. The sender raises the hash of the me
 
 Ethereum does not have a public key infrastructure for RSA. However, an Ethereum address could prove ownership of an RSA public key by RSA signing their Ethereum address. Note this doesn’t work in reverse. ECDSA signing an RSA public key isn’t secure because anyone can ECDSA sign an arbitrary string, including RSA public keys.
 
-You can see an application for [RSA with Solidity](https://www.rareskills.io/post/solidity-rsa-signatures-for-aidrops-and-presales-beating-ecdsa-and-merkle-trees-in-gas-efficiency) on our other article on the subject.
+You can see an application for [RSA with Solidity](https://rareskills.io/post/solidity-rsa-signatures-for-aidrops-and-presales-beating-ecdsa-and-merkle-trees-in-gas-efficiency) on our other article on the subject.
 
 Here is an example of using `modExp` with uint256 in Solidity:
 ```solidity
@@ -111,7 +111,7 @@ function modExp(uint256 base, uint256 exp, uint256 mod) public view returns (uin
 
 ## Address 0x06 and 0x07 and 0x08: ecAdd, ecMul, and ecPairing (EIP-196 and EIP-197)
 
-These precompiles are used to make [zero knowledge proof cryptography](https://www.rareskills.io/zk-book) more efficient. In fact, you can see all three precompiles being used in the [Tornado Cash](https://www.rareskills.io/post/how-does-tornado-cash-work) zero knowledge proof verifier:
+These precompiles are used to make [zero knowledge proof cryptography](https://rareskills.io/zk-book) more efficient. In fact, you can see all three precompiles being used in the [Tornado Cash](https://rareskills.io/post/how-does-tornado-cash-work) zero knowledge proof verifier:
 
 
 Elliptic Curve Addition: [staticcall to address(6)](https://github.com/tornadocash/tornado-core/blob/master/contracts/Verifier.sol#L79)
@@ -125,8 +125,8 @@ Ecadd and ecMul were added in EIP-196 [EIP-196](https://eips.ethereum.org/EIPS/e
 
 You can learn how these precompiles work in our other tutorials:
 
-[Elliptic Curves in Finite Fields](https://www.rareskills.io/post/elliptic-curves-finite-fields)
-[Bilinear Pairings](https://www.rareskills.io/post/bilinear-pairing)
+[Elliptic Curves in Finite Fields](https://rareskills.io/post/elliptic-curves-finite-fields)
+[Bilinear Pairings](https://rareskills.io/post/bilinear-pairing)
 
 ### Gas Costs for ecAdd, ecMul, and ecPairing
 
@@ -146,6 +146,6 @@ Smart contract developers should be careful when copying Solidity code to other 
 
 ## Learn More
 
-This material is part of our [Solidity bootcamp](https://www.rareskills.io/solidity-bootcamp). You can also learn Solidity for free with our free [Solidity course](https://www.rareskills.io/learn-solidity).
+This material is part of our [Solidity bootcamp](https://rareskills.io/courses/solidity-bootcamp). You can also learn Solidity for free with our free [Solidity course](https://rareskills.io/learn-solidity).
 
 *Originally Published April 16, 2023*

@@ -6,7 +6,7 @@ Suppose we have functions `foo()` and `bar()` in our **primary** contract and wi
 
 We add a fallback function to our **primary** smart contract that delegates unknown function calls to an _extension_ contract similar to how a proxy works.
 
-We put `baz()` in the _extension_ contract. When we call `baz()` on the main contract, it will not match any of the [function selectors](https://www.rareskills.io/post/function-selector) in the **primary** contract, and thus trigger the fallback function. Then, `baz()` will be [delegatecalled](https://www.rareskills.io/post/delegatecall) in the **_extension_** contract.
+We put `baz()` in the _extension_ contract. When we call `baz()` on the main contract, it will not match any of the [function selectors](https://rareskills.io/post/function-selector) in the **primary** contract, and thus trigger the fallback function. Then, `baz()` will be [delegatecalled](https://rareskills.io/post/delegatecall) in the **_extension_** contract.
 
 ## Ensuring an identical storage layout
 
@@ -18,7 +18,7 @@ For this pattern to work, both the primary contract and the extension contract n
 
 In the example above, the address of the extension contract is stored in an immutable variable. We could add an additional storage variable to the storage contract which holds the address to the extension, then update the extension address when we want to change some of the functionality of the contract.
 
-This approach is not recommended — if upgradeability is needed, then it’s better to use an established [proxy pattern](https://www.rareskills.io/proxy-patterns). Additionally, reading that extension address variable from storage will cost an extra 2,100 gas.
+This approach is not recommended — if upgradeability is needed, then it’s better to use an established [proxy pattern](https://rareskills.io/proxy-patterns). Additionally, reading that extension address variable from storage will cost an extra 2,100 gas.
 
 ## Care must be taken to avoid function selector collisions
 
@@ -34,7 +34,7 @@ Because functions in the extension cost an extra 2,600 gas, we want to put rarel
 
 ### Use EIP 2930 in combination with this pattern
 
-Using [access list transactions](https://www.rareskills.io/post/eip-2930-optional-access-list-ethereum) with this pattern will save 100 gas when calling functions in the extension. In general, if an Ethereum transaction contains a cross-contract call or delegatecall, an access list transaction should be used.
+Using [access list transactions](https://rareskills.io/post/eip-2930-optional-access-list-ethereum) with this pattern will save 100 gas when calling functions in the extension. In general, if an Ethereum transaction contains a cross-contract call or delegatecall, an access list transaction should be used.
 
 ## Using a fallback-extension as an implementation contract for upgradeable proxies
 
@@ -42,6 +42,6 @@ This pattern can be used with regular proxies. That is, a proxy contract can del
 
 ## Learn More with RareSkills
 
-Please see our [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp) to learn more.
+Please see our [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp) to learn more.
 
 *Originally Published December 28, 2023*

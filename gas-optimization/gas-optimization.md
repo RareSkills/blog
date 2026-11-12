@@ -180,7 +180,7 @@ The purpose of this article is to be the most comprehensive list of tricks out t
 <a id="viewer-14r0q"></a>
 ## We do not discuss application-specific tricks
 
-There are gas-efficient ways to determine if a number is prime for example, but this is so rarely needed that dedicating space to it would lower the value of this article. Similarly, in our [Tornado Cash tutorial](https://www.rareskills.io/post/how-does-tornado-cash-work), we suggest ways the codebase could be made more efficient, but including that treatment here would not benefit readers as it is too application specific.
+There are gas-efficient ways to determine if a number is prime for example, but this is so rarely needed that dedicating space to it would lower the value of this article. Similarly, in our [Tornado Cash tutorial](https://rareskills.io/post/how-does-tornado-cash-work), we suggest ways the codebase could be made more efficient, but including that treatment here would not benefit readers as it is too application specific.
 
 <a id="viewer-dkmii"></a>
 ### 1. Most important: avoid zero to one storage writes where possible
@@ -608,7 +608,7 @@ Some properties of SSTORE2:
 Example:
 ##### Writing data
 Our goal is to store a specific data (in bytes format) as the contract's bytecode. To achieve this, we need to do 2 things:
-1. Copy our data to memory first, as EVM then takes this data from memory and store it as runtime code. You can learn more in our article about [contract creation code](https://www.rareskills.io/post/ethereum-contract-creation-code).
+1. Copy our data to memory first, as EVM then takes this data from memory and store it as runtime code. You can learn more in our article about [contract creation code](https://rareskills.io/post/ethereum-contract-creation-code).
 2. Return and store the newly deployed contract address for future use.
     - We add the contract code size in place of the four zeroes(0000) between 61 and 80 in the below code
 `0x61000080600a3d393df300`. Hence if code size is 65, it will become `0x61004180600a3d393df300` (0x0041 = 65)
@@ -852,7 +852,7 @@ There are good reasons to make a regular functions non-payable, but generally a 
 <a id="viewer-5c97r"></a>
 ### 3. Deployment size can be reduced by optimizing the IPFS hash to have more zeros (or using the --no-cbor-metadata compiler option)
 
-We've already explained this in our tutorial about [smart contract metadata](https://www.rareskills.io/post/solidity-metadata), but to recap, the Solidity compiler appends 51 bytes of metadata to the actual smart contract code. Since each deployment byte costs 200 gas, removing them can take over 10,000 gas cost off of deployment.
+We've already explained this in our tutorial about [smart contract metadata](https://rareskills.io/post/solidity-metadata), but to recap, the Solidity compiler appends 51 bytes of metadata to the actual smart contract code. Since each deployment byte costs 200 gas, removing them can take over 10,000 gas cost off of deployment.
 
 This is not always ideal though as it can affect smart contract verification. Instead, developers can mine for code comments that make the IPFS hash that gets appended have more zeros in it.
 
@@ -965,8 +965,8 @@ When deploying multiple similar smart contracts, the gas costs can be high. To r
 However, there is a trade-off between the runtime cost and deployment cost of clones. Clones are more expensive to interact with than normal contracts due to the delegatecall they use, so they should only be used when you don't need to interact with them frequently. For example, the Gnosis Safe contract uses clones to reduce deployment costs.
 
 Learn more about how to use clones and metaproxies to reduce the gas costs of deploying smart contracts from our blog posts:
-- [EIP-1167: Minimal Proxy Standard](https://www.rareskills.io/post/eip-1167-minimal-proxy-standard-with-initialization-clone-pattern)
-- [EIP-3448 Metaproxy Clone](https://www.rareskills.io/post/erc-3448-metaproxy-clone)
+- [EIP-1167: Minimal Proxy Standard](https://rareskills.io/post/eip-1167-minimal-proxy-standard-with-initialization-clone-pattern)
+- [EIP-3448 Metaproxy Clone](https://rareskills.io/post/erc-3448-metaproxy-clone)
 
 <a id="viewer-18pd1"></a>
 ### 7. Admin functions can be payable
@@ -1027,7 +1027,7 @@ This is very inefficient. It's better for `msg.sender` to call `contract B` to d
 
 Note that:
 - All ERC1155 tokens include a transfer hook
-- `safeTransfer` and `safeMint` in [ERC721](https://www.rareskills.io/post/erc721) have a transfer hook
+- `safeTransfer` and `safeMint` in [ERC721](https://rareskills.io/post/erc721) have a transfer hook
 - ERC1363 has `transferAndCall`
 - ERC777 has a transfer hook but has been deprecated. Use ERC1363 or ERC1155 instead if you need fungible tokens
 
@@ -1063,10 +1063,10 @@ If your transaction will make a cross-contract call, you should almost certainly
 When calling clones or proxies which always involve a cross-contract call via `delegatecall`, you should make the transaction an access list transaction.
 
 
-We have a dedicated blog post on this, visit https://www.rareskills.io/post/eip-2930-optional-access-list-ethereum to learn more.
+We have a dedicated blog post on this, visit https://rareskills.io/post/eip-2930-optional-access-list-ethereum to learn more.
 
 <a id="viewer-8j40c"></a>
-### 4. Cache calls to external contracts where it makes sense (like caching return data from [chainlink oracle](https://www.rareskills.io/post/chainlink-price-feed-contract))
+### 4. Cache calls to external contracts where it makes sense (like caching return data from [chainlink oracle](https://rareskills.io/post/chainlink-price-feed-contract))
 
 Caching data is generally recommended to avoid duplication in memory when you want to use the same data > 1 times during a single execution process.
 
@@ -1141,7 +1141,7 @@ If one of the participants is dishonest, then an honest participant can use the 
 <a id="viewer-b7bv7"></a>
 ### 6. Use voting delegation as a gas saving measure
 
-Our tutorial on [ERC20 Votes](https://www.rareskills.io/post/erc20-votes-erc5805-and-erc6372) describes this pattern in more detail. Instead of every token owner voting, only the delegates vote, which net reduces the number of votes.
+Our tutorial on [ERC20 Votes](https://rareskills.io/post/erc20-votes-erc5805-and-erc6372) describes this pattern in more detail. Instead of every token owner voting, only the delegates vote, which net reduces the number of votes.
 
 <a id="viewer-8v8t9"></a>
 ### 7. ERC1155 is a cheaper non-fungible token than ERC721
@@ -1160,7 +1160,7 @@ ERC1155 uses callbacks on all of the transfer methods. If this is not desired, [
 <a id="viewer-9c55v"></a>
 ### 9. The UUPS upgrade pattern is more gas efficient for users than the Transparent Upgradeable Proxy
 
-The [transparent upgradeable proxy](https://www.rareskills.io/post/transparent-upgradeable-proxy) pattern requires comparing `msg.sender` to the admin every time a transaction happens. UUPS only does this for the upgrade function.
+The [transparent upgradeable proxy](https://rareskills.io/post/transparent-upgradeable-proxy) pattern requires comparing `msg.sender` to the admin every time a transaction happens. UUPS only does this for the upgrade function.
 
 <a id="viewer-bm216"></a>
 ### 10. Consider using alternatives to OpenZeppelin
@@ -1193,7 +1193,7 @@ Just be aware that there have been [hacks](https://www.halborn.com/blog/post/exp
 <a id="viewer-7umto"></a>
 ### 2. Avoid signed integers in calldata if possible
 
-Because [solidity uses two's complement](https://www.rareskills.io/post/signed-int-solidity) to represent signed integers, calldata for small negative numbers will be largely non-zero. For example, -1 is 0xff..ff in two's complement form and therefore more expensive.
+Because [solidity uses two's complement](https://rareskills.io/post/signed-int-solidity) to represent signed integers, calldata for small negative numbers will be largely non-zero. For example, -1 is 0xff..ff in two's complement form and therefore more expensive.
 
 <a id="viewer-6acr7"></a>
 ### 3. Calldata is (usually) cheaper than memory
@@ -1219,13 +1219,13 @@ contract MemoryContract {
 <a id="viewer-d5tb"></a>
 ### 4. Consider packing calldata, especially on an L2
 
-Solidity automatically packs storage variables, but the [abi encoding](https://www.rareskills.io/post/abi-encoding) for variables that would be packed in storage are not packed in calldata.
+Solidity automatically packs storage variables, but the [abi encoding](https://rareskills.io/post/abi-encoding) for variables that would be packed in storage are not packed in calldata.
 
 This is a rather extreme optimization that leads to higher code complexity, but it is something to consider if a function takes a lot of calldata.
 
 ABI encoding is not efficient for every data representation, some data representations can be encoded more efficiently in an application specific way.
 
-More on this technique is discussed in our article on [L2 Calldata Optimization](https://www.rareskills.io/post/l2-calldata).
+More on this technique is discussed in our article on [L2 Calldata Optimization](https://rareskills.io/post/l2-calldata).
 
 **Update** As of the Dencun upgrade, most L2s don't post calldata to the L1 anymore, but use blobs, so although making calldata smaller will still save costs, the savings are not as siginficant.
 
@@ -1911,7 +1911,7 @@ Short-circuiting is useful and it's recommended to place the less expensive expr
 <a id="viewer-9aubm"></a>
 ### 12. Don't make variables public unless it is necessary to do so
 
-A public storage variable has an implicit public function of the same name. A public function increases the size of the jump table and adds bytecode to read the variable in question. That makes the contract larger. Remember, private variables aren't private, it's not difficult to extract the variable value using [web3.js](https://www.rareskills.io/post/web3-js-tutorial). This is especially true for constants which are meant to be read by humans rather than smart contracts.
+A public storage variable has an implicit public function of the same name. A public function increases the size of the jump table and adds bytecode to read the variable in question. That makes the contract larger. Remember, private variables aren't private, it's not difficult to extract the variable value using [web3.js](https://rareskills.io/post/web3-js-tutorial). This is especially true for constants which are meant to be read by humans rather than smart contracts.
 
 <a id="viewer-d3ced"></a>
 ### 13. Prefer very large values for the optimizer
@@ -2031,7 +2031,7 @@ If you need to take logarithms or powers where the base or the power is a fracti
 <a id="viewer-7v9gm"></a>
 ### 21. Precompiled contracts may be useful for some multiplication or memory operations.
 
-The [Ethereum precompiled contracts](https://www.rareskills.io/post/solidity-precompiles) provide operations primarily for cryptography, but if you need to multiply large numbers over a modulus or copy significant chunk of memory, consider using the precompiles. Be aware that this might make your application incompatible with some layer 2s.
+The [Ethereum precompiled contracts](https://rareskills.io/post/solidity-precompiles) provide operations primarily for cryptography, but if you need to multiply large numbers over a modulus or copy significant chunk of memory, consider using the precompiles. Be aware that this might make your application incompatible with some layer 2s.
 
 <a id="viewer-0xrok10416"></a>
 ### 22. `n * n * n` may be cheaper than `n ** 3`
@@ -2080,7 +2080,7 @@ Solidity traditionally uses 4 bytes and a jump table to determine which function
 <a id="viewer-6gavn"></a>
 ### 7. Append bytecode to the end of the contract to create a highly optimized subroutine
 
-Some computationally intensive algorithms, such as hash functions, are better written in raw bytecode rather than Solidity, or even Yul. For example, [Tornado Cash](https://www.rareskills.io/post/how-does-tornado-cash-work) writes the MiMC hash function as a separate smart contract, written directly in raw bytecode. Avoid the extra 2,600 or 100 gas cost (cold or warm access) of another smart contract by appending that bytecode to the actual contract and jumping back and forth from it. Here is a [proof of concept using Huff](https://x.com/AmadiMichaels/status/1696263027920634044).
+Some computationally intensive algorithms, such as hash functions, are better written in raw bytecode rather than Solidity, or even Yul. For example, [Tornado Cash](https://rareskills.io/post/how-does-tornado-cash-work) writes the MiMC hash function as a separate smart contract, written directly in raw bytecode. Avoid the extra 2,600 or 100 gas cost (cold or warm access) of another smart contract by appending that bytecode to the actual contract and jumping back and forth from it. Here is a [proof of concept using Huff](https://x.com/AmadiMichaels/status/1696263027920634044).
 
 ---
 
@@ -2106,6 +2106,6 @@ There are several common mistakes developers make that lead to higher gas costs.
 <a id="viewer-9o5oh"></a>
 ## Learn more with RareSkills
 
-Learning is always more effective when surrounded by a motivated community and guided by seasoned instructors. This material is part of our advanced [solidity bootcamp](https://www.rareskills.io/solidity-bootcamp). If you want to practice gas optimization with other solidity professionals under the guidance of industry leaders, check out the program!
+Learning is always more effective when surrounded by a motivated community and guided by seasoned instructors. This material is part of our advanced [solidity bootcamp](https://rareskills.io/courses/solidity-bootcamp). If you want to practice gas optimization with other solidity professionals under the guidance of industry leaders, check out the program!
 
 *Originally Published September 7, 2023*

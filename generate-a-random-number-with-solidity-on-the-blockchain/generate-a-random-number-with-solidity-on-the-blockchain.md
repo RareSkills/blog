@@ -3,7 +3,7 @@
 ![Random Number Solidity](https://static.wixstatic.com/media/935a00_d8f2322b08f14d80bf0d8aa8b1dbf9f6~mv2.jpg/v1/fill/w_740,h_317,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_d8f2322b08f14d80bf0d8aa8b1dbf9f6~mv2.jpg)
 Random Number
 
-Randomness is tricky on the [blockchain](https://www.rareskills.io/web3-blockchain-bootcamps) because the blockchain is deterministic, but randomness requires non-determinism (otherwise it becomes predictable). This article assumes the user has some familiarity with [solidity](https://www.rareskills.io/solidity-bootcamp) already, especially the operations block.number(), block.hash(), and digital signatures.
+Randomness is tricky on the [blockchain](https://rareskills.io/web3-blockchain-bootcamps) because the blockchain is deterministic, but randomness requires non-determinism (otherwise it becomes predictable). This article assumes the user has some familiarity with [solidity](https://rareskills.io/courses/solidity-bootcamp) already, especially the operations block.number(), block.hash(), and digital signatures.
 
 If you use data like block.timestamp or the previous blockhash, then someone can use a smart contract to predict if a transaction will result in the desired outcome or not. [Capture the ether](https://capturetheether.com/challenges/lotteries/) has a sequence of hacks to test you on this.
 

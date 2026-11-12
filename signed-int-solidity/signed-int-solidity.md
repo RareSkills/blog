@@ -8,7 +8,7 @@ Solidity signed integers enable using negative numbers in a smart contract. This
 
 Like every data type, Solidity still uses 32-byte words to represent signed integers. There isn't any semantic indicator of the type in the EVM, just like there isn't any indicator that a 32-byte slot is actually a boolean, an address, or a 160-bit number. The value is "treated" as negative one at compilation time.
 
-Because you can get the [max value of an integer](https://www.rareskills.io/post/uint-max-value-solidity) with "type(int256).max" or with the .min field to get the minimum. The indicator for whether a number is positive or negative requires an extra bit, so it can only store numbers up to one bit less than the unsigned version.
+Because you can get the [max value of an integer](https://rareskills.io/post/uint-max-value-solidity) with "type(int256).max" or with the .min field to get the minimum. The indicator for whether a number is positive or negative requires an extra bit, so it can only store numbers up to one bit less than the unsigned version.
 
 One's complement means a uint256 becomes a uint255, with the leftmost bit indicating if it is positive or negative. If the EVM used one's complement. This would mean that `type(int256).max == absoluteValue(type(int256.min))` but this is not the case. The maximum magnitude of a Two's Complement negative number is one higher than the maximum magnitude of the positive number. For example, the maximum positive number for int8 is 127, but the maximum magnitude negative number for int8 is -128.
 
@@ -163,6 +163,6 @@ It should be obvious at this point that larger integers cannot be cast to smalle
 
 ## Learn more
 
-Learn more advanced topics in our expert [solidity training course](https://www.rareskills.io/solidity-bootcamp).
+Learn more advanced topics in our expert [solidity training course](https://rareskills.io/courses/solidity-bootcamp).
 
 *Originally Published Apr 11, 2023*

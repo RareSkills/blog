@@ -4,7 +4,7 @@ An Enumerable ERC721 is an ERC721 with added functionality that enables a smart 
 
 ## Prerequisites
 
-Since `ERC721Enumerable` is an extension of ERC721, this article assumes that the reader has read our [ERC721 article](https://www.rareskills.io/post/erc721) or has knowledge about the ERC721 standard.
+Since `ERC721Enumerable` is an extension of ERC721, this article assumes that the reader has read our [ERC721 article](https://rareskills.io/post/erc721) or has knowledge about the ERC721 standard.
 
 ### Swap and Pop
 
@@ -293,6 +293,6 @@ This article was written by Poneta, a research intern at RareSkills.
 
 ## Learn More With RareSkills
 
-Check out our [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp) to learn advanced Solidity concepts.
+Check out our [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp) to learn advanced Solidity concepts.
 
 *Originally Published March 27, 2024*

@@ -181,6 +181,6 @@ These circumstances can happen if someone frontruns a transaction (intentionally
 
 ## Learn more with RareSkills
 
-This article is part of our advanced [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp). Please see the curriculum to learn more.
+This article is part of our advanced [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp). Please see the curriculum to learn more.
 
 *Originally Published October 28, 2023*

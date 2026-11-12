@@ -174,4 +174,4 @@ Describe the calldata of a function that takes a dynamic length array of `uint12
 37. What does `codesize()` return if called within the constructor? What about outside the constructor?
 
 ## Learn more
-Take our [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp) to deepen your knowledge of Ethereum smart contract development.
+Take our [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp) to deepen your knowledge of Ethereum smart contract development.

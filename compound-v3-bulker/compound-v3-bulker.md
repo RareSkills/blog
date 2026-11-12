@@ -14,7 +14,7 @@ The bulker does not behave like a traditional multicall where it accepts a list 
 
 -   supply an ERC-20 (`ACTION_SUPPLY_ASSET`)
 -   supply ETH (`ACTION_SUPPLY_NATIVE_TOKEN`)
--   transfer an asset (`ACTION_TRANSFER_ASSET`), see our article on how [Compound V3 behaves like a rebasing ERC-20 token](https://www.rareskills.io/post/cusdc-v3-compound) to see how this works
+-   transfer an asset (`ACTION_TRANSFER_ASSET`), see our article on how [Compound V3 behaves like a rebasing ERC-20 token](https://rareskills.io/post/cusdc-v3-compound) to see how this works
 -   withdraw an ERC-20 (`ACTION_WITHDRAW_ASSET`)
 -   withdraw ETH (`ACTION_WITHDRAW_NATIVE_TOKEN`)
 -   claim accumulated COMP rewards. The underlying function claimReward will interact with the [reward contract](https://github.com/compound-finance/comet/blob/main/contracts/CometRewards.sol) instead of the main lending contract (Comet.sol).
@@ -24,11 +24,11 @@ The bulker does not behave like a traditional multicall where it accepts a list 
 
 Invoke will loop through the actions and call Comet (or the rewards contract) with the arguments supplied.
 
-Although it could have been more gas efficient to put this code into the main contract, using msg.value in a loop, especially when invoking [delegatecall](https://www.rareskills.io/post/delegatecall), is not safe. See the practice problem at the end of this article.
+Although it could have been more gas efficient to put this code into the main contract, using msg.value in a loop, especially when invoking [delegatecall](https://rareskills.io/post/delegatecall), is not safe. See the practice problem at the end of this article.
 
 Compound is careful to make sure msg.value is deducted rather than re-used, which could lead to double spending — see the <span style="color:#c1c146">yellow boxes</span>.
 
-This arguably could have been [gas-optimized](https://www.rareskills.io/post/gas-optimization) by having the actions decided with a 1 byte indicator rather than a 32-byte ASCII string indicator.
+This arguably could have been [gas-optimized](https://rareskills.io/post/gas-optimization) by having the actions decided with a 1 byte indicator rather than a 32-byte ASCII string indicator.
 
 ## The bulkers are non-custodial
 
@@ -69,6 +69,6 @@ Bad things can happen when using `msg.value` inside a loop. See these two practi
 
 ## Learn More with RareSkills
 
-Please see our [web3 bootcamp](https://www.rareskills.io/web3-blockchain-bootcamps) to learn more.
+Please see our [web3 bootcamp](https://rareskills.io/web3-blockchain-bootcamps) to learn more.
 
 *Originally Published January 9, 2024*

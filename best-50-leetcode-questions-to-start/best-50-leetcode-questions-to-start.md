@@ -58,7 +58,7 @@ The problems we’ve listed here don’t need any special techniques to solve. L
 
 Maybe you aren’t the target audience for this, but you’d be surprised at the number of people who call themselves developers but [can’t do fizz buzz](https://blog.codinghorror.com/why-cant-programmers-program/). We’ve seen this first hand. When you apply to our program, you will promptly receive an email with a link to a coding test. One of them is fizz buzz. And the failure rate on that is **high**.
 
-Maybe it’s nerves and not taking a [coding test](https://www.rareskills.io/test-yourself) before. But if you’ve never practiced a coding test at least once, you are not doing yourself any favors.
+Maybe it’s nerves and not taking a coding test before. But if you’ve never practiced a coding test at least once, you are not doing yourself any favors.
 
 ## Is this enough to pass coding interviews?
 
@@ -146,6 +146,6 @@ We've only included problems from the free version.
 49. [https://leetcode.com/problems/destination-city/](https://leetcode.com/problems/destination-city/)
 50. [https://leetcode.com/problems/number-of-good-pairs](https://leetcode.com/problems/number-of-good-pairs)
 
-Like what you see here? Check out our [Free Solidity Course](https://www.rareskills.io/learn-solidity).
+Like what you see here? Check out our [Free Solidity Course](https://rareskills.io/learn-solidity).
 
 *Originally Published Dec 8, 2022*

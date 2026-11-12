@@ -5,7 +5,7 @@ Image from https://pixabay.com/photos/stormtrooper-star-wars-lego-storm-2899993/
 
 ## Introduction
 
-EIP-1167, which is also referred to as the minimal proxy contract, is a commonly used [solidity](https://www.rareskills.io/solidity-bootcamp) pattern for cheaply creating proxy clones.
+EIP-1167, which is also referred to as the minimal proxy contract, is a commonly used [solidity](https://rareskills.io/courses/solidity-bootcamp) pattern for cheaply creating proxy clones.
 
 If a use case requires deploying an identical contract (or very similar contract) repeatedly, this is a more gas efficient way to do it.
 
@@ -57,7 +57,7 @@ Let's break it down.
 
 The first 10 bytes of the bytecode contain the init code which runs once and is used for deploying the minimal proxy.
 
-To learn more about smart contract creation and deployments, see our article on [Ethereum smart contract creation code](https://www.rareskills.io/post/ethereum-contract-creation-code).
+To learn more about smart contract creation and deployments, see our article on [Ethereum smart contract creation code](https://rareskills.io/post/ethereum-contract-creation-code).
 
 Here are the following commands that are carried out in the EVM.
 
@@ -327,6 +327,6 @@ The cost to this pattern is that every execution has a delegate call overhead.
 
 ### Learn More
 
-See our advanced [blockchain bootcamp](https://www.rareskills.io/web3-blockchain-bootcamps) to see our extensive curriculum.
+See our advanced [blockchain bootcamp](https://rareskills.io/web3-blockchain-bootcamps) to see our extensive curriculum.
 
 *Originally Published Feb 21, 2023*

@@ -4,7 +4,7 @@
 
 In this article, we will discuss invariants and how to perform an invariant test on Solidity smart contracts using Foundry test suites.
 
-Invariant testing is another test methodology like unit tests and fuzzing to verify the correctness of code. If you are unfamiliar with unit tests, please see our [article on unit tests using Foundry](https://www.rareskills.io/post/foundry-testing-solidity).
+Invariant testing is another test methodology like unit tests and fuzzing to verify the correctness of code. If you are unfamiliar with unit tests, please see our [article on unit tests using Foundry](https://rareskills.io/post/foundry-testing-solidity).
 
 To follow up with the practical aspect of this article, you are expected to be familiar with Solidity and have Foundry installed on your computer. Otherwise, see how to do that [here](https://book.getfoundry.sh/getting-started/installation).
 
@@ -20,11 +20,11 @@ By testing these invariants, developers can catch potential issues that unit tes
 
 ## What are invariants
 
-Invariants are conditions that must always be true under a certain set of well-defined assumptions. For example, in an [ERC20 contract](https://www.rareskills.io/post/erc20-snapshot), an invariant would be that the sum of all balances in the contract should equal the total supply. If a function call or transaction violates this invariant, something has gone wrong with the code, and the system is no longer functioning properly.
+Invariants are conditions that must always be true under a certain set of well-defined assumptions. For example, in an [ERC20 contract](https://rareskills.io/post/erc20-snapshot), an invariant would be that the sum of all balances in the contract should equal the total supply. If a function call or transaction violates this invariant, something has gone wrong with the code, and the system is no longer functioning properly.
 
 Whereas unit tests verify specific behavior, invariants say something about the system as a whole. Here are some examples:
 - The total supply of an ERC20 token does not change if mint or burn are not called
-- The total rewards from a [smart contract](https://www.rareskills.io/post/smart-contract-creation-cost) cannot exceed a certain percentage over a fixed period
+- The total rewards from a [smart contract](https://rareskills.io/post/smart-contract-creation-cost) cannot exceed a certain percentage over a fixed period
 - Users cannot withdraw more than they deposit + some capped reward
 
 ## Getting started
@@ -852,7 +852,7 @@ We also discussed conditional invariants, handler-based setup, and how and when 
 
 ## Learn More
 
-Our [advanced Solidity training](https://www.rareskills.io/solidity-bootcamp) teaches modern smart contract testing beyond unit tests. Check it out to learn more.
+Our [advanced Solidity training](https://rareskills.io/courses/solidity-bootcamp) teaches modern smart contract testing beyond unit tests. Check it out to learn more.
 
 ## Authorship
 

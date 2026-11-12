@@ -18,7 +18,7 @@ More precisely, there is no shortage of people who call themselves developers. T
 
 Applying first aid does not make you a doctor. Using a spreadsheet does not make you an accountant. And building an app does not make you a developer.
 
-This is true of any domain of development. Knowing React does not make you a _qualified_ frontend dev. Knowing Node.js or Django does not make you a _qualified_ backend dev. And programming an [ERC-721](https://www.rareskills.io/post/erc721) token in Solidity does not make you a _qualified_ blockchain developer. For that matter, training a neural net does not make you a deep learning engineer.
+This is true of any domain of development. Knowing React does not make you a _qualified_ frontend dev. Knowing Node.js or Django does not make you a _qualified_ backend dev. And programming an [ERC-721](https://rareskills.io/post/erc721) token in Solidity does not make you a _qualified_ blockchain developer. For that matter, training a neural net does not make you a deep learning engineer.
 
 ## An example from frontend engineering
 

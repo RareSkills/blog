@@ -6,14 +6,14 @@ There are a total of six components that determine the amount of gas required to
 
 ## Smart contract deployment cost
 
-1. The 21,000 gas that all [Ethereum](https://www.rareskills.io/post/generate-ethereum-address-from-private-key-python) transactions must pay
+1. The 21,000 gas that all [Ethereum](https://rareskills.io/post/generate-ethereum-address-from-private-key-python) transactions must pay
 2. A fixed cost of 32,000 gas for creating a new contract
 3. 22,100 for each storage variable set
 4. 4 gas for each zero byte in the transaction data, and 16 gas for each non-zero byte in the transaction.
 5. The cost to execute each bytecode during the initialization
 6. 200 gas per byte of deployed bytecode
 
-Let’s use an example of a deploying a minimal [Solidity contract](https://www.rareskills.io/post/solana-smart-contract-language) in [Remix](https://remix.ethereum.org/)
+Let’s use an example of a deploying a minimal [Solidity contract](https://rareskills.io/post/solana-smart-contract-language) in [Remix](https://remix.ethereum.org/)
 
 ```solidity
 pragma solidity 0.8.7;

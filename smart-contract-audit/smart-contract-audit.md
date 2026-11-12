@@ -16,9 +16,9 @@ The term "smart contract audit" is an evolution of industry lingo, it does not h
 
 For those coming from industries where [ISO standards](https://www.iso.org/standards.html) are the norm, smart contract auditing will seem like the wild west (and frankly, that would be an accurate assessment).
 
-Although some [smart contract vulnerabilities](https://www.rareskills.io/post/smart-contract-security) are well known, others are emergent properties of complex systems and are hard to detect systematically.
+Although some [smart contract vulnerabilities](https://rareskills.io/post/smart-contract-security) are well known, others are emergent properties of complex systems and are hard to detect systematically.
 
-Standards are characteristic of mature markets, and [web3](https://www.rareskills.io/web3-blockchain-bootcamps) as a whole is not a mature market.
+Standards are characteristic of mature markets, and [web3](https://rareskills.io/web3-blockchain-bootcamps) as a whole is not a mature market.
 
 It is a bit of a conflation of terms to call smart contract audits "audits." In the field of accounting, an "audit" has a very rigorous definition; this is not the case in blockchain engineering. What is called an "audit" in the blockchain is a security review by a team of experts.
 
@@ -49,7 +49,7 @@ The more bugs a contestant finds, the more money they will earn, but if another 
 
 Earnings for auditors in this format are quite sub-par. Contestants can rarely expect to make much more than \$1,000 per contest despite putting in considerable effort. The primary incentive for participants is to prove their abilities so they can get a job at a traditional audit firm or attract business as a solo auditor (independent researcher). There are also no guarantees about the quality of the people participating in the contest, as anyone can participate.
 
-However, these platforms can be very educational for new auditors. Because the format encourages an intense focus on finding bugs, then gives feedback on what bugs were missed, they can provide a relatively tight feedback loop which helps speed up learning. In fact, we guide some of our [solidity bootcamp](https://www.rareskills.io/solidity-bootcamp) to participate in these contests for educational purposes.
+However, these platforms can be very educational for new auditors. Because the format encourages an intense focus on finding bugs, then gives feedback on what bugs were missed, they can provide a relatively tight feedback loop which helps speed up learning. In fact, we guide some of our [solidity bootcamp](https://rareskills.io/courses/solidity-bootcamp) to participate in these contests for educational purposes.
 
 The best auditors don't spend a significant amount of time in contests, as they earn far more money working for themselves or for a firm. So keep in mind that someone doing well in an auditing contest may simply mean that they did not face significant competition for the contests they participated in. There is also an element of luck where a single contest makes up a significant portion of an auditor's public earnings. However, this format get far more eyes on the code than other audit formats, and audit contests have caught bugs missed by other auditors. They also serve as a channel for companies to subtly market their protocols to the developer and auditor communities, so they are a valuable contribution to the ecosystem.
 
@@ -65,7 +65,7 @@ Some auditors use a rigid checklist for a list of smart contract vulnerabilities
 
 ### Auditor specialization
 
-If your project uses exotic [DeFi](https://www.rareskills.io/defi-bootcamp) tokenomics or [Zero Knowledge Proofs](https://www.rareskills.io/zk-bootcamp), then you will want to make sure that your selected auditor has experience with that. Similarly, if you are building a dapp on a non-evm compatible chain like [Solana](https://www.rareskills.io/solana-tutorial), then you'll want an auditor experienced with that blockchain.
+If your project uses exotic DeFi tokenomics or [Zero Knowledge Proofs](https://rareskills.io/courses/zk-bootcamp), then you will want to make sure that your selected auditor has experience with that. Similarly, if you are building a dapp on a non-evm compatible chain like [Solana](https://rareskills.io/solana-tutorial), then you'll want an auditor experienced with that blockchain.
 
 ### Minimum cost
 
@@ -146,7 +146,7 @@ Medium severity issues usually mean issues which can be damaging but unlikely to
 Some auditors will point out issues, such as not adhering to the Solidity style guide or having variable and function names that are misspelled or misleading. These are not security vulnerabilities but could cause confusion down the road. Not all auditors point out informational issues.
 
 ### Gas Optimization  
-Some auditors will suggest ways to improve the [optimize the gas cost](https://www.rareskills.io/post/gas-optimization) the smart contract. These are not security related, but they will certainly improve user experience.
+Some auditors will suggest ways to improve the [optimize the gas cost](https://rareskills.io/post/gas-optimization) the smart contract. These are not security related, but they will certainly improve user experience.
 
 ## How much does it cost to audit a smart contract?
 
@@ -185,12 +185,12 @@ Becoming a smart contract auditor isn't easy. Generally, the skill level require
 
 ## Test your code first!
 
-A shocking number of smart contracts get sent for audits with inadequate [unit testing](https://www.rareskills.io/post/foundry-testing-solidity) in place. Having silly bugs saps up auditor time from finding more serious ones, so use every testing and smart contract security tool at your disposal to make sure your contract is bug free.
+A shocking number of smart contracts get sent for audits with inadequate [unit testing](https://rareskills.io/post/foundry-testing-solidity) in place. Having silly bugs saps up auditor time from finding more serious ones, so use every testing and smart contract security tool at your disposal to make sure your contract is bug free.
 
 ## Want help from RareSkills?
 
-RareSkills is not an auditing firm, but many of our [instructors](https://www.rareskills.io/instructors) are professional auditors, and we do engage in security research. We have an insider view of which firms are reputable and which are not. Feel free to [contact us](mailto:contact@rareskills.io) and tell us about your needs, and we will refer you to the right resource based on your situation.  
+RareSkills is not an auditing firm, but many of our instructors are professional auditors, and we do engage in security research. We have an insider view of which firms are reputable and which are not. Feel free to [contact us](mailto:contact@rareskills.io) and tell us about your needs, and we will refer you to the right resource based on your situation.  
 
-If you are seeking to train your engineers in how to develop secure smart contracts, then our industry-leading [smart contract bootcamp](https://www.rareskills.io/solidity-bootcamp) for professional engineers may be of interest to you.
+If you are seeking to train your engineers in how to develop secure smart contracts, then our industry-leading [smart contract bootcamp](https://rareskills.io/courses/solidity-bootcamp) for professional engineers may be of interest to you.
 
 *Originally Published Jun 24, 2023*

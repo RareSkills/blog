@@ -1,10 +1,10 @@
 # The Diamond Proxy Pattern Explained
 
-The Diamond Pattern (ERC-2535) is a [proxy pattern](https://www.rareskills.io/proxy-patterns) where the proxy contract uses multiple implementation contracts simultaneously, unlike the [Transparent Upgradeable Proxy](https://www.rareskills.io/post/transparent-upgradeable-proxy) and [UUPS](https://www.rareskills.io/post/uups-proxy), which rely on just one implementation contract at a time. The proxy contract determines which implementation contract to [delegatecall](https://www.rareskills.io/post/delegatecall) based on the [function selector](https://www.rareskills.io/post/function-selector) of the calldata it receives (the exact mechanism is described later):
+The Diamond Pattern (ERC-2535) is a [proxy pattern](https://rareskills.io/proxy-patterns) where the proxy contract uses multiple implementation contracts simultaneously, unlike the [Transparent Upgradeable Proxy](https://rareskills.io/post/transparent-upgradeable-proxy) and [UUPS](https://rareskills.io/post/uups-proxy), which rely on just one implementation contract at a time. The proxy contract determines which implementation contract to [delegatecall](https://rareskills.io/post/delegatecall) based on the [function selector](https://rareskills.io/post/function-selector) of the calldata it receives (the exact mechanism is described later):
 
 ![Diamond Proxy Diagram](https://www.rareskills.io/wp-content/uploads/2025/02/DiamondDiagramMain-1.png)
 
-One of the advantages of having multiple implementation contracts is that there is no practical upper limit on the amount of logic the proxy contract can use. Recall that the EVM limits smart contract bytecode size to 24kb. If the developer needs to deploy up to 48kb worth of bytecode, a viable solution is to use the [fallback-extension pattern](https://www.rareskills.io/post/fallback-extension-pattern). For more than 48kb, the diamond pattern is the most common solution.
+One of the advantages of having multiple implementation contracts is that there is no practical upper limit on the amount of logic the proxy contract can use. Recall that the EVM limits smart contract bytecode size to 24kb. If the developer needs to deploy up to 48kb worth of bytecode, a viable solution is to use the [fallback-extension pattern](https://rareskills.io/post/fallback-extension-pattern). For more than 48kb, the diamond pattern is the most common solution.
 
 In diamond pattern nomenclature, the “proxy contract” is called a diamond and the “implementation contracts” are called “facets.” Having two terms that refer to the same thing has led to confusion, so we want to drill the point home now:
 
@@ -19,7 +19,7 @@ The diamond proxy has a reputation for being an “expert design pattern” beca
 
 The specification itself is fairly small. It requires four public view functions — but if the diamond is upgradeable, a fifth state-changing function for switching out the implementation contracts is required. The diamond pattern mandates only a single event (regardless of whether the contract is upgradeable). Despite the small specification, *implementing* those four (or five) functions is considerably more complex than other proxy patterns.
 
-However, with the right prerequisites (which are considerable!), the diamond pattern is not particularly difficult to conceptualize. We assume the reader is familiar with the topics covered in the first thirteen chapters of our [Proxy Patterns Book](https://www.rareskills.io/proxy-patterns). If you haven’t read those chapters or aren’t already familiar with those topics, learning the diamond pattern will be a struggle, so make sure the prerequisites are in place.
+However, with the right prerequisites (which are considerable!), the diamond pattern is not particularly difficult to conceptualize. We assume the reader is familiar with the topics covered in the first thirteen chapters of our [Proxy Patterns Book](https://rareskills.io/proxy-patterns). If you haven’t read those chapters or aren’t already familiar with those topics, learning the diamond pattern will be a struggle, so make sure the prerequisites are in place.
 
 Here are some issues that the pattern needs to deal with:
 
@@ -146,9 +146,9 @@ contract Diamond  {
 }
 ```
 
-The EIP-2535 standard does not specify the error message for calling a function that does not exist. In our case, we revert with the string `"Function does not exist"`, but a custom error would be more [gas efficient](https://www.rareskills.io/post/gas-optimization).
+The EIP-2535 standard does not specify the error message for calling a function that does not exist. In our case, we revert with the string `"Function does not exist"`, but a custom error would be more [gas efficient](https://rareskills.io/post/gas-optimization).
 
-For simplicity, our diamond deploys the two facets in the [constructor](https://www.rareskills.io/learn-solidity/constructor), but this is not done in practice. In practice, the facets are deployed separately, and the proxy is “informed” of them later in some manner, such as through the constructor arguments or a separate function.
+For simplicity, our diamond deploys the two facets in the [constructor](https://rareskills.io/learn-solidity/constructor), but this is not done in practice. In practice, the facets are deployed separately, and the proxy is “informed” of them later in some manner, such as through the constructor arguments or a separate function.
 
 Some diamonds implement the facets as libraries with external functions instead of contracts, but the EIP-2535 does not require the facets to be libraries or contracts.
 
@@ -490,9 +490,9 @@ interface IDiamond {
 
 Since `FacetCut[]` is a list, multiple facets can be changed at once.
 
-**Unlike other proxy patterns such as [Transparent Upgradeable Proxies](https://www.rareskills.io/post/transparent-upgradeable-proxy) or [UUPS Proxies](https://www.rareskills.io/post/uups-proxy), diamonds do not have a mechanism to upgrade by changing the facet address. A facet (implementation contract) is removed when all the associated function selectors are removed. Facets are implicitly added when a function selector with a new implementation address is added.**
+**Unlike other proxy patterns such as [Transparent Upgradeable Proxies](https://rareskills.io/post/transparent-upgradeable-proxy) or [UUPS Proxies](https://rareskills.io/post/uups-proxy), diamonds do not have a mechanism to upgrade by changing the facet address. A facet (implementation contract) is removed when all the associated function selectors are removed. Facets are implicitly added when a function selector with a new implementation address is added.**
 
-The `_init` and `_calldata` parameters serve the same purpose as [OpenZeppelin Initializers](https://www.rareskills.io/post/initializable-solidity) — we will discuss this more later. If no initialization data is necessary, then `_init` should be `address(0)` and `_calldata` should be `""` or empty bytes.
+The `_init` and `_calldata` parameters serve the same purpose as [OpenZeppelin Initializers](https://rareskills.io/post/initializable-solidity) — we will discuss this more later. If no initialization data is necessary, then `_init` should be `address(0)` and `_calldata` should be `""` or empty bytes.
 
 Let’s update our diamond to emit this event in the constructor:
 
@@ -736,7 +736,7 @@ in the diamond, but then any mapping within a facet assigned to the first storag
 
 Storage collisions in the Diamond proxy are more complicated than in other proxy patterns, because collisions can occur not only in upgrades of the same implementation contract, but also between facets.
 
-The Diamond pattern does not specify how storage should be managed. One straightforward way to handle collisions is using storage namespaces. A detailed explanation of using namespaces can be found in [EIP-7201 storage namespaces](https://www.rareskills.io/post/erc-7201).
+The Diamond pattern does not specify how storage should be managed. One straightforward way to handle collisions is using storage namespaces. A detailed explanation of using namespaces can be found in [EIP-7201 storage namespaces](https://rareskills.io/post/erc-7201).
 
 As a review, in storage namespaces, the state variables of a contract are grouped into a struct, and the base of this struct is stored in a pseudorandom slot, typically determined by the hash of a string. As a result, each contract has its own base storage slot, making storage collisions highly unlikely.
 

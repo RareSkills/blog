@@ -145,7 +145,7 @@ From the on-chain values, we can see that the following parameters were used in 
 -   R_slope1 ( <span style="color:Green">green arrow</span> ) has the public function name getVariableRateSlope1 = 0.04
 -   R_slope2 ( <span style="color:#8d28a4">purple arrow</span> ) has the public function name getVariableRateSlope2 = 0.75
 
-The values are represented as [fixed point](https://www.rareskills.io/post/solidity-fixed-point) Ray numbers (27 decimals, i.e. 1 = 1e27).
+The values are represented as [fixed point](https://rareskills.io/post/solidity-fixed-point) Ray numbers (27 decimals, i.e. 1 = 1e27).
 
 _Parameters are accurate at time of writing._
 
@@ -155,6 +155,6 @@ Interest rates are a function of the utilization of the assets in the protocol. 
 
 ## Learn More with RareSkills
 
-Learn more technical topics in DeFi and web3 in our [blockchain bootcamp](https://www.rareskills.io/web3-blockchain-bootcamps).
+Learn more technical topics in DeFi and web3 in our [blockchain bootcamp](https://rareskills.io/web3-blockchain-bootcamps).
 
 *Originally Published December 1, 2023*

@@ -48,7 +48,7 @@ One noteworthy variation is that if the amount of USDC supplied or borrowed (<sp
 
 ![trackingSupplyIndex growth](https://static.wixstatic.com/media/935a00_96c8e18abb454d1fb310acdb600bfad1~mv2.jpg/v1/fill/w_666,h_499,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_96c8e18abb454d1fb310acdb600bfad1~mv2.jpg)
 
-These variables are not public, but can be retrieved via the `totalsBasic()` public function in CometExt. Since CometExt is a separate contract that Comet issues delegatecalls to, we cannot retrieve the values via Etherscan. Instead we use cast from [Foundry](https://www.rareskills.io/post/foundry-testing-solidity) to retrieve them, as the screenshot below shows.
+These variables are not public, but can be retrieved via the `totalsBasic()` public function in CometExt. Since CometExt is a separate contract that Comet issues delegatecalls to, we cannot retrieve the values via Etherscan. Instead we use cast from [Foundry](https://rareskills.io/post/foundry-testing-solidity) to retrieve them, as the screenshot below shows.
 
 ![totalsBasic() query in foundry cast](https://static.wixstatic.com/media/935a00_c6d6f5cbbc5c4614a8f8045694fd849b~mv2.png/v1/fill/w_666,h_124,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/935a00_c6d6f5cbbc5c4614a8f8045694fd849b~mv2.png)
 
@@ -90,7 +90,7 @@ Both of these variables use trackingIndexScale for their decimals, and [per Ethe
 
 ![trackingIndexScale](https://static.wixstatic.com/media/935a00_97f90b95459d4710b35dd8fc9cddc283~mv2.png/v1/fill/w_315,h_194,al_c,lg_1,q_85,enc_auto/935a00_97f90b95459d4710b35dd8fc9cddc283~mv2.png)
 
-Since they are 15 decimal [fixed point numbers](https://www.rareskills.io/post/solidity-fixed-point), their values are as follows:
+Since they are 15 decimal [fixed point numbers](https://rareskills.io/post/solidity-fixed-point), their values are as follows:
 
 baseTrackingSupplySpeed = 2.979166666666e-03
 
@@ -152,6 +152,6 @@ If you try to `transfer` or `approve` an amount greater than the uint96 maximu
 
 ## Learn More With RareSkills
 
-Please see our [Solidity bootcamp](https://www.rareskills.io/solidity-bootcamp) to learn more advanced smart contract development.
+Please see our [Solidity bootcamp](https://rareskills.io/courses/solidity-bootcamp) to learn more advanced smart contract development.
 
 *Originally Published January 10, 2024*

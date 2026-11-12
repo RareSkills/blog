@@ -115,7 +115,7 @@ p(x) = 1 +2x+ x^2 \\
 1 + 2(2) + (2)^2 = 9
 $$
 
-How this special polynomial is calculated given a set of points is something that is discussed in this article on [Lagrange interpolation](https://www.rareskills.io/post/python-lagrange-interpolation).
+How this special polynomial is calculated given a set of points is something that is discussed in this article on [Lagrange interpolation](https://rareskills.io/post/python-lagrange-interpolation).
 
 ### Uniqueness of the Lagrange Polynomial
 
@@ -167,7 +167,7 @@ Since coefficient form and point form are equivalent, we can readily convert bet
 
 ### Interpolation (Point Form → Coefficient Form)
 
-The conversion from point form to coefficient form, called interpolation, is calculating the polynomial of lowest degree which passes through all the given points. One of the most well-known methods it is done is using **Lagrange Interpolation**, that we mentioned previously. If you are unfamiliar with it, you may go through [this article](https://www.rareskills.io/post/python-lagrange-interpolation).
+The conversion from point form to coefficient form, called interpolation, is calculating the polynomial of lowest degree which passes through all the given points. One of the most well-known methods it is done is using **Lagrange Interpolation**, that we mentioned previously. If you are unfamiliar with it, you may go through [this article](https://rareskills.io/post/python-lagrange-interpolation).
 
 In short, given a set of $(n+1)$ distinct points
 

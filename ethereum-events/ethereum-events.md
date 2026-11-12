@@ -24,7 +24,7 @@ This is correct; one could delete events and have no effect on the business logi
 
 ## Retrieving transactions faster
 
-The [Ethereum](https://www.rareskills.io/ethereum-gas-price-calculator) client does not have an API for listing transactions by "type." Here are your options if you want to query historical transactions:
+The Ethereum client does not have an API for listing transactions by "type." Here are your options if you want to query historical transactions:
 
 -   getTransaction
 -   getTransactionFromBlock
@@ -52,7 +52,7 @@ Here is an example of using the API described above. In this code, the client su
 
 ### Example 1: Listening to ERC20 Transfer events.
 
-This code triggers a callback every time an [ERC20](https://www.rareskills.io/post/erc20-votes-erc5805-and-erc6372) token emits a transfer Event.
+This code triggers a callback every time an [ERC20](https://rareskills.io/post/erc20-votes-erc5805-and-erc6372) token emits a transfer Event.
 
 ```javascript
 const { ethers } = require("ethers");
@@ -104,7 +104,7 @@ tokenContract.filters.Transfer(address1, address2, null);
 
 The `null` in the code above means "match any value for this field." For the transfer event, we are matching any amount.
 
-Here is a similar example in [web3.js](https://www.rareskills.io/post/web3-js-tutorial). Note that the `fromBlock` and `toBlock` query parameters are added, and we will demonstrate the ability to listen to multiple addresses being the sender. The addresses are combined with the "OR" condition.
+Here is a similar example in [web3.js](https://rareskills.io/post/web3-js-tutorial). Note that the `fromBlock` and `toBlock` query parameters are added, and we will demonstrate the ability to listen to multiple addresses being the sender. The addresses are combined with the "OR" condition.
 
 ```javascript
 const Web3 = require('web3');
@@ -373,7 +373,7 @@ Anonymous events are rarely used in practice.
 
 ## Advanced topics about events
 
-This section describes events at the assembly level of the EVM. This section can be skipped for programmers new to [blockchain development](https://rareskills.io/web3-blockchain-bootcamps/).
+This section describes events at the assembly level of the EVM. This section can be skipped for programmers new to [blockchain development](https://rareskills.io/web3-blockchain-bootcamps).
 
 ### Implementation detail: Bloom filters
 
@@ -403,7 +403,7 @@ The following yul functions are available for emitting events (and their EVM opc
 
 A log can have up to 4 topics, but a non-anonymous solidity event can have up to 3 indexed arguments. That is because the first topic is used to store the event signature. There is no opcode or Yul function for emitting more than four topics.
 
-The unindexed parameters are simply [ABI encoded](https://www.rareskills.io/post/abi-encoding) in the memory region \[p…(p+s)) and emitted as one long byte sequence.
+The unindexed parameters are simply [ABI encoded](https://rareskills.io/post/abi-encoding) in the memory region \[p…(p+s)) and emitted as one long byte sequence.
 
 Recall earlier that there was no limit in principle for how many unindexed arguments an event in Solidity can have. The underlying reason is that there is no explicit limit on how long the memory region pointed to in the first two parameters of the log op code takes. There is of course, limits provided by the contract size and memory expansion gas costs.
 
@@ -429,8 +429,8 @@ Events are relatively cheap gas-wise compared to other operations, but the most 
 
 ## Learn More
 
-Like what you see here? See our [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp) to learn more.
+Like what you see here? See our [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp) to learn more.
 
-We also have a free [solidity tutorial](https://www.rareskills.io/learn-solidity) to get you started.
+We also have a free [solidity tutorial](https://rareskills.io/learn-solidity) to get you started.
 
 *Originally Published April 1, 2023*

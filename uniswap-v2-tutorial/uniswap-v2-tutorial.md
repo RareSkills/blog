@@ -17,7 +17,7 @@ Here $x'$ and $y'$ are the token balances of the pool after the trade and $x$ an
 This guarantees that the pool's asset holdings can only stay the same or increase.
 Most pools enforce some kind of a fee. Not only should the product of the balances increase, but it should increase by at least a certain amount to account for a fee.
 
-Assets are provided to the pool by *liquidity providers*, who receive so-called LP tokens to represent their share of the pool. Liquidity provider balances are tracked in a manner similar to how [ERC 4626](https://www.rareskills.io/post/erc4626) works. The difference between an AMM and ERC 4626 is that ERC 4626 only supports one asset but an AMM has two tokens. Just like a vault, the liquidity providers' share of the pool stays the same, but the product $xy$ gets larger, so their slice is larger.
+Assets are provided to the pool by *liquidity providers*, who receive so-called LP tokens to represent their share of the pool. Liquidity provider balances are tracked in a manner similar to how [ERC 4626](https://rareskills.io/post/erc4626) works. The difference between an AMM and ERC 4626 is that ERC 4626 only supports one asset but an AMM has two tokens. Just like a vault, the liquidity providers' share of the pool stays the same, but the product $xy$ gets larger, so their slice is larger.
 
 ## Advantages of AMMs
 
@@ -139,7 +139,7 @@ function pairFor(address factory, address tokenA, address tokenB) internal pure 
 
 ### Why not use clones
 
-The [EIP 1167 clone](https://www.rareskills.io/post/eip-1167-minimal-proxy-standard-with-initialization-clone-pattern) pattern is used to create a collection of similar contracts, so why not use that here? Although the deployment would be cheaper, it would introduce an extra 2,600 gas per transaction due to the [delegatecall](https://www.rareskills.io/post/delegatecall). Since pools are intended to be used frequently, the cost savings from deployment would eventually be lost after a few hundred transactions, so it is worth deploying a pool as a new contract.
+The [EIP 1167 clone](https://rareskills.io/post/eip-1167-minimal-proxy-standard-with-initialization-clone-pattern) pattern is used to create a collection of similar contracts, so why not use that here? Although the deployment would be cheaper, it would introduce an extra 2,600 gas per transaction due to the [delegatecall](https://rareskills.io/post/delegatecall). Since pools are intended to be used frequently, the cost savings from deployment would eventually be lost after a few hundred transactions, so it is worth deploying a pool as a new contract.
 
 ## Practice Problems
 
@@ -147,6 +147,6 @@ It's easy to compute the amount of tokens required for a swap incorrectly, which
 
 ## Learn More with RareSkills
 
-This article is part of a series. Please see the [Uniswap V2 Book](https://www.rareskills.io/uniswap-v2-book) for the rest. Also see our [Blockchain Bootcamps](https://www.rareskills.io/web3-blockchain-bootcamps) for our other courses.
+This article is part of a series. Please see the [Uniswap V2 Book](https://rareskills.io/uniswap-v2-book) for the rest. Also see our [Blockchain Bootcamps](https://rareskills.io/web3-blockchain-bootcamps) for our other courses.
 
 *Originally Published Nov 15, 2023*

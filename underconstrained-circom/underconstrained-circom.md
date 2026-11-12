@@ -83,7 +83,7 @@ cat witness.json
 
 ### Witness signal layout
 
-The first entry in the witness vector is always `1`. (This was explained in our [r1cs article](https://www.rareskills.io/post/rank-1-constraint-system) which the reader can consult). The rest of the elements in the vector are the values in the circuit. We can see which element corresponds to which signal by viewing the `input.json`, `mul3.sym`, and the `witness.json` file:
+The first entry in the witness vector is always `1`. (This was explained in our [r1cs article](https://rareskills.io/post/rank-1-constraint-system) which the reader can consult). The rest of the elements in the vector are the values in the circuit. We can see which element corresponds to which signal by viewing the `input.json`, `mul3.sym`, and the `witness.json` file:
 
 ```shell
 cat input.json
@@ -193,6 +193,6 @@ From here, we can simply follow the [proving steps in the Circom documentation](
 
 ## Learn more with RareSkills
 
-Please see our [Zero Knowledge Course](https://www.rareskills.io/zk-bootcamp) to learn more topics in ZK.
+Please see our [Zero Knowledge Course](https://rareskills.io/courses/zk-bootcamp) to learn more topics in ZK.
 
 *Originally Published Mar 18*

@@ -2,10 +2,10 @@
 
 The Router contracts provide a user-facing smart contract for
 
-- safely [minting and burning LP tokens](https://www.rareskills.io/post/uniswap-v2-mint-and-burn) (adding and removing liquidity)
-- safely [swapping pair tokens](https://www.rareskills.io/post/uniswap-v2-swap-function)
+- safely [minting and burning LP tokens](https://rareskills.io/post/uniswap-v2-mint-and-burn) (adding and removing liquidity)
+- safely [swapping pair tokens](https://rareskills.io/post/uniswap-v2-swap-function)
 - They add the ability to swap Ether by integrating with the wrapped Ether (WETH) ERC20 contract.
-- They add the [slippage](https://www.rareskills.io/post/uniswap-v2-price-impact) related safety checks omitted from the core contract.
+- They add the [slippage](https://rareskills.io/post/uniswap-v2-price-impact) related safety checks omitted from the core contract.
 - They add support for fee on transfer tokens.
 
 ## Router02 is everything Router01 does with support added for fee on transfer tokens
@@ -57,7 +57,7 @@ Then both functions will transfer the user's tokens to the pair (remember, Unisw
 
 Under the hood, all publicly facing functions with the name `swap()` in the name call the `_swap()` internal function shown below.
 
-Recall that the function signature for the core [swap function](https://www.rareskills.io/post/uniswap-v2-swap-function) specifies the `amountOut` for both tokens and the `amountIn` is implied by the amount that was transferred in before the function was called.
+Recall that the function signature for the core [swap function](https://rareskills.io/post/uniswap-v2-swap-function) specifies the `amountOut` for both tokens and the `amountIn` is implied by the amount that was transferred in before the function was called.
 
 ![uniswap v2 router internal swap function](https://static.wixstatic.com/media/935a00_631734d707bd424884a683c2729d3207~mv2.jpg/v1/fill/w_740,h_355,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/935a00_631734d707bd424884a683c2729d3207~mv2.jpg)
 
@@ -106,7 +106,7 @@ To handle fee on transfer tokens, the router cannot directly do it's calculation
 
 ## Wrappers around the UniswapV2Library
 
-The rest of the functions in the Router library are wrappers around the [UniswapV2Library](https://www.rareskills.io/post/uniswap-v2-library) functions as shown below.
+The rest of the functions in the Router library are wrappers around the [UniswapV2Library](https://rareskills.io/post/uniswap-v2-library) functions as shown below.
 
 ```solidity
     function quote(uint amountA, uint reserveA, uint reserveB) public pure override returns (uint amountB) {

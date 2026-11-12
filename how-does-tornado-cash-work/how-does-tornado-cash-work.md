@@ -10,7 +10,7 @@ Tornado Cash is probably the most iconic zero knowledge smart contract applicati
 
 It is assumed that the reader knows how Merkle Trees work and that inverting a cryptographic hash is infeasible. The reader is also assumed to be at least a strong intermediate at Solidity (since we will be reading snippets of the source code).
 
-Tornado Cash is a fairly advanced smart contract, so check out our [Solidity Tutorial](https://www.rareskills.io/learn-solidity) first if you are still new to the language.
+Tornado Cash is a fairly advanced smart contract, so check out our [Solidity Tutorial](https://rareskills.io/learn-solidity) first if you are still new to the language.
 
 ## A quick warning about Tornado Cash
 
@@ -22,13 +22,13 @@ Tornado Cash is currently sanctioned by the United States government, interactin
 
 ### Tornado Cash hack
 
-On May 27, the [Tornado Cash governance smart contracts](https://github.com/tornadocash/tornado-governance) (not the smart contracts we will review here) were hacked when an attacker passed a malicious proposal that gave them the majority of the ERC20 voting tokens for governance [ERC20 voting tokens for governance](https://www.rareskills.io/post/erc20-votes-erc5805-and-erc6372). They have since [handed back control](https://www.ccn.com/tornado-cash-hack-saga-comes-to-an-end-did-the-hacker-win-this-battle/), keeping a relatively small amount for themselves.
+On May 27, the [Tornado Cash governance smart contracts](https://github.com/tornadocash/tornado-governance) (not the smart contracts we will review here) were hacked when an attacker passed a malicious proposal that gave them the majority of the ERC20 voting tokens for governance [ERC20 voting tokens for governance](https://rareskills.io/post/erc20-votes-erc5805-and-erc6372). They have since [handed back control](https://www.ccn.com/tornado-cash-hack-saga-comes-to-an-end-did-the-hacker-win-this-battle/), keeping a relatively small amount for themselves.
 
 ## How zero knowledge works (for programmers who hate math)
 
 You can understand how Tornado Cash works without knowing zero knowledge proofs algorithms, but you must know how zero knowledge proofs work. **Contrary to their name and many popular examples, Zero Knowledge Proofs prove the validity of a computation, not knowledge of a certain fact. They do not carry out the computation. They take an agreed-upon computation, a proof the computation was carried out, and the result of the computation, then determine if the prover really ran the computation and produced the output. The zero knowledge part comes from the optional feature that the proof-of-computation can be represented in a way that gives no information about the inputs.**
 
-For example, you can demonstrate you know the prime factors of a number without revealing them using the [RSA algorithm](https://www.rareskills.io/post/solidity-rsa-signatures-for-aidrops-and-presales-beating-ecdsa-and-merkle-trees-in-gas-efficiency). RSA doesn’t claim "I know two secret numbers" in isolation; it proves that you multiplied two concealed numbers together and generated the public number. RSA Encryption is really just a special case of zero knowledge proofs. In RSA, you demonstrate you know two secret primes that multiply together to produce your public key. In Zero Knowledge, you generalize that "magic multiplication" to arbitrary arithmetic and boolean operations. Once we have zero knowledge operations for elementary operations, we can build up zero knowledge proofs for more exotic things like proving we know the preimage of hash functions, Merkle roots, or even a fully functional virtual machine.
+For example, you can demonstrate you know the prime factors of a number without revealing them using the [RSA algorithm](https://rareskills.io/post/solidity-rsa-signatures-for-aidrops-and-presales-beating-ecdsa-and-merkle-trees-in-gas-efficiency). RSA doesn’t claim "I know two secret numbers" in isolation; it proves that you multiplied two concealed numbers together and generated the public number. RSA Encryption is really just a special case of zero knowledge proofs. In RSA, you demonstrate you know two secret primes that multiply together to produce your public key. In Zero Knowledge, you generalize that "magic multiplication" to arbitrary arithmetic and boolean operations. Once we have zero knowledge operations for elementary operations, we can build up zero knowledge proofs for more exotic things like proving we know the preimage of hash functions, Merkle roots, or even a fully functional virtual machine.
 
 Another point: **A zero knowledge proof verification does not carry out the computation, it only verifies someone carried out a computation and produced a claimed output.**
 
@@ -417,7 +417,7 @@ Therefore, the Tornado Cash team wrote it themselves in raw bytecode. If you loo
 
 Etherscan cannot verify raw bytecode to Solidity, since the MiMC hash was not written in Solidity.
 
-The Tornado Cash team deployed the MiMC Hasher as a separate [smart contract](https://etherscan.io/address/0x83584f83f26af4edda9cbe8c730bc87c364b28fe). To use the MiMC hash, the Merkle Tree Code makes a cross contract call to that contract. As you can see in the code below, these are [static calls](https://www.rareskills.io/post/solidity-staticcall), since the interface defines it as pure, hence Etherscan shows it as having no transaction history.
+The Tornado Cash team deployed the MiMC Hasher as a separate [smart contract](https://etherscan.io/address/0x83584f83f26af4edda9cbe8c730bc87c364b28fe). To use the MiMC hash, the Merkle Tree Code makes a cross contract call to that contract. As you can see in the code below, these are [static calls](https://rareskills.io/post/solidity-staticcall), since the interface defines it as pure, hence Etherscan shows it as having no transaction history.
 
 ```solidity
 interface IHasher {
@@ -437,7 +437,7 @@ The circomlib js repository contains javascript tooling for creating raw bytecod
 
 ## Withdrawing from Tornado Cash
 
-To start, the user must reconstruct the Merkle Tree locally using the [updateTree script](https://github.com/tornadocash/tornado-classic-ui/blob/master/scripts/updateTree.js). This script will download all the relevant [solidity events](https://www.rareskills.io/post/ethereum-events)  and reconstruct the Merkle Tree. Then, the user will generate a zero knowledge proof of the Merkle proof and leaf commitment preimages. As discussed earlier, Tornado Cash stores the last 30 Merkle roots, so this should be plenty of time for the user to submit their proof. If a user generates a proof and waits too long, they will have to regenerate the proof.
+To start, the user must reconstruct the Merkle Tree locally using the [updateTree script](https://github.com/tornadocash/tornado-classic-ui/blob/master/scripts/updateTree.js). This script will download all the relevant [solidity events](https://rareskills.io/post/ethereum-events)  and reconstruct the Merkle Tree. Then, the user will generate a zero knowledge proof of the Merkle proof and leaf commitment preimages. As discussed earlier, Tornado Cash stores the last 30 Merkle roots, so this should be plenty of time for the user to submit their proof. If a user generates a proof and waits too long, they will have to regenerate the proof.
 
 The tornado cash contract will check
 1. The submitted `nullifierHash` hasn’t been used before
@@ -586,7 +586,7 @@ The following are the smart contracts that make up Tornado Cash
 
 ## Where Tornado Cash could improve gas efficiency
 
-Tornado Cash overall is very well architected, but there are a few opportunities for [gas optimization](https://www.rareskills.io/post/gas-optimization).
+Tornado Cash overall is very well architected, but there are a few opportunities for [gas optimization](https://rareskills.io/post/gas-optimization).
 - Tornado Cash does a linear lookup for the precomputed Merkle subtrees with all zero leaves, but this could be done in fewer operations with a hard-coded binary search
 - Tornado Cash often uses uint32 for stack variables; uint256 would be a better choice to avoid the implicit casting the EVM does.
 - Tornado Cash has some constants which are unnecessarily modified to be public. Public constants aren’t necessary unless a smart contract is going to read them, and they increase the size of the smart contract.
@@ -605,7 +605,7 @@ And there you have it; we have surveyed the _entire_ codebase of Tornado Cash an
 
 ## RareSkills
 
-This material is part of our [Zero Knowledge Course](https://www.rareskills.io/zk-bootcamp). For general smart contract development, see our [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp) for professional Solidity developers. We offer the most rigorous and up-to-date training program for smart contracts available anywhere.
+This material is part of our [Zero Knowledge Course](https://rareskills.io/courses/zk-bootcamp). For general smart contract development, see our [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp) for professional Solidity developers. We offer the most rigorous and up-to-date training program for smart contracts available anywhere.
 
 ## Clarifying Notes
 

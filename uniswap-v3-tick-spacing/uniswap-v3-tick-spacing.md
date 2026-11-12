@@ -1,8 +1,8 @@
 # Uniswap V3 Factory and the Relationship Between Tick Spacing and Fees
 
-In early chapters, we introduced the concept of [ticks](https://www.rareskills.io/post/uniswap-v3-ticks), which discretize the price curve. A tick is a price defined by the formula  $p(i)=1.0001^i$, where $i$ is named **tick index**. 
+In early chapters, we introduced the concept of [ticks](https://rareskills.io/post/uniswap-v3-ticks), which discretize the price curve. A tick is a price defined by the formula  $p(i)=1.0001^i$, where $i$ is named **tick index**. 
 
-Tick indexes are integers [within the range](https://www.rareskills.io/post/uniswap-v3-min-max-tick) $[-887272,887272]$, resulting in 1,774,545 ticks along the price curve, from $p(-887272)$ to $p(887272)$.
+Tick indexes are integers [within the range](https://rareskills.io/post/uniswap-v3-min-max-tick) $[-887272,887272]$, resulting in 1,774,545 ticks along the price curve, from $p(-887272)$ to $p(887272)$.
 
 Ticks are points on the curve where liquidity may change. For example, a liquidity provider can add liquidity between two ticks but cannot do so between two arbitrary points that are not ticks.
 
@@ -71,7 +71,7 @@ The mapping from fee to tick spacing can be updated using the function `enableFe
 
 ![enable fee amount](https://r2media.rareskills.io/UniswapV3TickSpacing/enableFeeAmount.png)
 
-The 1 basis point tier (the 0.01% fee) is not in the constructor, but Uniswap [governance](https://www.rareskills.io/post/governance-contract-solidity) added the 1 basis point fee tier on March 5, 2022. You can see the transaction on the [tally dashboard](https://www.tally.xyz/gov/uniswap/proposal/9).
+The 1 basis point tier (the 0.01% fee) is not in the constructor, but Uniswap [governance](https://rareskills.io/post/governance-contract-solidity) added the 1 basis point fee tier on March 5, 2022. You can see the transaction on the [tally dashboard](https://www.tally.xyz/gov/uniswap/proposal/9).
 
 The available fee tiers can vary on different chains. For example, on the L2 [Base](https://www.tally.xyz/gov/uniswap/proposal/69), [fee tiers for 2, 3, and 4 basis points are available](https://www.tally.xyz/gov/uniswap/proposal/69). This addition was executed by governance on September 16, 2024.
 

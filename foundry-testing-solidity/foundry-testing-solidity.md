@@ -30,7 +30,7 @@ Regardless of the framework, the quality of a Solidity unit tests depends on thr
 
 By understanding each of these, we can motivate why we focus on certain aspects of the Foundry API.
 
-It is of course, not possible to document every range of input to every possible output. However, test quality will generally be correlated with the line coverage, the branch coverage, and defining state transitions. In our other article, we’ve documented how to [measure line and branch coverage with Foundry](https://www.rareskills.io/post/foundry-forge-coverage). We’ll explain the significance of the three metrics here:
+It is of course, not possible to document every range of input to every possible output. However, test quality will generally be correlated with the line coverage, the branch coverage, and defining state transitions. In our other article, we’ve documented how to [measure line and branch coverage with Foundry](https://rareskills.io/post/foundry-forge-coverage). We’ll explain the significance of the three metrics here:
 
 ### 1. Line coverage
 
@@ -312,7 +312,7 @@ In our example, we’ve created a parameterized custom error. For the test to pa
 
 ## Testing logs and events with vm.expectEvent
 
-Although [Solidity events](https://www.rareskills.io/post/ethereum-events) don’t alter the functionality of a smart contract, incorrectly implementing them can break client applications that read the state of a smart contract. To ensure our events function as expected, we can use the `vm.expectEmit`. This API behaves rather counterintuitively because you must emit the event in the test to ensure it worked in the smart contract.
+Although [Solidity events](https://rareskills.io/post/ethereum-events) don’t alter the functionality of a smart contract, incorrectly implementing them can break client applications that read the state of a smart contract. To ensure our events function as expected, we can use the `vm.expectEmit`. This API behaves rather counterintuitively because you must emit the event in the test to ensure it worked in the smart contract.
 
 Here is a minimal example.
 
@@ -692,11 +692,11 @@ forge test -vv
 
 ## Testing signatures
 
-Refer to our tutorial on [Solidity signature verification](https://www.rareskills.io/post/openzeppelin-verify-signature) with foundry, so we refer you to that.
+Refer to our tutorial on [Solidity signature verification](https://rareskills.io/post/openzeppelin-verify-signature) with foundry, so we refer you to that.
 
 ## Solidity test internal functions
 
-Refer to our tutorial on [testing internal functions in Solidity](https://www.rareskills.io/post/solidity-test-internal-function).
+Refer to our tutorial on [testing internal functions in Solidity](https://rareskills.io/post/solidity-test-internal-function).
 
 ## Setting address balances with vm.deal and vm.hoax
 
@@ -717,7 +717,7 @@ If you are testing withdrawing Ether from the contract, it will be sent to the c
 
 ### Not having an onERC...Received when receiving tokens
 
-By the same token (pun intended), [ERC-721](https://www.rareskills.io/post/erc721) `safeTransferFrom` and ERC-1155 `transferFrom` revert when sending tokens to a smart contract that doesn't have the appropriate transfer hook function. You'll need to add that to your tests if you want to test transferring NFTs (or ERC777-like tokens) to yourself.
+By the same token (pun intended), [ERC-721](https://rareskills.io/post/erc721) `safeTransferFrom` and ERC-1155 `transferFrom` revert when sending tokens to a smart contract that doesn't have the appropriate transfer hook function. You'll need to add that to your tests if you want to test transferring NFTs (or ERC777-like tokens) to yourself.
 
 ## Summary
 - aim for 100% line and branch coverage
@@ -726,6 +726,6 @@ By the same token (pun intended), [ERC-721](https://www.rareskills.io/post/erc72
 
 ## Learn More Testing
 
-To learn advanced Solidity testing beyond unit tests and basic fuzzing, please see our advanced [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp).
+To learn advanced Solidity testing beyond unit tests and basic fuzzing, please see our advanced [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp).
 
 *Originally Published April 11, 2023*

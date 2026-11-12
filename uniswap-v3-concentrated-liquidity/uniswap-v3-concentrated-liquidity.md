@@ -262,7 +262,7 @@ That invariant enables LPs to provide different liquidity between various ticks.
 The following interactive tool shows how changing $k$ for different segments changes that segment’s distance from the origin. Despite the curves not “touching each other,” the price can still move smoothly between sub curves (unless $k=0$ for a particular segment, in which case that segment is skipped). In practice, the segments are much smaller than shown in the tool below:
 
 <iframe 
-  src="https://www.rareskills.io/uniswap-v3-cl-widget" 
+  src="https://rareskills.io/uniswap-v3-cl-widget" 
   width="900" 
   height="800" 
   frameborder="0">

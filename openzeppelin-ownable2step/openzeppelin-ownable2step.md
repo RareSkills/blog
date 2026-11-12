@@ -38,6 +38,6 @@ There is still no two-step verification for renouncing ownership, i.e. transferr
 
 ## Learn More
 
-This tutorial is part of our advanced [solidity bootcamp](https://www.rareskills.io/solidity-bootcamp).
+This tutorial is part of our advanced [solidity bootcamp](https://rareskills.io/courses/solidity-bootcamp).
 
 *Originally Published Apr 8, 2023*

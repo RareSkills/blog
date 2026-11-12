@@ -125,6 +125,6 @@ The public key is simply the private key multiplied by the point G on the secp25
 
 ## Learn More
 
-Check out our advanced [blockchain bootcamp](https://www.rareskills.io/web3-blockchain-bootcamps) today and become a blockchain developer who knows the hard stuff other coders don't.
+Check out our advanced [blockchain bootcamp](https://rareskills.io/web3-blockchain-bootcamps) today and become a blockchain developer who knows the hard stuff other coders don't.
 
 *Originally Published Jan 30, 2023*

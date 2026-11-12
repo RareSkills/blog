@@ -324,6 +324,6 @@ Due to the active development of Noir, the project frequently experiences update
 Staying updated with the latest release notes and community discussions is crucial to avoid potential issues caused by version incompatibilities and ensure a seamless development experience.
 
 ## Learn More
-For more on zero knowledge programming, see our [zero knowledge course](https://www.rareskills.io/zk-bootcamp). For advanced smart contract development, see our [Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp).
+For more on zero knowledge programming, see our [zero knowledge course](https://rareskills.io/courses/zk-bootcamp). For advanced smart contract development, see our [Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp).
 
 *Originally Published May 28, 2023*

@@ -2,7 +2,7 @@
 
 This article describes all the kinds of errors that can happen when a smart contract is called, and how the Solidity Try / Catch block responds (or fails to respond) to each of them.
 
-To understand how Try / Catch works in Solidity, we must understand what data is returned when a [low-level call](https://www.rareskills.io/post/low-level-call-solidity) fails. The compiler dictates this behavior, not the Ethereum Virtual Machine (EVM). Therefore, contracts written in alternative languages or assembly will not necessarily adhere to all the error formatting explained here.
+To understand how Try / Catch works in Solidity, we must understand what data is returned when a [low-level call](https://rareskills.io/post/low-level-call-solidity) fails. The compiler dictates this behavior, not the Ethereum Virtual Machine (EVM). Therefore, contracts written in alternative languages or assembly will not necessarily adhere to all the error formatting explained here.
 
 When a low-level call to an external contract fails, it returns a boolean value `false`. This `false` indicates that the call did not execute successfully. The call can return `false` in the following cases:
 
@@ -93,15 +93,15 @@ If we deploy both contracts and execute `ContractA` with the contract address of
 
 When `revert` is triggered with a string argument, it returns the ABI encoding of the Error function `Error(string)` to the caller.
 
-The returned data for our revert will be the [ABI encoding of the function call](https://www.rareskills.io/post/abi-encoding) `Error("Unauthorized")`.
+The returned data for our revert will be the [ABI encoding of the function call](https://rareskills.io/post/abi-encoding) `Error("Unauthorized")`.
 
-In this case, it will have the [function selector](https://www.rareskills.io/post/function-selector) of the `Error(string)` function, the offset of the string, the length, and the content of the string encoded in hexadecimal.
+In this case, it will have the [function selector](https://rareskills.io/post/function-selector) of the `Error(string)` function, the offset of the string, the length, and the content of the string encoded in hexadecimal.
 
 ![ABI encoding of Error("Unauthorized")](https://static.wixstatic.com/media/706568_1aa0feb1af324c4c83508ae2e77e210e~mv2.png/v1/fill/w_666,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/706568_1aa0feb1af324c4c83508ae2e77e210e~mv2.png)
 
 Let’s explain the output further:
 
--   The selector `08c379a0` is the first four bytes of `keccak256("Error(string)")` where string refers to the reason string. The next 96 bytes (3 lines) are the [ABI encoding](https://www.rareskills.io/post/abi-encoding) of the string `Unauthorized`
+-   The selector `08c379a0` is the first four bytes of `keccak256("Error(string)")` where string refers to the reason string. The next 96 bytes (3 lines) are the [ABI encoding](https://rareskills.io/post/abi-encoding) of the string `Unauthorized`
 -   The first 32 bytes are the offset to the location of the length of the string.
 -   The second 32 bytes are the length of the string (12 bytes represented in hex as `c`)
 -   The actual content of the string `Unauthorized` is UTF-8 encoded as the bytes `556e617574686f72697a6564`
@@ -110,7 +110,7 @@ Let’s explain the output further:
 
 [Solidity 0.8.4](https://github.com/ethereum/solidity/releases/tag/v0.8.4) introduced the error type which can be used with the revert statement to create custom errors that are both readable and gas-efficient.
 
-To create a custom error type you’ll use the keyword error to define an error, similar to how you define [events](https://www.rareskills.io/post/ethereum-events):
+To create a custom error type you’ll use the keyword error to define an error, similar to how you define [events](https://rareskills.io/post/ethereum-events):
 
 ```solidity
 error Unauthorized();
@@ -224,7 +224,7 @@ Since May 21, 2024, custom errors have been released for the `require` statement
 
 ### Enabling via-ir in Foundry
 
-If you are using [Foundry](https://www.rareskills.io/post/foundry-testing-solidity), you just need to set `via-ir` to `true` in the `foundry.toml` config file to activate it like so:
+If you are using [Foundry](https://rareskills.io/post/foundry-testing-solidity), you just need to set `via-ir` to `true` in the `foundry.toml` config file to activate it like so:
 
 ```solidity!
 [profile.default]
@@ -464,7 +464,7 @@ contract C {
 }
 ```
 
-The variable `err` will be empty. Due to the [63/64 rule for ga](https://www.rareskills.io/post/eip-150-and-the-63-64-rule-for-gas)[s](https://www.rareskills.io/post/eip-150-and-the-63-64-rule-for-gas), contract `C` will still have 1/64th of the original gas left, so the transaction to the function `call_outOfGas` itself will not necessarily revert due to out-of-gas, even if you try to forward all available gas to contract `E`.
+The variable `err` will be empty. Due to the [63/64 rule for ga](https://rareskills.io/post/eip-150-and-the-63-64-rule-for-gas)[s](https://rareskills.io/post/eip-150-and-the-63-64-rule-for-gas), contract `C` will still have 1/64th of the original gas left, so the transaction to the function `call_outOfGas` itself will not necessarily revert due to out-of-gas, even if you try to forward all available gas to contract `E`.
 
 ## 10. What gets returned during an assembly revert?
 
@@ -476,7 +476,7 @@ Using assembly revert lets you return error data more efficiently in terms of ga
 revert(startingMemorySlot, totalMemorySize)
 ```
 
-You control exactly what error data gets returned from an assembly revert. For example, we can choose to revert using the error message returned from a [delegatecall](https://www.rareskills.io/post/delegatecall) by using `returndatasize()` to determine the total memory size of the returned data, like the OpenZeppelin Proxy.sol does:
+You control exactly what error data gets returned from an assembly revert. For example, we can choose to revert using the error message returned from a [delegatecall](https://rareskills.io/post/delegatecall) by using `returndatasize()` to determine the total memory size of the returned data, like the OpenZeppelin Proxy.sol does:
 
 ```solidity!
 function _delegate(address implementation) internal {
@@ -821,9 +821,9 @@ But it won’t work as expected. The catch block won’t catch the revert. It wi
 
 ### Lack of mechanism to handle reverts in compiler-generated checks
 
-When we make [high-level calls](https://www.rareskills.io/post/low-level-call-solidity) to a function from another contract, the Solidity compiler performs several checks on the called contract, such as:
+When we make [high-level calls](https://rareskills.io/post/low-level-call-solidity) to a function from another contract, the Solidity compiler performs several checks on the called contract, such as:
 
--   Checking if `extcodesize` of the target contract to check [if](https://www.rareskills.io/post/solidity-code-length) [the target is a contract](https://www.rareskills.io/post/solidity-code-length). It fails if the address is not a contract.
+-   Checking if `extcodesize` of the target contract to check [if](https://rareskills.io/post/solidity-code-length) [the target is a contract](https://rareskills.io/post/solidity-code-length). It fails if the address is not a contract.
 -   Checking `returndatasize` — if the method is expected to return some data, it verifies if `returndatasize` is not empty. If there are returned values, it decodes them and validates they were correctly encoded.
 -   It also does encoding and decoding checks. The caller will also try to ABI-decode the data returned, and will revert if the data is malformed or non-existent.
 

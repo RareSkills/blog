@@ -416,7 +416,7 @@ Rather confusingly, the Curve whitepaper uses the invariant $An^n$ but the codeb
 
 The core invariant of the Curve does not allow the variables $D$ or $x_i$ to be solved  symbolically. Instead, the terms must be solved numerically.
 
-One takeway from this exercise is that good algebraic manipulation is a very effective [gas optimization](https://www.rareskills.io/post/gas-optimization) technique. The Curve developers were able to compute  Newton’s method formula that is much smaller than naively plugging in $f$ and its derivative and leaving it at that.
+One takeway from this exercise is that good algebraic manipulation is a very effective [gas optimization](https://rareskills.io/post/gas-optimization) technique. The Curve developers were able to compute  Newton’s method formula that is much smaller than naively plugging in $f$ and its derivative and leaving it at that.
 
 ## Citations and Acknowledgements
 

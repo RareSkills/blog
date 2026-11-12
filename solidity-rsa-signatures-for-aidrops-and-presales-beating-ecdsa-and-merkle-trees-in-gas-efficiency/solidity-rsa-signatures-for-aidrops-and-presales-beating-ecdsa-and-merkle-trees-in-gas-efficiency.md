@@ -17,7 +17,7 @@ The relative merits of these approaches have already been [discussed elsewhere](
 
 A mapping presale works by the seller entering the addresses of the customers into a mapping which goes from address to boolean to note if the address is privileged or not. The mapping is set to false after the buyer completes the transaction. This ensures only addresses that are marked true can make a purchase. This is very gas efficient for the buyer, but the seller could [spend millions of gas](https://jeffrey-scholz.medium.com/hardcore-gas-savings-in-nft-minting-part-3-save-30-000-in-presale-gas-c945406e89f0) allowlisting thousands of addresses, (it will cost at least 22,100 gas to add an address to the allowlist).
 
-Because of this, Merkle Trees and ECDSA signatures (using the [ethereum precompile](https://www.rareskills.io/post/solidity-precompiles) ecerecover, or better yet, the [more secure wrapper around it](https://docs.openzeppelin.com/contracts/2.x/api/cryptography#ECDSA) published by OpenZeppelin), are often preferred to mappings. The gas cost (for the buyer) of executing the ECDSA signature verification is 29,293 gas. This includes the 21,000 to initiate the transaction, so the ECDSA cost is 8,293. Note that this includes reading the signing address from storage, but this cost is necessary or we won’t be able to invalidate signatures.
+Because of this, Merkle Trees and ECDSA signatures (using the [ethereum precompile](https://rareskills.io/post/solidity-precompiles) ecerecover, or better yet, the [more secure wrapper around it](https://docs.openzeppelin.com/contracts/2.x/api/cryptography#ECDSA) published by OpenZeppelin), are often preferred to mappings. The gas cost (for the buyer) of executing the ECDSA signature verification is 29,293 gas. This includes the 21,000 to initiate the transaction, so the ECDSA cost is 8,293. Note that this includes reading the signing address from storage, but this cost is necessary or we won’t be able to invalidate signatures.
 
 Merkle Trees vary in cost based on tree size (larger trees require larger Merkle proofs), but if over 1,000 addresses are in the Merkle tree, it will cost at least 32,000 gas (or more) to verify the address. This cost is clearly inferior to ECDSA.
 
@@ -98,7 +98,7 @@ Ethereum only supports 32 byte data types, so by default, we cannot carry out
 s ^ e % n
 ```
 
-Thankfully, the ethereum [blockchain](https://www.rareskills.io/web3-blockchain-bootcamps) added a precompiled contract in [EIP 198](https://eips.ethereum.org/EIPS/eip-198) specifically to support modular arithmetic. To use it, the base, exponent, and modulus must be loaded into memory in [abi encoded](https://www.rareskills.io/post/abi-encoding) format. Then the contract living at address 0x05 is invoked.
+Thankfully, the ethereum [blockchain](https://rareskills.io/web3-blockchain-bootcamps) added a precompiled contract in [EIP 198](https://eips.ethereum.org/EIPS/eip-198) specifically to support modular arithmetic. To use it, the base, exponent, and modulus must be loaded into memory in [abi encoded](https://rareskills.io/post/abi-encoding) format. Then the contract living at address 0x05 is invoked.
 
 Storing the public key becomes a bit of an issue if you use a secure amount of bits. If the key size is 1024 bits, that necessitates 4 storage slots. To read the public key out of storage would be four SLOAD operations, for a total of 8,400 gas. This by itself is already less efficient than the ECDSA solution benchmarked above.
 
@@ -124,7 +124,7 @@ Because the address is determined in advance, we can store the address of this m
 
 ## Saving an additional 100 gas with access lists
 
-[EIP 2930](https://www.rareskills.io/post/eip-2930-optional-access-list-ethereum) added a new type of transaction that allows the user to specify in advance which addresses and storage slots will be accessed. This allows the nodes to prefetch those values from storage, thus speeding up execution time. Using an access list transaction when calling an external contract can save 100 gas. Note that this saving does not apply when a smart contract accesses its own storage variable. Because this RSA presale airdrop design relies on an external contract to store the public key, then using an access list is appropriate.
+[EIP 2930](https://rareskills.io/post/eip-2930-optional-access-list-ethereum) added a new type of transaction that allows the user to specify in advance which addresses and storage slots will be accessed. This allows the nodes to prefetch those values from storage, thus speeding up execution time. Using an access list transaction when calling an external contract can save 100 gas. Note that this saving does not apply when a smart contract accesses its own storage variable. Because this RSA presale airdrop design relies on an external contract to store the public key, then using an access list is appropriate.
 
 ## Benchmarks: Gas cost vs key size
 
@@ -155,6 +155,6 @@ We present a novel method for assigning addresses to a presale or airdrop that i
 
 Our work is only a proof of concept at this stage. Developers are advised to use caution using the code in production.
 
-This project was created by [Suthan Somadeva](https://twitter.com/peakycryptos) and [Michael Burke](https://twitter.com/ThisIsMikeDB) as part of the [RareSkills Solidity Bootcamp](https://www.rareskills.io/solidity-bootcamp). The code implementation and unit tests are on [github](https://github.com/RareSkills/RSA-presale-allowlist).
+This project was created by [Suthan Somadeva](https://twitter.com/peakycryptos) and [Michael Burke](https://twitter.com/ThisIsMikeDB) as part of the [RareSkills Solidity Bootcamp](https://rareskills.io/courses/solidity-bootcamp). The code implementation and unit tests are on [github](https://github.com/RareSkills/RSA-presale-allowlist).
 
 *Originally Published Dec 7, 2022*

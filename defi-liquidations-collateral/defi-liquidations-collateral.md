@@ -62,7 +62,7 @@ The liquidation factor is always a higher percentage than the collateral factor.
 
 There are three ways for the loan-to-value to increase and to approach the liquidation factor.
 
-1.  The loan accrues [interest](https://www.rareskills.io/post/aave-interest-rate-model) and has a larger notional value
+1.  The loan accrues [interest](https://rareskills.io/post/aave-interest-rate-model) and has a larger notional value
 
 2.  The collateral falls in value
 
@@ -156,7 +156,7 @@ At the time of writing, Gauntlet renews their contract with Compound annually at
 
 ## Other vulnerabilities
 
-There are other vulnerability vectors for lending contracts that we do not discuss here, as we are solely focused on topics related to collateral and liquidation. Please see our article on [smart contract security](https://www.rareskills.io/post/smart-contract-security) for other lending vulnerability vectors.
+There are other vulnerability vectors for lending contracts that we do not discuss here, as we are solely focused on topics related to collateral and liquidation. Please see our article on [smart contract security](https://rareskills.io/post/smart-contract-security) for other lending vulnerability vectors.
 
 ## Conclusion
 
@@ -164,6 +164,6 @@ Loans in DeFi must be overcollateralized. The ratio of the loan to collateral va
 
 ## Learn more with RareSkills
 
-Please see our [blockchain bootcamp](https://www.rareskills.io/web3-blockchain-bootcamps) to learn more technical web3 topics.
+Please see our [blockchain bootcamp](https://rareskills.io/web3-blockchain-bootcamps) to learn more technical web3 topics.
 
 *Originally Published December 30, 2023*

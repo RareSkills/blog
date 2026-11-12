@@ -22,7 +22,7 @@ It is important that the bugs be syntactically valid, i.e. still result in compi
 
 ## Line Coverage Without Testing
 
-Let's use the default example [Foundry](https://www.rareskills.io/post/foundry-testing-solidity) provides after running `forge init` and comment out the assert statements.
+Let's use the default example [Foundry](https://rareskills.io/post/foundry-testing-solidity) provides after running `forge init` and comment out the assert statements.
 
 ```solidity
 // SPDX-License-Identifier: UNLICENSED
@@ -51,14 +51,14 @@ contract CounterTest is Test {
 }
 ```
 
-If we run [forge coverage](https://www.rareskills.io/post/foundry-forge-coverage), we get the following table:
+If we run [forge coverage](https://rareskills.io/post/foundry-forge-coverage), we get the following table:
 
 ![Solidity test coverage with 100% line and branch coverage](![image](https://hackmd.io/_uploads/r13Uyp5KC.png)
 
 
 Supposedly, we have 100% line and branch coverage on Counter.sol despite having no assert statements! This means we can introduce bugs at will and the tests will still pass.
 
-Now of course, this is a blatant example of what not to do. But it's easy to accidentally make this mistake when optimizing for coverage. Coverage only tells you that you ran the code and it didn't revert. You want to ensure that all the expected state changes are actually taking place (see our other post for more on [Solidity unit testing best practices](https://www.rareskills.io/post/foundry-testing-solidity).
+Now of course, this is a blatant example of what not to do. But it's easy to accidentally make this mistake when optimizing for coverage. Coverage only tells you that you ran the code and it didn't revert. You want to ensure that all the expected state changes are actually taking place (see our other post for more on [Solidity unit testing best practices](https://rareskills.io/post/foundry-testing-solidity).
 
 ## Kinds of Mutants
 
@@ -140,7 +140,7 @@ If our unit tests set the `amount` to be 3 and 8, the code will have a 100% bran
 
 ## Vertigo-rs
 
-[RareSkills](https://www.rareskills.io/) actively maintains a mutation testing tool for Solidity, [vertigo-rs](https://github.com/RareSkills/vertigo-rs). This was forked from the [vertigo](https://github.com/JoranHonig/vertigo) repo which is no longer maintained. Support for the Foundry framework has been added. The tool works with Foundry, Hardhat, and Truffle. Instructions to run the tool are in the Readme. No modifications to the Solidity codebase or tests are required. Simply clone the repository, install the dependencies, then run it in the Solidity project that you are testing.
+[RareSkills](https://rareskills.io/) actively maintains a mutation testing tool for Solidity, [vertigo-rs](https://github.com/RareSkills/vertigo-rs). This was forked from the [vertigo](https://github.com/JoranHonig/vertigo) repo which is no longer maintained. Support for the Foundry framework has been added. The tool works with Foundry, Hardhat, and Truffle. Instructions to run the tool are in the Readme. No modifications to the Solidity codebase or tests are required. Simply clone the repository, install the dependencies, then run it in the Solidity project that you are testing.
 
 ## Other Mutation Testing Tools
 
@@ -165,6 +165,6 @@ Mutation testing can create hundreds of mutations, but for the sake of time, mos
 
 ## Learn More
 
-This material is part of our [Solidity bootcamp](https://www.rareskills.io/solidity-bootcamp). You can also learn Solidity for free with our free [Solidity course](https://www.rareskills.io/learn-solidity).
+This material is part of our [Solidity bootcamp](https://rareskills.io/courses/solidity-bootcamp). You can also learn Solidity for free with our free [Solidity course](https://rareskills.io/learn-solidity).
 
 *Originally Published April 14, 2023*

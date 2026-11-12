@@ -1,6 +1,6 @@
 # What makes blockchain immutable?
 
-*Note: This article is intended to be understandable by non-technical readers, to gain a very technical understanding, refer to our* [*blockchain bootcamp*](https://www.rareskills.io/web3-blockchain-bootcamps) *after reading this article.*
+*Note: This article is intended to be understandable by non-technical readers, to gain a very technical understanding, refer to our* [*blockchain bootcamp*](https://rareskills.io/web3-blockchain-bootcamps) *after reading this article.*
 
 Contrary to popular belief, blockchains are not immutable because of cryptography, but because of economic incentive. Cryptography is just a nice tool that makes the economic incentive easier to apply.
 
@@ -69,7 +69,7 @@ The key is to make it hard for one person to participate in a majority of the ne
 
 Bitcoin uses a lot of electricity by design, because it is assumed that no single entity can consume a majority of the energy globally.
 
-Ethereum uses proof of stake (you need to lock up [Ethereum](https://www.rareskills.io/post/ethereum-contract-creation-code) to participate in the Ethereum) because it is assumed that nobody can buy the majority of the Ethereum and lock it up to control a majority of the computers in the network.
+Ethereum uses proof of stake (you need to lock up [Ethereum](https://rareskills.io/post/ethereum-contract-creation-code) to participate in the Ethereum) because it is assumed that nobody can buy the majority of the Ethereum and lock it up to control a majority of the computers in the network.
 
 The fewer participants there are in the network, the more likely collusion becomes, which is why blockchains with lots of computers in the network advertise that number.
 
